@@ -21,6 +21,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Semantic.UI", "2-Semantic\U
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo.Structure", "3-Application\Demo.Structure\Demo.Structure.csproj", "{4A33B2BE-9BBC-4A6A-B40F-521FFF32273F}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Semantic.PluginSystem", "2-Semantic\PluginSystem\Semantic.PluginSystem.csproj", "{67B5C227-540E-4876-8F99-D310163E907C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +45,10 @@ Global
 		{4A33B2BE-9BBC-4A6A-B40F-521FFF32273F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4A33B2BE-9BBC-4A6A-B40F-521FFF32273F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4A33B2BE-9BBC-4A6A-B40F-521FFF32273F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{67B5C227-540E-4876-8F99-D310163E907C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67B5C227-540E-4876-8F99-D310163E907C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67B5C227-540E-4876-8F99-D310163E907C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67B5C227-540E-4876-8F99-D310163E907C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -52,6 +58,7 @@ Global
 		{8C08E668-2A65-48E8-BA26-5B826D1A5896} = {D7FF5CCC-7E71-4148-A64A-AAF37E777D6E}
 		{FD5247B1-2D05-4F4D-88A6-721790D7A437} = {6BD2FF0F-0B03-44BA-94AC-64AA7515C15B}
 		{4A33B2BE-9BBC-4A6A-B40F-521FFF32273F} = {FE45A5FB-9A22-499D-B0BE-3221A8A692CA}
+		{67B5C227-540E-4876-8F99-D310163E907C} = {6BD2FF0F-0B03-44BA-94AC-64AA7515C15B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {748AE680-2914-4777-8DD9-73C53395892D}
