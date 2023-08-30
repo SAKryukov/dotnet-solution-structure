@@ -14,8 +14,8 @@ Covered topics:
 
 WPF-specific topics:
 
-* Advanced application class used to expose standard MSBuild properties
-* Explicit Main
+* `AdvancedApplication` class used to expose standard MSBuild properties
+* Explicit `Main`
 * Centralized or cascading versioning
 * Centralized adaptive exception handling
 * Centralized and cascading styling and resource dictionaries 
