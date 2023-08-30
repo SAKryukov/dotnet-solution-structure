@@ -18,12 +18,11 @@
             InitializeComponent();
             AdvancedApplicationBase application = AdvancedApplicationBase.Current;
             void ScrollDown() {
-                var count = dataGrid.Items.Count;
-                if (count < 1) return;
+                if (dataGrid.Items.Count < 1) return;
                 dataGrid.ScrollIntoView(dataGrid.Items[^1]);
             } //ScrollDown
             void AddRow(string name, string value, bool isPlugin = true) {
-                dataGrid.ItemsSource = null; ;
+                dataGrid.ItemsSource = null;
                 rowSet.Add(new DataGridRow() {
                     Mark = isPlugin ? DefinitionSet.markPluginAssembly : DefinitionSet.markEntryAssembly,
                     Name = name,
@@ -63,8 +62,8 @@
                 } else
                     Revert();
             }; // statusBarItemCopyrightTextBlock.MouseDown
-            buttonExceptionHide.Click += (sender, eventArgs) => SetExceptionVisibility(false);
-            buttonCopyException.Click += (sender, eventArgs) => CopyLastExceptionDumpToClipboard();
+            buttonExceptionHide.Click += (_, _) => SetExceptionVisibility(false);
+            buttonCopyException.Click += (_, _) => CopyLastExceptionDumpToClipboard();
             AddCommandBindings();
         } //WindowMain
 
