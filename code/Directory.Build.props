@@ -1,0 +1,33 @@
+﻿<Project>
+ 
+    <PropertyGroup>
+
+        <CustomUnifiedVersion>0.1.0.0</CustomUnifiedVersion>
+
+        <TargetFramework>net5.0</TargetFramework>
+        <NoWarn>$(NoWarn);NETSDK1138</NoWarn>
+
+        <BaseIntermediateOutputPath>$(SolutionDir).intermediateOutput\$(MSBuildProjectName)\$(Configuration).$(Platform)</BaseIntermediateOutputPath>
+        <OutputPath>$(SolutionDir)\output.$(Configuration).$(Platform)</OutputPath>
+        <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+        <ProduceReferenceAssembly>false</ProduceReferenceAssembly>
+
+        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+        <!-- Placeholders: -->
+        <WarningsAsErrors></WarningsAsErrors>
+        <WarningsNotAsErrors></WarningsNotAsErrors>
+
+        <RootNamespace>SA</RootNamespace>
+        <Copyright>Copyright © 2023 Sergey A Kryukov</Copyright>
+        <Product>Improved .NET Solution Structure</Product>
+        <Description>Bunch of ideas on how to improve .NET solution structure</Description>
+        <Company>SA</Company>
+        <AssemblyTitle>$(Product) Demo</AssemblyTitle>
+
+        <AssemblyVersion>$(CustomUnifiedVersion)</AssemblyVersion>
+        <FileVersion>$(CustomUnifiedVersion)</FileVersion>
+        <InformationalVersion>$(CustomUnifiedVersion) pre-alpha</InformationalVersion> <!-- can be appended by alpha, beta, RC1, RC2, etc. -->
+
+    </PropertyGroup>
+
+</Project>
