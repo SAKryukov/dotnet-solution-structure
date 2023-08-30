@@ -1,6 +1,8 @@
-namespace SA.View {
+namespace SA.Application.View {
     using IExceptionPresenter = Agnostic.UI.IExceptionPresenter;
     using Visibility = System.Windows.Visibility;
+    using Assembly = System.Reflection.Assembly;
+    using AdvancedApplication = Agnostic.UI.AdvancedApplicationBase;
 
     public partial class WindowMain : IExceptionPresenter {
 
@@ -18,7 +20,10 @@ namespace SA.View {
         } //SetExceptionVisibility
 
         void CopyLastExceptionDumpToClipboard() {
-            System.Windows.Clipboard.SetText(lastExceptionDump);
+            System.Windows.Clipboard.SetText(DefinitionSet.FormatExceptionForClipboard(
+                AdvancedApplication.Current.ProductName,
+                Assembly.GetEntryAssembly().Location,
+                lastExceptionDump));
         } //CopyLastExceptionDumpToClipboard
 
         string lastExceptionDump;
