@@ -21,21 +21,19 @@
     <Thickness x:Key="BorderLeft">1 0 0 0</Thickness>
     <Thickness x:Key="BorderRight">0 0 1 0</Thickness>
     <Style x:Key="CommonFont" TargetType="Control">
-        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="FontSize" Value="16"/>
     </Style>
     <Style x:Key="ListFont" TargetType="Control">
-        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="FontSize" Value="16"/>
     </Style>
     <Style x:Key="ToolFont" TargetType="Control">
-        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="FontSize" Value="16"/>
     </Style>
     <Style x:Key="Menu" TargetType="Control">
-        <Setter Property="FontSize" Value="13"/>
-        <Setter Property="FontFamily" Value="Segoe UI"/>
+        <Setter Property="FontSize" Value="16"/>
     </Style>
     <Style x:Key="StatusBar" TargetType="StatusBar">
-        <Setter Property="FontSize" Value="13"/>
-        <Setter Property="FontFamily" Value="Segoe UI"/>
+        <Setter Property="FontSize" Value="12"/>
     </Style>
     <Style x:Key="ExceptionHeader" TargetType="TextBlock">
         <Setter Property="Foreground" Value="Red"/>
