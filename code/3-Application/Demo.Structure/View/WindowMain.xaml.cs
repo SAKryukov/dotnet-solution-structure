@@ -17,19 +17,6 @@
         public WindowMain() {
             InitializeComponent();
             AdvancedApplicationBase application = AdvancedApplicationBase.Current;
-            void ScrollDown() {
-                if (dataGrid.Items.Count < 1) return;
-                dataGrid.ScrollIntoView(dataGrid.Items[^1]);
-            } //ScrollDown
-            void AddRow(string name, string value, bool isPlugin = true) {
-                dataGrid.ItemsSource = null;
-                rowSet.Add(new DataGridRow() {
-                    Mark = isPlugin ? DefinitionSet.markPluginAssembly : DefinitionSet.markEntryAssembly,
-                    Name = name,
-                    Value = value });
-                dataGrid.ItemsSource = rowSet;
-                ScrollDown();
-            } //AddRow
             rowSet.Add(new DataGridRow() { Name = "Product Name", Value = application.ProductName });
             rowSet.Add(new DataGridRow() { Name = "Title", Value = application.Title });
             rowSet.Add(new DataGridRow() { Name = "Assembly Description", Value = application.AssemblyDescription });
@@ -42,24 +29,11 @@
             dataGrid.ItemsSource = rowSet;
             borderMain.ToolTip = DefinitionSet.dataGridToolTip;
             statusBarItemCopyrightTextBlock.Text = application.Copyright;
-            statusBarItemCopyrightTextBlock.MouseDown += (sender, eventArgs) => {
-                if (rowSet.Count < 20) { //SA???
-                    System.Reflection.Assembly assembly = System.Reflection.Assembly.GetEntryAssembly();
-                    AddRow("Location", assembly.Location);
-                    AddRow("Full Name", assembly.FullName);
-                    AddRow("Loaded Modules", assembly.GetLoadedModules().Length.ToString());
-                    AddRow("Referenced Assemblies", assembly.GetReferencedAssemblies().Length.ToString());
-                    AddRow("Custom Attributes", assembly.GetCustomAttributes(false).Length.ToString());
-                    AddRow("Types", assembly.GetTypes().Length.ToString());
-                    AddRow("Exported Types", assembly.GetExportedTypes().Length.ToString());
-                    AddRow("Forwarded Types", assembly.GetForwardedTypes().Length.ToString());
-                    if (assembly.EntryPoint != null) {
-                        AddRow("Entry Point Name", assembly.EntryPoint.Name);
-                        AddRow("Entry Point Return Type", assembly.EntryPoint.ReturnType.ToString());
-                        AddRow("Entry Point Return Declaring Type", assembly.EntryPoint.DeclaringType.FullName);
-                        AddRow("Entry Point Parameters", assembly.EntryPoint.GetParameters().Length.ToString());
-                    } //if
-                } else
+            Semantic.IPropertyPlugin plugin = GetPropertyPlugin(); //SA??? to be moved
+            statusBarItemCopyrightTextBlock.MouseDown += (_, _) => {
+                if (rowSet.Count < 20) //SA??? to be moved
+                    plugin.DiscoverProperties(System.Reflection.Assembly.GetEntryAssembly(), this);
+                else
                     Revert();
             }; // statusBarItemCopyrightTextBlock.MouseDown
             buttonExceptionHide.Click += (_, _) => SetExceptionVisibility(false);
@@ -67,11 +41,33 @@
             AddCommandBindings();
         } //WindowMain
 
+        void AddRow(string name, string value, bool isPlugin = true) {
+            void ScrollDown() {
+                if (dataGrid.Items.Count < 1) return;
+                dataGrid.ScrollIntoView(dataGrid.Items[^1]);
+            } //ScrollDown
+            dataGrid.ItemsSource = null;
+            rowSet.Add(new DataGridRow() {
+                Mark = isPlugin ? DefinitionSet.markPluginAssembly : DefinitionSet.markEntryAssembly,
+                Name = name,
+                Value = value
+            });
+            dataGrid.ItemsSource = rowSet;
+            ScrollDown();
+        } //AddRow
+
         void Revert() {
             dataGrid.ItemsSource = null;
             rowSet.RemoveRange(initlalRowCount, rowSet.Count - initlalRowCount);
             dataGrid.ItemsSource = rowSet;
         } //Revert
+
+        Semantic.IPropertyPlugin GetPropertyPlugin() {
+            System.Reflection.Assembly assembly =
+                System.Reflection.Assembly.LoadFrom(System.IO.Path.Combine(AdvancedApplicationBase.ExecutableDirectory, "Plugin.AssemblyExplorer.dll"));
+            Agnostic.PluginFinder<Semantic.IPropertyPlugin> finder = new(assembly);
+            return finder.Instance;
+        } //GetPropertyPlugin
 
         readonly DataGridList rowSet = new();
         readonly int initlalRowCount;
