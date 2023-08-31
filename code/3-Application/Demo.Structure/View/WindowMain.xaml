@@ -9,6 +9,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/Semantic.UI;component/Resources/Semantic.UI.Common.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/Semantic.UI;component/Resources/Semantic.UI.MenuItem.xaml"/>
                 <ResourceDictionary>
                     <Brush x:Key="dataGrid.PropertyCellBackground">AliceBlue</Brush>
                     <Style x:Key="dataGrid.Cell" TargetType="DataGridCell">
