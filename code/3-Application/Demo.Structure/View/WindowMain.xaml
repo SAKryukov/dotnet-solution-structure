@@ -46,7 +46,7 @@
             </MenuItem>
             <MenuItem Header="_Plugin"/>
             <MenuItem Header="_Debug">
-                <MenuItem Header="Test exception" Icon="💔" Command="local:CommandSet.TestException"></MenuItem>
+                <MenuItem Header="Test exception" Icon="⚡" Command="local:CommandSet.TestException"></MenuItem>
             </MenuItem>
             <MenuItem Header="_Help" HorizontalAlignment="Right" />
         </Menu>
