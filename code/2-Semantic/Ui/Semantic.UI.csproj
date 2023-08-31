@@ -1,9 +1,13 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <RootNamespace>SA.Semantic.UI</RootNamespace>
     <UseWPF>true</UseWPF>
     <TargetFramework>$(TargetFramework)-windows</TargetFramework>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PluginSystem\Semantic.PluginSystem.csproj" />
+  </ItemGroup>
 
 </Project>

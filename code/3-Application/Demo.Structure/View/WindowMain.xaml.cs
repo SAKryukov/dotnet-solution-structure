@@ -1,7 +1,7 @@
 ﻿namespace SA.Application.View {
     using System.Windows;
     using AdvancedApplicationBase = Agnostic.UI.AdvancedApplicationBase;
-    using DataGridList = System.Collections.Generic.List<WindowMain.DataGridRow>;
+    using DataGridSet = System.Collections.ObjectModel.ObservableCollection<WindowMain.DataGridRow>;
 
     public partial class WindowMain : Window {
 
@@ -46,30 +46,27 @@
                 if (dataGrid.Items.Count < 1) return;
                 dataGrid.ScrollIntoView(dataGrid.Items[^1]);
             } //ScrollDown
-            dataGrid.ItemsSource = null;
             rowSet.Add(new DataGridRow() {
                 Mark = isPlugin ? DefinitionSet.markPluginAssembly : DefinitionSet.markEntryAssembly,
                 Name = name,
-                Value = value
+                Value = value,
             });
-            dataGrid.ItemsSource = rowSet;
             ScrollDown();
         } //AddRow
 
         void Revert() {
-            dataGrid.ItemsSource = null;
-            rowSet.RemoveRange(initlalRowCount, rowSet.Count - initlalRowCount);
-            dataGrid.ItemsSource = rowSet;
+            while (rowSet.Count > initlalRowCount)
+                rowSet.RemoveAt(rowSet.Count - 1);
         } //Revert
 
-        Semantic.IPropertyPlugin GetPropertyPlugin() {
-            System.Reflection.Assembly assembly =
+        static Semantic.IPropertyPlugin GetPropertyPlugin() {
+            System.Reflection.Assembly assembly = //SA??? to move
                 System.Reflection.Assembly.LoadFrom(System.IO.Path.Combine(AdvancedApplicationBase.ExecutableDirectory, "Plugin.AssemblyExplorer.dll"));
             Agnostic.PluginFinder<Semantic.IPropertyPlugin> finder = new(assembly);
             return finder.Instance;
         } //GetPropertyPlugin
 
-        readonly DataGridList rowSet = new();
+        readonly DataGridSet rowSet = new();
         readonly int initlalRowCount;
 
     } //class WindowMa

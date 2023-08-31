@@ -6,7 +6,11 @@ namespace SA.Semantic {
         void Add(string property, string value);
     } //IHost
 
-    public interface IPropertyPlugin : IRecognizable {
+    public interface INamedPlugin : IRecognizable {
+        string DisplayName { get; }
+    } //interface INamedPlugin
+
+    public interface IPropertyPlugin : INamedPlugin {
         void DiscoverProperties(Assembly assembly, IHost presenter);
     } //interface IPropertyPlugin
 
