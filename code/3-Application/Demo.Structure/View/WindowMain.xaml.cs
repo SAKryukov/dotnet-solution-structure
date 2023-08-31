@@ -1,4 +1,5 @@
 ﻿namespace SA.Application.View {
+    using System;
     using System.Windows;
     using AdvancedApplicationBase = Agnostic.UI.AdvancedApplicationBase;
     using DataGridSet = System.Collections.ObjectModel.ObservableCollection<WindowMain.DataGridRow>;
@@ -40,6 +41,11 @@
             buttonCopyException.Click += (_, _) => CopyLastExceptionDumpToClipboard();
             AddCommandBindings();
         } //WindowMain
+
+        protected override void OnContentRendered(EventArgs e) {
+            base.OnContentRendered(e);
+            SizeToContent = SizeToContent.Manual;
+        } //OnContentRendered
 
         void AddRow(string name, string value, bool isPlugin = true) {
             void ScrollDown() {
