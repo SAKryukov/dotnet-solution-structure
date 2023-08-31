@@ -10,15 +10,14 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/Semantic.UI;component/Resources/Semantic.UI.Common.xaml"/>
                 <ResourceDictionary>
-                    <Brush x:Key="dataGridCPropertyCellBackground">AliceBlue</Brush>
-                    <Style x:Key="dataGridCell" TargetType="DataGridCell">
-                        <Setter Property="Padding" Value="{StaticResource LeftRightMargin}"/>
+                    <Brush x:Key="dataGrid.PropertyCellBackground">AliceBlue</Brush>
+                    <Style x:Key="dataGrid.Cell" TargetType="DataGridCell">
                         <Setter Property="Foreground" Value="Black"/>
                         <Setter Property="FontWeight" Value="Normal"/>
                         <Setter Property="Template">
                             <Setter.Value>
-                                <ControlTemplate TargetType="{x:Type DataGridCell}">
-                                    <Border Padding="{TemplateBinding Padding}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                                <ControlTemplate TargetType="DataGridCell">
+                                    <Border Padding="{StaticResource LeftRightMargin}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
                                         <ContentPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
                                     </Border>
                                 </ControlTemplate>
@@ -55,21 +54,21 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding Mark}">
                         <DataGridColumn.CellStyle>
-                            <Style TargetType="DataGridCell" BasedOn="{StaticResource dataGridCell}">
-                                <Setter Property="Background" Value="{StaticResource dataGridCPropertyCellBackground}"/>
+                            <Style TargetType="DataGridCell" BasedOn="{StaticResource dataGrid.Cell}">
+                                <Setter Property="Background" Value="{StaticResource dataGrid.PropertyCellBackground}"/>
                             </Style>
                         </DataGridColumn.CellStyle>
                     </DataGridTextColumn>
                     <DataGridTextColumn Binding="{Binding Name}">
                         <DataGridColumn.CellStyle>
-                            <Style TargetType="DataGridCell" BasedOn="{StaticResource dataGridCell}">
-                                <Setter Property="Background" Value="{StaticResource dataGridCPropertyCellBackground}"/>
+                            <Style TargetType="DataGridCell" BasedOn="{StaticResource dataGrid.Cell}">
+                                <Setter Property="Background" Value="{StaticResource dataGrid.PropertyCellBackground}"/>
                                 <Setter Property="BorderThickness" Value="{StaticResource BorderRight}"/>
                                 <Setter Property="BorderBrush" Value="Gray"/>
                             </Style>
                         </DataGridColumn.CellStyle>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Binding="{Binding Value}" CellStyle="{StaticResource dataGridCell}"/>
+                    <DataGridTextColumn Binding="{Binding Value}" CellStyle="{StaticResource dataGrid.Cell}"/>
                 </DataGrid.Columns>
             </DataGrid>
         </Border>
