@@ -1,2 +1,8 @@
 How to use referenced referenced assembly ResourceDictionary File, pack://application:
 https://learn.microsoft.com/en-us/dotnet/desktop/wpf/app-development/pack-uris-in-wpf?view=netframeworkdesktop-4.8
+
+Menu item template fix, no items:
+https://www.dima.to/blog/author/buff3r0v3rfl0w/
+
+Menu item, standard template:
+https://learn.microsoft.com/en-us/dotnet/desktop/wpf/controls/menu-styles-and-templates?view=netframeworkdesktop-4.8
