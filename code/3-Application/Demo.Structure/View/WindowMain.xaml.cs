@@ -17,14 +17,14 @@
         public WindowMain() {
             InitializeComponent();
             AdvancedApplicationBase application = AdvancedApplicationBase.Current;
-            rowSet.Add(new DataGridRow() { Name = "Product Name", Value = application.ProductName });
-            rowSet.Add(new DataGridRow() { Name = "Title", Value = application.Title });
-            rowSet.Add(new DataGridRow() { Name = "Assembly Description", Value = application.AssemblyDescription });
-            rowSet.Add(new DataGridRow() { Name = "Copyright", Value = application.Copyright });
-            rowSet.Add(new DataGridRow() { Name = "Company Name", Value = application.CompanyName });
-            rowSet.Add(new DataGridRow() { Name = "Assembly Version", Value = application.AssemblyVersion.ToString() });
-            rowSet.Add(new DataGridRow() { Name = "Assembly File Version", Value = application.AssemblyFileVersion.ToString() });
-            rowSet.Add(new DataGridRow() { Name = "Assembly Informational Version", Value = application.AssemblyInformationalVersion });
+            rowSet.Add(new DataGridRow() { Name = DefinitionSet.AssemblyPropertySet.productName, Value = application.ProductName });
+            rowSet.Add(new DataGridRow() { Name = DefinitionSet.AssemblyPropertySet.title, Value = application.Title });
+            rowSet.Add(new DataGridRow() { Name = DefinitionSet.AssemblyPropertySet.assemblyDescription, Value = application.AssemblyDescription });
+            rowSet.Add(new DataGridRow() { Name = DefinitionSet.AssemblyPropertySet.copyright, Value = application.Copyright });
+            rowSet.Add(new DataGridRow() { Name = DefinitionSet.AssemblyPropertySet.companyName, Value = application.CompanyName });
+            rowSet.Add(new DataGridRow() { Name = DefinitionSet.AssemblyPropertySet.assemblyVersion, Value = application.AssemblyVersion.ToString() });
+            rowSet.Add(new DataGridRow() { Name = DefinitionSet.AssemblyPropertySet.assemblyFileVersion, Value = application.AssemblyFileVersion.ToString() });
+            rowSet.Add(new DataGridRow() { Name = DefinitionSet.AssemblyPropertySet.assemblyInformationalVersion, Value = application.AssemblyInformationalVersion });
             initlalRowCount = rowSet.Count;
             dataGrid.ItemsSource = rowSet;
             borderMain.ToolTip = DefinitionSet.dataGridToolTip;
