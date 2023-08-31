@@ -13,6 +13,8 @@
                     <Brush x:Key="dataGridCPropertyCellBackground">AliceBlue</Brush>
                     <Style x:Key="dataGridCell" TargetType="DataGridCell">
                         <Setter Property="Padding" Value="{StaticResource LeftRightMargin}"/>
+                        <Setter Property="Foreground" Value="Black"/>
+                        <Setter Property="FontWeight" Value="Normal"/>
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="{x:Type DataGridCell}">
@@ -33,16 +35,18 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Menu HorizontalAlignment="Stretch" Style="{StaticResource CommonFont}">
+        <Menu HorizontalAlignment="Stretch" Style="{StaticResource Menu}">
             <Menu.ItemsPanel>
                 <ItemsPanelTemplate>
                     <DockPanel HorizontalAlignment="Stretch"></DockPanel>
                 </ItemsPanelTemplate>
             </Menu.ItemsPanel>
-            <MenuItem Header="_Files"/>
+            <MenuItem Header="_Files">
+                <MenuItem Icon="🔌" Header="Load Plugin Assembly..." Command="ApplicationCommands.Open"/>
+            </MenuItem>
             <MenuItem Header="_Plugin"/>
             <MenuItem Header="_Debug">
-                <MenuItem Header="Test exception" Icon="?" Command="local:CommandSet.TestException"></MenuItem>
+                <MenuItem Header="Test exception" Icon="💔" Command="local:CommandSet.TestException"></MenuItem>
             </MenuItem>
             <MenuItem Header="_Help" HorizontalAlignment="Right" />
         </Menu>
@@ -86,9 +90,9 @@
             </Grid>
         </Border>
         <Border Grid.Row="2">
-            <StatusBar Style="{StaticResource CommonFont}">
+            <StatusBar Style="{StaticResource StatusBar}">
                 <StatusBarItem x:Name="statusBarItemCopyright">
-                    <TextBlock x:Name="statusBarItemCopyrightTextBlock"/>
+                    <TextBlock x:Name="statusBarItemCopyrightTextBlock" Margin="{StaticResource LeftMargin}"/>
                 </StatusBarItem>
             </StatusBar>
         </Border>
