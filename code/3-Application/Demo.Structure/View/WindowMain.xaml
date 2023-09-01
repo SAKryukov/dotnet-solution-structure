@@ -26,23 +26,6 @@
                             </Setter.Value>
                         </Setter>
                     </Style>
-                    <system:Double x:Key="splitterSize">8</system:Double>
-                    <Style x:Key="splitter" TargetType="GridSplitter">
-                        <Setter Property="HorizontalAlignment" Value="Stretch"/>
-                        <Setter Property="VerticalAlignment" Value="Stretch"/>
-                        <Setter Property="BorderThickness" Value="1"/>
-                        <Style.Triggers>
-                            <Trigger Property="ResizeDirection" Value="Columns">
-                                <Setter Property="Width" Value="{StaticResource splitterSize}"/>
-                            </Trigger>
-                            <Trigger Property="ResizeDirection" Value="Rows">
-                                <Setter Property="Height" Value="{StaticResource splitterSize}"/>
-                            </Trigger>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="PaleTurquoise"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
@@ -71,12 +54,11 @@
         <Border x:Name="borderMain" Grid.Row="1">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
                 <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-                    <DataGrid x:Name="dataGrid" Margin="2 2 2 0" AutoGenerateColumns="False" GridLinesVisibility="Horizontal" IsEnabled="false" CanUserDeleteRows="False" CanUserAddRows="False" CanUserSortColumns="False" CanUserResizeColumns="False" HeadersVisibility="None">
+                    <DataGrid x:Name="dataGrid" Margin="{StaticResource LeftMargin}" AutoGenerateColumns="False" GridLinesVisibility="Horizontal" IsEnabled="false" CanUserDeleteRows="False" CanUserAddRows="False" CanUserSortColumns="False" CanUserResizeColumns="False" HeadersVisibility="None">
                         <DataGrid.Columns>
                             <DataGridTextColumn Binding="{Binding Mark}">
                                 <DataGridColumn.CellStyle>
@@ -98,9 +80,11 @@
                         </DataGrid.Columns>
                     </DataGrid>
                 </ScrollViewer>
-                <GridSplitter Grid.Column="1" ResizeDirection="Columns" Style="{StaticResource splitter}"/>
-                <Border Grid.Column="2" x:Name="borderPlugins">
-                    <ListBox x:Name="listBoxPluging"/>
+                <Border Grid.Column="1" x:Name="borderPlugins" Padding="{StaticResource LeftRightMargin}">
+                    <DockPanel>
+                        <Label DockPanel.Dock="Top" Target="{Binding ElementName=listBoxPlugin}">Plugins</Label>
+                        <ListBox Name="listBoxPlugin"/>
+                    </DockPanel>
                 </Border>
             </Grid>
         </Border>
