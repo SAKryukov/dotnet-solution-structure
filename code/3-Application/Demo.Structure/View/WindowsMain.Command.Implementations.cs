@@ -46,7 +46,7 @@ namespace SA.Application.View {
         bool ExecuteUiPlugin(bool doAct = false) {
             if (listBoxPlugin.SelectedIndex < 0) return false;
             if (!doAct)
-                return pluginSet[listBoxPlugin.SelectedIndex].Classifier == PluginSetElementClassifier.Ui;
+                return pluginSet[listBoxPlugin.SelectedIndex].Classifier == Main.PluginSetElementClassifier.Ui;
             Semantic.IUiPlugin plugin = pluginSet[listBoxPlugin.SelectedIndex].Plugin as Semantic.IUiPlugin;
             if (plugin == null) return false;
             plugin.Create(this);
@@ -58,7 +58,7 @@ namespace SA.Application.View {
         bool ExecutePropertyPlugin(PropertyPluginAction action, bool doAct = false) {
             if (listBoxPlugin.SelectedIndex < 0) return false;
             if (!doAct)
-                return pluginSet[listBoxPlugin.SelectedIndex].Classifier == PluginSetElementClassifier.Property;
+                return pluginSet[listBoxPlugin.SelectedIndex].Classifier == Main.PluginSetElementClassifier.Property;
             Assembly assembly = null;
             AssemblyLoadContext assemblyLoadContext = null;
             if (action == PropertyPluginAction.ProcessEntryAssembly)
@@ -86,18 +86,18 @@ namespace SA.Application.View {
         } //SetInitialDirectory
 
         void SetupDialogs() {
-            loadPluginDialog.Filter = DefinitionSet.DialogPropertySet.pluginDialogFilter;
-            loadPluginDialog.Title = DefinitionSet.DialogPropertySet.pluginDialogTitle;
+            loadPluginDialog.Filter = Main.DefinitionSet.DialogPropertySet.pluginDialogFilter;
+            loadPluginDialog.Title = Main.DefinitionSet.DialogPropertySet.pluginDialogTitle;
             loadPluginDialog.RestoreDirectory = false;
-            loadAssemblyDialog.Filter = DefinitionSet.DialogPropertySet.assemblyDialogFilter;
-            loadAssemblyDialog.Title = DefinitionSet.DialogPropertySet.assemblyDialogTitle;
+            loadAssemblyDialog.Filter = Main.DefinitionSet.DialogPropertySet.assemblyDialogFilter;
+            loadAssemblyDialog.Title = Main.DefinitionSet.DialogPropertySet.assemblyDialogTitle;
             loadAssemblyDialog.RestoreDirectory = false;
         } //SetupDialogs
 
         readonly OpenFileDialog loadPluginDialog = new();
         readonly OpenFileDialog loadAssemblyDialog = new();
         readonly About about = new();
-        readonly PluginSetExtension pluginSet = new();
+        readonly Main.PluginSetExtension pluginSet = new();
 
     } //class WindowMain
 

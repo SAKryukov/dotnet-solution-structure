@@ -1,4 +1,4 @@
-namespace SA.Application {
+namespace SA.Application.Main {
     using System;
     using System.Windows;
 

@@ -7,7 +7,7 @@
 
         public class DataGridRow {
             public DataGridRow() {
-                Mark = DefinitionSet.markEntryAssembly;
+                Mark = Main.DefinitionSet.markEntryAssembly;
             } //DataGridRow
             public string Mark { get; set; }
             public string Name { get; set; }
@@ -19,25 +19,18 @@
             SetupDialogs();
             AdvancedApplicationBase application = AdvancedApplicationBase.Current;
             listBoxPlugin.ItemsSource = pluginSet;
-            rowSet.Add(new DataGridRow() { Name = DefinitionSet.AssemblyPropertySet.productName, Value = application.ProductName });
-            rowSet.Add(new DataGridRow() { Name = DefinitionSet.AssemblyPropertySet.title, Value = application.Title });
-            rowSet.Add(new DataGridRow() { Name = DefinitionSet.AssemblyPropertySet.assemblyDescription, Value = application.AssemblyDescription });
-            rowSet.Add(new DataGridRow() { Name = DefinitionSet.AssemblyPropertySet.copyright, Value = application.Copyright });
-            rowSet.Add(new DataGridRow() { Name = DefinitionSet.AssemblyPropertySet.companyName, Value = application.CompanyName });
-            rowSet.Add(new DataGridRow() { Name = DefinitionSet.AssemblyPropertySet.assemblyVersion, Value = application.AssemblyVersion.ToString() });
-            rowSet.Add(new DataGridRow() { Name = DefinitionSet.AssemblyPropertySet.assemblyFileVersion, Value = application.AssemblyFileVersion.ToString() });
-            rowSet.Add(new DataGridRow() { Name = DefinitionSet.AssemblyPropertySet.assemblyInformationalVersion, Value = application.AssemblyInformationalVersion });
+            rowSet.Add(new DataGridRow() { Name = Main.DefinitionSet.AssemblyPropertySet.productName, Value = application.ProductName });
+            rowSet.Add(new DataGridRow() { Name = Main.DefinitionSet.AssemblyPropertySet.title, Value = application.Title });
+            rowSet.Add(new DataGridRow() { Name = Main.DefinitionSet.AssemblyPropertySet.assemblyDescription, Value = application.AssemblyDescription });
+            rowSet.Add(new DataGridRow() { Name = Main.DefinitionSet.AssemblyPropertySet.copyright, Value = application.Copyright });
+            rowSet.Add(new DataGridRow() { Name = Main.DefinitionSet.AssemblyPropertySet.companyName, Value = application.CompanyName });
+            rowSet.Add(new DataGridRow() { Name = Main.DefinitionSet.AssemblyPropertySet.assemblyVersion, Value = application.AssemblyVersion.ToString() });
+            rowSet.Add(new DataGridRow() { Name = Main.DefinitionSet.AssemblyPropertySet.assemblyFileVersion, Value = application.AssemblyFileVersion.ToString() });
+            rowSet.Add(new DataGridRow() { Name = Main.DefinitionSet.AssemblyPropertySet.assemblyInformationalVersion, Value = application.AssemblyInformationalVersion });
             initlalRowCount = rowSet.Count;
             dataGrid.ItemsSource = rowSet;
-            borderMain.ToolTip = DefinitionSet.dataGridToolTip;
+            borderMain.ToolTip = Main.DefinitionSet.dataGridToolTip;
             statusBarItemCopyrightTextBlock.Text = application.Copyright;
-            Semantic.IPropertyPlugin plugin = GetPropertyPlugin(); //SA??? to be moved
-            statusBarItemCopyrightTextBlock.MouseDown += (_, _) => {
-                if (rowSet.Count < 20) //SA??? to be moved
-                    plugin.DiscoverProperties(System.Reflection.Assembly.GetEntryAssembly(), this);
-                else
-                    Revert();
-            }; // statusBarItemCopyrightTextBlock.MouseDown
             buttonExceptionHide.Click += (_, _) => SetExceptionVisibility(false);
             buttonCopyException.Click += (_, _) => CopyLastExceptionDumpToClipboard();
             AddCommandBindings();
@@ -56,7 +49,7 @@
                 dataGrid.ScrollIntoView(dataGrid.Items[^1]);
             } //ScrollDown
             rowSet.Add(new DataGridRow() {
-                Mark = isPlugin ? DefinitionSet.markPluginAssembly : DefinitionSet.markEntryAssembly,
+                Mark = isPlugin ? Main.DefinitionSet.markPluginAssembly : Main.DefinitionSet.markEntryAssembly,
                 Name = name,
                 Value = value,
             });
@@ -71,7 +64,6 @@
         static Semantic.IPropertyPlugin GetPropertyPlugin() {
             Agnostic.PluginLoader<Semantic.IPropertyPlugin> loader = new(System.IO.Path.Combine(AdvancedApplicationBase.ExecutableDirectory, "Plugin.AssemblyExplorer.dll"));
             return loader.Instance;
-
         } //GetPropertyPlugin
 
         readonly DataGridSet rowSet = new();

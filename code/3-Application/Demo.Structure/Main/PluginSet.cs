@@ -1,7 +1,6 @@
-namespace SA.Application {
+namespace SA.Application.Main {
     using INamedPlugin = Semantic.INamedPlugin;
     using IPropertyPlugin = Semantic.IPropertyPlugin;
-    using IUiPlugin = Semantic.IUiPlugin;
     using PropertyPluginLoader = Agnostic.PluginLoader<Semantic.IPropertyPlugin>;
     using UiPluginFinder = Agnostic.PluginFinder<Semantic.IUiPlugin>;
     using PluginSet = System.Collections.ObjectModel.ObservableCollection<PluginSetElement>;

@@ -1,4 +1,4 @@
-﻿namespace SA.Application {
+﻿namespace SA.Application.Main {
     using Environment = System.Environment;
 
     static class DefinitionSet {

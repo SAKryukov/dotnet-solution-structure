@@ -20,7 +20,7 @@ namespace SA.Application.View {
         } //SetExceptionVisibility
 
         void CopyLastExceptionDumpToClipboard() {
-            System.Windows.Clipboard.SetText(DefinitionSet.FormatExceptionForClipboard(
+            System.Windows.Clipboard.SetText(Main.DefinitionSet.FormatExceptionForClipboard(
                 AdvancedApplication.Current.ProductName,
                 Assembly.GetEntryAssembly().Location,
                 lastExceptionDump));
