@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Style="{DynamicResource CommonFont}"
         ResizeMode="CanResizeWithGrip"
+        xmlns:system="clr-namespace:System;assembly=mscorlib"
         xmlns:local="clr-namespace:SA.Application.View"
         SizeToContent="WidthAndHeight">
     <Window.Resources>
@@ -24,6 +25,23 @@
                                 </ControlTemplate>
                             </Setter.Value>
                         </Setter>
+                    </Style>
+                    <system:Double x:Key="splitterSize">8</system:Double>
+                    <Style x:Key="splitter" TargetType="GridSplitter">
+                        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                        <Setter Property="VerticalAlignment" Value="Stretch"/>
+                        <Setter Property="BorderThickness" Value="1"/>
+                        <Style.Triggers>
+                            <Trigger Property="ResizeDirection" Value="Columns">
+                                <Setter Property="Width" Value="{StaticResource splitterSize}"/>
+                            </Trigger>
+                            <Trigger Property="ResizeDirection" Value="Rows">
+                                <Setter Property="Height" Value="{StaticResource splitterSize}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="PaleTurquoise"/>
+                            </Trigger>
+                        </Style.Triggers>
                     </Style>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
@@ -51,27 +69,40 @@
             <MenuItem Header="_Help" HorizontalAlignment="Right" />
         </Menu>
         <Border x:Name="borderMain" Grid.Row="1">
-            <DataGrid x:Name="dataGrid" Margin="2 2 2 0" AutoGenerateColumns="False" GridLinesVisibility="Horizontal" IsEnabled="False" CanUserDeleteRows="False" CanUserAddRows="False" CanUserSortColumns="False" CanUserResizeColumns="False" HeadersVisibility="None">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding Mark}">
-                        <DataGridColumn.CellStyle>
-                            <Style TargetType="DataGridCell" BasedOn="{StaticResource dataGrid.Cell}">
-                                <Setter Property="Background" Value="{StaticResource dataGrid.PropertyCellBackground}"/>
-                            </Style>
-                        </DataGridColumn.CellStyle>
-                    </DataGridTextColumn>
-                    <DataGridTextColumn Binding="{Binding Name}">
-                        <DataGridColumn.CellStyle>
-                            <Style TargetType="DataGridCell" BasedOn="{StaticResource dataGrid.Cell}">
-                                <Setter Property="Background" Value="{StaticResource dataGrid.PropertyCellBackground}"/>
-                                <Setter Property="BorderThickness" Value="{StaticResource BorderRight}"/>
-                                <Setter Property="BorderBrush" Value="Gray"/>
-                            </Style>
-                        </DataGridColumn.CellStyle>
-                    </DataGridTextColumn>
-                    <DataGridTextColumn Binding="{Binding Value}" CellStyle="{StaticResource dataGrid.Cell}"/>
-                </DataGrid.Columns>
-            </DataGrid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                    <DataGrid x:Name="dataGrid" Margin="2 2 2 0" AutoGenerateColumns="False" GridLinesVisibility="Horizontal" IsEnabled="false" CanUserDeleteRows="False" CanUserAddRows="False" CanUserSortColumns="False" CanUserResizeColumns="False" HeadersVisibility="None">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding Mark}">
+                                <DataGridColumn.CellStyle>
+                                    <Style TargetType="DataGridCell" BasedOn="{StaticResource dataGrid.Cell}">
+                                        <Setter Property="Background" Value="{StaticResource dataGrid.PropertyCellBackground}"/>
+                                    </Style>
+                                </DataGridColumn.CellStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Binding="{Binding Name}">
+                                <DataGridColumn.CellStyle>
+                                    <Style TargetType="DataGridCell" BasedOn="{StaticResource dataGrid.Cell}">
+                                        <Setter Property="Background" Value="{StaticResource dataGrid.PropertyCellBackground}"/>
+                                        <Setter Property="BorderThickness" Value="{StaticResource BorderRight}"/>
+                                        <Setter Property="BorderBrush" Value="Gray"/>
+                                    </Style>
+                                </DataGridColumn.CellStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Binding="{Binding Value}" CellStyle="{StaticResource dataGrid.Cell}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </ScrollViewer>
+                <GridSplitter Grid.Column="1" ResizeDirection="Columns" Style="{StaticResource splitter}"/>
+                <Border Grid.Column="2" x:Name="borderPlugins">
+                    <ListBox x:Name="listBoxPluging"/>
+                </Border>
+            </Grid>
         </Border>
         <Border Grid.Row="1" x:Name="borderException" Visibility="Collapsed" Margin="{StaticResource TopMargin}">
             <Grid>
