@@ -31,6 +31,11 @@ namespace SA.Application.View {
                 (_, eventArgs) => { eventArgs.CanExecute = ExecutePropertyPlugin(PropertyPluginAction.LoadAndProcessAssembly, doAct: false); }));
 
             CommandBindings.Add(new CommandBinding(
+                CommandSet.UnloadPlugin,
+                (_, _) => UnloadPlugin(doAct: true),
+                (_, eventArgs) => { eventArgs.CanExecute = UnloadPlugin(doAct: false); }));
+
+            CommandBindings.Add(new CommandBinding(
                 ApplicationCommands.Help,
                 (_, _) => about.ShowAbout(this),
                 (_, eventArgs) => { eventArgs.CanExecute = true; }));

@@ -18,6 +18,7 @@
             InitializeComponent();
             SetupDialogs();
             AdvancedApplicationBase application = AdvancedApplicationBase.Current;
+            listBoxPlugin.ItemsSource = pluginSet;
             rowSet.Add(new DataGridRow() { Name = DefinitionSet.AssemblyPropertySet.productName, Value = application.ProductName });
             rowSet.Add(new DataGridRow() { Name = DefinitionSet.AssemblyPropertySet.title, Value = application.Title });
             rowSet.Add(new DataGridRow() { Name = DefinitionSet.AssemblyPropertySet.assemblyDescription, Value = application.AssemblyDescription });

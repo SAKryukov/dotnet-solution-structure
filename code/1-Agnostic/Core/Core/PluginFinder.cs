@@ -6,7 +6,11 @@
 
     public interface IRecognizable { } // all host-side plugin interfaces derive from this interface
 
-    public class PluginFinder<INTERFACE>
+    public abstract class PluginFinderBase {
+        public virtual void Unload() { }
+    } //PluginFinderBase
+
+    public class PluginFinder<INTERFACE> : PluginFinderBase
         where INTERFACE : IRecognizable {
 
         static class DefinitionSet {

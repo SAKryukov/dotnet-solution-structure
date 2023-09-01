@@ -9,7 +9,7 @@
             Construct(assembly);
         } //PluginLoader
 
-        public void Unload() {
+        public override void Unload() {
             assemblyLoadContext?.Unload();
         } //Unload
 
