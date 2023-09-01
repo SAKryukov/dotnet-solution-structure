@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Style="{DynamicResource CommonFont}"
         ResizeMode="CanResizeWithGrip"
-        xmlns:system="clr-namespace:System;assembly=mscorlib"
         xmlns:local="clr-namespace:SA.Application.View"
         SizeToContent="WidthAndHeight">
     <Window.Resources>
@@ -45,7 +44,13 @@
             <MenuItem Header="_Files">
                 <MenuItem Icon="🔌" Header="Load Plugin Assembly..." Command="ApplicationCommands.Open"/>
             </MenuItem>
-            <MenuItem Header="_Plugin"/>
+            <MenuItem Header="_Plugin">
+                <MenuItem Header="_Execute" Command="local:CommandSet.ExecuteUiPlugin"/>
+                <MenuItem Header="Execute with _Entry Assembly" Command="local:CommandSet.ExecutePropertyPluginWithEntryAssembly"/>
+                <MenuItem Header="Execute with _Plugin Assembly" Command="local:CommandSet.ExecutePropertyPluginWithPluginAssembly"/>
+                <MenuItem Header="Execute with _Assembly..." Command="local:CommandSet.ExecutePropertyPluginWithAssembly"/>
+                <MenuItem Header="_Unload" Command="local:CommandSet.ExecutePropertyPluginWithPluginAssembly"/>
+            </MenuItem>
             <MenuItem Header="_Debug">
                 <MenuItem Header="Test exception" Icon="⚡" Command="local:CommandSet.TestException"></MenuItem>
             </MenuItem>

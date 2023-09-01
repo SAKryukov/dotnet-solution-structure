@@ -20,6 +20,13 @@
             internal const string assemblyInformationalVersion = "Assembly Informational Version";
         } //class AssemblyPropertySet
 
+        internal static class DialogPropertySet {
+            internal const string pluginDialogTitle = " Load Plugin";
+            internal const string pluginDialogFilter = "Plugin files|Plugin*.dll";
+            internal const string assemblyDialogTitle = " Load Assembly";
+            internal const string assemblyDialogFilter = "Assembly files|*.dll";
+        } //class DialogPropertySet
+
     } //class DefinitionSet
 
-}
+    }

@@ -16,6 +16,7 @@
 
         public WindowMain() {
             InitializeComponent();
+            SetupDialogs();
             AdvancedApplicationBase application = AdvancedApplicationBase.Current;
             rowSet.Add(new DataGridRow() { Name = DefinitionSet.AssemblyPropertySet.productName, Value = application.ProductName });
             rowSet.Add(new DataGridRow() { Name = DefinitionSet.AssemblyPropertySet.title, Value = application.Title });
@@ -75,6 +76,6 @@
         readonly DataGridSet rowSet = new();
         readonly int initlalRowCount;
 
-    } //class WindowMa
+    } //class WindowMain
 
 }
