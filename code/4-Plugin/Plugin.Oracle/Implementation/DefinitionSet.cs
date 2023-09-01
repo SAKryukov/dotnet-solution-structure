@@ -10,10 +10,27 @@ namespace SA.Plugin {
         }; //lineList
 
         internal static readonly string[] wiseSayingList = new string[] {
-            "a",
-            "b",
-            "b",
-            "d",
+            "Line up you swine, line up!",
+            "Each age has its own Middle Ages",
+            "Blessed are the poor in spirit, for theirs is the Kingdom of Heaven",
+            "Don't think your déjà vu feeling will pass for software reuse!",
+            "If you want to create something totally useless or ridiculous, take it very seriously",
+            "Why do you need to capture requirements? Because the requirements do not breed well in captivity.",
+            "Recursion is always broken",
+            "Don't be a problem solver!",
+            "In reality, everything is not as in fact",
+            "The Force can have a strong influence on the weak-minded",
+            "The Tao that can be told is not the true Tao",
+            "Curiouser and curiouser!",
+            "Imagination is the only weapon in the war against reality",
+            "Everything is funny, if you can laugh at it",
+            "Commitment to Zen is casting off body and mind",
+            "Size matters not",
+            "There is no try",
+            "UI is like a joke. If it needs to be explained, it's bad.",
+            "Everything should be made as simple as possible, but no simpler",
+            "Acronyms Seriously Suck",
+            "Those who know do not speak. Those who speak do not know.",
         }; //wiseSayingList
 
         const int bra = 0x201C;
