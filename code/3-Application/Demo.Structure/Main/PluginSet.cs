@@ -16,9 +16,9 @@ namespace SA.Application {
                 UiPluginFinder uiFinder = new(loader.Assembly);
                 if (uiFinder.Instance == null)
                     return false;
-                element = new() { Plugin = uiFinder.Instance };
+                element = new() { Plugin = uiFinder.Instance, Classifier = PluginSetElementClassifier.Ui };
             } else
-                element = new() { Plugin = loader.Instance };
+                element = new() { Plugin = loader.Instance, Classifier = PluginSetElementClassifier.Property };
             if (element != null)
                 Items.Add(element);
             return true;
@@ -29,11 +29,14 @@ namespace SA.Application {
         } //RemovePluginAt
     } //PluginSetExtension
 
+    enum PluginSetElementClassifier { Ui, Property }
+
     public class PluginSetElement {
         internal Agnostic.PluginFinderBase Loader { get; set; }
         internal INamedPlugin Plugin { get; set; }
         internal IPropertyPlugin PropertyPlugin { get { return Plugin == null ? null : Plugin as IPropertyPlugin; } }
         internal string Name { get { return Plugin?.DisplayName; } }
+        internal PluginSetElementClassifier Classifier { get; set; }
         public override string ToString() {
             return Name;
         } //ToString
