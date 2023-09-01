@@ -7,7 +7,7 @@
     public abstract class AdvancedApplicationBase : Application {
 
         static class DefinitionSet {
-            internal static Func<System.Exception, string> formatExceptionMessage = exception => $"{exception.GetType().FullName}: {exception.Message}";
+            internal static Func<Exception, string> formatExceptionMessage = exception => $"{exception.GetType().FullName}: {exception.Message}";
             internal static Func<string, string> formatTitle = productName => $" {productName}";
             internal const string exceptionStackFrameDelimiter = "\n\n";
         } //definitionSet
@@ -25,7 +25,7 @@
 
         public static string ExecutableDirectory {
             get {
-                return Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().ManifestModule.FullyQualifiedName);
+                return Path.GetDirectoryName(Assembly.GetEntryAssembly().ManifestModule.FullyQualifiedName);
             }
         } //EexecutableDirectory
 
@@ -151,6 +151,14 @@
             } //AssemblyConfiguratoin
         } //AssemblyConfiguration
 
+        public string ExecutablePath {
+            get {
+                if (executablePath == null)
+                    executablePath = Path.GetDirectoryName(TheAssembly.Location);
+                return executablePath;
+            }
+        } //ExecutablePath
+
         Assembly TheAssembly {
             get {
                 if (assembly == null)
@@ -163,7 +171,7 @@
 
         bool startupComplete;
         Assembly assembly;
-        string productName, title, copyright, companyName, configurationName, assemblyDescription, assemblyConfiguration;
+        string executablePath, productName, title, copyright, companyName, configurationName, assemblyDescription, assemblyConfiguration;
         Version assemblyVersion, assemblyFileVersion;
         string assemblyInfomationalVersion;
 
