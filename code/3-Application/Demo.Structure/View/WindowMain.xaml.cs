@@ -67,10 +67,9 @@
         } //Revert
 
         static Semantic.IPropertyPlugin GetPropertyPlugin() {
-            System.Reflection.Assembly assembly = //SA??? to move
-                System.Reflection.Assembly.LoadFrom(System.IO.Path.Combine(AdvancedApplicationBase.ExecutableDirectory, "Plugin.AssemblyExplorer.dll"));
-            Agnostic.PluginFinder<Semantic.IPropertyPlugin> finder = new(assembly);
-            return finder.Instance;
+            Agnostic.PluginLoader<Semantic.IPropertyPlugin> loader = new(System.IO.Path.Combine(AdvancedApplicationBase.ExecutableDirectory, "Plugin.AssemblyExplorer.dll"));
+            return loader.Instance;
+
         } //GetPropertyPlugin
 
         readonly DataGridSet rowSet = new();

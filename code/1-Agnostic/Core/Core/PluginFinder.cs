@@ -28,7 +28,7 @@
             internal PluginImplementationException(string message) : base(message) { }
         }
 
-        public PluginFinder(Assembly assembly) {
+        private protected void Construct(Assembly assembly) {
             void ThrowImplementingAssemblyException(string reason) {
                 var pluginImplementorAttributeName = typeof(PluginManifestAttribute).Name;
                 throw new PluginImplementationException(DefinitionSet.FormatAssemblyException(assembly.Location, pluginImplementorAttributeName, reason));
@@ -38,7 +38,7 @@
             if (attributes.Length < 0) return;
             Type implementorType;
             foreach (var attribute in attributes) {
-                var implementorAttribute = (PluginManifestAttribute)(attribute);
+                var implementorAttribute = (PluginManifestAttribute)attribute;
                 if (implementorAttribute == null)
                     ThrowImplementingAssemblyException(DefinitionSet.FormatNullInterfaceException(typeof(PluginManifestAttribute).Name));
                 var interfaceName = implementorAttribute.InterfaceType.FullName;
@@ -53,16 +53,22 @@
                         ThrowImplementingAssemblyException(DefinitionSet.FormatNonClassImplementorException(implementorType.FullName));
                     if (!implementorType.IsAssignableTo(implementorAttribute.InterfaceType))
                         ThrowImplementingAssemblyException(DefinitionSet.FormatNonImplementorException(implementorType.FullName, implementorAttribute.InterfaceType.FullName));
-                    var constructorInfo = implementorType.GetConstructor(System.Type.EmptyTypes);
+                    var constructorInfo = implementorType.GetConstructor(Type.EmptyTypes);
                     anInstance = constructorInfo.Invoke(Array.Empty<object>());
                     break;
                 }
             } //loop
+        } //Construct
+
+        public PluginFinder(Assembly assembly) {
+            Construct(assembly);
         } //PluginFinder
 
         public INTERFACE Instance { get { return (INTERFACE)anInstance; } }
 
-        readonly object anInstance;
+        object anInstance;
+
+        public PluginFinder() { }
 
     } //class PluginFinder
 
