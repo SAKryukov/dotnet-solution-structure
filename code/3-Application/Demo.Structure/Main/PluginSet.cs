@@ -18,7 +18,7 @@ namespace SA.Application {
                     return false;
                 element = new() { Plugin = uiFinder.Instance, Classifier = PluginSetElementClassifier.Ui };
             } else
-                element = new() { Plugin = loader.Instance, Classifier = PluginSetElementClassifier.Property };
+                element = new() { Plugin = loader.Instance, Loader = loader, Classifier = PluginSetElementClassifier.Property };
             if (element != null)
                 Items.Add(element);
             return true;

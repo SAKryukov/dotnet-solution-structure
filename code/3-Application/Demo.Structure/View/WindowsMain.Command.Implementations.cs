@@ -1,5 +1,7 @@
 namespace SA.Application.View {
     using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
+    using Assembly = System.Reflection.Assembly;
+    using AssemblyLoadContext = System.Runtime.Loader.AssemblyLoadContext;
 
     public partial class WindowMain {
 
@@ -41,17 +43,39 @@ namespace SA.Application.View {
             return true;
         } //UnloadPlugin
 
-        static bool ExecuteUiPlugin(bool doAct = false) {
+        bool ExecuteUiPlugin(bool doAct = false) {
+            if (listBoxPlugin.SelectedIndex < 0) return false;
             if (!doAct)
-                return true;
+                return pluginSet[listBoxPlugin.SelectedIndex].Classifier == PluginSetElementClassifier.Ui;
+            Semantic.IUiPlugin plugin = pluginSet[listBoxPlugin.SelectedIndex].Plugin as Semantic.IUiPlugin;
+            if (plugin == null) return false;
+            plugin.Create(this);
+            plugin.Execute();
+            plugin.Destroy();
             return true;
         } //ExecuteUiPlugin
 
         bool ExecutePropertyPlugin(PropertyPluginAction action, bool doAct = false) {
+            if (listBoxPlugin.SelectedIndex < 0) return false;
             if (!doAct)
-                return true;
-            if (action == PropertyPluginAction.LoadAndProcessAssembly)
+                return pluginSet[listBoxPlugin.SelectedIndex].Classifier == PluginSetElementClassifier.Property;
+            Assembly assembly = null;
+            AssemblyLoadContext assemblyLoadContext = null;
+            if (action == PropertyPluginAction.ProcessEntryAssembly)
+                assembly = Assembly.GetEntryAssembly();
+            else if (action == PropertyPluginAction.ProcessPluginAssembly)
+                assembly = pluginSet[listBoxPlugin.SelectedIndex].Loader.Assembly;
+            if (action == PropertyPluginAction.LoadAndProcessAssembly) {
                 if (loadAssemblyDialog.ShowDialog(this) != true) return false;
+                assemblyLoadContext = new(null, isCollectible: true);
+                // can throw exception:
+                assembly = assemblyLoadContext.LoadFromAssemblyPath(loadAssemblyDialog.FileName);
+            } //if
+            if (assembly == null) return false;
+            Revert();
+            pluginSet[listBoxPlugin.SelectedIndex].PropertyPlugin.DiscoverProperties(assembly, this);
+            if (assemblyLoadContext == null) return true;
+            assemblyLoadContext.Unload();
             return true;
         } //ExecutePropertyPlugin
 

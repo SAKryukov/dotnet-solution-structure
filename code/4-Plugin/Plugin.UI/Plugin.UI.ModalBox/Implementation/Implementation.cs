@@ -14,7 +14,8 @@ namespace SA.Plugin {
         void IUiPlugin.Execute() {
             if (host == null) return;
             View.Box window = new();
-            window.Owner = host.MainApplicationWindows;
+            if (host.MainApplicationWindow == null) return;
+            window.Owner = host.MainApplicationWindow;
             window.ShowDialog();
         } //IUiPlugin.Execute
 

@@ -1,8 +1,21 @@
 ﻿<Window x:Class="SA.Plugin.View.Box"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        SizeToContent="WidthAndHeight">
+        WindowStartupLocation="CenterOwner"
+        Style="{DynamicResource CommonFont}"
+        SizeToContent="WidthAndHeight"
+        Title="Modal Box Plugin">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Semantic.UI;component/Resources/Semantic.UI.Common.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/Semantic.UI;component/Resources/Semantic.UI.MenuItem.xaml"/>
+                <ResourceDictionary>
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
     <Grid>
-        
+        <TextBlock Padding="200">This long text is just to keep the size considerably big</TextBlock>
     </Grid>
 </Window>

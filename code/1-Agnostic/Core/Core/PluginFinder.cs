@@ -8,6 +8,7 @@
 
     public abstract class PluginFinderBase {
         public virtual void Unload() { }
+        public Assembly Assembly { get; private protected set; }
     } //PluginFinderBase
 
     public class PluginFinder<INTERFACE> : PluginFinderBase
@@ -70,7 +71,6 @@
         } //PluginFinder
 
         public INTERFACE Instance { get { return (INTERFACE)anInstance; } }
-        public Assembly Assembly { get; private set; }
 
         object anInstance;
 

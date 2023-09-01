@@ -111,6 +111,8 @@
                 </ScrollViewer>
             </Grid>
         </Border>
+        <Border Grid.Row="1" x:Name="borderPluginHost" Visibility="Collapsed" Margin="{StaticResource TopMargin}">
+        </Border>
         <Border Grid.Row="2">
             <StatusBar Style="{StaticResource StatusBar}">
                 <StatusBarItem x:Name="statusBarItemCopyright">
