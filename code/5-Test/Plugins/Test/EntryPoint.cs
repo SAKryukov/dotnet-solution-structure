@@ -6,27 +6,29 @@ namespace SA.Test.Plugin {
 
     class Test : Semantic.IHost {
 
-        Test() {
+        void Execute(bool entryAssembly = true) {
             string executablePath = Path.GetDirectoryName(assembly.Location);
             string[] files = Directory.GetFiles(executablePath, DefinitionSet.pluginFileSearchPattern);
             foreach(var file in files) {
                 Agnostic.PluginLoader<Semantic.IPropertyPlugin> plugin = new(file);
                 if (plugin.Instance == null) continue;
-                Console.WriteLine(DefinitionSet.FormatPluginData(Path.GetFileName(file), plugin.Instance.DisplayName));
-                plugin.Instance.DiscoverProperties(assembly, this);
+                Assembly exploredAssembly = entryAssembly ? assembly : plugin.Assembly;
+                Console.WriteLine(DefinitionSet.FormatPluginData(Path.GetFileName(file), plugin.Instance.DisplayName, exploredAssembly.FullName));
+                plugin.Instance.DiscoverProperties(exploredAssembly, this);
+                plugin.Unload();
             } //loop
             Console.WriteLine(DefinitionSet.goodbye);
             Console.ReadKey(true);
-        } //Test
+        } //Execute
 
         void Semantic.IHost.Add(string property, string value) {
             Console.WriteLine(DefinitionSet.FormatHost(property, value));
         } //Semantic.IHost.Add
 
-        Assembly assembly = Assembly.GetEntryAssembly();
+        readonly Assembly assembly = Assembly.GetEntryAssembly();
 
-        static void Main() {
-            new Test();
+        static void Main(string[] comamndLine) {
+            (new Test()).Execute(comamndLine.Length == 0);
         } //Main
 
     } //class Test
