@@ -2,7 +2,8 @@ namespace SA.Semantic {
 
     public interface IUiHost {
         System.Windows.Window MainApplicationWindow { get { return null; } }
-        System.Windows.Controls.Decorator PluginHost { get { return null; } }
+        System.Windows.Controls.Decorator PluginHostContainer { get { return null; } }
+        void InitializePluginHostContainer() { }
         void HandleException(System.Exception exception) { }
     } //interface IUiHost
 

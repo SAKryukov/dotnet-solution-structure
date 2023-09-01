@@ -35,7 +35,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Menu HorizontalAlignment="Stretch" Style="{StaticResource Menu}">
+        <Menu x:Name="menu" HorizontalAlignment="Stretch" Style="{StaticResource Menu}">
             <Menu.ItemsPanel>
                 <ItemsPanelTemplate>
                     <DockPanel HorizontalAlignment="Stretch"></DockPanel>

@@ -10,14 +10,9 @@ namespace SA.Application.View {
             lastExceptionDump = exception;
             textBlockException.Text = exception;
             textBlockExceptionHeader.Text = exceptionMessage;
-            SetExceptionVisibility(true);
+            SetStateVisibility(state: VisibilityState.Exception);
             buttonCopyException.Focus();
         } //IExceptionPresenter.Show
-
-        void SetExceptionVisibility(bool value) {
-            borderMain.Visibility = value ? Visibility.Collapsed : Visibility.Visible;
-            borderException.Visibility = value ? Visibility.Visible : Visibility.Collapsed;
-        } //SetExceptionVisibility
 
         void CopyLastExceptionDumpToClipboard() {
             System.Windows.Clipboard.SetText(Main.DefinitionSet.FormatExceptionForClipboard(

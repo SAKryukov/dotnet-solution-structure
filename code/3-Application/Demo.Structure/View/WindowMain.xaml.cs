@@ -31,9 +31,14 @@
             dataGrid.ItemsSource = rowSet;
             borderMain.ToolTip = Main.DefinitionSet.dataGridToolTip;
             statusBarItemCopyrightTextBlock.Text = application.Copyright;
-            buttonExceptionHide.Click += (_, _) => SetExceptionVisibility(false);
+            buttonExceptionHide.Click += (_, _) => SetStateVisibility();
             buttonCopyException.Click += (_, _) => CopyLastExceptionDumpToClipboard();
             AddCommandBindings();
+            void HidePluginHost() {
+                if (borderPluginHost.Visibility == Visibility.Visible)
+                    SetStateVisibility();
+            } //HidePluginHost
+            menu.GotKeyboardFocus += (_, _) => HidePluginHost();
         } //WindowMain
 
         /*
@@ -60,6 +65,28 @@
             while (rowSet.Count > initlalRowCount)
                 rowSet.RemoveAt(rowSet.Count - 1);
         } //Revert
+
+        enum VisibilityState { Normal, UiPluginHost, Exception, }
+
+        void SetStateVisibility(VisibilityState state = VisibilityState.Normal) {
+            switch (state) {
+                case VisibilityState.Exception:
+                    borderMain.Visibility = Visibility.Collapsed;
+                    borderPluginHost.Visibility = Visibility.Collapsed;
+                    borderException.Visibility = Visibility.Visible;
+                    break;
+                case VisibilityState.UiPluginHost:
+                    borderMain.Visibility = Visibility.Collapsed;
+                    borderException.Visibility = Visibility.Collapsed;
+                    borderPluginHost.Visibility = Visibility.Visible;
+                    break;
+                default:
+                    borderException.Visibility = Visibility.Collapsed;
+                    borderPluginHost.Visibility = Visibility.Collapsed;
+                    borderMain.Visibility = Visibility.Visible;
+                    break;
+            } //switch
+        } //SetStateVisibility
 
         static Semantic.IPropertyPlugin GetPropertyPlugin() {
             Agnostic.PluginLoader<Semantic.IPropertyPlugin> loader = new(System.IO.Path.Combine(AdvancedApplicationBase.ExecutableDirectory, "Plugin.AssemblyExplorer.dll"));

@@ -13,8 +13,13 @@ namespace SA.Plugin {
 
         void IUiPlugin.Execute() {
             if (host == null) return;
-            if (host.PluginHost == null) return;
-            host.PluginHost.Child = new View.EmbeddedControl();
+            if (host.PluginHostContainer == null) return;
+            if (host.MainApplicationWindow == null) return;
+            host.InitializePluginHostContainer();
+            View.EmbeddedControl control = new();
+            control.host = host;
+            host.PluginHostContainer.Child = control;
+            control.Focus();
         } //IUiPlugin.Execute
 
         string INamedPlugin.DisplayName { get { return DefinitionSet.pluginName; } }

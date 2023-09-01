@@ -2,7 +2,7 @@
     using Environment = System.Environment;
 
     static class DefinitionSet {
-        
+
         internal static readonly string markEntryAssembly = char.ConvertFromUtf32(0x1F3DA);
         internal static readonly string markPluginAssembly = char.ConvertFromUtf32(0x1F50C);
         internal static string FormatExceptionForClipboard(string productName, string assemblyLocation, string exception) =>
@@ -27,6 +27,11 @@
             internal const string assemblyDialogFilter = "Assembly files|*.dll";
         } //class DialogPropertySet
 
+        internal static class PluginHost {
+            internal const string wrapperExceptionName = "UI Plugin Exception";
+        } //class PluginHost
+
     } //class DefinitionSet
 
-    }
+}
+

@@ -16,10 +16,13 @@ namespace SA.Application.View {
                 return true;
             SetInitialDirectory();
             if (loadPluginDialog.ShowDialog(this) != true) return false;
-            if (!pluginSet.Add(loadPluginDialog.FileName)) return false;
-            listBoxPlugin.Items.Refresh();
-            listBoxPlugin.SelectedItem = listBoxPlugin.Items[^1];
-            listBoxPlugin.Focus();
+            if (loadPluginDialog.FileNames.Length < 1) return false;
+            foreach (var filename in loadPluginDialog.FileNames) {
+                if (!pluginSet.Add(filename)) continue;
+                listBoxPlugin.Items.Refresh();
+                listBoxPlugin.SelectedItem = listBoxPlugin.Items[^1];
+                listBoxPlugin.Focus();
+            } //loop
             return true;
         } //LoadPlugin
 
@@ -47,8 +50,8 @@ namespace SA.Application.View {
             if (listBoxPlugin.SelectedIndex < 0) return false;
             if (!doAct)
                 return pluginSet[listBoxPlugin.SelectedIndex].Classifier == Main.PluginSetElementClassifier.Ui;
-            Semantic.IUiPlugin plugin = pluginSet[listBoxPlugin.SelectedIndex].Plugin as Semantic.IUiPlugin;
-            if (plugin == null) return false;
+            if (pluginSet[listBoxPlugin.SelectedIndex].Plugin is not Semantic.IUiPlugin plugin) return false;
+            SetStateVisibility(state: VisibilityState.UiPluginHost);
             plugin.Create(this);
             plugin.Execute();
             plugin.Destroy();
@@ -88,6 +91,7 @@ namespace SA.Application.View {
         void SetupDialogs() {
             loadPluginDialog.Filter = Main.DefinitionSet.DialogPropertySet.pluginDialogFilter;
             loadPluginDialog.Title = Main.DefinitionSet.DialogPropertySet.pluginDialogTitle;
+            loadPluginDialog.Multiselect = true;
             loadPluginDialog.RestoreDirectory = false;
             loadAssemblyDialog.Filter = Main.DefinitionSet.DialogPropertySet.assemblyDialogFilter;
             loadAssemblyDialog.Title = Main.DefinitionSet.DialogPropertySet.assemblyDialogTitle;
