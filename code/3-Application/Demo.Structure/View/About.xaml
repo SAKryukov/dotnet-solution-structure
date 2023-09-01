@@ -1,0 +1,34 @@
+﻿<Window x:Class="SA.Application.View.About"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Style="{DynamicResource CommonFont}"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterOwner"
+        SizeToContent="WidthAndHeight">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Semantic.UI;component/Resources/Semantic.UI.Common.xaml"/>
+                <ResourceDictionary>
+                    <Style TargetType="TextBlock" x:Key="textBlock">
+                        <Setter Property="Margin" Value="80 10 80 20"/>
+                    </Style>
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Border Padding="30 12 30 12">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <TextBlock HorizontalAlignment="Center" Style="{StaticResource textBlock}">About</TextBlock>
+            <StatusBar Grid.Row="1" Background="Transparent">
+                <StatusBarItem HorizontalAlignment="Center">
+                    <Button Padding="{StaticResource LeftRightMargin}" IsCancel="True">Close</Button>
+                </StatusBarItem>
+            </StatusBar>
+        </Grid>
+    </Border>
+</Window>

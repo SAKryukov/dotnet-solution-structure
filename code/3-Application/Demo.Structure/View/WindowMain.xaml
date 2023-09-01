@@ -42,19 +42,21 @@
                 </ItemsPanelTemplate>
             </Menu.ItemsPanel>
             <MenuItem Header="_Files">
-                <MenuItem Icon="🔌" Header="Load Plugin Assembly..." Command="ApplicationCommands.Open"/>
+                <MenuItem Icon="🔌" Header="Load Plugin..." Command="ApplicationCommands.Open"/>
             </MenuItem>
             <MenuItem Header="_Plugin">
-                <MenuItem Header="_Execute" Command="local:CommandSet.ExecuteUiPlugin"/>
-                <MenuItem Header="Execute with _Entry Assembly" Command="local:CommandSet.ExecutePropertyPluginWithEntryAssembly"/>
-                <MenuItem Header="Execute with _Plugin Assembly" Command="local:CommandSet.ExecutePropertyPluginWithPluginAssembly"/>
-                <MenuItem Header="Execute with _Assembly..." Command="local:CommandSet.ExecutePropertyPluginWithAssembly"/>
-                <MenuItem Header="_Unload" Command="local:CommandSet.ExecutePropertyPluginWithPluginAssembly"/>
+                <MenuItem Header="_Execute" Command="local:CommandSet.ExecuteUiPlugin" Icon="🖼"/>
+                <MenuItem Header="Execute with _Entry Assembly" Command="local:CommandSet.ExecutePropertyPluginWithEntryAssembly" Icon="🚪"/>
+                <MenuItem Header="Execute with _Plugin Assembly" Command="local:CommandSet.ExecutePropertyPluginWithPluginAssembly" Icon="⏬"/>
+                <MenuItem Header="Execute with _Assembly..." Command="local:CommandSet.ExecutePropertyPluginWithAssembly" Icon="⚙"/>
+                <MenuItem Header="_Unload" Command="local:CommandSet.ExecutePropertyPluginWithPluginAssembly" Icon="❌"/>
             </MenuItem>
             <MenuItem Header="_Debug">
                 <MenuItem Header="Test exception" Icon="⚡" Command="local:CommandSet.TestException"></MenuItem>
             </MenuItem>
-            <MenuItem Header="_Help" HorizontalAlignment="Right" />
+            <MenuItem Header="_Help" HorizontalAlignment="Right">
+                <MenuItem Header="_About..." Icon="❔" Command="ApplicationCommands.Help"/>
+            </MenuItem>
         </Menu>
         <Border x:Name="borderMain" Grid.Row="1">
             <Grid>

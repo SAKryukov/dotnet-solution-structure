@@ -48,6 +48,7 @@ namespace SA.Application.View {
 
         readonly OpenFileDialog loadPluginDialog = new();
         readonly OpenFileDialog loadAssemblyDialog = new();
+        readonly About about = new();
 
     } //class WindowMain
 
