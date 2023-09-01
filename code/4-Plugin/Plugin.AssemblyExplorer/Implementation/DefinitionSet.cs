@@ -2,7 +2,7 @@ namespace SA.Plugin {
 
     static class DefinitionSet {
 
-        internal const string propertyPluginName = "Property Plugin";
+        internal const string propertyPluginName = "Assembly Explorer";
 
         internal const string assemblyLocation = "Location";
         internal const string assemblyFullName = "Full Name";

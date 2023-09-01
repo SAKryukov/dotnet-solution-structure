@@ -41,7 +41,7 @@ namespace SA.Application.View {
             return true;
         } //UnloadPlugin
 
-        bool ExecuteUiPlugin(bool doAct = false) {
+        static bool ExecuteUiPlugin(bool doAct = false) {
             if (!doAct)
                 return true;
             return true;

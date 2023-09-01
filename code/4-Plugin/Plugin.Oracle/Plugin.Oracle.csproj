@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>SA.Agnostic</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\1-Agnostic\Core\Agnostic.Core.csproj" />
+    <ProjectReference Include="..\..\2-Semantic\PluginSystem\Semantic.PluginSystem.csproj" />
+  </ItemGroup>
+
+</Project>
+

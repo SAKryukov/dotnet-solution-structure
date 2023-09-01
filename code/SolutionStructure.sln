@@ -25,6 +25,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Semantic.PluginSystem", "2-
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Plugin.AssemblyExplorer", "4-Plugin\Plugin.AssemblyExplorer\Plugin.AssemblyExplorer.csproj", "{A993AF0B-EB0A-4EFA-A615-6A729DD2F31E}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Plugin.Oracle", "4-Plugin\Plugin.Oracle\Plugin.Oracle.csproj", "{7E8CCB50-24B1-4E7F-B3EF-1DB7F1E6C2AD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +57,10 @@ Global
 		{A993AF0B-EB0A-4EFA-A615-6A729DD2F31E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A993AF0B-EB0A-4EFA-A615-6A729DD2F31E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A993AF0B-EB0A-4EFA-A615-6A729DD2F31E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E8CCB50-24B1-4E7F-B3EF-1DB7F1E6C2AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E8CCB50-24B1-4E7F-B3EF-1DB7F1E6C2AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E8CCB50-24B1-4E7F-B3EF-1DB7F1E6C2AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E8CCB50-24B1-4E7F-B3EF-1DB7F1E6C2AD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -66,6 +72,7 @@ Global
 		{4A33B2BE-9BBC-4A6A-B40F-521FFF32273F} = {FE45A5FB-9A22-499D-B0BE-3221A8A692CA}
 		{67B5C227-540E-4876-8F99-D310163E907C} = {6BD2FF0F-0B03-44BA-94AC-64AA7515C15B}
 		{A993AF0B-EB0A-4EFA-A615-6A729DD2F31E} = {7B88C9A4-1AE4-4E16-A0B1-5672B36B7E37}
+		{7E8CCB50-24B1-4E7F-B3EF-1DB7F1E6C2AD} = {7B88C9A4-1AE4-4E16-A0B1-5672B36B7E37}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {748AE680-2914-4777-8DD9-73C53395892D}
