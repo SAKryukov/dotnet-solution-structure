@@ -5,8 +5,12 @@
     public class PluginLoader<INTERFACE> : PluginFinder<INTERFACE> where INTERFACE : IRecognizable {
 
         public PluginLoader(string assemblyPath) {
-            Assembly assembly = assemblyLoadContext.LoadFromAssemblyPath(assemblyPath);
-            Construct(assembly);
+            try {
+                Assembly assembly = assemblyLoadContext.LoadFromAssemblyPath(assemblyPath);
+                Construct(assembly);
+            } catch { //SA!!! sic! this is a rare case when the exception propagation should be blocked
+                      // the lack if success is indicated by Instance == null
+            } //exception
         } //PluginLoader
 
         public override void Unload() {
