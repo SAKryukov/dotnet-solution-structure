@@ -38,6 +38,7 @@
                 throw new PluginImplementationException(DefinitionSet.FormatAssemblyException(assembly.Location, pluginImplementorAttributeName, reason));
             } //ThrowImplementingAssemblyException
             object[] attributes = assembly.GetCustomAttributes(typeof(PluginManifestAttribute), false);
+            Assembly = assembly; //assembly is valid after the first successful call to an assembly method
             if (attributes == null) return;
             if (attributes.Length < 0) return;
             Type implementorType;
@@ -69,6 +70,7 @@
         } //PluginFinder
 
         public INTERFACE Instance { get { return (INTERFACE)anInstance; } }
+        public Assembly Assembly { get; private set; }
 
         object anInstance;
 
