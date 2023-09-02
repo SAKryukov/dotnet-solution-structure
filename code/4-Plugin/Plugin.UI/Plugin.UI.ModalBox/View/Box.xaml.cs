@@ -5,6 +5,7 @@
     
         public Box() {
             InitializeComponent();
+            grid.Children.Add(new SVG());
         } //Box
 
     } //class Box

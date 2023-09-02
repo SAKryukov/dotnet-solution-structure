@@ -2,8 +2,9 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         WindowStartupLocation="CenterOwner"
+        ResizeMode="CanResizeWithGrip"
         Style="{DynamicResource CommonFont}"
-        SizeToContent="WidthAndHeight"
+        Width="380" Height="380"        
         Title="Modal Box Plugin">
     <Window.Resources>
         <ResourceDictionary>
@@ -15,7 +16,6 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-    <Grid>
-        <TextBlock Padding="200">This long text is just to keep the size considerably big</TextBlock>
+    <Grid x:Name="grid" Margin="40">
     </Grid>
 </Window>
