@@ -52,128 +52,23 @@
                 Shutdown();
         } //ShowException
 
-        public string CompanyName {
-            get {
-                if (companyName == null) {
-                    var attribute = Attribute.GetCustomAttribute(TheAssembly, typeof(AssemblyCompanyAttribute));
-                    if (attribute == null) return null;
-                    companyName = ((AssemblyCompanyAttribute)attribute).Company;
-                } //if
-                return companyName;
-            } //get CompanyName
-        } //CompanyName
-        public string ConfigurationName {
-            get {
-                if (configurationName == null) {
-                    var attribute = Attribute.GetCustomAttribute(TheAssembly, typeof(AssemblyConfigurationAttribute));
-                    if (attribute == null) return null;
-                    configurationName = ((AssemblyConfigurationAttribute)attribute).Configuration;
-                } //if
-                return configurationName;
-            } //get ConfigurationName
-        } //ConfigurationName
-        public string Title {
-            get {
-                if (title == null) {
-                    var attribute = Attribute.GetCustomAttribute(TheAssembly, typeof(AssemblyTitleAttribute));
-                    if (attribute == null) return null;
-                    title = ((AssemblyTitleAttribute)attribute).Title;
-                } //if
-                return title;
-            } //get Title
-        } //Title
-        public string ProductName {
-            get {
-                if (productName == null) {
-                    var attribute = Attribute.GetCustomAttribute(TheAssembly, typeof(AssemblyProductAttribute));
-                    if (attribute == null) return null;
-                    productName = ((AssemblyProductAttribute)attribute).Product;
-                } //if
-                return productName;
-            } //get ProductName
-        } //ProductName
-        public string AssemblyDescription {
-            get {
-                if (assemblyDescription == null) {
-                    var attribute = Attribute.GetCustomAttribute(TheAssembly, typeof(AssemblyDescriptionAttribute));
-                    if (attribute == null) return null;
-                    assemblyDescription = ((AssemblyDescriptionAttribute)attribute).Description;
-                } //if
-                return assemblyDescription;
-            } //get AssemblyDescription
-        } //ProductName
-        public string Copyright {
-            get {
-                if (copyright == null) {
-                    var attribute = Attribute.GetCustomAttribute(TheAssembly, typeof(AssemblyCopyrightAttribute));
-                    if (attribute == null) return null;
-                    copyright = ((AssemblyCopyrightAttribute)attribute).Copyright;
-                } //if
-                return copyright;
-            } //get Copyright
-        } //Copyright
-        public Version AssemblyFileVersion {
-            get {
-                if (assemblyFileVersion == null) {
-                    var attribute = Attribute.GetCustomAttribute(TheAssembly, typeof(AssemblyFileVersionAttribute));
-                    if (attribute == null) return null;
-                    assemblyFileVersion = new Version(((AssemblyFileVersionAttribute)attribute).Version);
-                } //if
-                return assemblyFileVersion;
-            } //get AssemblyFileVersion
-        } //AssemblyFileVersion
-        public string AssemblyInformationalVersion {
-            get {
-                if (assemblyInfomationalVersion == null) {
-                    var attribute = Attribute.GetCustomAttribute(TheAssembly, typeof(AssemblyInformationalVersionAttribute));
-                    if (attribute == null) return null;
-                    assemblyInfomationalVersion = ((AssemblyInformationalVersionAttribute)attribute).InformationalVersion;
-                } //if
-                return assemblyInfomationalVersion;
-            } //get AssemblyInformationalVersion
-        } //AssemblyInformationalVersion
-        public Version AssemblyVersion {
-            // in .NET Code, .NET 5+ .csproj, defined by PropertyGroup > AssemblyVersion
-            get {
-                if (assemblyVersion == null)
-                    assemblyVersion = TheAssembly.GetName().Version;
-                return assemblyVersion;
-            } // sic! not from AssemblyVersionAttribute!
-        } //AssemblyVersion
-        public string AssemblyConfiguration {
-            get {
-                if (assemblyConfiguration == null) {
-                    var attribute = Attribute.GetCustomAttribute(TheAssembly, typeof(AssemblyConfigurationAttribute));
-                    if (attribute == null) return null;
-                    assemblyConfiguration = ((AssemblyConfigurationAttribute)attribute).Configuration;
-                } //if
-                return assemblyConfiguration;
-            } //AssemblyConfiguratoin
-        } //AssemblyConfiguration
-
-        public string ExecutablePath {
-            get {
-                if (executablePath == null)
-                    executablePath = Path.GetDirectoryName(TheAssembly.Location);
-                return executablePath;
-            }
-        } //ExecutablePath
-
-        Assembly TheAssembly {
-            get {
-                if (assembly == null)
-                    assembly = Assembly.GetEntryAssembly();
-                return assembly;
-            } //get TheAssembly
-        } //TheAssembly
+        public string CompanyName { get { return assemblyWrapper.CompanyName; } }
+        public string ConfigurationName { get { return assemblyWrapper.ConfigurationName; } }
+        public string Title { get { return assemblyWrapper.Title; } }
+        public string ProductName { get { return assemblyWrapper.ProductName; } }
+        public string AssemblyDescription { get { return assemblyWrapper.AssemblyDescription; } }
+        public string Copyright { get { return assemblyWrapper.Copyright; } }
+        public Version AssemblyFileVersion { get { return assemblyWrapper.AssemblyFileVersion; } }
+        public string AssemblyInformationalVersion { get { return assemblyWrapper.AssemblyInformationalVersion; } }
+        public Version AssemblyVersion { get { return assemblyWrapper.AssemblyVersion; } }
+        public string AssemblyConfiguration { get { return assemblyWrapper.AssemblyConfiguration; } }
+        public string ExecutablePath { get { return assemblyWrapper.ExecutablePath; } }
 
         public static new AdvancedApplicationBase Current { get { return (AdvancedApplicationBase)Application.Current; } }
 
         bool startupComplete;
-        Assembly assembly;
-        string executablePath, productName, title, copyright, companyName, configurationName, assemblyDescription, assemblyConfiguration;
-        Version assemblyVersion, assemblyFileVersion;
-        string assemblyInfomationalVersion;
+
+        readonly AssemblyWrapper assemblyWrapper = new(Assembly.GetEntryAssembly());
 
     } //class AdvancedApplicationBase
 
