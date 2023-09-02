@@ -6,21 +6,43 @@ namespace SA.Application.View {
     public partial class WindowMain : IExceptionPresenter {
 
         void IExceptionPresenter.Show(string exceptionTypeName, string exceptionMessage, string exception) {
-            lastExceptionDump = exception;
+            lastExceptionInformationInstance = new LastExceptionInformation() {
+                typeName = exceptionTypeName,
+                message = exceptionMessage,
+                dump = exception
+            };
             textBlockException.Text = exception;
             textBlockExceptionHeader.Text = exceptionMessage;
             SetStateVisibility(state: VisibilityState.Exception);
-            buttonCopyException.Focus();
+            buttonSaveExceptionAndClose.Focus();
         } //IExceptionPresenter.Show
 
-        void CopyLastExceptionDumpToClipboard() {
-            System.Windows.Clipboard.SetText(Main.DefinitionSet.FormatExceptionForClipboard(
-                AdvancedApplication.Current.ProductName,
+        void SaveExceptionAndClose() {
+            var time = System.DateTime.Now;
+            string filename = Main.DefinitionSet.ExceptionReport.FormatFilename(
+                Main.DefinitionSet.ExceptionReport.FormatTimeFile(time),
+                Assembly.GetEntryAssembly().ManifestModule.Name);
+            saveExceptionReportDialog.FileName = filename;
+            if (saveExceptionReportDialog.ShowDialog() != true) return;
+            string report = Main.DefinitionSet.ExceptionReport.FormatReport(
+                Main.DefinitionSet.ExceptionReport.FormatTime(time),
+                advancedApplication.ProductName,
+                Assembly.GetEntryAssembly().FullName,
                 Assembly.GetEntryAssembly().Location,
-                lastExceptionDump));
-        } //CopyLastExceptionDumpToClipboard
+                lastExceptionInformationInstance.typeName,
+                lastExceptionInformationInstance.message,
+                lastExceptionInformationInstance.dump);
+            System.IO.File.WriteAllText(saveExceptionReportDialog.FileName, report);
+            SetStateVisibility();
+        } //SaveExceptionAndClose
 
-        string lastExceptionDump;
+        struct LastExceptionInformation {
+            internal string typeName;
+            internal string message;
+            internal string dump;
+        } //LastExceptionInformation
+
+        LastExceptionInformation lastExceptionInformationInstance;
 
     } //class WindowMain
 

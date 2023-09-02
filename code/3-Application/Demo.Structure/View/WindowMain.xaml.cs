@@ -15,6 +15,7 @@
         } //DataGridRow
 
         public WindowMain() {
+            advancedApplication = AdvancedApplicationBase.Current;
             InitializeComponent();
             SetupDialogs();
             AdvancedApplicationBase application = AdvancedApplicationBase.Current;
@@ -32,8 +33,7 @@
             dataGrid.ItemsSource = rowSet;
             borderMain.ToolTip = Main.DefinitionSet.dataGridToolTip;
             statusBarItemCopyrightTextBlock.Text = application.Copyright;
-            buttonExceptionHide.Click += (_, _) => SetStateVisibility();
-            buttonCopyException.Click += (_, _) => CopyLastExceptionDumpToClipboard();
+            buttonSaveExceptionAndClose.Click += (_, _) => SaveExceptionAndClose();
             AddCommandBindings();
             void HidePluginHost() {
                 if (borderPluginHostContaner.Visibility == Visibility.Visible)
@@ -96,6 +96,7 @@
 
         readonly DataGridSet rowSet = new();
         readonly int initlalRowCount;
+        readonly AdvancedApplicationBase advancedApplication;
 
     } //class WindowMain
 

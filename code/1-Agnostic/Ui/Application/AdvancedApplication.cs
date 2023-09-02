@@ -40,7 +40,7 @@
                     MessageBoxButton.OK,
                     MessageBoxImage.Error);
             else
-                exceptionPresenter.Show(e.GetType().Name, e.Message, e.ToString());
+                exceptionPresenter.Show(e.GetType().FullName, e.Message, e.ToString());
             if (!startupComplete)
                 Shutdown();
         } //ShowException

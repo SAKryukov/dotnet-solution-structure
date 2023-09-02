@@ -1,5 +1,6 @@
 namespace SA.Application.View {
     using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
+    using SaveFileDialog = Microsoft.Win32.SaveFileDialog;
     using Assembly = System.Reflection.Assembly;
     using AssemblyLoadContext = System.Runtime.Loader.AssemblyLoadContext;
 
@@ -92,14 +93,16 @@ namespace SA.Application.View {
             loadPluginDialog.Filter = Main.DefinitionSet.DialogPropertySet.pluginDialogFilter;
             loadPluginDialog.Title = Main.DefinitionSet.DialogPropertySet.pluginDialogTitle;
             loadPluginDialog.Multiselect = true;
-            loadPluginDialog.RestoreDirectory = false;
             loadAssemblyDialog.Filter = Main.DefinitionSet.DialogPropertySet.assemblyDialogFilter;
             loadAssemblyDialog.Title = Main.DefinitionSet.DialogPropertySet.assemblyDialogTitle;
-            loadAssemblyDialog.RestoreDirectory = false;
+            saveExceptionReportDialog.Filter = Main.DefinitionSet.DialogPropertySet.saveExceptionReportDialogFilter;
+            saveExceptionReportDialog.Title = Main.DefinitionSet.DialogPropertySet.saveExceptionReportDialogTitle;
+            saveExceptionReportDialog.OverwritePrompt = true;
         } //SetupDialogs
 
         readonly OpenFileDialog loadPluginDialog = new();
         readonly OpenFileDialog loadAssemblyDialog = new();
+        readonly SaveFileDialog saveExceptionReportDialog = new();
         readonly About about = new();
         readonly Main.PluginSetExtension pluginSet = new();
 
