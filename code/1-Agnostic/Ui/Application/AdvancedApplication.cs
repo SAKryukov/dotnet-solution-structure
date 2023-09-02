@@ -2,7 +2,6 @@
     using System;
     using System.Windows;
     using System.Reflection;
-    using Path = System.IO.Path;
 
     public abstract class AdvancedApplicationBase : Application {
 
@@ -23,11 +22,7 @@
 
         private protected abstract Window CreateMainWindow();
 
-        public static string ExecutableDirectory {
-            get {
-                return Path.GetDirectoryName(Assembly.GetEntryAssembly().ManifestModule.FullyQualifiedName);
-            }
-        } //EexecutableDirectory
+        public string ExecutableDirectory { get { return assemblyWrapper.AssemblyDirectory; } }
 
         protected override void OnStartup(StartupEventArgs e) {
             this.ShutdownMode = ShutdownMode.OnMainWindowClose;
@@ -53,7 +48,7 @@
         } //ShowException
 
         public string CompanyName { get { return assemblyWrapper.CompanyName; } }
-        public string ConfigurationName { get { return assemblyWrapper.ConfigurationName; } }
+        public string AssemblyConfiguration { get { return assemblyWrapper.AssemblyConfiguration; } }
         public string Title { get { return assemblyWrapper.Title; } }
         public string ProductName { get { return assemblyWrapper.ProductName; } }
         public string AssemblyDescription { get { return assemblyWrapper.AssemblyDescription; } }
@@ -61,8 +56,7 @@
         public Version AssemblyFileVersion { get { return assemblyWrapper.AssemblyFileVersion; } }
         public string AssemblyInformationalVersion { get { return assemblyWrapper.AssemblyInformationalVersion; } }
         public Version AssemblyVersion { get { return assemblyWrapper.AssemblyVersion; } }
-        public string AssemblyConfiguration { get { return assemblyWrapper.AssemblyConfiguration; } }
-        public string ExecutablePath { get { return assemblyWrapper.ExecutablePath; } }
+        public string ExecutablePath { get { return assemblyWrapper.AssemblyDirectory; } }
 
         public static new AdvancedApplicationBase Current { get { return (AdvancedApplicationBase)Application.Current; } }
 

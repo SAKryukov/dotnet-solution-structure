@@ -27,6 +27,7 @@
             rowSet.Add(new DataGridRow() { Name = Main.DefinitionSet.AssemblyPropertySet.assemblyVersion, Value = application.AssemblyVersion.ToString() });
             rowSet.Add(new DataGridRow() { Name = Main.DefinitionSet.AssemblyPropertySet.assemblyFileVersion, Value = application.AssemblyFileVersion.ToString() });
             rowSet.Add(new DataGridRow() { Name = Main.DefinitionSet.AssemblyPropertySet.assemblyInformationalVersion, Value = application.AssemblyInformationalVersion });
+            rowSet.Add(new DataGridRow() { Name = Main.DefinitionSet.AssemblyPropertySet.AssemblyConfiguration, Value = application.AssemblyConfiguration });
             initlalRowCount = rowSet.Count;
             dataGrid.ItemsSource = rowSet;
             borderMain.ToolTip = Main.DefinitionSet.dataGridToolTip;
@@ -89,7 +90,7 @@
         } //SetStateVisibility
 
         static Semantic.IPropertyPlugin GetPropertyPlugin() {
-            Agnostic.PluginLoader<Semantic.IPropertyPlugin> loader = new(System.IO.Path.Combine(AdvancedApplicationBase.ExecutableDirectory, "Plugin.AssemblyExplorer.dll"));
+            Agnostic.PluginLoader<Semantic.IPropertyPlugin> loader = new(System.IO.Path.Combine(AdvancedApplicationBase.Current.ExecutableDirectory, "Plugin.AssemblyExplorer.dll"));
             return loader.Instance;
         } //GetPropertyPlugin
 
