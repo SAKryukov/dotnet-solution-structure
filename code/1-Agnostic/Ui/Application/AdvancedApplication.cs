@@ -55,6 +55,7 @@
         public string AssemblyInformationalVersion { get { return assemblyWrapper.AssemblyInformationalVersion; } }
         public Version AssemblyVersion { get { return assemblyWrapper.AssemblyVersion; } }
         public string ExecutablePath { get { return assemblyWrapper.AssemblyDirectory; } }
+        public Assembly EntryAssembly { get { return assemblyWrapper.Assembly; } }
 
         public static new AdvancedApplicationBase Current { get { return (AdvancedApplicationBase)Application.Current; } }
 

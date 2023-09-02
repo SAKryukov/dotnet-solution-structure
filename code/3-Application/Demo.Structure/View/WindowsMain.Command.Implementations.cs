@@ -66,7 +66,7 @@ namespace SA.Application.View {
             Assembly assembly = null;
             AssemblyLoadContext assemblyLoadContext = null;
             if (action == PropertyPluginAction.ProcessEntryAssembly)
-                assembly = Assembly.GetEntryAssembly();
+                assembly = advancedApplication.EntryAssembly;
             else if (action == PropertyPluginAction.ProcessPluginAssembly)
                 assembly = pluginSet[listBoxPlugin.SelectedIndex].Loader.Assembly;
             if (action == PropertyPluginAction.LoadAndProcessAssembly) {

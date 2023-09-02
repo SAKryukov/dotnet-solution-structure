@@ -1,7 +1,6 @@
 namespace SA.Application.View {
     using IExceptionPresenter = Agnostic.UI.IExceptionPresenter;
     using Assembly = System.Reflection.Assembly;
-    using AdvancedApplication = Agnostic.UI.AdvancedApplicationBase;
 
     public partial class WindowMain : IExceptionPresenter {
 
@@ -21,14 +20,14 @@ namespace SA.Application.View {
             var time = System.DateTime.Now;
             string filename = Main.DefinitionSet.ExceptionReport.FormatFilename(
                 Main.DefinitionSet.ExceptionReport.FormatTimeFile(time),
-                Assembly.GetEntryAssembly().ManifestModule.Name);
+                advancedApplication.EntryAssembly.ManifestModule.Name);
             saveExceptionReportDialog.FileName = filename;
             if (saveExceptionReportDialog.ShowDialog() != true) return;
             string report = Main.DefinitionSet.ExceptionReport.FormatReport(
                 Main.DefinitionSet.ExceptionReport.FormatTime(time),
                 advancedApplication.ProductName,
-                Assembly.GetEntryAssembly().FullName,
-                Assembly.GetEntryAssembly().Location,
+                advancedApplication.EntryAssembly.FullName,
+                advancedApplication.EntryAssembly.Location,
                 lastExceptionInformationInstance.typeName,
                 lastExceptionInformationInstance.message,
                 lastExceptionInformationInstance.dump);
