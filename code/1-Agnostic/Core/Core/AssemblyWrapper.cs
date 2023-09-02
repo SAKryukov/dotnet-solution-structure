@@ -19,19 +19,6 @@ namespace SA.Agnostic {
             } //get CompanyName
         } //CompanyName
 
-        /*
-        public string ConfigurationName {
-            get {
-                if (configurationName == null) {
-                    var attribute = Attribute.GetCustomAttribute(assembly, typeof(AssemblyConfigurationAttribute));
-                    if (attribute == null) return null;
-                    configurationName = ((AssemblyConfigurationAttribute)attribute).Configuration;
-                } //if
-                return configurationName;
-            } //get ConfigurationName
-        } //ConfigurationName
-        */
-
         public string Title {
             get {
                 if (title == null) {

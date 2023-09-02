@@ -6,9 +6,7 @@
     public abstract class AdvancedApplicationBase : Application {
 
         static class DefinitionSet {
-            internal static Func<Exception, string> formatExceptionMessage = exception => $"{exception.GetType().FullName}: {exception.Message}";
             internal static Func<string, string> formatTitle = productName => $" {productName}";
-            internal const string exceptionStackFrameDelimiter = "\n\n";
         } //definitionSet
 
         public AdvancedApplicationBase() {
