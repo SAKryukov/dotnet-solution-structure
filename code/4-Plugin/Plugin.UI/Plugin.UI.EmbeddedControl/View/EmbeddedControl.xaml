@@ -17,6 +17,24 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
-        <TextBox x:Name="textBox" AcceptsReturn="True" AcceptsTab="False" Text="A plugin control embedded in a host application decorator&#x0a;&#x0a;To throw exception, enter dollar sign"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Border>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Button x:Name="buttonException" Margin="{StaticResource LeftRightTopBottomMargin}" Padding="{StaticResource LeftRightMargin}">Test _Exception</Button>
+                <Border Grid.Row="1">
+                    <Rectangle Height="300" Width="1" />
+                </Border>
+            </Grid>
+        </Border>
+        <Grid Grid.Column="1">
+            <TextBox x:Name="textBox" AcceptsReturn="True" AcceptsTab="False" Text="A plugin control embedded in a host application decorator"/>
+        </Grid>
     </Grid>
 </UserControl>

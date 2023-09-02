@@ -5,7 +5,7 @@ namespace SA.Application.Main {
     static class MainClass {
         [STAThread]
         static void Main() {
-            Application app = new SA.Agnostic.UI.AdvancedApplication<View.WindowMain>();
+            Application app = new Agnostic.UI.AdvancedApplication<View.WindowMain>();
             app.Run();
         } //MainClass
     } //class MainClass
