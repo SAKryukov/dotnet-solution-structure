@@ -27,7 +27,7 @@
             rowSet.Add(new DataGridRow() { Name = Main.DefinitionSet.AssemblyPropertySet.assemblyVersion, Value = application.AssemblyVersion.ToString() });
             rowSet.Add(new DataGridRow() { Name = Main.DefinitionSet.AssemblyPropertySet.assemblyFileVersion, Value = application.AssemblyFileVersion.ToString() });
             rowSet.Add(new DataGridRow() { Name = Main.DefinitionSet.AssemblyPropertySet.assemblyInformationalVersion, Value = application.AssemblyInformationalVersion });
-            rowSet.Add(new DataGridRow() { Name = Main.DefinitionSet.AssemblyPropertySet.AssemblyConfiguration, Value = application.AssemblyConfiguration });
+            rowSet.Add(new DataGridRow() { Name = Main.DefinitionSet.AssemblyPropertySet.assemblyConfiguration, Value = application.AssemblyConfiguration });
             initlalRowCount = rowSet.Count;
             dataGrid.ItemsSource = rowSet;
             borderMain.ToolTip = Main.DefinitionSet.dataGridToolTip;
