@@ -14,7 +14,7 @@ namespace SA.Application.View {
 
         void IUiHost.HandleException(System.Exception exception) { throw new UiPluginException(exception); }
         System.Windows.Window IUiHost.MainApplicationWindow { get { return this; } }
-        System.Windows.Controls.Decorator IUiHost.PluginHostContainer { get { return borderPluginHost; } }
+        System.Windows.Controls.Decorator IUiHost.PluginHostContainer { get { return borderPluginHostContaner; } }
         void IUiHost.InitializePluginHostContainer() { SetStateVisibility(state: VisibilityState.UiPluginHost); }
 
     } //class WindowMain

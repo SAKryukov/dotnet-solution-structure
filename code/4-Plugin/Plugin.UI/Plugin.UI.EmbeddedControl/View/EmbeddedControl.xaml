@@ -6,7 +6,6 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/Semantic.UI;component/Resources/Semantic.UI.Common.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/Semantic.UI;component/Resources/Semantic.UI.MenuItem.xaml"/>
                 <ResourceDictionary>
                     <Style TargetType="TextBox">
                         <Setter Property="Background" Value="Yellow"/>

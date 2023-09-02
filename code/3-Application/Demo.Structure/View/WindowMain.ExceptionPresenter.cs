@@ -1,6 +1,5 @@
 namespace SA.Application.View {
     using IExceptionPresenter = Agnostic.UI.IExceptionPresenter;
-    using Visibility = System.Windows.Visibility;
     using Assembly = System.Reflection.Assembly;
     using AdvancedApplication = Agnostic.UI.AdvancedApplicationBase;
 

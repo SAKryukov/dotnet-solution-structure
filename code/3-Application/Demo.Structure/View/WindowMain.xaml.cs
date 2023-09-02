@@ -35,7 +35,7 @@
             buttonCopyException.Click += (_, _) => CopyLastExceptionDumpToClipboard();
             AddCommandBindings();
             void HidePluginHost() {
-                if (borderPluginHost.Visibility == Visibility.Visible)
+                if (borderPluginHostContaner.Visibility == Visibility.Visible)
                     SetStateVisibility();
             } //HidePluginHost
             menu.GotKeyboardFocus += (_, _) => HidePluginHost();
@@ -72,17 +72,17 @@
             switch (state) {
                 case VisibilityState.Exception:
                     borderMain.Visibility = Visibility.Collapsed;
-                    borderPluginHost.Visibility = Visibility.Collapsed;
+                    borderPluginHostContaner.Visibility = Visibility.Collapsed;
                     borderException.Visibility = Visibility.Visible;
                     break;
                 case VisibilityState.UiPluginHost:
                     borderMain.Visibility = Visibility.Collapsed;
                     borderException.Visibility = Visibility.Collapsed;
-                    borderPluginHost.Visibility = Visibility.Visible;
+                    borderPluginHostContaner.Visibility = Visibility.Visible;
                     break;
                 default:
                     borderException.Visibility = Visibility.Collapsed;
-                    borderPluginHost.Visibility = Visibility.Collapsed;
+                    borderPluginHostContaner.Visibility = Visibility.Collapsed;
                     borderMain.Visibility = Visibility.Visible;
                     break;
             } //switch
