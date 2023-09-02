@@ -31,6 +31,15 @@ namespace SA.Plugin {
             "Everything should be made as simple as possible, but no simpler",
             "Acronyms Seriously Suck",
             "Those who know do not speak. Those who speak do not know.",
+            "Nobody will embrace the unembraceable",
+            "If you want to be happy, be!",
+            "Entia non sunt multiplicanda praeter necessitatem",
+            "There is nothing new under the sun",
+            "If a snake bites before it is charmed, the charmer receives no fee",
+            "Any instrument when dropped will roll into the least accessible corner",
+            "If it doesn't fit, use a bigger hammer",
+            "Acta, non verba",
+            "Look in the roots!",
         }; //wiseSayingList
 
         const int bra = 0x201C;
