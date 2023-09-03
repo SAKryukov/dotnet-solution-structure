@@ -11,7 +11,7 @@
       <Compile Include="$(TemporaryFilePathName)"/>
   </ItemGroup>
 
-  <Target Name="PreBuild" BeforeTargets="BeforeBuild;BeforeRebuild">
+  <Target Name="InjectCustomAssemblyAttributes" BeforeTargets="BeforeBuild;BeforeRebuild">
     <WriteLinesToFile File="$(TemporaryFilePathName)" Lines="@(Lines)" Encoding="Unicode" Overwrite="true" WriteOnlyWhenDifferent="true"/> 
   </Target>
 
