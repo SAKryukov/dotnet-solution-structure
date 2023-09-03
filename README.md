@@ -9,14 +9,14 @@ Covered topics:
 * Batch build and clean-up
 * Cascading MSBuild properties
 * Centralized or cascading framework targeting
+* Centralized or cascading versioning
 * Dependency layers
 * Plugin architecture
 
 WPF-specific topics:
 
-* `AdvancedApplication` class used to expose standard MSBuild properties
+* `AdvancedApplication` class used to expose standard and custom MSBuild properties
 * Explicit `Main`
-* Centralized or cascading versioning
 * Centralized adaptive exception handling
 * Centralized and cascading styling and resource dictionaries 
 
