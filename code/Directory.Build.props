@@ -7,7 +7,8 @@
         <TargetFramework>net5.0</TargetFramework>
         <NoWarn>$(NoWarn);NETSDK1138</NoWarn>
 
-        <BaseIntermediateOutputPath>$(SolutionDir).intermediateOutput\$(MSBuildProjectName)\$(Configuration).$(Platform)</BaseIntermediateOutputPath>
+        <IntermediateOutputPathRoot>$(SolutionDir).intermediateOutput</IntermediateOutputPathRoot>
+        <BaseIntermediateOutputPath>$(IntermediateOutputPathRoot)\$(MSBuildProjectName)\$(Configuration).$(Platform)</BaseIntermediateOutputPath>
         <OutputPath>$(SolutionDir)\output.$(Configuration).$(Platform)</OutputPath>
         <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
         <ProduceReferenceAssembly>false</ProduceReferenceAssembly>
@@ -25,6 +26,7 @@
         <AssemblyTitle>$(Product) Demo</AssemblyTitle>
 
         <Author>Sergey A Kryukov</Author>
+        <AuthorList>A, B, C</AuthorList>
 
         <AssemblyVersion>$(CustomUnifiedVersion)</AssemblyVersion>
         <FileVersion>$(CustomUnifiedVersion)</FileVersion>

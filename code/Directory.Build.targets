@@ -1,19 +1,18 @@
 ﻿<Project>
 
-    <ItemGroup>
-        <Lines Include="[assembly:SA.Agnostic.Author(%22$(Author)%22)]" />
-    </ItemGroup>
-
   <PropertyGroup>
-     <TemporaryFileName>c_temporary_author_attrubute.cs</TemporaryFileName>
+     <TemporaryFileName>___cs_temporary_author_attrubute.cs</TemporaryFileName>
+     <TemporaryFilePathName>$(IntermediateOutputPathRoot)\$(TemporaryFileName)</TemporaryFilePathName>
   </PropertyGroup>
 
-  <Target Name="PreBuild" BeforeTargets="BeforeBuild;BeforeRebuild">
-    <WriteLinesToFile File="$(TemporaryFileName)" Lines="@(Lines)" Overwrite="true" Encoding="Unicode" /> 
-  </Target>
+  <ItemGroup>
+      <Lines Include="[assembly:SA.Agnostic.Author(%22$(Author)%22)]" />
+      <Lines Include="[assembly:SA.Agnostic.AuthorList(%22$(AuthorList)%22)]" />
+      <Compile Include="$(TemporaryFilePathName)"/>
+  </ItemGroup>
 
-  <Target Name="PostBuild" AfterTargets="AfterBuild">
-    <Delete Files="$(TemporaryFileName)" />
+  <Target Name="PreBuild" BeforeTargets="BeforeBuild;BeforeRebuild">
+    <WriteLinesToFile File="$(TemporaryFilePathName)" Lines="@(Lines)" Encoding="Unicode" Overwrite="true" WriteOnlyWhenDifferent="true"/> 
   </Target>
 
 </Project>
