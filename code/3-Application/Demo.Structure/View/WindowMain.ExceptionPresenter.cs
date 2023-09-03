@@ -1,10 +1,14 @@
 namespace SA.Application.View {
     using IExceptionPresenter = Agnostic.UI.IExceptionPresenter;
+    using Time = System.DateTime;
+    using TimeZoneInfo = System.TimeZoneInfo;
 
     public partial class WindowMain : IExceptionPresenter {
 
         void IExceptionPresenter.Show(string exceptionTypeName, string exceptionMessage, string exception) {
             lastExceptionInformationInstance = new LastExceptionInformation() {
+                utc = Time.UtcNow,
+                timeZone = TimeZoneInfo.Local,
                 typeName = exceptionTypeName,
                 message = exceptionMessage,
                 dump = exception
@@ -16,14 +20,16 @@ namespace SA.Application.View {
         } //IExceptionPresenter.Show
 
         void SaveExceptionAndClose() {
-            var time = System.DateTime.Now;
+            var time = lastExceptionInformationInstance.utc;
+            var localTime = time.ToLocalTime();
             string filename = Main.DefinitionSet.ExceptionReport.FormatFilename(
-                Main.DefinitionSet.ExceptionReport.FormatTimeFile(time),
+                Main.DefinitionSet.ExceptionReport.FormatTimeFile(localTime),
                 advancedApplication.EntryAssembly.ManifestModule.Name);
             saveExceptionReportDialog.FileName = filename;
             if (saveExceptionReportDialog.ShowDialog() != true) return;
             string report = Main.DefinitionSet.ExceptionReport.FormatReport(
                 Main.DefinitionSet.ExceptionReport.FormatTime(time),
+                lastExceptionInformationInstance.timeZone.ToString(),
                 advancedApplication.ProductName,
                 advancedApplication.EntryAssembly.FullName,
                 advancedApplication.EntryAssembly.Location,
@@ -35,6 +41,8 @@ namespace SA.Application.View {
         } //SaveExceptionAndClose
 
         struct LastExceptionInformation {
+            internal Time utc;
+            internal TimeZoneInfo timeZone;
             internal string typeName;
             internal string message;
             internal string dump;

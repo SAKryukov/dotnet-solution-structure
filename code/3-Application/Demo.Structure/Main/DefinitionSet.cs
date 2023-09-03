@@ -28,14 +28,14 @@
         } //class DialogPropertySet
 
         internal static class ExceptionReport {
-            internal static string FormatReport(string time, string productName, string assembly, string file, string type, string messsage, string dump) =>
-                $"<!doctype HTML><html lang=\"en-us\"><body><dl><dt>Time:</dt><dd>{time}</dd><dt>Product:<dt><dd>{productName}</dd><dt>Assembly:</dt><dd>{assembly}<dt><dt>File:</dt><dd>{file}<dt>Unhandled exception, type:<dt><dd>{type}</dd><td>Exception message:</dt><dd>{messsage}</dd></dl><pre>{dump}</pre></body></html>";
+            internal static string FormatReport(string time, string localTimeZone, string productName, string assembly, string file, string type, string messsage, string dump) =>
+                $"<!doctype HTML><html lang=\"en-us\"><body><dl><dt>UTC time:</dt><dd>{time}</dd><dt>Local time zone:</dt><dd>{localTimeZone}</dd><dt>Product:<dt><dd>{productName}</dd><dt>Assembly:</dt><dd>{assembly}<dt><dt>File:</dt><dd>{file}<dt>Unhandled exception, type:<dt><dd>{type}</dd><td>Exception message:</dt><dd>{messsage}</dd></dl><pre>{dump}</pre></body></html>";
             internal static string FormatFilename(string time, string assemblyName) =>
                 $"{time}.{assemblyName}.exception.html";
             internal static string FormatTimeFile(System.DateTime time) =>
-                time.ToString("yyyyy-MM-dd.HH-mm-ss");
+                time.ToString("yyyy-MM-dd.HH-mm-ss");
             internal static string FormatTime(System.DateTime time) =>
-                time.ToString("yyyyy-MM-dd HH:mm:ss");
+                time.ToString("yyyy-MM-dd HH:mm:ss");
         } //class ExceptionReport
 
     } //class DefinitionSet
