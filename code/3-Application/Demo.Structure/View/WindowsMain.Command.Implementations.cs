@@ -1,8 +1,8 @@
 namespace SA.Application.View {
-    using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
-    using SaveFileDialog = Microsoft.Win32.SaveFileDialog;
     using Assembly = System.Reflection.Assembly;
     using AssemblyLoadContext = System.Runtime.Loader.AssemblyLoadContext;
+    using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
+    using SaveFileDialog = Microsoft.Win32.SaveFileDialog;
 
     public partial class WindowMain {
 

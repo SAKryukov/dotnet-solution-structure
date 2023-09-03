@@ -10,7 +10,7 @@ namespace SA.Plugin {
     class Implementation : IPropertyPlugin {
 
         string INamedPlugin.DisplayName { get { return DefinitionSet.propertyPluginName; } }
-        
+
         void IPropertyPlugin.DiscoverProperties(Assembly _, IHost presenter) {
             int length = DefinitionSet.lineList.Length;
             for (int index = 0; index < length; ++index)

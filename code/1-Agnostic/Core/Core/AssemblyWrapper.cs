@@ -1,8 +1,8 @@
 namespace SA.Agnostic {
     using System.Reflection;
-    using Version = System.Version;
     using Attribute = System.Attribute;
     using Path = System.IO.Path;
+    using Version = System.Version;
 
     public class AssemblyWrapper : Assembly {
 

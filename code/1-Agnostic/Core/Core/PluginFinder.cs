@@ -1,8 +1,8 @@
 ﻿namespace SA.Agnostic {
     using System;
     using System.Reflection;
-    using Type = System.Type;
     using Debug = System.Diagnostics.Debug;
+    using Type = System.Type;
 
     public interface IRecognizable { } // all host-side plugin interfaces derive from this interface
 

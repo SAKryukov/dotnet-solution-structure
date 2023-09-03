@@ -1,9 +1,9 @@
 namespace SA.Application.Main {
     using INamedPlugin = Semantic.INamedPlugin;
     using IPropertyPlugin = Semantic.IPropertyPlugin;
+    using PluginSet = System.Collections.ObjectModel.ObservableCollection<PluginSetElement>;
     using PropertyPluginLoader = Agnostic.PluginLoader<Semantic.IPropertyPlugin>;
     using UiPluginFinder = Agnostic.PluginFinder<Semantic.IUiPlugin>;
-    using PluginSet = System.Collections.ObjectModel.ObservableCollection<PluginSetElement>;
 
     class PluginSetExtension : PluginSet {
         internal bool Add(string assemblyPath) {

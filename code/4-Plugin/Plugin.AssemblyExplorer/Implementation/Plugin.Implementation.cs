@@ -9,7 +9,7 @@ namespace SA.Plugin {
     class Implementation : IPropertyPlugin {
 
         string INamedPlugin.DisplayName { get { return DefinitionSet.propertyPluginName; } }
-        
+
         void IPropertyPlugin.DiscoverProperties(Assembly assembly, IHost presenter) {
             presenter.Add(DefinitionSet.assemblyLocation, assembly.Location);
             presenter.Add(DefinitionSet.assemblyFullName, assembly.FullName);

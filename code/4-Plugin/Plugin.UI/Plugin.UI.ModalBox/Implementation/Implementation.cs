@@ -4,8 +4,8 @@
 
 namespace SA.Plugin {
     using INamedPlugin = Semantic.INamedPlugin;
-    using IUiPlugin = Semantic.IUiPlugin;
     using IUiHost = Semantic.IUiHost;
+    using IUiPlugin = Semantic.IUiPlugin;
 
     class Implementation : IUiPlugin {
 
@@ -19,7 +19,7 @@ namespace SA.Plugin {
             window.ShowDialog();
         } //IUiPlugin.Execute
 
-        string INamedPlugin.DisplayName { get { return DefinitionSet.pluginName; } }
+        string INamedPlugin.DisplayName { get { return Main.DefinitionSet.pluginName; } }
 
         IUiHost host;
 

@@ -1,15 +1,15 @@
 namespace SA.Test.Plugin {
     using Assembly = System.Reflection.Assembly;
-    using Path = System.IO.Path;
-    using Directory = System.IO.Directory;
     using Console = System.Console;
+    using Directory = System.IO.Directory;
+    using Path = System.IO.Path;
 
     class Test : Semantic.IHost {
 
         void Execute(bool entryAssembly = true) {
             string executablePath = Path.GetDirectoryName(assembly.Location);
             string[] files = Directory.GetFiles(executablePath, DefinitionSet.pluginFileSearchPattern);
-            foreach(var file in files) {
+            foreach (var file in files) {
                 Agnostic.PluginLoader<Semantic.IPropertyPlugin> plugin = new(file);
                 if (plugin.Instance == null) continue;
                 Assembly exploredAssembly = entryAssembly ? assembly : plugin.Assembly;

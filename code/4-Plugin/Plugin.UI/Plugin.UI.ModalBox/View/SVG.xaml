@@ -8,7 +8,7 @@
                 <ScaleTransform ScaleX="1" ScaleY="1"/>
             </Canvas.RenderTransform>
             <Canvas.Resources/>
-            <Path Visibility="Hidden" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="star" Fill="#BEFFC300" StrokeThickness="1" Stroke="#FF000000" StrokeMiterLimit="4" Opacity="1">
+            <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="star" Fill="#BEFFC300" StrokeThickness="1" Stroke="#FF000000" StrokeMiterLimit="4" Opacity="1">
                 <Path.Data>
                     <PathGeometry Figures="m 70.207399 30.306164 -9.706682 -4.876811 -9.520268 5.231394 1.638593 -10.738621 -7.917276 -7.437723 10.719389 -1.760022 4.627122 -9.82815969 4.986353 9.65086869 10.776995 1.363585 -7.637653 7.724587 z" FillRule="NonZero"/>
                 </Path.Data>

@@ -1,6 +1,5 @@
 namespace SA.Application.View {
     using IExceptionPresenter = Agnostic.UI.IExceptionPresenter;
-    using Assembly = System.Reflection.Assembly;
 
     public partial class WindowMain : IExceptionPresenter {
 

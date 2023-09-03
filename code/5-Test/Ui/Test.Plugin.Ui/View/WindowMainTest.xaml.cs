@@ -3,7 +3,7 @@
     using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 
     public partial class WindowMainTest : Window {
-        
+
         public WindowMainTest() {
             InitializeComponent();
             SetupDialogs();

@@ -1,7 +1,7 @@
 ﻿namespace SA.Application.View {
     using System.ComponentModel;
     using System.Windows;
-    
+
     public partial class About : Window {
 
         public About() {

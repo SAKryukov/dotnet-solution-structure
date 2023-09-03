@@ -1,7 +1,7 @@
 ﻿namespace SA.Agnostic.UI {
     using System;
-    using System.Windows;
     using System.Reflection;
+    using System.Windows;
 
     public abstract class AdvancedApplicationBase : Application {
 

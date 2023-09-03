@@ -4,8 +4,8 @@
 
 namespace SA.Plugin {
     using INamedPlugin = Semantic.INamedPlugin;
-    using IUiPlugin = Semantic.IUiPlugin;
     using IUiHost = Semantic.IUiHost;
+    using IUiPlugin = Semantic.IUiPlugin;
 
     class Implementation : IUiPlugin {
 

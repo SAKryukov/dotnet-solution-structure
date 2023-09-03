@@ -47,6 +47,6 @@ namespace SA.Plugin {
 
         internal static string Quote(string value) => $"{char.ConvertFromUtf32(bra)}{value}{char.ConvertFromUtf32(ket)}";
 
-} //class DefinitionSet
+    } //class DefinitionSet
 
 }

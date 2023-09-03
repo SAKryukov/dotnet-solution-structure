@@ -1,4 +1,4 @@
-﻿namespace SA.Test.Main  {
+﻿namespace SA.Test.Main {
 
     static class DefinitionSet {
 
