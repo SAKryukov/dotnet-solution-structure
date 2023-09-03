@@ -105,7 +105,7 @@ namespace SA.Agnostic {
             } //get AssemblyConfiguratoin
         } //AssemblyConfiguration
 
-        public string[] Authors {
+        public string[] Authors { //custom
             get {
                 if (authors == null) {
                     Attribute[] attributes = Attribute.GetCustomAttributes(assembly, typeof(AuthorAttribute));
@@ -130,7 +130,7 @@ namespace SA.Agnostic {
             } //get AssemblyConfiguratoin
         } //AuthorList
 
-        public string AssemblyDirectory { //custom
+        public string AssemblyDirectory {
             get {
                 if (executablePath == null)
                     executablePath = Path.GetDirectoryName(assembly.Location);
