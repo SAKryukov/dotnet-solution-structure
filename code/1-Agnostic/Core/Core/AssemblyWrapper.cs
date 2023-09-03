@@ -91,7 +91,7 @@ namespace SA.Agnostic {
                 if (assemblyVersion == null)
                     assemblyVersion = assembly.GetName().Version;
                 return assemblyVersion;
-            } // sic! not from AssemblyVersionAttribute!
+            } // get AssemblyVersion sic! not from AssemblyVersionAttribute!
         } //AssemblyVersion
 
         public string AssemblyConfiguration {
@@ -102,21 +102,48 @@ namespace SA.Agnostic {
                     assemblyConfiguration = ((AssemblyConfigurationAttribute)attribute).Configuration;
                 } //if
                 return assemblyConfiguration;
-            } //AssemblyConfiguratoin
+            } //get AssemblyConfiguratoin
         } //AssemblyConfiguration
 
-        public string AssemblyDirectory {
+        public string[] Authors {
+            get {
+                if (authors == null) {
+                    Attribute[] attributes = Attribute.GetCustomAttributes(assembly, typeof(AuthorAttribute));
+                    if (attributes == null) return null;
+                    if (attributes.Length < 1) return null;
+                    authors = new string[attributes.Length];
+                    for (int index = 0; index < attributes.Length; ++index)
+                        authors[index] = ((AuthorAttribute)attributes[index]).Author;
+                } //if
+                return authors;
+            } //get Authors
+        } //Authors
+
+        public string AuthorList { //custom
+            get {
+                if (authorList == null) {
+                    var attribute = Attribute.GetCustomAttribute(assembly, typeof(AuthorListAttribute));
+                    if (attribute == null) return null;
+                    authorList = ((AuthorListAttribute)attribute).AuthorList;
+                } //if
+                return authorList;
+            } //get AssemblyConfiguratoin
+        } //AuthorList
+
+        public string AssemblyDirectory { //custom
             get {
                 if (executablePath == null)
                     executablePath = Path.GetDirectoryName(assembly.Location);
                 return executablePath;
-            }
+            } //get AssemblyDirectory
         } //AssemblyDirectory
 
         public Assembly Assembly { get { return assembly; } }
 
         readonly Assembly assembly;
         string executablePath, productName, title, copyright, companyName, assemblyDescription, assemblyConfiguration;
+        string[] authors;
+        string authorList;
         Version assemblyVersion, assemblyFileVersion;
         string assemblyInfomationalVersion;
 

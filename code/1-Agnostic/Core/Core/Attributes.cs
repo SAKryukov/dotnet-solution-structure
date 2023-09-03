@@ -13,4 +13,18 @@
         public Type ImplementorType { get { return implementorType; } }
     }
 
+    [AttributeUsage(AttributeTargets.Assembly, AllowMultiple = true, Inherited = false)]
+    public class AuthorAttribute : Attribute {
+        public AuthorAttribute(string author) { this.author = author; }
+        readonly string author;
+        public string Author { get { return author; } }
+    } //class AuthorAttribute
+
+    [AttributeUsage(AttributeTargets.Assembly, AllowMultiple = false, Inherited = false)]
+    public class AuthorListAttribute : Attribute {
+        public AuthorListAttribute(string authorList) { this.authorList = authorList; }
+        readonly string authorList;
+        public string AuthorList { get { return authorList; } }
+    } //class AuthorListAttribute
+
 }
