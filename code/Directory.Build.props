@@ -26,7 +26,6 @@
         <AssemblyTitle>$(Product) Demo</AssemblyTitle>
 
         <Author>Sergey A Kryukov</Author>
-        <AuthorList>A, B, C</AuthorList>
 
         <AssemblyVersion>$(CustomUnifiedVersion)</AssemblyVersion>
         <FileVersion>$(CustomUnifiedVersion)</FileVersion>
