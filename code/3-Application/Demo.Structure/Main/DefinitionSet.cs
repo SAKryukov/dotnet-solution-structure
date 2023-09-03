@@ -16,6 +16,8 @@
             internal const string assemblyFileVersion = "Assembly File Version";
             internal const string assemblyInformationalVersion = "Assembly Informational Version";
             internal const string assemblyConfiguration = "Assembly Configuration";
+            internal const string assemblyAuthor = "Author";
+            internal const string assemblyAuthors = "Authors";
         } //class AssemblyPropertySet
 
         internal static class DialogPropertySet {

@@ -12,7 +12,7 @@
     <WriteLinesToFile File="$(TemporaryFileName)" Lines="@(Lines)" Overwrite="true" Encoding="Unicode" /> 
   </Target>
 
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+  <Target Name="PostBuild" AfterTargets="AfterBuild">
     <Delete Files="$(TemporaryFileName)" />
   </Target>
 

@@ -18,7 +18,7 @@
             advancedApplication = AdvancedApplicationBase.Current;
             InitializeComponent();
             SetupDialogs();
-            AdvancedApplicationBase application = AdvancedApplicationBase.Current;
+            AdvancedApplicationBase application = advancedApplication;
             listBoxPlugin.ItemsSource = pluginSet;
             rowSet.Add(new DataGridRow() { Name = Main.DefinitionSet.AssemblyPropertySet.productName, Value = application.ProductName });
             rowSet.Add(new DataGridRow() { Name = Main.DefinitionSet.AssemblyPropertySet.title, Value = application.Title });
@@ -29,6 +29,12 @@
             rowSet.Add(new DataGridRow() { Name = Main.DefinitionSet.AssemblyPropertySet.assemblyFileVersion, Value = application.AssemblyFileVersion.ToString() });
             rowSet.Add(new DataGridRow() { Name = Main.DefinitionSet.AssemblyPropertySet.assemblyInformationalVersion, Value = application.AssemblyInformationalVersion });
             rowSet.Add(new DataGridRow() { Name = Main.DefinitionSet.AssemblyPropertySet.assemblyConfiguration, Value = application.AssemblyConfiguration });
+            if (application.AssemblyAuthors != null)
+                for (int index = 0; index < application.AssemblyAuthors.Length; ++index)
+                    if (application.AssemblyAuthors[index] != null && application.AssemblyAuthors[index].Trim().Length > 0)
+                        rowSet.Add(new DataGridRow() { Name = Main.DefinitionSet.AssemblyPropertySet.assemblyAuthor, Value = application.AssemblyAuthors[index] });
+            if (application.AssemblyAuthorList != null && application.AssemblyAuthorList.Trim().Length > 0)
+                rowSet.Add(new DataGridRow() { Name = Main.DefinitionSet.AssemblyPropertySet.assemblyAuthors, Value = application.AssemblyAuthorList });
             initlalRowCount = rowSet.Count;
             dataGrid.ItemsSource = rowSet;
             borderMain.ToolTip = Main.DefinitionSet.dataGridToolTip;
