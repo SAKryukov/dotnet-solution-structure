@@ -24,6 +24,8 @@
         <Company>SA</Company>
         <AssemblyTitle>$(Product) Demo</AssemblyTitle>
 
+        <Author>S A Kryukov</Author>
+
         <AssemblyVersion>$(CustomUnifiedVersion)</AssemblyVersion>
         <FileVersion>$(CustomUnifiedVersion)</FileVersion>
         <InformationalVersion>$(CustomUnifiedVersion) pre-alpha</InformationalVersion> <!-- can be appended by alpha, beta, RC1, RC2, etc. -->

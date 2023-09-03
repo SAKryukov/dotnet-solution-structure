@@ -1,0 +1,19 @@
+﻿<Project>
+
+    <ItemGroup>
+        <Lines Include="[assembly:SA.Agnostic.Author(%22$(Author)%22)]" />
+    </ItemGroup>
+
+  <PropertyGroup>
+     <TemporaryFileName>c_temporary_author_attrubute.cs</TemporaryFileName>
+  </PropertyGroup>
+
+  <Target Name="PreBuild" BeforeTargets="BeforeBuild;BeforeRebuild">
+    <WriteLinesToFile File="$(TemporaryFileName)" Lines="@(Lines)" Overwrite="true" Encoding="Unicode" /> 
+  </Target>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Delete Files="$(TemporaryFileName)" />
+  </Target>
+
+</Project>
