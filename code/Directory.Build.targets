@@ -8,7 +8,7 @@
   <ItemGroup>
       <Lines Include="[assembly:SA.Agnostic.Author(%22$(Author)%22)]" />
       <Lines Include="[assembly:SA.Agnostic.AuthorList(%22$(AuthorList)%22)]" />
-      <Compile Include="$(TemporaryFilePathName)"/>
+      <Compile Include="$(TemporaryFilePathName)" Visible="false"/>
   </ItemGroup>
 
   <Target Name="InjectCustomAssemblyAttributes" BeforeTargets="BeforeBuild;BeforeRebuild">
