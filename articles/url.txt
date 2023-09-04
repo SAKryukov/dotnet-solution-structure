@@ -6,3 +6,9 @@ https://www.dima.to/blog/author/buff3r0v3rfl0w/
 
 Menu item, standard template:
 https://learn.microsoft.com/en-us/dotnet/desktop/wpf/controls/menu-styles-and-templates?view=netframeworkdesktop-4.8
+
+Common macros for MSBuild commands and properties:
+https://learn.microsoft.com/en-us/cpp/build/reference/common-macros-for-build-commands-and-properties?view=msvc-170
+
+MSBuild reserved and well-known properties:
+https://learn.microsoft.com/en-us/visualstudio/msbuild/msbuild-reserved-and-well-known-properties?view=vs-2022

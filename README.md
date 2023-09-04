@@ -10,6 +10,7 @@ Covered topics:
 * Cascading MSBuild properties
 * Centralized or cascading framework targeting
 * Centralized or cascading versioning
+* Injection of custom MSBuild properties into the code to provide common attributes for all or selected projects
 * Dependency layers
 * Plugin architecture
 
