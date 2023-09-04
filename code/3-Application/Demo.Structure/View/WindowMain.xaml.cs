@@ -37,7 +37,6 @@
                 rowSet.Add(new DataGridRow() { Name = Main.DefinitionSet.AssemblyPropertySet.assemblyAuthors, Value = application.AssemblyAuthorList });
             initlalRowCount = rowSet.Count;
             dataGrid.ItemsSource = rowSet;
-            borderMain.ToolTip = Main.DefinitionSet.dataGridToolTip;
             statusBarItemCopyrightTextBlock.Text = application.Copyright;
             buttonSaveExceptionAndClose.Click += (_, _) => SaveExceptionAndClose();
             AddCommandBindings();
@@ -47,13 +46,6 @@
             } //HidePluginHost
             menu.GotKeyboardFocus += (_, _) => HidePluginHost();
         } //WindowMain
-
-        /*
-        protected override void OnContentRendered(EventArgs e) {
-            base.OnContentRendered(e);
-            SizeToContent = SizeToContent.Manual;
-        } //OnContentRendered
-        */
 
         void AddRow(string name, string value, bool isPlugin = true) {
             void ScrollDown() {

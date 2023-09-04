@@ -1,7 +1,7 @@
 ﻿<Project>
 
   <PropertyGroup>
-     <TemporaryFileName>___cs_temporary_author_attrubute.cs</TemporaryFileName>
+     <TemporaryFileName>__temporary.attrubutes-applied-to-assembly.cs</TemporaryFileName>
      <TemporaryFilePathName>$(IntermediateOutputPathRoot)\$(TemporaryFileName)</TemporaryFilePathName>
   </PropertyGroup>
 

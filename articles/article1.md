@@ -18,13 +18,13 @@ For CodeProject, makes sure there are no HTML comments in the area to past!
 
 --> 
 ---
-<!-- copy to CodeProject from here 
+<!-- copy to CodeProject from here
 αβγδΔπ
 ------------------------------------------->
 
 ## Contents{no-toc}
 
-![Plugins](title.png)
+![Plugins](layers.png)
 
 <blockquote id="epigraph" class="FQ"><div class="FQA">Epigraph:</div>
 <dt><i>Everything should be made as simple as possible, but no simpler</i></dt>

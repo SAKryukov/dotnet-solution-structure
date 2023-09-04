@@ -1,4 +1,5 @@
 namespace SA.Application.View {
+    using System.ComponentModel;
     using IExceptionPresenter = Agnostic.UI.IExceptionPresenter;
     using Time = System.DateTime;
     using TimeZoneInfo = System.TimeZoneInfo;
@@ -6,6 +7,7 @@ namespace SA.Application.View {
     public partial class WindowMain : IExceptionPresenter {
 
         void IExceptionPresenter.Show(string exceptionTypeName, string exceptionMessage, string exception) {
+            isExceptionInformationPreviewMode = true;
             lastExceptionInformationInstance = new LastExceptionInformation() {
                 utc = Time.UtcNow,
                 timeZone = TimeZoneInfo.Local,
@@ -38,7 +40,15 @@ namespace SA.Application.View {
                 lastExceptionInformationInstance.dump);
             System.IO.File.WriteAllText(saveExceptionReportDialog.FileName, report);
             SetStateVisibility();
+            isExceptionInformationPreviewMode = false;
         } //SaveExceptionAndClose
+
+        protected override void OnClosing(CancelEventArgs e) {
+            e.Cancel = isExceptionInformationPreviewMode;
+            if (e.Cancel)
+                SaveExceptionAndClose();
+            base.OnClosing(e);
+        }
 
         struct LastExceptionInformation {
             internal Time utc;
@@ -49,6 +59,7 @@ namespace SA.Application.View {
         } //LastExceptionInformation
 
         LastExceptionInformation lastExceptionInformationInstance;
+        bool isExceptionInformationPreviewMode;
 
     } //class WindowMain
 

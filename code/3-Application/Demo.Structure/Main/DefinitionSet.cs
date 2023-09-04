@@ -4,7 +4,6 @@
 
         internal static readonly string markEntryAssembly = char.ConvertFromUtf32(0x1F3DA);
         internal static readonly string markPluginAssembly = char.ConvertFromUtf32(0x1F50C);
-        internal static readonly string dataGridToolTip = $"{markEntryAssembly}: Entry Assembly, {markPluginAssembly}: Plugin Assembly";
 
         internal static class AssemblyPropertySet {
             internal const string productName = "Product Name";

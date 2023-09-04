@@ -97,6 +97,7 @@ namespace SA.Application.View {
             saveExceptionReportDialog.Filter = Main.DefinitionSet.DialogPropertySet.saveExceptionReportDialogFilter;
             saveExceptionReportDialog.Title = Main.DefinitionSet.DialogPropertySet.saveExceptionReportDialogTitle;
             saveExceptionReportDialog.OverwritePrompt = true;
+            saveExceptionReportDialog.RestoreDirectory = true;
         } //SetupDialogs
 
         readonly OpenFileDialog loadPluginDialog = new();
