@@ -22,3 +22,5 @@ WPF-specific topics:
 * Centralized and cascading styling and resource dictionaries 
 
 ## Under development
+
+![Demo application](articles/application.full-size.png.webp)
