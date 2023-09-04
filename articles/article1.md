@@ -24,7 +24,6 @@ For CodeProject, makes sure there are no HTML comments in the area to past!
 
 ## Contents{no-toc}
 
-![Plugins](layers.png)
 
 <blockquote id="epigraph" class="FQ"><div class="FQA">Epigraph:</div>
 <dt><i>Everything should be made as simple as possible, but no simpler</i></dt>
@@ -49,7 +48,27 @@ Both article and the current snapshot of the code can be found in my [GitHub rep
 ### Why Microsoft Templates are So Bad?
 
 ## Dependency Layers
+
+{id=image-dependency-layers}
+
+![Dependency Layers](layers.png)
+
 ## Plugin Architecture
+
+### Plugin Architecture in Dependency Layers
+
+Let's look at the [dependency layers](#image-dependency-layers).
+
+- ***Agnostic*** Base plugin interface, utility classes used to recognize a plugin assemblies and implementation classes by interfaces, to load plugin assemblies and optionally unload them, interfaces used for recognition.
+
+* ***Semantic*** Plugin interfaces speficig to the application field, plugin host interfaces.
+
+* ***Application*** Implementation of plugin host interfaces, invokation of plugin mechanisms
+
+* ***Plugin*** Plugin implementations
+
+* ***Test*** Testing the functionality described above
+
 ## Conclustions
 
 <p></p>
