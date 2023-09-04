@@ -1,36 +1,42 @@
 ﻿<Project>
  
-    <PropertyGroup>
+  <PropertyGroup> <!-- customize:  -->
+    <TargetFramework>net5.0</TargetFramework>
+    <_customUnifiedVersion>0.2.0.0</_customUnifiedVersion>
+    <!-- can be alpha, beta, RC1, RC2, etc.: -->
+    <_customInformationalVersionSuffix>pre-alpha</_customInformationalVersionSuffix>
+    <RootNamespace>SA</RootNamespace>
+    <Copyright>Copyright © 2023 Sergey A Kryukov</Copyright>
+    <Product>Improved .NET Solution Structure</Product>
+    <Description>Bunch of ideas on how to improve .NET solution structure</Description>
+    <Company>SA</Company>
+    <AssemblyTitle>$(Product) Demo</AssemblyTitle>
+    <Author>Sergey A Kryukov</Author> <!-- custom attribite -->
+    <AuthorList></AuthorList> <!-- custom attribite -->
+  </PropertyGroup>
 
-        <CustomUnifiedVersion>0.2.0.0</CustomUnifiedVersion>
+  <PropertyGroup> <!-- change value, don't change property name: -->
+    <_intermediateOutputPathRoot>$(SolutionDir).intermediateOutput</_intermediateOutputPathRoot>
+  </PropertyGroup>
 
-        <TargetFramework>net5.0</TargetFramework>
-        <NoWarn>$(NoWarn);NETSDK1138</NoWarn>
+  <PropertyGroup>
 
-        <IntermediateOutputPathRoot>$(SolutionDir).intermediateOutput</IntermediateOutputPathRoot>
-        <BaseIntermediateOutputPath>$(IntermediateOutputPathRoot)\$(MSBuildProjectName)\$(Configuration).$(Platform)</BaseIntermediateOutputPath>
-        <OutputPath>$(SolutionDir)\output.$(Configuration).$(Platform)</OutputPath>
-        <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-        <ProduceReferenceAssembly>false</ProduceReferenceAssembly>
+    <NoWarn>$(NoWarn);NETSDK1138</NoWarn>
 
-        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-        <!-- Placeholders: -->
-        <WarningsAsErrors></WarningsAsErrors>
-        <WarningsNotAsErrors></WarningsNotAsErrors>
+    <BaseIntermediateOutputPath>$(_intermediateOutputPathRoot)\$(MSBuildProjectName)\$(Configuration).$(Platform)</BaseIntermediateOutputPath>
+    <OutputPath>$(SolutionDir)\output.$(Configuration).$(Platform)</OutputPath>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <ProduceReferenceAssembly>false</ProduceReferenceAssembly>
 
-        <RootNamespace>SA</RootNamespace>
-        <Copyright>Copyright © 2023 Sergey A Kryukov</Copyright>
-        <Product>Improved .NET Solution Structure</Product>
-        <Description>Bunch of ideas on how to improve .NET solution structure</Description>
-        <Company>SA</Company>
-        <AssemblyTitle>$(Product) Demo</AssemblyTitle>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <!-- Placeholders: -->
+    <WarningsAsErrors></WarningsAsErrors>
+    <WarningsNotAsErrors></WarningsNotAsErrors>
 
-        <Author>Sergey A Kryukov</Author>
+    <AssemblyVersion>$(_customUnifiedVersion)</AssemblyVersion>
+    <FileVersion>$(_customUnifiedVersion)</FileVersion>
+    <InformationalVersion>$(_customUnifiedVersion) $(_customInformationalVersionSuffix)</InformationalVersion>
 
-        <AssemblyVersion>$(CustomUnifiedVersion)</AssemblyVersion>
-        <FileVersion>$(CustomUnifiedVersion)</FileVersion>
-        <InformationalVersion>$(CustomUnifiedVersion) pre-alpha</InformationalVersion> <!-- can be appended by alpha, beta, RC1, RC2, etc. -->
-
-    </PropertyGroup>
+  </PropertyGroup>
 
 </Project>
