@@ -2,14 +2,15 @@
     enable: false
 }
 
-{title}Improving .NET Solition Structure: Code Isolation
+{title}Improving .NET Solution Structure: Code Isolation
 
 [*Sergey A Kryukov*](https://www.SAKryukov.org)
 
-How to find out whether the Earth is flat or not? Just use the presented application and a digital camera.
+Set of units and illustrative materials used to share several ideas on the improvement of the .NET solution structure
 
-The Earth's flatness (curvature) measurements are performed using a digital camera based on statistical processing of the big set of photographed features, taking into account atmospheric refraction, lens distortion, geolocation, and accelerometer data. The result is calculated automatically. The image recognition methods can use the patterns of the surface ocean waves, sand dunes, clouds, and the color gradients of the clear blue sky.
+SA???
 
+<!-- https://www.codeproject.com/Articles/5367811/Solution-Structure-Code-Isolation -->
 <!-- <h2>Contents</h2> is not Markdown element, just to avoid adding it to TOC -->
 <!-- change style in next line <ul> to <ul style="list-style-type: none"> -->
 <!--

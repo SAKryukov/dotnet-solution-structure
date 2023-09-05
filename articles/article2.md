@@ -21,10 +21,10 @@ For CodeProject, makes sure there are no HTML comments in the area to past!
 <!-- copy to CodeProject from here 
 αβγδΔπ
 ------------------------------------------->
+![Demo application](application.png)
 
 ## Contents{no-toc}
 
-![Plugins](title.png)
 
 <blockquote id="epigraph" class="FQ"><div class="FQA">Epigraph:</div>
 <dt><i>Everything should be made as simple as possible, but no simpler</i></dt>

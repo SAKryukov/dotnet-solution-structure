@@ -106,7 +106,6 @@
                 &&
                ((System.Windows.Input.Keyboard.GetKeyStates(System.Windows.Input.Key.LeftShift) & System.Windows.Input.KeyStates.Down) > 0))
                 textBoxScreenshotStatusBarTool.Text = Main.DefinitionSet.FormatSizeInformatin(sizeInfo.NewSize.Width, sizeInfo.NewSize.Height);
-            sizeInfo.NewSize.Width.ToString();
         } //OnRenderSizeChanged
 
         readonly DataGridSet rowSet = new();
