@@ -20,19 +20,22 @@
             SetupDialogs();
             AdvancedApplicationBase application = advancedApplication;
             listBoxPlugin.ItemsSource = pluginSet;
-            rowSet.Add(new DataGridRow() { Name = Main.DefinitionSet.AssemblyPropertySet.productName, Value = application.ProductName });
-            rowSet.Add(new DataGridRow() { Name = Main.DefinitionSet.AssemblyPropertySet.title, Value = application.Title });
-            rowSet.Add(new DataGridRow() { Name = Main.DefinitionSet.AssemblyPropertySet.assemblyDescription, Value = application.AssemblyDescription });
-            rowSet.Add(new DataGridRow() { Name = Main.DefinitionSet.AssemblyPropertySet.copyright, Value = application.Copyright });
-            rowSet.Add(new DataGridRow() { Name = Main.DefinitionSet.AssemblyPropertySet.companyName, Value = application.CompanyName });
-            rowSet.Add(new DataGridRow() { Name = Main.DefinitionSet.AssemblyPropertySet.assemblyVersion, Value = application.AssemblyVersion.ToString() });
-            rowSet.Add(new DataGridRow() { Name = Main.DefinitionSet.AssemblyPropertySet.assemblyFileVersion, Value = application.AssemblyFileVersion.ToString() });
-            rowSet.Add(new DataGridRow() { Name = Main.DefinitionSet.AssemblyPropertySet.assemblyInformationalVersion, Value = application.AssemblyInformationalVersion });
-            rowSet.Add(new DataGridRow() { Name = Main.DefinitionSet.AssemblyPropertySet.assemblyConfiguration, Value = application.AssemblyConfiguration });
+            AddRow(Main.DefinitionSet.AssemblyPropertySet.productName, application.ProductName);
+            AddRow(Main.DefinitionSet.AssemblyPropertySet.title, application.Title);
+            AddRow(Main.DefinitionSet.AssemblyPropertySet.assemblyDescription, application.AssemblyDescription);
+            AddRow(Main.DefinitionSet.AssemblyPropertySet.copyright, application.Copyright);
+            AddRow(Main.DefinitionSet.AssemblyPropertySet.companyName, application.CompanyName);
+            AddRow(Main.DefinitionSet.AssemblyPropertySet.assemblyVersion, application.AssemblyVersion.ToString());
+            AddRow(Main.DefinitionSet.AssemblyPropertySet.assemblyFileVersion, application.AssemblyFileVersion.ToString());
+            AddRow(Main.DefinitionSet.AssemblyPropertySet.assemblyInformationalVersion, application.AssemblyInformationalVersion);
+            AddRow(Main.DefinitionSet.AssemblyPropertySet.assemblyConfiguration, application.AssemblyConfiguration);
             if (application.AssemblyAuthors != null)
                 for (int index = 0; index < application.AssemblyAuthors.Length; ++index)
                     if (application.AssemblyAuthors[index] != null && application.AssemblyAuthors[index].Trim().Length > 0)
-                        rowSet.Add(new DataGridRow() { Name = Main.DefinitionSet.AssemblyPropertySet.assemblyAuthor, Value = application.AssemblyAuthors[index] });
+                        AddRow(Main.DefinitionSet.AssemblyPropertySet.assemblyAuthor, application.AssemblyAuthors[index]);
+            if (application.AssemblyMetadata != null)
+                foreach(var pair in application.AssemblyMetadata)
+                    AddRow(pair.Key, pair.Value);
             initlalRowCount = rowSet.Count;
             dataGrid.ItemsSource = rowSet;
             statusBarItemCopyrightTextBlock.Text = application.Copyright;
@@ -45,7 +48,9 @@
             menu.GotKeyboardFocus += (_, _) => HidePluginHost();
         } //WindowMain
 
-        void AddRow(string name, string value, bool isPlugin = true) {
+        void AddRow(string name, string value, bool isPlugin = false) {
+            if (string.IsNullOrEmpty(name)) return;
+            if (string.IsNullOrEmpty(value)) return;
             void ScrollDown() {
                 if (dataGrid.Items.Count < 1) return;
                 dataGrid.ScrollIntoView(dataGrid.Items[^1]);

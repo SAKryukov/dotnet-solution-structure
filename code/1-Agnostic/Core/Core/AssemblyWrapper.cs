@@ -3,6 +3,7 @@ namespace SA.Agnostic {
     using Attribute = System.Attribute;
     using Path = System.IO.Path;
     using Version = System.Version;
+    using MetadataDictionary = System.Collections.Generic.Dictionary<string, string>;
 
     public class AssemblyWrapper : Assembly {
 
@@ -105,6 +106,22 @@ namespace SA.Agnostic {
             } //get AssemblyConfiguratoin
         } //AssemblyConfiguration
 
+        public MetadataDictionary AssemblyMetadata {
+            get {
+                if (assemblyMetadata == null) {
+                    assemblyMetadata = new();
+                    Attribute[] attributes = Attribute.GetCustomAttributes(assembly, typeof(AssemblyMetadataAttribute));
+                    if (attributes == null) return null;
+                    if (attributes.Length < 1) return null;
+                    for (int index = 0; index < attributes.Length; ++index) {
+                        AssemblyMetadataAttribute assemblyMetadataAttribute = (AssemblyMetadataAttribute)attributes[index];
+                        assemblyMetadata.Add(assemblyMetadataAttribute.Key, assemblyMetadataAttribute.Value);
+                    } //loop                        
+                } //if
+                return assemblyMetadata;
+            } //get AssemblyMetadata
+        } //AssemblyMetadata
+
         public string[] Authors { //custom
             get {
                 if (authors == null) {
@@ -132,6 +149,7 @@ namespace SA.Agnostic {
         readonly Assembly assembly;
         string executablePath, productName, title, copyright, companyName, assemblyDescription, assemblyConfiguration;
         string[] authors;
+        MetadataDictionary assemblyMetadata;
         Version assemblyVersion, assemblyFileVersion;
         string assemblyInfomationalVersion;
 

@@ -48,6 +48,10 @@ Both article and the current snapshot of the code can be found in my [GitHub rep
 
 ### Why Microsoft Templates are So Bad?
 
+## Using MSBuilt Properties
+
+## Custom
+
 ## Dependency Layers
 
 {id=image-dependency-layers}

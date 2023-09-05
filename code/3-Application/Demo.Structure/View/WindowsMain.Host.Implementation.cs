@@ -4,7 +4,7 @@ namespace SA.Application.View {
     public partial class WindowMain : IHost, IUiHost {
 
         void IHost.Add(string property, string value) {
-            AddRow(property, value);
+            AddRow(property, value, isPlugin: true);
         } //IHost.Add
 
         System.Windows.Window IUiHost.MainApplicationWindow { get { return this; } }

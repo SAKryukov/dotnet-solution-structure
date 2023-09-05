@@ -5,18 +5,11 @@
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    viewBox="-40 -40 78 129.5"
    version="1.1"
    id="svg10"
-   sodipodi:docname="Title.svg"
-   inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)"
    width="78"
-   height="129.5"
-   inkscape:export-filename="C:\sa\papers\My\GitHub\dotnet-solution-structure\articles\title.png"
-   inkscape:export-xdpi="788.01544"
-   inkscape:export-ydpi="788.01544">
+   height="129.5">
   <metadata
      id="metadata16">
     <rdf:RDF>
@@ -31,37 +24,6 @@
   </metadata>
   <defs
      id="defs14" />
-  <sodipodi:namedview
-     pagecolor="#ffffff"
-     bordercolor="#ee2765"
-     borderopacity="1"
-     objecttolerance="10"
-     gridtolerance="10"
-     guidetolerance="10"
-     inkscape:pageopacity="0"
-     inkscape:pageshadow="2"
-     inkscape:window-width="1920"
-     inkscape:window-height="1027"
-     id="namedview12"
-     showgrid="true"
-     inkscape:zoom="5.4875"
-     inkscape:cx="48.020501"
-     inkscape:cy="39.017239"
-     inkscape:window-x="-8"
-     inkscape:window-y="-8"
-     inkscape:window-maximized="1"
-     inkscape:current-layer="svg10"
-     fit-margin-top="0"
-     fit-margin-left="0"
-     fit-margin-right="0"
-     fit-margin-bottom="0"
-     borderlayer="true">
-    <inkscape:grid
-       type="xygrid"
-       id="grid26"
-       originx="-1"
-       originy="50.5" />
-  </sodipodi:namedview>
   <circle
      r="39"
      id="circle2"
