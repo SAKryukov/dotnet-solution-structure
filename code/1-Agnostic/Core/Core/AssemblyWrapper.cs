@@ -116,7 +116,10 @@ namespace SA.Agnostic {
                     if (attributes.Length < 1) return null;
                     for (int index = 0; index < attributes.Length; ++index) {
                         AssemblyMetadataAttribute assemblyMetadataAttribute = (AssemblyMetadataAttribute)attributes[index];
-                        assemblyMetadata.Add(assemblyMetadataAttribute.Key, assemblyMetadataAttribute.Value);
+                        if (assemblyMetadata.ContainsKey(assemblyMetadataAttribute.Key))
+                            assemblyMetadata[assemblyMetadataAttribute.Key] = assemblyMetadataAttribute.Value;
+                        else
+                            assemblyMetadata.Add(assemblyMetadataAttribute.Key, assemblyMetadataAttribute.Value);
                     } //loop                        
                 } //if
                 return assemblyMetadata;
