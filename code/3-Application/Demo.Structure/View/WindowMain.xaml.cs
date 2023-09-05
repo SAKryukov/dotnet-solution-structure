@@ -33,8 +33,6 @@
                 for (int index = 0; index < application.AssemblyAuthors.Length; ++index)
                     if (application.AssemblyAuthors[index] != null && application.AssemblyAuthors[index].Trim().Length > 0)
                         rowSet.Add(new DataGridRow() { Name = Main.DefinitionSet.AssemblyPropertySet.assemblyAuthor, Value = application.AssemblyAuthors[index] });
-            if (application.AssemblyAuthorList != null && application.AssemblyAuthorList.Trim().Length > 0)
-                rowSet.Add(new DataGridRow() { Name = Main.DefinitionSet.AssemblyPropertySet.assemblyAuthors, Value = application.AssemblyAuthorList });
             initlalRowCount = rowSet.Count;
             dataGrid.ItemsSource = rowSet;
             statusBarItemCopyrightTextBlock.Text = application.Copyright;

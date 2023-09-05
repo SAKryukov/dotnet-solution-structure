@@ -13,11 +13,9 @@
     <AssemblyTitle>$(Product) Demo</AssemblyTitle>
   </PropertyGroup>
 
-<ItemGroup>
+  <ItemGroup> <!-- custom attribute, can be multiple: -->
     <Authors Include="Sergey A Kryukov"/>
-    <Authors Include="SA"/>
-</ItemGroup>
-
+  </ItemGroup>
 
   <PropertyGroup> <!-- change value, don't change property name: -->
     <_intermediateOutputPathRoot>$(SolutionDir).intermediateOutput</_intermediateOutputPathRoot>

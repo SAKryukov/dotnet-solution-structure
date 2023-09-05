@@ -57,7 +57,6 @@
         public string ExecutablePath { get { return assemblyWrapper.AssemblyDirectory; } }
         public Assembly EntryAssembly { get { return assemblyWrapper.Assembly; } }
         public string[] AssemblyAuthors { get { return assemblyWrapper.Authors; } }
-        public string AssemblyAuthorList { get { return assemblyWrapper.AuthorList; } }
 
         public static new AdvancedApplicationBase Current { get { return (AdvancedApplicationBase)Application.Current; } }
 

@@ -119,17 +119,6 @@ namespace SA.Agnostic {
             } //get Authors
         } //Authors
 
-        public string AuthorList { //custom
-            get {
-                if (authorList == null) {
-                    var attribute = Attribute.GetCustomAttribute(assembly, typeof(AuthorListAttribute));
-                    if (attribute == null) return null;
-                    authorList = ((AuthorListAttribute)attribute).AuthorList;
-                } //if
-                return authorList;
-            } //get AssemblyConfiguratoin
-        } //AuthorList
-
         public string AssemblyDirectory {
             get {
                 if (executablePath == null)
@@ -143,7 +132,6 @@ namespace SA.Agnostic {
         readonly Assembly assembly;
         string executablePath, productName, title, copyright, companyName, assemblyDescription, assemblyConfiguration;
         string[] authors;
-        string authorList;
         Version assemblyVersion, assemblyFileVersion;
         string assemblyInfomationalVersion;
 

@@ -20,11 +20,4 @@
         public string Author { get { return author; } }
     } //class AuthorAttribute
 
-    [AttributeUsage(AttributeTargets.Assembly, AllowMultiple = false, Inherited = false)]
-    public class AuthorListAttribute : Attribute {
-        public AuthorListAttribute(string authorList) { this.authorList = authorList; }
-        readonly string authorList;
-        public string AuthorList { get { return authorList; } }
-    } //class AuthorListAttribute
-
 }
