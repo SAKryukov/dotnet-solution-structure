@@ -2,7 +2,7 @@
  
   <PropertyGroup> <!-- customize:  -->
     <TargetFramework>net5.0</TargetFramework>
-    <_customUnifiedVersion>0.2.1.0</_customUnifiedVersion>
+    <_customUnifiedVersion>0.2.2.0</_customUnifiedVersion>
     <!-- can be alpha, beta, RC1, RC2, etc.: -->
     <_customInformationalVersionSuffix>pre-alpha</_customInformationalVersionSuffix>
     <RootNamespace>SA</RootNamespace>
