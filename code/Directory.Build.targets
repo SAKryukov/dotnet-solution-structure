@@ -6,13 +6,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-      <Lines Include="[assembly:SA.Agnostic.Author(%22$(Author)%22)]" />
-      <Lines Include="[assembly:SA.Agnostic.AuthorList(%22$(AuthorList)%22)]" />
       <Compile Include="$(_temporaryFilePathName)" Visible="false"/>
   </ItemGroup>
 
   <Target Name="InjectCustomAssemblyAttributes" BeforeTargets="BeforeBuild;BeforeRebuild">
-    <WriteLinesToFile File="$(_temporaryFilePathName)" Lines="@(Lines)" Encoding="Unicode" Overwrite="true" WriteOnlyWhenDifferent="true"/> 
+    <WriteLinesToFile File="$(_temporaryFilePathName)" Lines="@(Authors -> '[assembly:SA.Agnostic.Author(%22%(Filename)%22)]')" Encoding="Unicode" Overwrite="true" WriteOnlyWhenDifferent="true"/> 
   </Target>
 
 </Project>

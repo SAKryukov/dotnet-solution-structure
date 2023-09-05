@@ -11,9 +11,13 @@
     <Description>Bunch of ideas on how to improve .NET solution structure</Description>
     <Company>SA</Company>
     <AssemblyTitle>$(Product) Demo</AssemblyTitle>
-    <Author>Sergey A Kryukov</Author> <!-- custom attribite -->
-    <AuthorList></AuthorList> <!-- custom attribite -->
   </PropertyGroup>
+
+<ItemGroup>
+    <Authors Include="Sergey A Kryukov"/>
+    <Authors Include="SA"/>
+</ItemGroup>
+
 
   <PropertyGroup> <!-- change value, don't change property name: -->
     <_intermediateOutputPathRoot>$(SolutionDir).intermediateOutput</_intermediateOutputPathRoot>
