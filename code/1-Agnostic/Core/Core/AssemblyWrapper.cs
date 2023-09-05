@@ -1,5 +1,6 @@
 namespace SA.Agnostic {
     using System.Reflection;
+    using System.Runtime.Versioning;
     using Attribute = System.Attribute;
     using Path = System.IO.Path;
     using Version = System.Version;
@@ -136,6 +137,51 @@ namespace SA.Agnostic {
             } //get Authors
         } //Authors
 
+        public string TargetFrameworkName {
+            get {
+                if (targetFrameworkName == null) {
+                    var attribute = Attribute.GetCustomAttribute(assembly, typeof(TargetFrameworkAttribute));
+                    if (attribute == null) return null;
+                    targetFrameworkName = ((TargetFrameworkAttribute)attribute).FrameworkName;
+                    targetFrameworkDisplayName = ((TargetFrameworkAttribute)attribute).FrameworkDisplayName;
+                } //if
+                return targetFrameworkName;
+            } //get TargetFrameworkName
+        } //TargetFrameworkName
+        public string TargetFrameworkDisplayName {
+            get {
+                if (targetFrameworkDisplayName == null) {
+                    var attribute = Attribute.GetCustomAttribute(assembly, typeof(TargetFrameworkAttribute));
+                    if (attribute == null) return null;
+                    targetFrameworkName = ((TargetFrameworkAttribute)attribute).FrameworkName;
+                    targetFrameworkDisplayName = ((TargetFrameworkAttribute)attribute).FrameworkDisplayName;
+                } //if
+                return targetFrameworkDisplayName;
+            } //get TargetFrameworkDisplayName
+        } //TargetFrameworkDisplayName
+
+        public string TargetPlatformName {
+            get {
+                if (targetPlatformName == null) {
+                    var attribute = Attribute.GetCustomAttribute(assembly, typeof(TargetPlatformAttribute));
+                    if (attribute == null) return null;
+                    targetPlatformName = ((TargetPlatformAttribute)attribute).PlatformName;
+                } //if
+                return targetPlatformName;
+            } //get TargetPlatformName
+        } //TargetPlatformName
+
+        public string SupportedOSPlatformName {
+            get {
+                if (supportedOSPlatformName == null) {
+                    var attribute = Attribute.GetCustomAttribute(assembly, typeof(SupportedOSPlatformAttribute));
+                    if (attribute == null) return null;
+                    supportedOSPlatformName = ((SupportedOSPlatformAttribute)attribute).PlatformName;
+                } //if
+                return supportedOSPlatformName;
+            } //get SupportedOSPlatformName
+        } //SupportedOSPlatformName
+
         public string AssemblyDirectory {
             get {
                 if (executablePath == null)
@@ -148,6 +194,7 @@ namespace SA.Agnostic {
 
         readonly Assembly assembly;
         string executablePath, productName, title, copyright, companyName, assemblyDescription, assemblyConfiguration;
+        string targetFrameworkName, targetFrameworkDisplayName, targetPlatformName, supportedOSPlatformName;
         string[] authors;
         MetadataDictionary assemblyMetadata;
         Version assemblyVersion, assemblyFileVersion;

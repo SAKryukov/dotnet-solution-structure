@@ -4,6 +4,8 @@
 
         internal static readonly string markEntryAssembly = char.ConvertFromUtf32(0x1F3DA);
         internal static readonly string markPluginAssembly = char.ConvertFromUtf32(0x1F50C);
+        internal static string FormatSizeInformatin(double x, double y) =>
+            $"{x} x {y}";
 
         internal static class AssemblyPropertySet {
             internal const string productName = "Product Name";
@@ -16,7 +18,10 @@
             internal const string assemblyInformationalVersion = "Assembly Informational Version";
             internal const string assemblyConfiguration = "Assembly Configuration";
             internal const string assemblyAuthor = "Author";
-            internal const string assemblyAuthors = "Authors";
+            internal const string targetFrameworkName = "Target Framework";
+            internal const string targetFrameworkDisplayName = "Target Framework Name";
+            internal const string targetPlatformName = "Target Platform";
+            internal const string supportedOSPlatformName = "Supported OS Platform";
         } //class AssemblyPropertySet
 
         internal static class DialogPropertySet {

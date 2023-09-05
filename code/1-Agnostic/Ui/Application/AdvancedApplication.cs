@@ -59,7 +59,10 @@
         public Assembly EntryAssembly { get { return assemblyWrapper.Assembly; } }
         public MetadataDictionary AssemblyMetadata { get { return assemblyWrapper.AssemblyMetadata; } }
         public string[] AssemblyAuthors { get { return assemblyWrapper.Authors; } }
-
+        public string TargetFrameworkName { get { return assemblyWrapper.TargetFrameworkName; } }
+        public string TargetFrameworkDisplayName { get { return assemblyWrapper.TargetFrameworkDisplayName; } }
+        public string TargetPlatformName { get { return assemblyWrapper.TargetPlatformName; } }
+        public string SupportedOSPlatformName { get { return assemblyWrapper.SupportedOSPlatformName; } }
         public static new AdvancedApplicationBase Current { get { return (AdvancedApplicationBase)Application.Current; } }
 
         bool startupComplete;

@@ -113,9 +113,12 @@
         <Border Grid.Row="1" x:Name="borderPluginHostContaner" Visibility="Collapsed" Margin="{StaticResource TopMargin}">
         </Border>
         <Border Grid.Row="2">
-            <StatusBar Style="{StaticResource StatusBar}">
+            <StatusBar Style="{StaticResource StatusBar}" HorizontalAlignment="Stretch">
                 <StatusBarItem>
-                    <TextBlock x:Name="statusBarItemCopyrightTextBlock" Margin="{StaticResource LeftMargin}"/>
+                    <TextBlock x:Name="textBoxStatusBarCopyright" Margin="{StaticResource LeftMargin}"/>
+                </StatusBarItem>
+                <StatusBarItem  HorizontalAlignment="Right">
+                    <TextBlock x:Name="textBoxScreenshotStatusBarTool" Margin="{StaticResource ButtonStackRightMargin}"/>
                 </StatusBarItem>
             </StatusBar>
         </Border>

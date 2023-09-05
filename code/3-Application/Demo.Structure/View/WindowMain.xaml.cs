@@ -20,6 +20,7 @@
             SetupDialogs();
             AdvancedApplicationBase application = advancedApplication;
             listBoxPlugin.ItemsSource = pluginSet;
+            var cd = System.Reflection.CustomAttributeData.GetCustomAttributes(application.EntryAssembly);
             AddRow(Main.DefinitionSet.AssemblyPropertySet.productName, application.ProductName);
             AddRow(Main.DefinitionSet.AssemblyPropertySet.title, application.Title);
             AddRow(Main.DefinitionSet.AssemblyPropertySet.assemblyDescription, application.AssemblyDescription);
@@ -29,6 +30,10 @@
             AddRow(Main.DefinitionSet.AssemblyPropertySet.assemblyFileVersion, application.AssemblyFileVersion.ToString());
             AddRow(Main.DefinitionSet.AssemblyPropertySet.assemblyInformationalVersion, application.AssemblyInformationalVersion);
             AddRow(Main.DefinitionSet.AssemblyPropertySet.assemblyConfiguration, application.AssemblyConfiguration);
+            AddRow(Main.DefinitionSet.AssemblyPropertySet.targetFrameworkName, application.TargetFrameworkName);
+            AddRow(Main.DefinitionSet.AssemblyPropertySet.targetFrameworkDisplayName, application.TargetFrameworkDisplayName);
+            AddRow(Main.DefinitionSet.AssemblyPropertySet.targetPlatformName, application.TargetPlatformName);
+            AddRow(Main.DefinitionSet.AssemblyPropertySet.supportedOSPlatformName, application.SupportedOSPlatformName);
             if (application.AssemblyAuthors != null)
                 for (int index = 0; index < application.AssemblyAuthors.Length; ++index)
                     if (application.AssemblyAuthors[index] != null && application.AssemblyAuthors[index].Trim().Length > 0)
@@ -38,7 +43,7 @@
                     AddRow(pair.Key, pair.Value);
             initlalRowCount = rowSet.Count;
             dataGrid.ItemsSource = rowSet;
-            statusBarItemCopyrightTextBlock.Text = application.Copyright;
+            textBoxStatusBarCopyright.Text = application.Copyright;
             buttonSaveExceptionAndClose.Click += (_, _) => SaveExceptionAndClose();
             AddCommandBindings();
             void HidePluginHost() {
@@ -46,6 +51,7 @@
                     SetStateVisibility();
             } //HidePluginHost
             menu.GotKeyboardFocus += (_, _) => HidePluginHost();
+            MouseLeave += (_, _) => textBoxScreenshotStatusBarTool.Text = null;
         } //WindowMain
 
         void AddRow(string name, string value, bool isPlugin = false) {
@@ -94,6 +100,14 @@
             Agnostic.PluginLoader<Semantic.IPropertyPlugin> loader = new(System.IO.Path.Combine(AdvancedApplicationBase.Current.ExecutableDirectory, "Plugin.AssemblyExplorer.dll"));
             return loader.Instance;
         } //GetPropertyPlugin
+
+        protected override void OnRenderSizeChanged(SizeChangedInfo sizeInfo) {
+            if (((System.Windows.Input.Keyboard.GetKeyStates(System.Windows.Input.Key.LeftCtrl) & System.Windows.Input.KeyStates.Down) > 0)
+                &&
+               ((System.Windows.Input.Keyboard.GetKeyStates(System.Windows.Input.Key.LeftShift) & System.Windows.Input.KeyStates.Down) > 0))
+                textBoxScreenshotStatusBarTool.Text = Main.DefinitionSet.FormatSizeInformatin(sizeInfo.NewSize.Width, sizeInfo.NewSize.Height);
+            sizeInfo.NewSize.Width.ToString();
+        } //OnRenderSizeChanged
 
         readonly DataGridSet rowSet = new();
         readonly int initlalRowCount;

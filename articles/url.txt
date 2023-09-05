@@ -12,3 +12,14 @@ https://learn.microsoft.com/en-us/cpp/build/reference/common-macros-for-build-co
 
 MSBuild reserved and well-known properties:
 https://learn.microsoft.com/en-us/visualstudio/msbuild/msbuild-reserved-and-well-known-properties?view=vs-2022
+
+System.Runtime.Versioning attributes:
+TargetFrameworkAttribute
+https://learn.microsoft.com/en-us/dotnet/api/system.runtime.versioning.targetframeworkattribute?view=net-7.0
+TargetPlatformAttribute
+https://learn.microsoft.com/en-us/dotnet/api/system.runtime.versioning.targetplatformattribute?view=net-7.0
+SupportedOSPlatformAttribute
+https://learn.microsoft.com/en-us/dotnet/api/system.runtime.versioning.supportedosplatformattribute?view=net-7.0
+SupportedOSPlatformGuardAttribute
+https://learn.microsoft.com/en-us/dotnet/api/system.runtime.versioning.supportedosplatformguardattribute?view=net-7.0
+...

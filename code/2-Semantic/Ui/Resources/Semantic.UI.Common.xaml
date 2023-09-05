@@ -17,7 +17,7 @@
     <Thickness x:Key="ListBoxItemPadding">8 0 8 0</Thickness>
     <Thickness x:Key="ItemPadding">8 0 8 0</Thickness>
     <Thickness x:Key="BeforeGripMargin">0 0 24 0</Thickness>
-    <Thickness x:Key="ButtonStackRightMargin">0 0 8 0</Thickness>
+    <Thickness x:Key="ButtonStackRightMargin">0 0 12 0</Thickness>
     <Thickness x:Key="BorderLeft">1 0 0 0</Thickness>
     <Thickness x:Key="BorderRight">0 0 1 0</Thickness>
     <Style x:Key="CommonFont" TargetType="Control">
