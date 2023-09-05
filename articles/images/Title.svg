@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   viewBox="-40 -40 78 129.5"
+   version="1.1"
+   id="svg10"
+   sodipodi:docname="Title.svg"
+   inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)"
+   width="78"
+   height="129.5"
+   inkscape:export-filename="C:\sa\papers\My\GitHub\dotnet-solution-structure\articles\title.png"
+   inkscape:export-xdpi="788.01544"
+   inkscape:export-ydpi="788.01544">
+  <metadata
+     id="metadata16">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs14" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#ee2765"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1920"
+     inkscape:window-height="1027"
+     id="namedview12"
+     showgrid="true"
+     inkscape:zoom="5.4875"
+     inkscape:cx="48.020501"
+     inkscape:cy="39.017239"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg10"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     borderlayer="true">
+    <inkscape:grid
+       type="xygrid"
+       id="grid26"
+       originx="-1"
+       originy="50.5" />
+  </sodipodi:namedview>
+  <circle
+     r="39"
+     id="circle2"
+     cx="-50.5"
+     cy="-1"
+     transform="rotate(-90)" />
+  <path
+     fill="#ffffff"
+     d="m -39,50.5 a 38,38 0 0 1 76,0 19,19 0 0 1 -38,0 19,19 0 0 0 -38,0"
+     id="path4" />
+  <circle
+     r="5"
+     cy="-18"
+     id="circle8"
+     cx="50.5"
+     transform="rotate(90)" />
+  <path
+     style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.999997px;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000;stop-opacity:1"
+     d="M -20,50.5 V 7.607062"
+     id="path2689" />
+  <path
+     style="fill:none;stroke:#ffffff;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     d="m -20,50.5 v -19"
+     id="path2689-5" />
+  <path
+     style="fill:none;stroke:#000000;stroke-width:0.999998px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     d="M 18,50.5 V 5.5"
+     id="path2689-7" />
+  <g
+     id="g2793"
+     transform="translate(0,54.488946)">
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
+       id="rect2725-4"
+       width="34"
+       height="15"
+       x="3.5"
+       y="-66" />
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
+       id="rect2768"
+       width="34"
+       height="5"
+       x="3.5"
+       y="-56" />
+  </g>
+  <g
+     id="g2789"
+     transform="translate(-2,54.488946)">
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
+       id="rect2725"
+       width="34"
+       height="15"
+       x="-37.5"
+       y="-66" />
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
+       id="rect2768-5"
+       width="34"
+       height="5"
+       x="-37.5"
+       y="-56" />
+  </g>
+  <g
+     id="g2797"
+     transform="matrix(1.0266667,0,0,1,-1,50.5)"
+     style="stroke-width:0.986928">
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:0.986928;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
+       id="rect2745"
+       width="75"
+       height="15"
+       x="-37.5"
+       y="-90" />
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:0.986923;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
+       id="rect2785"
+       width="75"
+       height="5"
+       x="-37.5"
+       y="-80" />
+  </g>
+  <path
+     style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     d="m 18,4.953304 c -3.333334,5 -3.333334,5 -3.333334,5 h 6.666668 z"
+     id="path2799-0" />
+  <path
+     style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     d="m -20,4.953304 c -3.333334,5 -3.333334,5 -3.333334,5 h 6.666668 z"
+     id="path2799-0-1" />
+  <path
+     style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     d="m 18,-11.691344 v -5.883827"
+     id="path2689-7-9" />
+  <path
+     style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.999991px;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000;stop-opacity:1"
+     d="M -19.544419,-11.686788 V -19.5"
+     id="path2689-58" />
+  <path
+     style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     d="m -19.544419,-23.042144 c -3.333334,5 -3.333334,5 -3.333334,5 h 6.666668 z"
+     id="path2799-1" />
+  <path
+     style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     d="m 18,-23.042144 c -3.333334,5 -3.333334,5 -3.333334,5 h 6.666668 z"
+     id="path2799-1-2" />
+  <circle
+     r="5"
+     cy="-50.5"
+     fill="#ffffff"
+     id="circle6"
+     cx="20"
+     transform="scale(-1)" />
+</svg>

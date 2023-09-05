@@ -22,13 +22,14 @@ For CodeProject, makes sure there are no HTML comments in the area to past!
 αβγδΔπ
 ------------------------------------------->
 
-## Contents{no-toc}
-
+![Title](title.png)
 
 <blockquote id="epigraph" class="FQ"><div class="FQA">Epigraph:</div>
 <dt><i>Everything should be made as simple as possible, but no simpler</i></dt>
 <dd>Albert Einstein</dd>
 </blockquote>
+
+## Contents{no-toc}
 
 @toc
 
