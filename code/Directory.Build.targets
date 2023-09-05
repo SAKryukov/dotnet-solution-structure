@@ -10,7 +10,7 @@
   </ItemGroup>
 
   <Target Name="InjectCustomAssemblyAttributes" BeforeTargets="BeforeBuild;BeforeRebuild">
-    <WriteLinesToFile File="$(_temporaryFilePathName)" Lines="@(Authors -> '[assembly:SA.Agnostic.Author(%22%(Filename)%22)]')" Encoding="Unicode" Overwrite="true" WriteOnlyWhenDifferent="true"/> 
+    <WriteLinesToFile File="$(_temporaryFilePathName)" Lines="@(Authors -> '[assembly:SA.Agnostic.Author(%22%(Identity)%22)]')" Encoding="Unicode" Overwrite="true" WriteOnlyWhenDifferent="true"/> 
   </Target>
 
 </Project>
