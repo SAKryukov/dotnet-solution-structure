@@ -51,8 +51,15 @@
                     SetStateVisibility();
             } //HidePluginHost
             menu.GotKeyboardFocus += (_, _) => HidePluginHost();
-            MouseLeave += (_, _) => textBoxScreenshotStatusBarTool.Text = null;
+            KeyUp += (_, _) => textBoxScreenshotStatusBarTool.Text = null;
         } //WindowMain
+
+        protected override void OnRenderSizeChanged(SizeChangedInfo sizeInfo) {
+            if (((System.Windows.Input.Keyboard.GetKeyStates(System.Windows.Input.Key.LeftCtrl) & System.Windows.Input.KeyStates.Down) > 0)
+                &&
+               ((System.Windows.Input.Keyboard.GetKeyStates(System.Windows.Input.Key.LeftShift) & System.Windows.Input.KeyStates.Down) > 0))
+                textBoxScreenshotStatusBarTool.Text = Main.DefinitionSet.FormatSizeInformatin(sizeInfo.NewSize.Width, sizeInfo.NewSize.Height);
+        } //OnRenderSizeChanged
 
         void AddRow(string name, string value, bool isPlugin = false) {
             if (string.IsNullOrEmpty(name)) return;
@@ -100,13 +107,6 @@
             Agnostic.PluginLoader<Semantic.IPropertyPlugin> loader = new(System.IO.Path.Combine(AdvancedApplicationBase.Current.ExecutableDirectory, "Plugin.AssemblyExplorer.dll"));
             return loader.Instance;
         } //GetPropertyPlugin
-
-        protected override void OnRenderSizeChanged(SizeChangedInfo sizeInfo) {
-            if (((System.Windows.Input.Keyboard.GetKeyStates(System.Windows.Input.Key.LeftCtrl) & System.Windows.Input.KeyStates.Down) > 0)
-                &&
-               ((System.Windows.Input.Keyboard.GetKeyStates(System.Windows.Input.Key.LeftShift) & System.Windows.Input.KeyStates.Down) > 0))
-                textBoxScreenshotStatusBarTool.Text = Main.DefinitionSet.FormatSizeInformatin(sizeInfo.NewSize.Width, sizeInfo.NewSize.Height);
-        } //OnRenderSizeChanged
 
         readonly DataGridSet rowSet = new();
         readonly int initlalRowCount;
