@@ -23,3 +23,9 @@ https://learn.microsoft.com/en-us/dotnet/api/system.runtime.versioning.supported
 SupportedOSPlatformGuardAttribute
 https://learn.microsoft.com/en-us/dotnet/api/system.runtime.versioning.supportedosplatformguardattribute?view=net-7.0
 ...
+
+Publish-related properties, SatelliteResourceLanguages:
+https://learn.microsoft.com/en-us/dotnet/core/project-sdk/msbuild-props
+
+Probing for satellite assemblies *.deps.json:
+https://learn.microsoft.com/en-us/dotnet/core/dependency-loading/default-probing

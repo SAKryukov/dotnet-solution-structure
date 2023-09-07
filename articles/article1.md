@@ -11,6 +11,7 @@ Set of units and illustrative materials used to share several ideas on the impro
 SA???
 
 <!-- https://www.codeproject.com/Articles/5367811/Solution-Structure-Code-Isolation -->
+
 <!-- <h2>Contents</h2> is not Markdown element, just to avoid adding it to TOC -->
 <!-- change style in next line <ul> to <ul style="list-style-type: none"> -->
 <!--
@@ -47,7 +48,7 @@ Both article and the current snapshot of the code can be found in my [GitHub rep
 
 ## Source Code Isolation
 
-### Why Microsoft Templates are So Bad?
+### What's Wrong with Available Microsoft Project Templates?
 
 ## Using MSBuilt Properties
 
