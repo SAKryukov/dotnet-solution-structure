@@ -1,0 +1,30 @@
+﻿<ContentPresenter x:Class="SA.Plugin.Localization.View.WindowMain"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:system="clr-namespace:System;assembly=netstandard"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ContentPresenter.Resources>
+        <ResourceDictionary>
+            <system:String x:Key="textBoxHeader.Text">XAML-based Localization with Satellite Assemblies</system:String>
+            <system:String x:Key="menuItem.File">Файлы</system:String>
+            <system:String x:Key="menuItem.View">Вид</system:String>
+            <system:String x:Key="menuItem.Language">Язык</system:String>
+            <system:String x:Key="menuItem.Help">Справка</system:String>
+            <system:String x:Key="treeViewItem.Options">Настройк</system:String>
+            <system:String x:Key="treeViewItem.Layout">Вид окна</system:String>
+            <system:String x:Key="treeViewItem.Display">Содержимое панелей</system:String>
+            <system:String x:Key="treeViewItem.Icons">Значки</system:String>
+            <system:String x:Key="treeViewItem.Fonts">Шрифты</system:String>
+            <system:String x:Key="treeViewItem.Color">Цвета</system:String>
+            <system:String x:Key="treeViewItem.Tabstops">Табуляторы</system:String>
+            <system:String x:Key="treeViewItem.FolderTabs">Вкладки папок</system:String>
+            <system:String x:Key="treeViewItem.CustomColumns">Наборы колонок</system:String>
+            <system:String x:Key="treeViewItem.ViewMode">Стили оформления</system:String>
+            <system:String x:Key="treeViewItem.AutoSwitchMode">Автовыбор стиля</system:String>
+            <system:String x:Key="treeViewItem.Operation">Основные операции</system:String>
+            <system:String x:Key="treeViewItem.Edit/View">Правка/Просмотр</system:String>
+            <system:String x:Key="treeViewItem.Copy/Delete">Копирование/Удаление</system:String>
+            <system:String x:Key="treeViewItem.Refresh">Автообновление</system:String>
+            <system:String x:Key="treeViewItem.QuickSearch">Быстрый поиск</system:String>
+        </ResourceDictionary>
+    </ContentPresenter.Resources>
+</ContentPresenter>
