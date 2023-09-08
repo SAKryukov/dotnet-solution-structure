@@ -3,6 +3,7 @@
     using System.Reflection;
     using System.Windows;
     using MetadataDictionary = System.Collections.Generic.Dictionary<string, string>;
+    using FlatResourceDictionary = System.Collections.Generic.Dictionary<string, object>;
 
     public abstract class AdvancedApplicationBase : Application {
 
@@ -65,13 +66,13 @@
         public string SupportedOSPlatformName { get { return assemblyWrapper.SupportedOSPlatformName; } }
         public static new AdvancedApplicationBase Current { get { return (AdvancedApplicationBase)Application.Current; } }
 
-        public System.Collections.Generic.Dictionary<string, object> GetResources() {
+        public FlatResourceDictionary GetResources() {
             return GetResources(Resources);
         } //GetResources
-        public static System.Collections.Generic.Dictionary<string, object> GetResources(Window window) {
+        public static FlatResourceDictionary GetResources(Window window) {
             return GetResources(window?.Resources);
         } //GetResources
-        public static System.Collections.Generic.Dictionary<string, object> GetResources(ResourceDictionary dictionary) {
+        public static FlatResourceDictionary GetResources(ResourceDictionary dictionary) {
             if (dictionary == null) return null;
             System.Collections.Generic.Dictionary<string, object> result = new();
             static void GetPartialResources(System.Collections.Generic.Dictionary<string, object> currentResult, ResourceDictionary partialDictionary) {
