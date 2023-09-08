@@ -65,8 +65,8 @@
         public string SupportedOSPlatformName { get { return assemblyWrapper.SupportedOSPlatformName; } }
         public static new AdvancedApplicationBase Current { get { return (AdvancedApplicationBase)Application.Current; } }
 
-        public static System.Collections.Generic.Dictionary<string, object> GetResources() {
-            return GetResources(Current?.Resources);
+        public System.Collections.Generic.Dictionary<string, object> GetResources() {
+            return GetResources(Resources);
         } //GetResources
         public static System.Collections.Generic.Dictionary<string, object> GetResources(Window window) {
             return GetResources(window?.Resources);
