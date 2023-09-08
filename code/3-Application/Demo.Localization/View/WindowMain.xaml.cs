@@ -7,14 +7,12 @@
 
         public WindowMain() {
             advancedApplication = AdvancedApplicationBase.Current;
+            Agnostic.UI.ApplicationSatelliteAssemblyLoader.Localize(this, culture);
             InitializeComponent();
+            //var cultures = Agnostic.UI.ApplicationSatelliteAssemblyLoader.
         } //WindowMain
 
-        protected override void OnContentRendered(EventArgs e) {
-            base.OnContentRendered(e);
-            System.Windows.Input.Keyboard.Focus(treeView);
-        }
-
+        readonly System.Globalization.CultureInfo culture = new("ru-RU"); //SA???
         readonly AdvancedApplicationBase advancedApplication;
 
     } //class WindowMain

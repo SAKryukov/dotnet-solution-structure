@@ -13,7 +13,11 @@
                 <ResourceDictionary>
                     <Style TargetType="TreeViewItem">
                         <Setter Property="IsExpanded" Value="True" />
-                        <Setter Property="Padding" Value="{StaticResource LeftRightBottomMargin}" />
+                        <Setter Property="Padding" Value="{StaticResource LeftRightBottomMargin}"/>
+                    </Style>
+                    <Style x:Key="treeViewItem" TargetType="TreeViewItem">
+                        <Setter Property="IsExpanded" Value="True" />
+                        <Setter Property="Padding" Value="{StaticResource LeftRightBottomMargin}"/>
                     </Style>
                     <Style x:Key="headerTextBlock" TargetType="TextBlock">
                         <Setter Property="Background" Value="Navy" />
@@ -60,37 +64,38 @@
                     <DockPanel HorizontalAlignment="Stretch"></DockPanel>
                 </ItemsPanelTemplate>
             </Menu.ItemsPanel>
-            <MenuItem Header="{StaticResource menuItem.File}">
+            <MenuItem Header="{DynamicResource menuItem.File}">
             </MenuItem>
-            <MenuItem Header="{StaticResource menuItem.View}">
+            <MenuItem Header="{DynamicResource menuItem.View}">
             </MenuItem>
-            <MenuItem x:Name="menuItemLanguage" Header="{StaticResource menuItem.Language}">
+            <MenuItem x:Name="menuItemLanguage" Header="{DynamicResource menuItem.Language}">
             </MenuItem>
-            <MenuItem x:Name="menuItemHelp" Header="{StaticResource menuItem.Help}" HorizontalAlignment="Right">
+            <MenuItem x:Name="menuItemHelp" Header="{DynamicResource menuItem.Help}" HorizontalAlignment="Right">
             </MenuItem>
         </Menu>
         <Border x:Name="borderMain" Grid.Row="1">
             <StackPanel>
                 <TextBlock Style="{StaticResource headerTextBlock}" Text="{StaticResource textBoxHeader.Text}"/>
-                <TreeView x:Name="treeView" Padding="{StaticResource RightMargin}">
-                    <TreeViewItem Header="{StaticResource treeViewItem.Options}" IsSelected="True">
-                        <TreeViewItem Header="{StaticResource treeViewItem.Layout}"/>
-                        <TreeViewItem Header="{StaticResource treeViewItem.Display}">
-                            <TreeViewItem Header="{StaticResource treeViewItem.Icons}"/>
-                            <TreeViewItem Header="{StaticResource treeViewItem.Fonts}"/>
-                            <TreeViewItem Header="{StaticResource treeViewItem.Color}"/>
-                            <TreeViewItem Header="{StaticResource treeViewItem.Tabstops}"/>
-                            <TreeViewItem Header="{StaticResource treeViewItem.FolderTabs}"/>
-                            <TreeViewItem Header="{StaticResource treeViewItem.CustomColumns}"/>
-                            <TreeViewItem Header="{StaticResource treeViewItem.ViewMode}">
-                                <TreeViewItem Header="{StaticResource treeViewItem.AutoSwitchMode}"/>
+                <TreeView x:Name="treeView" Padding="{DynamicResource RightMargin}">
+                    <TreeViewItem Header="{DynamicResource treeViewItem.Options}" IsSelected="True">
+                        <TreeViewItem Header="{DynamicResource treeViewItem.Display}">
+                            <TreeViewItem Header=" ? " IsEnabled="false"/>
+                            <TreeViewItem Header="{DynamicResource treeViewItem.Layout}"/>
+                            <TreeViewItem Header="{DynamicResource treeViewItem.Icons}"/>
+                            <TreeViewItem Header="{DynamicResource treeViewItem.Fonts}"/>
+                            <TreeViewItem Header="{DynamicResource treeViewItem.Color}"/>
+                            <TreeViewItem Header="{DynamicResource treeViewItem.Tabstops}"/>
+                            <TreeViewItem Header="{DynamicResource treeViewItem.FolderTabs}"/>
+                            <TreeViewItem Header="{DynamicResource treeViewItem.CustomColumns}"/>
+                            <TreeViewItem Header="{DynamicResource treeViewItem.ViewMode}">
+                                <TreeViewItem Header="{DynamicResource treeViewItem.AutoSwitchMode}"/>
                             </TreeViewItem>
                         </TreeViewItem>
-                        <TreeViewItem Header="{StaticResource treeViewItem.Operation}">
-                            <TreeViewItem Header="{StaticResource treeViewItem.Edit/View}"/>
-                            <TreeViewItem Header="{StaticResource treeViewItem.Copy/Delete}"/>
-                            <TreeViewItem Header="{StaticResource treeViewItem.Refresh}"/>
-                            <TreeViewItem Header="{StaticResource treeViewItem.QuickSearch}"/>
+                        <TreeViewItem Header="{DynamicResource treeViewItem.Operation}">
+                            <TreeViewItem Header="{DynamicResource treeViewItem.Edit/View}"/>
+                            <TreeViewItem Header="{DynamicResource treeViewItem.Copy/Delete}"/>
+                            <TreeViewItem Header="{DynamicResource treeViewItem.Refresh}"/>
+                            <TreeViewItem Header="{DynamicResource treeViewItem.QuickSearch}"/>
                         </TreeViewItem>
                     </TreeViewItem>
                 </TreeView>
