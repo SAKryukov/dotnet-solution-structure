@@ -65,6 +65,31 @@
         public string SupportedOSPlatformName { get { return assemblyWrapper.SupportedOSPlatformName; } }
         public static new AdvancedApplicationBase Current { get { return (AdvancedApplicationBase)Application.Current; } }
 
+        public static System.Collections.Generic.Dictionary<string, object> GetResources() {
+            return GetResources(Current?.Resources);
+        } //GetResources
+        public static System.Collections.Generic.Dictionary<string, object> GetResources(Window window) {
+            return GetResources(window?.Resources);
+        } //GetResources
+        public static System.Collections.Generic.Dictionary<string, object> GetResources(ResourceDictionary dictionary) {
+            if (dictionary == null) return null;
+            System.Collections.Generic.Dictionary<string, object> result = new();
+            static void GetPartialResources(System.Collections.Generic.Dictionary<string, object> currentResult, ResourceDictionary partialDictionary) {
+                var keys = partialDictionary.Keys;
+                foreach (var merged in partialDictionary.MergedDictionaries)
+                    GetPartialResources(currentResult, merged);
+                foreach (var key in keys) {
+                    string stringKey = key.ToString();
+                    if (currentResult.ContainsKey(stringKey))
+                        currentResult[stringKey] = partialDictionary[key];
+                    else
+                        currentResult.Add(stringKey, partialDictionary[key]);
+                } //loop
+            } //GetPartialResources
+            GetPartialResources(result, dictionary);
+            return result;
+        } //GetResources
+
         bool startupComplete;
 
         readonly AssemblyWrapper assemblyWrapper = new(Assembly.GetEntryAssembly());
