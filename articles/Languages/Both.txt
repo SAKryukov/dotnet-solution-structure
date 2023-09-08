@@ -1,0 +1,19 @@
+﻿XAML-based Localization with Satellite Assemblies
+
+Layout		490="Настройка: Вид окна" 490="Apariencia"
+Display 		486="Настройка: Содержимое панелей" 486="Pantalla"
+Icons 		477="Настройка: Значки" "Iconos"
+Fonts		492="Настройка: Шрифты" 492="Fuentes"
+Color 		494="Настройка: Цвета" 494="Colores"
+Tabstops		497="Настройка: Табуляторы" 497="Columnas"
+Folder Tabs	488="Настройка: Вкладки папок" 488="Pestańas"
+Custom Columns	483="Настройка: Наборы колонок" 483="Vistas personalizadas"
+View Mode 	2939="Настройка: Стили оформления" 2939="Conf: Vistas Personalizadas"
+Auto Switch Mode	2940="Настройка: Автовыбор стиля" 2940="Conf: cambio automático de Vistas"
+Operation 	516="Настройка: Основные операции" 516="Operación"
+Edit/View		496="Настройка: Правка/Просмотр" 496="Editar/Ver"
+Copy/Delete 	487="Настройка: Копирование/Удаление" 487="Copiar/Eliminar" 
+Refresh 		478="Настройка: Автообновление" 478="Actualizar lista de ficheros"
+Quick Search	479="Настройка: Быстрый поиск" 479="Búsqueda rápida"
+
+499="Config.: Idioma (Language)" Язык
