@@ -5,7 +5,9 @@ namespace SA.Test.Main {
     static class MainClass {
         [STAThread]
         static void Main() {
-            Application app = new Agnostic.UI.AdvancedApplication<View.WindowMainTest>();
+            Application app = new Agnostic.UI.AdvancedApplication<View.WindowMainTest>() {
+                Resources = new PrimitiveResourceSet().Resources
+            };
             app.Run();
         } //MainClass
     } //class MainClass

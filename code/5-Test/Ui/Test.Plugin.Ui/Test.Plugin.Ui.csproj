@@ -11,5 +11,18 @@
     <ProjectReference Include="..\..\..\2-Semantic\Ui\Semantic.UI.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="Main\PrimitiveResourceSet.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Main\PrimitiveResourceSet.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+
 
 </Project>
