@@ -10,6 +10,15 @@
                 <ResourceDictionary Source="pack://application:,,,/Semantic.UI;component/Resources/Semantic.UI.Common.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/Semantic.UI;component/Resources/Semantic.UI.MenuItem.xaml"/>
                 <ResourceDictionary>
+                    <Style TargetType="TreeViewItem">
+                        <Setter Property="IsExpanded" Value="True" />
+                        <Setter Property="Padding" Value="{StaticResource LeftRightBottomMargin}" />
+                    </Style>
+                    <Style x:Key="headerTextBlock" TargetType="TextBlock">
+                        <Setter Property="Background" Value="Navy" />
+                        <Setter Property="Foreground" Value="White" />
+                        <Setter Property="Padding" Value="{StaticResource Padding}" />
+                    </Style>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
@@ -34,16 +43,25 @@
             </MenuItem>
         </Menu>
         <Border x:Name="borderMain" Grid.Row="1">
-            <TreeView>
-                <TreeViewItem Header="Options">
-                    <TreeViewItem Header="Layout"></TreeViewItem>
-                    <TreeViewItem Header="Display">
-                        <TreeViewItem Header="Icons"/>
-                        <TreeViewItem Header="Fonts"/>
-                        <TreeViewItem Header="Color"/>
+            <StackPanel>
+                    <TextBlock Style="{StaticResource headerTextBlock}">XAML-based Localization with Sattellite Assemblies</TextBlock>
+                <TreeView x:Name="treeView" Padding="{StaticResource RightMargin}">
+                    <TreeViewItem Header="Options" IsSelected="True">
+                        <TreeViewItem Header="Layout"></TreeViewItem>
+                        <TreeViewItem Header="Display">
+                            <TreeViewItem Header="Icons"/>
+                            <TreeViewItem Header="Fonts"/>
+                            <TreeViewItem Header="Color"/>
+                            <TreeViewItem Header="Tabstops"/>
+                            <TreeViewItem Header="Folder Tabs"/>
+                            <TreeViewItem Header="Custom Columns"/>
+                            <TreeViewItem Header="View Mode">
+                                <TreeViewItem Header="Auto Switch Mode"/>
+                            </TreeViewItem>
+                        </TreeViewItem>
                     </TreeViewItem>
-                </TreeViewItem>
-            </TreeView>
+                </TreeView>
+            </StackPanel>
         </Border>
         <Border Grid.Row="2">
             <StatusBar Style="{StaticResource StatusBar}" HorizontalAlignment="Stretch">
