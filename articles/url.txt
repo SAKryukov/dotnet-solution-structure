@@ -29,3 +29,7 @@ https://learn.microsoft.com/en-us/dotnet/core/project-sdk/msbuild-props
 
 Probing for satellite assemblies *.deps.json:
 https://learn.microsoft.com/en-us/dotnet/core/dependency-loading/default-probing
+
+3rd article:
+XAML-based localization with satellite assemblies
+XAML-based Localization with Satellite Assemblies

@@ -28,6 +28,7 @@ namespace SA.Test.Plugin {
         readonly Assembly assembly = Assembly.GetEntryAssembly();
 
         static void Main(string[] comamndLine) {
+            Console.OutputEncoding = System.Text.Encoding.UTF8;
             (new Test()).Execute(comamndLine.Length == 0);
         } //Main
 

@@ -6,9 +6,10 @@
 
     public interface IRecognizable { } // all host-side plugin interfaces derive from this interface
 
-    public abstract class PluginFinderBase {
+    public abstract class PluginFinderBase : IDisposable {
         public virtual void Unload() { }
         public Assembly Assembly { get; private protected set; }
+        void IDisposable.Dispose() { Unload(); }
     } //PluginFinderBase
 
     public class PluginFinder<INTERFACE> : PluginFinderBase
