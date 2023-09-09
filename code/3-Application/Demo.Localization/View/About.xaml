@@ -11,14 +11,11 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/Semantic.UI;component/Resources/Semantic.UI.Common.xaml"/>
                 <ResourceDictionary>
-                    <Style TargetType="TextBlock" x:Key="textBlock">
-                        <Setter Property="Margin" Value="80 10 80 20"/>
-                    </Style>
                     <system:String x:Key="mainText">Hello!</system:String>
                     <Style x:Key="mainTextStyle" TargetType="TextBlock">
                         <Setter Property="Foreground" Value="Black"/>
                         <Setter Property="FontSize" Value="22" />
-                        <Setter Property="Margin" Value="0 0 0 10"/>
+                        <Setter Property="Margin" Value="0 10 0 16"/>
                         <Setter Property="Padding" Value="40 0 40 0"/>
                         <Setter Property="FontWeight" Value="Normal"/>
                     </Style>
@@ -35,7 +32,7 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-    <Border Padding="30 12 30 12" Style="{DynamicResource borderMain}">
+    <Border Padding="30 4 30 4" Style="{DynamicResource borderMain}">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>

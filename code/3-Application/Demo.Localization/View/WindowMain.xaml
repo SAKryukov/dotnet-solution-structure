@@ -26,6 +26,7 @@
                         <Setter Property="HorizontalAlignment" Value="Center" />
                     </Style>
                     <Style x:Key="listBoxDemo" TargetType="ListBox">
+                        <Setter Property="Margin" Value="{StaticResource BottomTopMargin}" />
                         <Setter Property="Background" Value="Transparent" />
                         <Setter Property="Foreground" Value="Purple" />
                         <Setter Property="FontWeight" Value="SemiBold" />

@@ -2,7 +2,7 @@ namespace SA.Test.Main {
     using System;
     using System.Windows;
 
-    static class MainClass {
+    static class TestStart {
         [STAThread]
         static void Main() {
             Application app = new Agnostic.UI.AdvancedApplication<View.WindowMainTest>() {
@@ -10,6 +10,6 @@ namespace SA.Test.Main {
             };
             app.Run();
         } //MainClass
-    } //class MainClass
+    } //class TestStart
 
 }
