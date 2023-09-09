@@ -17,3 +17,6 @@ Refresh 		478="Настройка: Автообновление" 478="Actualizar
 Quick Search	479="Настройка: Быстрый поиск" 479="Búsqueda rápida"
 
 499="Config.: Idioma (Language)" Язык
+
+Quit application
+Quit Выход Salir
