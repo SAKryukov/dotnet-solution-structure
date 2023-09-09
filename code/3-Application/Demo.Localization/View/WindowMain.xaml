@@ -105,9 +105,6 @@
                 <StatusBarItem>
                     <TextBlock x:Name="textBlockStatusBarCopyright" Margin="{StaticResource LeftMargin}"/>
                 </StatusBarItem>
-                <StatusBarItem  HorizontalAlignment="Right">
-                    <TextBlock x:Name="textBoxScreenshotStatusBarTool" Margin="{StaticResource ButtonStackRightMargin}"/>
-                </StatusBarItem>
             </StatusBar>
         </Border>
     </Grid>

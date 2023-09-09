@@ -2,9 +2,11 @@ namespace SA.Agnostic.UI {
     using System.Windows;
     using ResourceFinderDictionary = System.Collections.Generic.Dictionary<string, System.Windows.ResourceDictionary>;
 
-    public class ApplicationSatelliteAssemblyPluginImplementationHelper : ResourceFinderDictionary {
+    public abstract class ApplicationSatelliteAssemblyPluginImplementationBase : ResourceFinderDictionary, IApplicationSatelliteAssembly {
 
-        public ApplicationSatelliteAssemblyPluginImplementationHelper(FrameworkElement[] elements) {
+        public ApplicationSatelliteAssemblyPluginImplementationBase() {
+            FrameworkElement[] elements = GetResourceSources();
+            if (elements == null) return;
             foreach (var element in elements) {
                 if (element == null) continue;
                 string key = element.GetType().FullName;
@@ -13,16 +15,18 @@ namespace SA.Agnostic.UI {
             } //loop
         } //ApplicationSatelliteAssemblyPluginImplementation
 
-        public new ResourceDictionary this[string fullTypeName] {
+        protected abstract FrameworkElement[] GetResourceSources();
+
+        ResourceDictionary IApplicationSatelliteAssembly.this[string fullTypeName] {
             get {
                 if (TryGetValue(fullTypeName, out ResourceDictionary value))
                     return value;
                 else
                     return null;
-            }
-        } //this
+            } //get IApplicationSatelliteAssembly.this
+        } //IApplicationSatelliteAssembly.this
 
-    } //class ApplicationSatelliteAssemblyPluginImplementation
+    } //class ApplicationSatelliteAssemblyPluginImplementationBase
 
 }
 
