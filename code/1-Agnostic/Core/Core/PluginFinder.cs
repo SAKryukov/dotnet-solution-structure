@@ -60,8 +60,13 @@
                         ThrowImplementingAssemblyException(DefinitionSet.FormatNonClassImplementorException(implementorType.FullName));
                     if (!implementorType.IsAssignableTo(implementorAttribute.InterfaceType))
                         ThrowImplementingAssemblyException(DefinitionSet.FormatNonImplementorException(implementorType.FullName, implementorAttribute.InterfaceType.FullName));
-                    var constructorInfo = implementorType.GetConstructor(Type.EmptyTypes);
-                    anInstance = constructorInfo.Invoke(Array.Empty<object>());
+                    var constructorInfo = implementorType.GetConstructor(
+                        BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance,
+                        null,
+                        Type.EmptyTypes,
+                        null);
+                    if (constructorInfo != null)
+                        anInstance = constructorInfo.Invoke(Array.Empty<object>());
                     break;
                 }
             } //loop
