@@ -43,11 +43,6 @@
                     <system:String x:Key="treeViewItem.CustomColumns">Custom Columns</system:String>
                     <system:String x:Key="treeViewItem.ViewMode">View Mode</system:String>
                     <system:String x:Key="treeViewItem.AutoSwitchMode">Auto Switch Mode</system:String>
-                    <system:String x:Key="treeViewItem.Operation">Operation</system:String>
-                    <system:String x:Key="treeViewItem.Edit/View">Edit/View</system:String>
-                    <system:String x:Key="treeViewItem.Copy/Delete">Copy/Delete</system:String>
-                    <system:String x:Key="treeViewItem.Refresh">Refresh</system:String>
-                    <system:String x:Key="treeViewItem.QuickSearch">Quick Search</system:String>
                     <Style x:Key="borderMain" TargetType="Border">
                         <Setter Property="Background" Value="White"/>
                     </Style>

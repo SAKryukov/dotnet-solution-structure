@@ -20,11 +20,6 @@
             <system:String x:Key="treeViewItem.CustomColumns">Vistas personalizadas</system:String>
             <system:String x:Key="treeViewItem.ViewMode">Modo de vista</system:String>
             <system:String x:Key="treeViewItem.AutoSwitchMode">Cambio automático de Vistas</system:String>
-            <system:String x:Key="treeViewItem.Operation">Operación</system:String>
-            <system:String x:Key="treeViewItem.Edit/View">Editar/Ver</system:String>
-            <system:String x:Key="treeViewItem.Copy/Delete">Copiar/Eliminar</system:String>
-            <system:String x:Key="treeViewItem.Refresh">Actualizar lista de ficheros</system:String>
-            <system:String x:Key="treeViewItem.QuickSearch">Búsqueda rápida</system:String>
             <Style x:Key="borderMain" TargetType="Border">
                 <Setter Property="Background" Value="#EEFFEE"/>
             </Style>

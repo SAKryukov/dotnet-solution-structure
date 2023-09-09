@@ -20,11 +20,6 @@
             <system:String x:Key="treeViewItem.CustomColumns">Наборы колонок</system:String>
             <system:String x:Key="treeViewItem.ViewMode">Стили оформления</system:String>
             <system:String x:Key="treeViewItem.AutoSwitchMode">Автовыбор стиля</system:String>
-            <system:String x:Key="treeViewItem.Operation">Основные операции</system:String>
-            <system:String x:Key="treeViewItem.Edit/View">Правка/Просмотр</system:String>
-            <system:String x:Key="treeViewItem.Copy/Delete">Копирование/Удаление</system:String>
-            <system:String x:Key="treeViewItem.Refresh">Автообновление</system:String>
-            <system:String x:Key="treeViewItem.QuickSearch">Быстрый поиск</system:String>
             <Style x:Key="borderMain" TargetType="Border">
                 <Setter Property="Background" Value="#FFEEEE"/>
             </Style>

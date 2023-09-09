@@ -1,9 +1,14 @@
 ﻿<ContentPresenter x:Class="SA.Plugin.Localization.View.ApplicationResourceSource"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:system="clr-namespace:System;assembly=netstandard"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <ContentPresenter.Resources>
         <ResourceDictionary>
-            
+            <system:String x:Key="treeViewItem.Operation">Operation</system:String>
+            <system:String x:Key="treeViewItem.Edit/View">Edit/View</system:String>
+            <system:String x:Key="treeViewItem.Copy/Delete">Copy/Delete</system:String>
+            <system:String x:Key="treeViewItem.Refresh">Refresh</system:String>
+            <system:String x:Key="treeViewItem.QuickSearch">Quick Search</system:String>            
         </ResourceDictionary>
     </ContentPresenter.Resources>
 </ContentPresenter>

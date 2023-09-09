@@ -10,6 +10,7 @@
 
         public WindowMain() {
             advancedApplication = AdvancedApplicationBase.Current;
+            advancedApplication.Resources = new ApplicationResourceSource().Resources;
             InitializeComponent();
             PopulateCultureMenu();
             menuItemHelp.Click += (_, _) => about.ShowAbout(this);
