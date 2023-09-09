@@ -103,7 +103,10 @@
         <Border Grid.Row="2">
             <StatusBar Style="{StaticResource StatusBar}" HorizontalAlignment="Stretch">
                 <StatusBarItem>
-                    <TextBlock x:Name="textBlockStatusBarCopyright" Margin="{StaticResource LeftMargin}"/>
+                    <TextBlock x:Name="textBlockEnglishName" Margin="{StaticResource LeftMargin}"/>
+                </StatusBarItem>
+                <StatusBarItem>
+                    <TextBlock x:Name="textBlockNativeName" Margin="{StaticResource LeftMargin}"/>
                 </StatusBarItem>
             </StatusBar>
         </Border>

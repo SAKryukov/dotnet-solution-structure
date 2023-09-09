@@ -4,12 +4,13 @@
     using ResourceDictionary = System.Windows.ResourceDictionary;
     using Assembly = System.Reflection.Assembly;
     using CultureInfo = System.Globalization.CultureInfo;
+    using Thread = System.Threading.Thread;
     using Path = System.IO.Path;
     using Directory = System.IO.Directory;
     using EnumerationOptions = System.IO.EnumerationOptions;
     using ApplicationSatelliteAssemblyList = System.Collections.Generic.List<IApplicationSatelliteAssembly>;
     using CultureList = System.Collections.Generic.List<System.Globalization.CultureInfo>;
-    using PluginLoader = PluginLoader<UI.IApplicationSatelliteAssembly>;
+    using PluginLoader = PluginLoader<IApplicationSatelliteAssembly>;
 
     public sealed class ApplicationSatelliteAssemblyLoader {
 
@@ -47,7 +48,21 @@
             } //get ImplementedCultures
         } //ImplementedCultures
 
-        public static void Localize(FrameworkElement target, CultureInfo currentCulture) {
+        public static void Localize(CultureInfo currentCulture) {
+            Thread.CurrentThread.CurrentCulture = currentCulture;
+            Thread.CurrentThread.CurrentUICulture = currentCulture;
+            System.Windows.Application target = System.Windows.Application.Current;
+            if (target == null) return;
+            foreach (FrameworkElement window in target.Windows)
+                Localize(currentCulture, window);
+        } //Localize
+
+        public static void Localize(CultureInfo currentCulture, params FrameworkElement[] targets) {
+            foreach (var target in targets)
+                Localize(currentCulture, target);
+        } //Localize
+
+        static void Localize(CultureInfo currentCulture, FrameworkElement target) {
             if (target == null) return;
             ResourceDictionary targetDictionary = target.Resources;
             FlatResourceDictionary targetFlatResourceDictionary = AdvancedApplicationBase.GetResources(targetDictionary);

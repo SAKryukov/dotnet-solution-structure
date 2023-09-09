@@ -18,7 +18,7 @@
             <system:String x:Key="treeViewItem.Tabstops">Columnas</system:String>
             <system:String x:Key="treeViewItem.FolderTabs">Pestańas</system:String>
             <system:String x:Key="treeViewItem.CustomColumns">Vistas personalizadas</system:String>
-            <system:String x:Key="treeViewItem.ViewMode">Vistas Personalizadas</system:String>
+            <system:String x:Key="treeViewItem.ViewMode">Modo de vista</system:String>
             <system:String x:Key="treeViewItem.AutoSwitchMode">Cambio automático de Vistas</system:String>
             <system:String x:Key="treeViewItem.Operation">Operación</system:String>
             <system:String x:Key="treeViewItem.Edit/View">Editar/Ver</system:String>

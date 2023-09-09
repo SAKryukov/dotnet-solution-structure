@@ -25,6 +25,12 @@
                     <Style x:Key="borderMain" TargetType="Border">
                         <Setter Property="Background" Value="White"/>
                     </Style>
+                    <Style x:Key="button" TargetType="Button">
+                        <Setter Property="Padding" Value="20 4 20 4"/>
+                        <Setter Property="Content" Value="_Close"/>
+                        <Setter Property="IsDefault" Value="True"/>
+                        <Setter Property="IsCancel" Value="True"/>
+                    </Style>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
@@ -38,7 +44,7 @@
             <TextBlock HorizontalAlignment="Center" Text="{DynamicResource mainText}" Style="{DynamicResource mainTextStyle}"/>
             <StatusBar Grid.Row="1" Background="Transparent">
                 <StatusBarItem HorizontalAlignment="Center">
-                    <Button Padding="{StaticResource LeftRightMargin}" IsCancel="True">Close</Button>
+                    <Button Style="{DynamicResource button}"/>
                 </StatusBarItem>
             </StatusBar>
         </Grid>

@@ -1,7 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <Private>false</Private>
     <RootNamespace>SA.Plugin.Localization</RootNamespace>
     <OutputPath>$(OutputPath)\en-US</OutputPath>
     <AssemblyName>Demo.Localization.resources</AssemblyName>
