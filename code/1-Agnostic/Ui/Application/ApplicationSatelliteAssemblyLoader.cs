@@ -17,7 +17,7 @@
             get {
                 var directories = Directory.EnumerateDirectories(
                     Path.GetDirectoryName(Assembly.GetEntryAssembly().Location),
-                    "*",
+                    DefinitionSet.maskAllFiles,
                     EnumerationOptions);
                 CultureList list = new();
                 foreach (var directory in directories) {
@@ -28,7 +28,7 @@
                     if (culture == null) continue;
                     var files = Directory.EnumerateFiles(
                         directory,
-                        "*.resources.dll", //SA???
+                        DefinitionSet.maskResourceFile,
                         EnumerationOptions);
                     bool found = false;
                     foreach (var file in files) {
@@ -58,6 +58,7 @@
                     AdvancedApplicationBase.GetResources(interfaceImplementation[target.GetType().FullName]);
                 foreach(var pair in targetFlatResourceDictionary) {
                     if (pair.Value == null) continue;
+                    if (sourceFlatResourceDictionary == null) continue;
                     if (!sourceFlatResourceDictionary.TryGetValue(pair.Key, out object sourceValue)) continue;
                     if (sourceValue == null) continue;
                     if (sourceValue.GetType() != pair.Value.GetType()) continue;
@@ -82,8 +83,8 @@
             if (!Directory.Exists(satelliteDirectory)) return null;
             var candidates = Directory.EnumerateFiles(
                 satelliteDirectory,
-                $"{Path.GetFileNameWithoutExtension(applicationFileName)}.resources.dll", //SA???
-                EnumerationOptions);
+                Path.GetFileNameWithoutExtension(applicationFileName) + DefinitionSet.suffixSatelliteAssemblyFile,
+                EnumerationOptions); ;
             ApplicationSatelliteAssemblyList list = new();
             foreach (string candidate in candidates) {
                 PluginLoader<IApplicationSatelliteAssembly> loader = new(candidate);

@@ -1,6 +1,7 @@
 ﻿<Window x:Class="SA.Application.View.About"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:system="clr-namespace:System;assembly=netstandard"
         Style="{DynamicResource CommonFont}"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterOwner"
@@ -13,17 +14,21 @@
                     <Style TargetType="TextBlock" x:Key="textBlock">
                         <Setter Property="Margin" Value="80 10 80 20"/>
                     </Style>
+                    <system:String x:Key="mainText">Hello!</system:String>
+                    <Style x:Key="borderMain" TargetType="Border">
+                        <Setter Property="Background" Value="White"/>
+                    </Style>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-    <Border Padding="30 12 30 12">
+    <Border Padding="30 12 30 12" Style="{DynamicResource borderMain}">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <TextBlock HorizontalAlignment="Center" Style="{StaticResource textBlock}">About</TextBlock>
+            <TextBlock HorizontalAlignment="Center" Style="{StaticResource textBlock}" Text="{DynamicResource mainText}"/>
             <StatusBar Grid.Row="1" Background="Transparent">
                 <StatusBarItem HorizontalAlignment="Center">
                     <Button Padding="{StaticResource LeftRightMargin}" IsCancel="True">Close</Button>

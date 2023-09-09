@@ -1,9 +1,13 @@
-﻿<ContentPresenter x:Class="SA.Plugin.Localization.View.About"
+﻿<ContentPresenter x:Class="SA.Application.View.About"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:system="clr-namespace:System;assembly=netstandard"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <ContentPresenter.Resources>
         <ResourceDictionary>
-            
+            <system:String x:Key="mainText">Привет!</system:String>
+            <Style x:Key="borderMain" TargetType="Border">
+                <Setter Property="Background" Value="#FFEEEE"/>
+            </Style>
         </ResourceDictionary>
     </ContentPresenter.Resources>
 </ContentPresenter>

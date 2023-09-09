@@ -2,6 +2,10 @@
 
     static class DefinitionSet {
 
+        internal static string FormatCulture(string name, string EnglishName, string nativeName) =>
+            $"{name}: {EnglishName}, {nativeName}";
+
+        /*
         internal static readonly string markEntryAssembly = char.ConvertFromUtf32(0x1F3DA);
         internal static readonly string markPluginAssembly = char.ConvertFromUtf32(0x1F50C);
         internal static string FormatSizeInformatin(double x, double y) =>
@@ -43,7 +47,7 @@
             internal static string FormatTime(System.DateTime time) =>
                 time.ToString("yyyy-MM-dd HH:mm:ss");
         } //class ExceptionReport
-
+*/
     } //class DefinitionSet
 
 }

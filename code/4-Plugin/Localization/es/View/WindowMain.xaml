@@ -1,4 +1,4 @@
-﻿<ContentPresenter x:Class="SA.Plugin.Localization.View.WindowMain"
+﻿<ContentPresenter x:Class="SA.Application.View.WindowMain"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:system="clr-namespace:System;assembly=netstandard"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
@@ -25,6 +25,9 @@
             <system:String x:Key="treeViewItem.Copy/Delete">Copiar/Eliminar</system:String>
             <system:String x:Key="treeViewItem.Refresh">Actualizar lista de ficheros</system:String>
             <system:String x:Key="treeViewItem.QuickSearch">Búsqueda rápida</system:String>
+            <Style x:Key="borderMain" TargetType="Border">
+                <Setter Property="Background" Value="#EEFFEE"/>
+            </Style>
         </ResourceDictionary>
     </ContentPresenter.Resources>
 </ContentPresenter>

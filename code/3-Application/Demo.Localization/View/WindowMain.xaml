@@ -48,6 +48,9 @@
                     <system:String x:Key="treeViewItem.Copy/Delete">Copy/Delete</system:String>
                     <system:String x:Key="treeViewItem.Refresh">Refresh</system:String>
                     <system:String x:Key="treeViewItem.QuickSearch">Quick Search</system:String>
+                    <Style x:Key="borderMain" TargetType="Border">
+                        <Setter Property="Background" Value="White"/>
+                    </Style>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
@@ -64,19 +67,15 @@
                     <DockPanel HorizontalAlignment="Stretch"></DockPanel>
                 </ItemsPanelTemplate>
             </Menu.ItemsPanel>
-            <MenuItem Header="{DynamicResource menuItem.File}">
-            </MenuItem>
-            <MenuItem Header="{DynamicResource menuItem.View}">
-            </MenuItem>
-            <MenuItem x:Name="menuItemLanguage" Header="{DynamicResource menuItem.Language}">
-            </MenuItem>
-            <MenuItem x:Name="menuItemHelp" Header="{DynamicResource menuItem.Help}" HorizontalAlignment="Right">
-            </MenuItem>
+            <MenuItem Header="{DynamicResource menuItem.File}"/>
+            <MenuItem Header="{DynamicResource menuItem.View}"/>
+            <MenuItem x:Name="menuItemLanguage" Header="{DynamicResource menuItem.Language}"/>
+            <MenuItem x:Name="menuItemHelp" Header="{DynamicResource menuItem.Help}" HorizontalAlignment="Right"/>
         </Menu>
-        <Border x:Name="borderMain" Grid.Row="1">
-            <StackPanel>
+        <Border x:Name="borderMain" Grid.Row="1" Style="{DynamicResource borderMain}">
+            <StackPanel Background="Transparent">
                 <TextBlock Style="{StaticResource headerTextBlock}" Text="{StaticResource textBoxHeader.Text}"/>
-                <TreeView x:Name="treeView" Padding="{DynamicResource RightMargin}">
+                <TreeView x:Name="treeView" Padding="{DynamicResource RightMargin}" Background="Transparent">
                     <TreeViewItem Header="{DynamicResource treeViewItem.Options}" >
                         <TreeViewItem Header="{DynamicResource treeViewItem.Display}">
                             <TreeViewItem Header="  ...  " IsEnabled="False" />

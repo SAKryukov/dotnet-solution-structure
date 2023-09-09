@@ -10,17 +10,17 @@ namespace SA.Plugin.Localization {
 
         ResourceDictionary IApplicationSatelliteAssembly.this[string fullTypeName] {
             get {
-                if (fullTypeName == "SA.Application.View.About") {
+                if (fullTypeName == about.GetType().FullName) {
                     return about.Resources;
-                } else if (fullTypeName == "SA.Application.View.WindowMain") {
+                } else if (fullTypeName == windowMain.GetType().FullName) {
                     return windowMain.Resources;
                 } //if
                 return null;
             }
         } //this
 
-        View.WindowMain windowMain = new();
-        View.About about = new();
+        SA.Application.View.WindowMain windowMain = new();
+        SA.Application.View.About about = new();
 
     } //class Implementation
 
