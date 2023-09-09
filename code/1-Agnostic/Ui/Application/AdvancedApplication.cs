@@ -66,6 +66,14 @@
         public string SupportedOSPlatformName { get { return assemblyWrapper.SupportedOSPlatformName; } }
         public static new AdvancedApplicationBase Current { get { return (AdvancedApplicationBase)Application.Current; } }
 
+        public void Localize(System.Globalization.CultureInfo culture) {
+            System.Threading.Thread.CurrentThread.CurrentCulture = culture;
+            System.Threading.Thread.CurrentThread.CurrentUICulture = culture;
+            ApplicationSatelliteAssemblyLoader.Localize(culture, Resources, null);
+            foreach (FrameworkElement window in Windows)
+                ApplicationSatelliteAssemblyLoader.Localize(culture, window);
+        } //Localize
+
         public FlatResourceDictionary GetResources() {
             return GetResources(Resources);
         } //GetResources

@@ -3,6 +3,7 @@ namespace SA.Agnostic.UI {
 
     public interface IApplicationSatelliteAssembly : IRecognizable {
         ResourceDictionary this[string fullTypeName] => null;
+        ResourceDictionary ApplicationResources => null;
     } //IApplicationSatelliteAssembly
 
 }

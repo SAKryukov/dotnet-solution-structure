@@ -3,10 +3,13 @@
     using System.Windows;
     using CultureInfo = System.Globalization.CultureInfo;
     using MenuItem = System.Windows.Controls.MenuItem;
+    using AdvancedApplicationBase = Agnostic.UI.AdvancedApplicationBase;
+    using ApplicationSatelliteAssemblyLoader = Agnostic.UI.ApplicationSatelliteAssemblyLoader;
 
     public partial class WindowMain : Window {
 
         public WindowMain() {
+            advancedApplication = AdvancedApplicationBase.Current;
             InitializeComponent();
             PopulateCultureMenu();
             menuItemHelp.Click += (_, _) => about.ShowAbout(this);
@@ -18,7 +21,7 @@
         } //WindowMain
 
         void PopulateCultureMenu() {
-            var cultures = Agnostic.UI.ApplicationSatelliteAssemblyLoader.ImplementedCultures;
+            var cultures = ApplicationSatelliteAssemblyLoader.ImplementedCultures;
             foreach (var culture in cultures) {
                 MenuItem menuItem = new() {
                     Header = Main.DefinitionSet.FormatCulture(culture.Name, culture.EnglishName, culture.NativeName),
@@ -26,7 +29,7 @@
                 menuItem.Click += (sender, _) => {
                     if (sender is not MenuItem menuItemSender) return;
                     if (menuItemSender.DataContext is not CultureInfo itemCulture) return;
-                    Agnostic.UI.ApplicationSatelliteAssemblyLoader.Localize(itemCulture);
+                    advancedApplication.Localize(itemCulture);
                     ShowCultureStatus(itemCulture);
                 }; //menuItem.Click
                 menuItemLanguage.Items.Add(menuItem);
@@ -45,6 +48,7 @@
             System.Windows.Input.Keyboard.Focus(treeView);
         } //OnContentRendered
 
+        readonly AdvancedApplicationBase advancedApplication;
         readonly About about = new();
 
     } //class WindowMain

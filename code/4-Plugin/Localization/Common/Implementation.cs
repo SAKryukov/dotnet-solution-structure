@@ -12,8 +12,12 @@ namespace SA.Plugin.Localization {
             return new FrameworkElement[] { windowMain, about };
         } //GetResourceSources()
 
-        SA.Application.View.WindowMain windowMain = new();
-        SA.Application.View.About about = new();
+        ResourceDictionary IApplicationSatelliteAssembly.ApplicationResources =>
+            applicationResourceSource.Resources;
+
+        readonly SA.Application.View.WindowMain windowMain = new();
+        readonly SA.Application.View.About about = new();
+        readonly View.ApplicationResourceSource applicationResourceSource = new();
 
     } //class Implementation
 

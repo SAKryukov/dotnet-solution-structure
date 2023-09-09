@@ -1,0 +1,9 @@
+﻿<ContentPresenter x:Class="SA.Plugin.Localization.View.ApplicationResourceSource"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ContentPresenter.Resources>
+        <ResourceDictionary>
+            
+        </ResourceDictionary>
+    </ContentPresenter.Resources>
+</ContentPresenter>

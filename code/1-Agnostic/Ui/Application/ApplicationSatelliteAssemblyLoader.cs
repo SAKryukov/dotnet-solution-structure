@@ -12,7 +12,7 @@
     using CultureList = System.Collections.Generic.List<System.Globalization.CultureInfo>;
     using PluginLoader = PluginLoader<IApplicationSatelliteAssembly>;
 
-    public sealed class ApplicationSatelliteAssemblyLoader {
+    public static class ApplicationSatelliteAssemblyLoader {
 
         public static CultureInfo[] ImplementedCultures {
             get {
@@ -48,30 +48,21 @@
             } //get ImplementedCultures
         } //ImplementedCultures
 
-        public static void Localize(CultureInfo currentCulture) {
-            Thread.CurrentThread.CurrentCulture = currentCulture;
-            Thread.CurrentThread.CurrentUICulture = currentCulture;
-            System.Windows.Application target = System.Windows.Application.Current;
-            if (target == null) return;
-            foreach (FrameworkElement window in target.Windows)
-                Localize(currentCulture, window);
-        } //Localize
-
-        public static void Localize(CultureInfo currentCulture, params FrameworkElement[] targets) {
+        public static void Localize(CultureInfo culture, params FrameworkElement[] targets) {
             foreach (var target in targets)
-                Localize(currentCulture, target);
+                Localize(culture, target);
         } //Localize
-
-        static void Localize(CultureInfo currentCulture, FrameworkElement target) {
-            if (target == null) return;
-            ResourceDictionary targetDictionary = target.Resources;
+        
+        internal static void Localize(CultureInfo culture, ResourceDictionary targetDictionary, string typeName) {
+            bool isApplication = typeName == null;
             FlatResourceDictionary targetFlatResourceDictionary = AdvancedApplicationBase.GetResources(targetDictionary);
-            IApplicationSatelliteAssembly[] interfaceSet = Load(currentCulture);
+            IApplicationSatelliteAssembly[] interfaceSet = Load(culture);
             if (interfaceSet == null) return;
             foreach (var interfaceImplementation in interfaceSet) {
-                FlatResourceDictionary sourceFlatResourceDictionary =
-                    AdvancedApplicationBase.GetResources(interfaceImplementation[target.GetType().FullName]);
-                foreach(var pair in targetFlatResourceDictionary) {
+                FlatResourceDictionary sourceFlatResourceDictionary = isApplication
+                    ? AdvancedApplicationBase.GetResources(interfaceImplementation.ApplicationResources)
+                    : AdvancedApplicationBase.GetResources(interfaceImplementation[typeName]);
+                foreach (var pair in targetFlatResourceDictionary) {
                     if (pair.Value == null) continue;
                     if (sourceFlatResourceDictionary == null) continue;
                     if (!sourceFlatResourceDictionary.TryGetValue(pair.Key, out object sourceValue)) continue;
@@ -80,21 +71,26 @@
                     targetDictionary[pair.Key] = sourceValue;
                 } //loop
             } //loop
-            if (interfaceSet == null) return; 
+            if (interfaceSet == null) return;
         } //Localize
 
-        static IApplicationSatelliteAssembly[] Load(CultureInfo currentCulture) {
+        static void Localize(CultureInfo culture, FrameworkElement target) {
+            if (target == null) return;
+            Localize(culture, target.Resources, target.GetType().FullName);
+        } //Localize
+
+        static IApplicationSatelliteAssembly[] Load(CultureInfo culture) {
             string applicationFileName = Assembly.GetEntryAssembly().Location;
             string executableDirectory = Path.GetDirectoryName(applicationFileName);
             ApplicationSatelliteAssemblyList list = //exact name first;
-                Load(executableDirectory, applicationFileName, currentCulture.Name);
+                Load(executableDirectory, applicationFileName, culture.Name);
             if (list == null) //fallback one step:
-                list = Load(executableDirectory, applicationFileName, currentCulture.TwoLetterISOLanguageName);
+                list = Load(executableDirectory, applicationFileName, culture.TwoLetterISOLanguageName);
             return list?.ToArray();
         } //Load
 
-        static ApplicationSatelliteAssemblyList Load(string executableDirectory, string applicationFileName, string cultureName) {
-            string satelliteDirectory = Path.Combine(executableDirectory, cultureName);
+        static ApplicationSatelliteAssemblyList Load(string executableDirectory, string applicationFileName, string culture) {
+            string satelliteDirectory = Path.Combine(executableDirectory, culture);
             if (!Directory.Exists(satelliteDirectory)) return null;
             var candidates = Directory.EnumerateFiles(
                 satelliteDirectory,
