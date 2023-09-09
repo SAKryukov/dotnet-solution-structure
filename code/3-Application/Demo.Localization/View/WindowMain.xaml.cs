@@ -9,8 +9,6 @@
     public partial class WindowMain : Window {
 
         public WindowMain() {
-            advancedApplication = AdvancedApplicationBase.Current;
-            advancedApplication.Resources = new ApplicationResourceSource().Resources;
             InitializeComponent();
             PopulateCultureMenu();
             menuItemHelp.Click += (_, _) => about.ShowAbout(this);
@@ -49,7 +47,7 @@
             System.Windows.Input.Keyboard.Focus(treeView);
         } //OnContentRendered
 
-        readonly AdvancedApplicationBase advancedApplication;
+        readonly AdvancedApplicationBase advancedApplication = AdvancedApplicationBase.Current;
         readonly About about = new();
 
     } //class WindowMain

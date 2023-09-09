@@ -5,6 +5,10 @@
     using MetadataDictionary = System.Collections.Generic.Dictionary<string, string>;
     using FlatResourceDictionary = System.Collections.Generic.Dictionary<string, object>;
 
+    public interface IExceptionPresenter {
+        void Show(string exceptionTypeName, string exceptionMessage, string exception);
+    } //interface IExceptionPresenter
+
     public abstract class AdvancedApplicationBase : Application {
 
         static class DefinitionSet {
@@ -104,18 +108,5 @@
         readonly AssemblyWrapper assemblyWrapper = new(Assembly.GetEntryAssembly());
 
     } //class AdvancedApplicationBase
-
-    public interface IExceptionPresenter {
-        void Show(string exceptionTypeName, string exceptionMessage, string exception);
-    } //interface IExceptionPresenter
-
-    public class AdvancedApplication<MAINVIEW> : AdvancedApplicationBase where MAINVIEW : Window, new() {
-        private protected override Window CreateMainWindow() {
-            MAINVIEW mainWindow = new();
-            if (mainWindow is IExceptionPresenter exceptionPresenter)
-                base.exceptionPresenter = exceptionPresenter;
-            return mainWindow;
-        }
-    } //class AdvancedApplication
 
 }
