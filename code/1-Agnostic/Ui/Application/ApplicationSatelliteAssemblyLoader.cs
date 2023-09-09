@@ -8,8 +8,44 @@
     using Directory = System.IO.Directory;
     using EnumerationOptions = System.IO.EnumerationOptions;
     using ApplicationSatelliteAssemblyList = System.Collections.Generic.List<IApplicationSatelliteAssembly>;
+    using CultureList = System.Collections.Generic.List<System.Globalization.CultureInfo>;
+    using PluginLoader = PluginLoader<UI.IApplicationSatelliteAssembly>;
 
     public sealed class ApplicationSatelliteAssemblyLoader {
+
+        public static CultureInfo[] ImplementedCultures {
+            get {
+                var directories = Directory.EnumerateDirectories(
+                    Path.GetDirectoryName(Assembly.GetEntryAssembly().Location),
+                    "*",
+                    EnumerationOptions);
+                CultureList list = new();
+                foreach (var directory in directories) {
+                    CultureInfo culture;
+                    try {
+                        culture = new(Path.GetFileName(directory));
+                    } catch { continue; };
+                    if (culture == null) continue;
+                    var files = Directory.EnumerateFiles(
+                        directory,
+                        "*.resources.dll", //SA???
+                        EnumerationOptions);
+                    bool found = false;
+                    foreach (var file in files) {
+                        using (PluginLoader loader = new(file)) {
+                            if (loader.Instance != null) {
+                                found = true;
+                                break;
+                            } else
+                                continue;
+                        } //using
+                    } //file loops
+                    if (found)
+                        list.Add(culture);
+                }; //directory loop
+                return list.ToArray();
+            } //get ImplementedCultures
+        } //ImplementedCultures
 
         public static void Localize(FrameworkElement target, CultureInfo currentCulture) {
             if (target == null) return;
@@ -47,7 +83,7 @@
             var candidates = Directory.EnumerateFiles(
                 satelliteDirectory,
                 $"{Path.GetFileNameWithoutExtension(applicationFileName)}.resources.dll", //SA???
-                new EnumerationOptions() { IgnoreInaccessible = true, RecurseSubdirectories = false, ReturnSpecialDirectories = false });
+                EnumerationOptions);
             ApplicationSatelliteAssemblyList list = new();
             foreach (string candidate in candidates) {
                 PluginLoader<IApplicationSatelliteAssembly> loader = new(candidate);
@@ -60,6 +96,10 @@
             if (list.Count < 1) return null;
             return list;
         } //Load
+
+        static EnumerationOptions EnumerationOptions {
+            get => new EnumerationOptions() { IgnoreInaccessible = true, RecurseSubdirectories = false, ReturnSpecialDirectories = false };
+        } //EnumerationOptions
 
     } //class ApplicationSatelliteAssemblyLoader
 
