@@ -6,7 +6,14 @@
         <ResourceDictionary>
             <system:String x:Key="mainText">Привет!</system:String>
             <Style x:Key="borderMain" TargetType="Border">
-                <Setter Property="Background" Value="#FFEEEE"/>
+                <Setter Property="Background" Value="DarkRed"/>
+            </Style>
+            <Style x:Key="mainTextStyle" TargetType="TextBlock">
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="FontSize" Value="22" />
+                <Setter Property="Margin" Value="0 0 0 10"/>
+                <Setter Property="Padding" Value="40 0 40 0"/>
+                <Setter Property="FontWeight" Value="Normal"/>
             </Style>
         </ResourceDictionary>
     </ContentPresenter.Resources>

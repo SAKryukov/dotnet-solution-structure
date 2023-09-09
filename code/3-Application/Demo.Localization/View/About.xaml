@@ -15,6 +15,13 @@
                         <Setter Property="Margin" Value="80 10 80 20"/>
                     </Style>
                     <system:String x:Key="mainText">Hello!</system:String>
+                    <Style x:Key="mainTextStyle" TargetType="TextBlock">
+                        <Setter Property="Foreground" Value="Black"/>
+                        <Setter Property="FontSize" Value="22" />
+                        <Setter Property="Margin" Value="0 0 0 10"/>
+                        <Setter Property="Padding" Value="40 0 40 0"/>
+                        <Setter Property="FontWeight" Value="Normal"/>
+                    </Style>
                     <Style x:Key="borderMain" TargetType="Border">
                         <Setter Property="Background" Value="White"/>
                     </Style>
@@ -28,7 +35,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <TextBlock HorizontalAlignment="Center" Style="{StaticResource textBlock}" Text="{DynamicResource mainText}"/>
+            <TextBlock HorizontalAlignment="Center" Text="{DynamicResource mainText}" Style="{DynamicResource mainTextStyle}"/>
             <StatusBar Grid.Row="1" Background="Transparent">
                 <StatusBarItem HorizontalAlignment="Center">
                     <Button Padding="{StaticResource LeftRightMargin}" IsCancel="True">Close</Button>
