@@ -103,11 +103,6 @@
             } //switch
         } //SetStateVisibility
 
-        static Semantic.IPropertyPlugin GetPropertyPlugin() {
-            Agnostic.PluginLoader<Semantic.IPropertyPlugin> loader = new(System.IO.Path.Combine(AdvancedApplicationBase.Current.ExecutableDirectory, "Plugin.AssemblyExplorer.dll"));
-            return loader.Instance;
-        } //GetPropertyPlugin
-
         readonly DataGridSet rowSet = new();
         readonly int initlalRowCount;
         readonly AdvancedApplicationBase advancedApplication;

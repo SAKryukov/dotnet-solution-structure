@@ -11,10 +11,6 @@
 
     public abstract class AdvancedApplicationBase : Application {
 
-        static class DefinitionSet {
-            internal static Func<string, string> formatTitle = productName => $" {productName}";
-        } //definitionSet
-
         public AdvancedApplicationBase() {
             DispatcherUnhandledException += (sender, eventArgs) => {
                 ShowException(eventArgs.Exception);
@@ -86,8 +82,8 @@
         } //GetResources
         public static FlatResourceDictionary GetResources(ResourceDictionary dictionary) {
             if (dictionary == null) return null;
-            System.Collections.Generic.Dictionary<string, object> result = new();
-            static void GetPartialResources(System.Collections.Generic.Dictionary<string, object> currentResult, ResourceDictionary partialDictionary) {
+            FlatResourceDictionary result = new();
+            static void GetPartialResources(FlatResourceDictionary currentResult, ResourceDictionary partialDictionary) {
                 var keys = partialDictionary.Keys;
                 foreach (var merged in partialDictionary.MergedDictionaries)
                     GetPartialResources(currentResult, merged);
