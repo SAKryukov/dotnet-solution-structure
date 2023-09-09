@@ -10,16 +10,12 @@
         }
     } //class AdvancedApplication
 
-    public class AdvancedApplication<MAINVIEW, APPLICATION_RESOURCES_SOURCE> : AdvancedApplicationBase
+    public class AdvancedApplication<MAINVIEW, APPLICATION_RESOURCES_SOURCE> : AdvancedApplication<MAINVIEW>
             where MAINVIEW : Window, new()
             where APPLICATION_RESOURCES_SOURCE : FrameworkElement, new() {
-        private protected override Window CreateMainWindow() {
+        public AdvancedApplication() {
             Resources = new APPLICATION_RESOURCES_SOURCE().Resources;
-            MAINVIEW mainWindow = new();
-            if (mainWindow is IExceptionPresenter exceptionPresenter)
-                base.exceptionPresenter = exceptionPresenter;
-            return mainWindow;
-        }
+        } //AdvancedApplication
     } //class AdvancedApplication
 
 }
