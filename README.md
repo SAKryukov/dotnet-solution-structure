@@ -20,6 +20,7 @@ WPF-specific topics:
 * Explicit `Main`
 * Centralized adaptive exception handling
 * Centralized and cascading styling and resource dictionaries 
+* XAML-based localization with satellite assemblies
 
 ## Under development
 
