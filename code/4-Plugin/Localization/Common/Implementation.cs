@@ -8,17 +8,15 @@ namespace SA.Plugin.Localization {
 
     class Implementation : IApplicationSatelliteAssembly {
 
-        ResourceDictionary IApplicationSatelliteAssembly.this[string fullTypeName] {
-            get {
-                if (fullTypeName == about.GetType().FullName) {
-                    return about.Resources;
-                } else if (fullTypeName == windowMain.GetType().FullName) {
-                    return windowMain.Resources;
-                } //if
-                return null;
-            }
-        } //this
+        Implementation() {
+            helper = new(new FrameworkElement[] { windowMain, about });
+        } //Implementation
 
+        ResourceDictionary IApplicationSatelliteAssembly.this[string fullTypeName] {
+            get => helper[fullTypeName];
+        } //IApplicationSatelliteAssembly.this
+
+        readonly Agnostic.UI.ApplicationSatelliteAssemblyPluginImplementationHelper helper;
         SA.Application.View.WindowMain windowMain = new();
         SA.Application.View.About about = new();
 

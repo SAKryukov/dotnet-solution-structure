@@ -3,6 +3,7 @@ namespace SA.Agnostic.UI {
     using ResourceFinderDictionary = System.Collections.Generic.Dictionary<string, System.Windows.ResourceDictionary>;
 
     public class ApplicationSatelliteAssemblyPluginImplementationHelper : ResourceFinderDictionary {
+
         public ApplicationSatelliteAssemblyPluginImplementationHelper(FrameworkElement[] elements) {
             foreach (var element in elements) {
                 if (element == null) continue;
@@ -11,12 +12,16 @@ namespace SA.Agnostic.UI {
                 Add(key, element.Resources);
             } //loop
         } //ApplicationSatelliteAssemblyPluginImplementation
-        public ResourceDictionary GetResources(string fullTypeName) {
-            if (TryGetValue(fullTypeName, out ResourceDictionary value))
-                return value;
-            else
-                return null;
-        } //GetResources
+
+        public new ResourceDictionary this[string fullTypeName] {
+            get {
+                if (TryGetValue(fullTypeName, out ResourceDictionary value))
+                    return value;
+                else
+                    return null;
+            }
+        } //this
+
     } //class ApplicationSatelliteAssemblyPluginImplementation
 
 }
