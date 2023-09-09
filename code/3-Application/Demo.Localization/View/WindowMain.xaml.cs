@@ -7,12 +7,18 @@
 
         public WindowMain() {
             advancedApplication = AdvancedApplicationBase.Current;
-            Agnostic.UI.ApplicationSatelliteAssemblyLoader.Localize(this, culture);
             InitializeComponent();
+            textBlockStatusBarCopyright.Text = advancedApplication.Title;
+            Agnostic.UI.ApplicationSatelliteAssemblyLoader.Localize(this, culture);
             //var cultures = Agnostic.UI.ApplicationSatelliteAssemblyLoader.
         } //WindowMain
 
-        readonly System.Globalization.CultureInfo culture = new("ru-RU"); //SA???
+        protected override void OnContentRendered(EventArgs e) {
+            base.OnContentRendered(e);
+            System.Windows.Input.Keyboard.Focus(treeView);
+        }
+
+        readonly System.Globalization.CultureInfo culture = new("es"); //SA???
         readonly AdvancedApplicationBase advancedApplication;
 
     } //class WindowMain

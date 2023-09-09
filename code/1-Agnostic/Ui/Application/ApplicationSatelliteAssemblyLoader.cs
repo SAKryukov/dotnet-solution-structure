@@ -16,6 +16,7 @@
             ResourceDictionary targetDictionary = target.Resources;
             FlatResourceDictionary targetFlatResourceDictionary = AdvancedApplicationBase.GetResources(targetDictionary);
             IApplicationSatelliteAssembly[] interfaceSet = Load(currentCulture);
+            if (interfaceSet == null) return;
             foreach (var interfaceImplementation in interfaceSet) {
                 FlatResourceDictionary sourceFlatResourceDictionary =
                     AdvancedApplicationBase.GetResources(interfaceImplementation[target.GetType().FullName]);
@@ -37,7 +38,7 @@
                 Load(executableDirectory, applicationFileName, currentCulture.Name);
             if (list == null) //fallback one step:
                 list = Load(executableDirectory, applicationFileName, currentCulture.TwoLetterISOLanguageName);
-            return list.ToArray();
+            return list?.ToArray();
         } //Load
 
         static ApplicationSatelliteAssemblyList Load(string executableDirectory, string applicationFileName, string cultureName) {

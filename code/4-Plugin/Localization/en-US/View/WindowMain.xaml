@@ -1,0 +1,30 @@
+﻿<ContentPresenter x:Class="SA.Plugin.Localization.View.WindowMain"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:system="clr-namespace:System;assembly=netstandard"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ContentPresenter.Resources>
+        <ResourceDictionary>
+            <system:String x:Key="textBoxHeader.Text">XAML-based Localization with Satellite Assemblies</system:String>
+            <system:String x:Key="menuItem.File">_File</system:String>
+            <system:String x:Key="menuItem.View">_View</system:String>
+            <system:String x:Key="menuItem.Language">_Language</system:String>
+            <system:String x:Key="menuItem.Help">Help</system:String>
+            <system:String x:Key="treeViewItem.Options">Options</system:String>
+            <system:String x:Key="treeViewItem.Layout">Layout</system:String>
+            <system:String x:Key="treeViewItem.Display">Display</system:String>
+            <system:String x:Key="treeViewItem.Icons">Icons</system:String>
+            <system:String x:Key="treeViewItem.Fonts">Fonts</system:String>
+            <system:String x:Key="treeViewItem.Color">Color</system:String>
+            <system:String x:Key="treeViewItem.Tabstops">Tabstops</system:String>
+            <system:String x:Key="treeViewItem.FolderTabs">Folder Tabs</system:String>
+            <system:String x:Key="treeViewItem.CustomColumns">Custom Columns</system:String>
+            <system:String x:Key="treeViewItem.ViewMode">View Mode</system:String>
+            <system:String x:Key="treeViewItem.AutoSwitchMode">Auto Switch Mode</system:String>
+            <system:String x:Key="treeViewItem.Operation">Operation</system:String>
+            <system:String x:Key="treeViewItem.Edit/View">Edit/View</system:String>
+            <system:String x:Key="treeViewItem.Copy/Delete">Copy/Delete</system:String>
+            <system:String x:Key="treeViewItem.Refresh">Refresh</system:String>
+            <system:String x:Key="treeViewItem.QuickSearch">Quick Search</system:String>
+        </ResourceDictionary>
+    </ContentPresenter.Resources>
+</ContentPresenter>

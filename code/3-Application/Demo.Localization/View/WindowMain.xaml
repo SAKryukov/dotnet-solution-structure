@@ -77,10 +77,10 @@
             <StackPanel>
                 <TextBlock Style="{StaticResource headerTextBlock}" Text="{StaticResource textBoxHeader.Text}"/>
                 <TreeView x:Name="treeView" Padding="{DynamicResource RightMargin}">
-                    <TreeViewItem Header="{DynamicResource treeViewItem.Options}" IsSelected="True">
+                    <TreeViewItem Header="{DynamicResource treeViewItem.Options}" >
                         <TreeViewItem Header="{DynamicResource treeViewItem.Display}">
-                            <TreeViewItem Header=" ? " IsEnabled="false"/>
-                            <TreeViewItem Header="{DynamicResource treeViewItem.Layout}"/>
+                            <TreeViewItem Header="  ...  " IsEnabled="False" />
+                            <TreeViewItem Header="{DynamicResource treeViewItem.Layout}" IsSelected="True"/>
                             <TreeViewItem Header="{DynamicResource treeViewItem.Icons}"/>
                             <TreeViewItem Header="{DynamicResource treeViewItem.Fonts}"/>
                             <TreeViewItem Header="{DynamicResource treeViewItem.Color}"/>
@@ -104,7 +104,7 @@
         <Border Grid.Row="2">
             <StatusBar Style="{StaticResource StatusBar}" HorizontalAlignment="Stretch">
                 <StatusBarItem>
-                    <TextBlock x:Name="textBoxStatusBarCopyright" Margin="{StaticResource LeftMargin}"/>
+                    <TextBlock x:Name="textBlockStatusBarCopyright" Margin="{StaticResource LeftMargin}"/>
                 </StatusBarItem>
                 <StatusBarItem  HorizontalAlignment="Right">
                     <TextBlock x:Name="textBoxScreenshotStatusBarTool" Margin="{StaticResource ButtonStackRightMargin}"/>

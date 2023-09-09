@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>SA.Plugin.Localization</RootNamespace>
+    <OutputPath>$(OutputPath)\en-US</OutputPath>
+    <AssemblyName>Demo.Localization.resources</AssemblyName>
+    <UseWPF>true</UseWPF>
+    <TargetFramework>$(TargetFramework)-windows</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\1-Agnostic\Core\Agnostic.Core.csproj" />
+    <ProjectReference Include="..\..\..\1-Agnostic\Ui\Agnostic.UI.csproj" />
+  </ItemGroup>
+
+</Project>
