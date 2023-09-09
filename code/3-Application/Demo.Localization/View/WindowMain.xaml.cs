@@ -16,6 +16,7 @@
                 if (eventArgs.Key == System.Windows.Input.Key.F1)
                     about.ShowAbout(this);
             }; //KeyDown
+            menuItemQuit.Click += (_, _) => Close();
             ShowCultureStatus();
         } //WindowMain
 

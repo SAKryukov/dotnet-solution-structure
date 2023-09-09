@@ -4,6 +4,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <ContentPresenter.Resources>
         <ResourceDictionary>
+            <x:Array x:Key="arrayDemo" Type="system:String">
+                <system:String>Demostración:</system:String>
+                <system:String>Resource markup extension</system:String>
+                <system:String>x:Array</system:String>
+                <system:String>utilizado como ListBox.ItemSource</system:String>
+            </x:Array>
+            <system:String x:Key="menuItem.Quit">Salir</system:String>
+            <system:String x:Key="menuItem.Quit.Icon">🖐</system:String>
             <system:String x:Key="treeViewItem.Operation">Operación</system:String>
             <system:String x:Key="treeViewItem.Edit/View">Editar/Ver</system:String>
             <system:String x:Key="treeViewItem.Copy/Delete">Copiar/Eliminar</system:String>

@@ -25,6 +25,14 @@
                         <Setter Property="Padding" Value="{StaticResource Padding}" />
                         <Setter Property="HorizontalAlignment" Value="Center" />
                     </Style>
+                    <Style x:Key="listBoxDemo" TargetType="ListBox">
+                        <Setter Property="Background" Value="Transparent" />
+                        <Setter Property="Foreground" Value="Purple" />
+                        <Setter Property="FontWeight" Value="SemiBold" />
+                        <Setter Property="FontStyle" Value="Italic" />
+                        <Setter Property="BorderThickness" Value="0" />
+                        <Setter Property="SelectedIndex" Value="1" />
+                    </Style>
                 </ResourceDictionary>
                 <ResourceDictionary>
                     <system:String x:Key="textBoxHeader.Text">XAML-based Localization with Satellite Assemblies</system:String>
@@ -62,8 +70,12 @@
                     <DockPanel HorizontalAlignment="Stretch"></DockPanel>
                 </ItemsPanelTemplate>
             </Menu.ItemsPanel>
-            <MenuItem Header="{DynamicResource menuItem.File}"/>
-            <MenuItem Header="{DynamicResource menuItem.View}"/>
+            <MenuItem Header="{DynamicResource menuItem.File}">
+                <MenuItem x:Name="menuItemQuit" Header="{DynamicResource menuItem.Quit}" Icon="{DynamicResource menuItem.Quit.Icon}"/>
+            </MenuItem>
+            <MenuItem Header="{DynamicResource menuItem.View}">
+                <ListBox ItemsSource="{DynamicResource arrayDemo}" SelectedItem="1" Style="{StaticResource listBoxDemo}"/>
+            </MenuItem>
             <MenuItem x:Name="menuItemLanguage" Header="{DynamicResource menuItem.Language}"/>
             <MenuItem x:Name="menuItemHelp" Header="{DynamicResource menuItem.Help}" HorizontalAlignment="Right"/>
         </Menu>
