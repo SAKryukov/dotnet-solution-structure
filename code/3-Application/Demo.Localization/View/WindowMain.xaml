@@ -41,6 +41,8 @@
                     <system:String x:Key="menuItem.View">_View</system:String>
                     <system:String x:Key="menuItem.Language">_Language</system:String>
                     <system:String x:Key="menuItem.Help">Help</system:String>
+                    <system:String x:Key="menuItem.Help.About">About...</system:String>
+                    <system:String x:Key="menuItem.Help.About.Icon">❔</system:String>
                     <system:String x:Key="treeViewItem.Options">Options</system:String>
                     <system:String x:Key="treeViewItem.Layout">Layout</system:String>
                     <system:String x:Key="treeViewItem.Display">Display</system:String>
@@ -78,7 +80,9 @@
                 <ListBox ItemsSource="{DynamicResource arrayDemo}" SelectedItem="1" Style="{StaticResource listBoxDemo}"/>
             </MenuItem>
             <MenuItem x:Name="menuItemLanguage" Header="{DynamicResource menuItem.Language}"/>
-            <MenuItem x:Name="menuItemHelp" Header="{DynamicResource menuItem.Help}" HorizontalAlignment="Right"/>
+            <MenuItem Header="{DynamicResource menuItem.Help}" HorizontalAlignment="Right">
+                <MenuItem x:Name="menuItemHelp" Header="{DynamicResource menuItem.Help.About}" Icon="{DynamicResource menuItem.Help.About.Icon}"/>
+            </MenuItem>
         </Menu>
         <Border x:Name="borderMain" Grid.Row="1" Style="{DynamicResource borderMain}">
             <StackPanel Background="Transparent">

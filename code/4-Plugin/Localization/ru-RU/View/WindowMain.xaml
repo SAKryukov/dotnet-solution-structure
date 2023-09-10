@@ -9,6 +9,8 @@
             <system:String x:Key="menuItem.View">Вид</system:String>
             <system:String x:Key="menuItem.Language">Язык</system:String>
             <system:String x:Key="menuItem.Help">Справка</system:String>
+            <system:String x:Key="menuItem.Help.About">О приложении</system:String>
+            <system:String x:Key="menuItem.Help.About.Icon">❔</system:String>
             <system:String x:Key="treeViewItem.Options">Настройки</system:String>
             <system:String x:Key="treeViewItem.Layout">Вид окна</system:String>
             <system:String x:Key="treeViewItem.Display">Содержимое панелей</system:String>

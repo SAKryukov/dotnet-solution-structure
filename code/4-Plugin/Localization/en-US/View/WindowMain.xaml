@@ -9,6 +9,8 @@
             <system:String x:Key="menuItem.View">_View</system:String>
             <system:String x:Key="menuItem.Language">_Language</system:String>
             <system:String x:Key="menuItem.Help">Help</system:String>
+            <system:String x:Key="menuItem.Help.About">About...</system:String>
+            <system:String x:Key="menuItem.Help.About.Icon">❔</system:String>
             <system:String x:Key="treeViewItem.Options">Options</system:String>
             <system:String x:Key="treeViewItem.Layout">Layout</system:String>
             <system:String x:Key="treeViewItem.Display">Display</system:String>

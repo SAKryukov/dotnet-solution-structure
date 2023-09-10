@@ -29,5 +29,3 @@ namespace SA.Agnostic.UI {
     } //class ApplicationSatelliteAssemblyPluginImplementationBase
 
 }
-
-
