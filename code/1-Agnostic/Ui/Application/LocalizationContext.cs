@@ -25,25 +25,24 @@
                 if (foundDictionary == null) return;
                 foundDictionary[key] = value;
             } //SetValue
-            static ResourceDictionary FindKeyInMergedDictionaries(object key, ResourceDictionary dictionary) {
-                if (!dictionary.Contains(key)) return null;
-                for (int index = dictionary.MergedDictionaries.Count - 1; index >= 0; --index) {
-                    ResourceDictionary mergedDictionary = dictionary.MergedDictionaries[index];
-                    if (mergedDictionary.Contains(key))
-                        return FindKeyInMergedDictionaries(key, mergedDictionary);
-                } //loop
-                return dictionary;
-            } //FindKeyInMergedDictionaries
+            static bool HasNonRecursiveKey(object key, ResourceDictionary dictionary) {
+                foreach (var dictionaryKey in dictionary.Keys)
+                    if (dictionaryKey == key)
+                        return true;
+                return false;
+            } //HasNonRecursiveKey
             static ResourceDictionary FindKey(object key, ResourceDictionary dictionary) {
                 if (!dictionary.Contains(key)) return null;
-                ResourceDictionary foundInMerged = FindKeyInMergedDictionaries(key, dictionary);
-                if (foundInMerged == null)
+                if (HasNonRecursiveKey(key, dictionary))
                     return dictionary;
-                else
-                    return foundInMerged;
+                for (int index = dictionary.MergedDictionaries.Count - 1; index >= 0; --index) {
+                    ResourceDictionary mergedDictionary = dictionary.MergedDictionaries[index];
+                    if (HasNonRecursiveKey(key, mergedDictionary))
+                        return mergedDictionary;
+                } //loop
+                return null;
             } //FindKey
         } //class MergeHelper
-
         static class SnapshotHelper {
             internal static void StoreInSnapshot(ResourceDictionary dictionary, SnapshotDictionary snapshot) {
                 if (dictionary == null || snapshot == null) return;
