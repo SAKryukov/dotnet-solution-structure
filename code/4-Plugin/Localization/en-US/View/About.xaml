@@ -1,8 +1,8 @@
-﻿<ContentPresenter x:Class="SA.Application.View.About"
+﻿<FrameworkContentElement x:Class="SA.Application.View.About"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:system="clr-namespace:System;assembly=netstandard"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <ContentPresenter.Resources>
+    <FrameworkContentElement.Resources>
         <ResourceDictionary>
             <system:String x:Key="mainText">Hello!</system:String>
             <Style x:Key="borderMain" TargetType="Border">
@@ -16,5 +16,5 @@
                 <Setter Property="FontWeight" Value="Normal"/>
             </Style>
         </ResourceDictionary>
-    </ContentPresenter.Resources>
-</ContentPresenter>
+    </FrameworkContentElement.Resources>
+</FrameworkContentElement>

@@ -1,5 +1,5 @@
 ﻿namespace SA.Application.View {
-    public partial class WindowMain : System.Windows.Controls.ContentPresenter {
+    public partial class WindowMain : System.Windows.FrameworkContentElement {
         public WindowMain() {
             InitializeComponent();
         }

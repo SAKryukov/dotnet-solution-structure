@@ -1,8 +1,8 @@
-﻿<ContentPresenter x:Class="SA.Application.View.WindowMain"
+﻿<FrameworkContentElement x:Class="SA.Application.View.WindowMain"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:system="clr-namespace:System;assembly=netstandard"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <ContentPresenter.Resources>
+    <FrameworkContentElement.Resources>
         <ResourceDictionary>
             <system:String x:Key="textBoxHeader.Text">XAML-based Localization with Satellite Assemblies</system:String>
             <system:String x:Key="menuItem.File">Archivo</system:String>
@@ -26,5 +26,5 @@
                 <Setter Property="Background" Value="#EEFFEE"/>
             </Style>
         </ResourceDictionary>
-    </ContentPresenter.Resources>
-</ContentPresenter>
+    </FrameworkContentElement.Resources>
+</FrameworkContentElement>
