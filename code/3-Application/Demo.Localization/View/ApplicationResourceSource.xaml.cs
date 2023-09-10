@@ -1,7 +1,13 @@
 ﻿namespace SA.Application.View {
-    public partial class ApplicationResourceSource : System.Windows.FrameworkContentElement {
+    using IResourceDictionaryProvider = Agnostic.UI.IResourceDictionaryProvider;
+
+    public partial class ApplicationResourceSource : System.Windows.FrameworkContentElement, IResourceDictionaryProvider {
+
+        System.Windows.ResourceDictionary IResourceDictionaryProvider.Resources => Resources;
         public ApplicationResourceSource() {
             InitializeComponent();
-        }
-    }
+        } //ApplicationResourceSource
+
+    } //class ApplicationResourceSource
+
 }

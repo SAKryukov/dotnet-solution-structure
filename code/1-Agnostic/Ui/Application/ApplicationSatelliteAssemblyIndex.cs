@@ -28,13 +28,12 @@
                         EnumerationOptions);
                     bool found = false;
                     foreach (var file in files) {
-                        using (PluginLoader loader = new(file)) {
-                            if (loader.Instance != null) {
-                                found = true;
-                                break;
-                            } else
-                                continue;
-                        } //using
+                        using PluginLoader loader = new(file); if (loader.Instance != null) {
+                            found = true;
+                            break;
+                        } else
+                            continue;
+                            //using
                     } //file loops
                     if (found)
                         list.Add(culture);
@@ -44,7 +43,7 @@
         } //ImplementedCultures
 
         internal static EnumerationOptions EnumerationOptions {
-            get => new EnumerationOptions() { IgnoreInaccessible = true, RecurseSubdirectories = false, ReturnSpecialDirectories = false };
+            get => new() { IgnoreInaccessible = true, RecurseSubdirectories = false, ReturnSpecialDirectories = false };
         } //EnumerationOptions
 
     } //class ApplicationSatelliteAssemblyIndex

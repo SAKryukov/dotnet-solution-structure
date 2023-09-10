@@ -4,7 +4,6 @@
     using CultureInfo = System.Globalization.CultureInfo;
     using Path = System.IO.Path;
     using Directory = System.IO.Directory;
-    using EnumerationOptions = System.IO.EnumerationOptions;
     using ApplicationSatelliteAssemblyList = System.Collections.Generic.List<IApplicationSatelliteAssembly>;
     using ResourceDictionarySet = System.Collections.Generic.HashSet<System.Windows.ResourceDictionary>;
     using SnapshotDictionary = System.Collections.Generic.Dictionary<System.Windows.FrameworkElement, System.Windows.ResourceDictionary>;
@@ -12,12 +11,13 @@
     using FrameworkElementCollection = System.Collections.Generic.IEnumerable<System.Windows.FrameworkElement>;
     using FrameworkElementList = System.Collections.Generic.List<System.Windows.FrameworkElement>;
     using Application = System.Windows.Application;
+    using Debug = System.Diagnostics.Debug;
 
     class LocalizationContext {
 
         static class MergeHelper {
             internal static void SetValues(ResourceDictionary source, ResourceDictionary destination) {
-                if (source == null || destination == null) return;
+                Debug.Assert(source != null && destination != null);
                 for (int index = source.MergedDictionaries.Count - 1; index >= 0; --index) {
                     ResourceDictionary mergedDictionary = source.MergedDictionaries[index];
                     SetValues(mergedDictionary, destination);
@@ -66,7 +66,7 @@
             } //DeepClone
             internal static void StoreInSnapshot(FrameworkElementCollection elements, SnapshotDictionary snapshot, Application application, ResourceDictionary applicationSnapshop) {
                 ResourceDictionarySet resourceDictionarySet = new();
-                if (elements == null || snapshot == null) return;
+                Debug.Assert(elements != null && snapshot != null);
                 foreach (var element in elements) {
                     ResourceDictionary target = new();
                     DeepClone(element.Resources, target, resourceDictionarySet);
@@ -76,7 +76,7 @@
                 DeepClone(application.Resources, applicationSnapshop, resourceDictionarySet);
             } //StoreInSnapshot
             internal static void RestoreFromSnapshot(ResourceDictionary dictionary, SnapshotDictionary snapshot, Application application, ResourceDictionary applicationSnapshop) {
-                if (dictionary == null || snapshot == null) return;
+                Debug.Assert(dictionary != null && snapshot != null);
                 foreach (var pair in snapshot)
                     MergeHelper.SetValues(pair.Value, pair.Key.Resources);
                 MergeHelper.SetValues(applicationSnapshop, application.Resources);
@@ -93,13 +93,13 @@
                     list.Add(window);
                 SnapshotHelper.StoreInSnapshot(list, snapshotDictionary, application, applicationSnapshop);
             } //Capture
-            internal void Restore(Application application, CultureInfo requestedCulture) {
+            internal void Restore(Application application) {
                 FrameworkElementList list = new();
                 foreach (FrameworkElement window in application.Windows)
                     list.Add(window);
                 SnapshotHelper.RestoreFromSnapshot(application.Resources, snapshotDictionary, application, applicationSnapshop);
             } //Restore
-            CultureInfo startupCulture;
+            readonly CultureInfo startupCulture;
             internal CultureInfo StartupCulture => startupCulture;
             readonly SnapshotDictionary snapshotDictionary = new();
             readonly ResourceDictionary applicationSnapshop = new();
@@ -115,7 +115,7 @@
                 applicationSnapshot = new(currentCulture);
                 applicationSnapshot.Capture(application);
             } else if (SameCulture(culture, applicationSnapshot.StartupCulture)) {
-                applicationSnapshot.Restore(application, culture);
+                applicationSnapshot.Restore(application);
                 return;
             } //if
             Localize(culture, application.Resources, null);

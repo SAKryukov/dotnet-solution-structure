@@ -7,14 +7,14 @@
             if (mainWindow is IExceptionPresenter exceptionPresenter)
                 base.exceptionPresenter = exceptionPresenter;
             return mainWindow;
-        }
+        } //CreateMainWindow
     } //class AdvancedApplication
 
-    public class AdvancedApplication<MAINVIEW, APPLICATION_RESOURCES_SOURCE> : AdvancedApplication<MAINVIEW>
+    public class AdvancedApplication<MAINVIEW, APPLICATION_RESOURCES_PROVIDER> : AdvancedApplication<MAINVIEW>
             where MAINVIEW : Window, new()
-            where APPLICATION_RESOURCES_SOURCE : FrameworkContentElement, new() {
+            where APPLICATION_RESOURCES_PROVIDER : IResourceDictionaryProvider, new() {
         public AdvancedApplication() {
-            Resources = new APPLICATION_RESOURCES_SOURCE().Resources;
+            Resources = new APPLICATION_RESOURCES_PROVIDER().Resources;
         } //AdvancedApplication
     } //class AdvancedApplication
 

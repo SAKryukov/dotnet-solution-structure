@@ -6,4 +6,8 @@ namespace SA.Agnostic.UI {
         ResourceDictionary ApplicationResources { get; }
     } //IApplicationSatelliteAssembly
 
+    public interface IResourceDictionaryProvider {
+        ResourceDictionary Resources { get; }
+    } //interface IResourceDictionaryProvider
+
 }
