@@ -1,5 +1,5 @@
 ﻿namespace SA.Application.View {
-    public partial class About : System.Windows.Controls.ContentPresenter {
+    public partial class About : System.Windows.FrameworkContentElement {
         public About() {
             InitializeComponent();
         }

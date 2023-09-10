@@ -1,8 +1,8 @@
-﻿<ContentPresenter x:Class="SA.Plugin.Localization.View.ApplicationResourceSource"
+﻿<FrameworkContentElement x:Class="SA.Plugin.Localization.View.ApplicationResourceSource"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:system="clr-namespace:System;assembly=netstandard"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <ContentPresenter.Resources>
+    <FrameworkContentElement.Resources>
         <ResourceDictionary>
             <x:Array x:Key="arrayDemo" Type="system:String">
                 <system:String>Демострация:</system:String>
@@ -17,5 +17,5 @@
             <system:String x:Key="treeViewItem.Refresh">Автообновление</system:String>
             <system:String x:Key="treeViewItem.QuickSearch">Быстрый поиск</system:String>            
         </ResourceDictionary>
-    </ContentPresenter.Resources>
-</ContentPresenter>
+    </FrameworkContentElement.Resources>
+</FrameworkContentElement>

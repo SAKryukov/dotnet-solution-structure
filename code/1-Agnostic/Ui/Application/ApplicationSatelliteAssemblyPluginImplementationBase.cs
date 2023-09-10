@@ -5,17 +5,11 @@ namespace SA.Agnostic.UI {
     public abstract class ApplicationSatelliteAssemblyPluginImplementationBase : ResourceFinderDictionary, IApplicationSatelliteAssembly {
 
         public ApplicationSatelliteAssemblyPluginImplementationBase() {
-            FrameworkElement[] elements = GetResourceSources();
-            if (elements == null) return;
-            foreach (var element in elements) {
-                if (element == null) continue;
-                string key = element.GetType().FullName;
-                if (ContainsKey(key)) continue;
-                Add(key, element.Resources);
-            } //loop
+            applicationResourceDictionary = AddResources();
         } //ApplicationSatelliteAssemblyPluginImplementation
 
-        protected abstract FrameworkElement[] GetResourceSources();
+        // Should add the pairs { Name, ResourceDictionary } and return application ResourceDictionary:
+        protected abstract ResourceDictionary AddResources(); 
 
         ResourceDictionary IApplicationSatelliteAssembly.this[string fullTypeName] {
             get {
@@ -25,6 +19,9 @@ namespace SA.Agnostic.UI {
                     return null;
             } //get IApplicationSatelliteAssembly.this
         } //IApplicationSatelliteAssembly.this
+        ResourceDictionary IApplicationSatelliteAssembly.ApplicationResources => applicationResourceDictionary;
+
+        ResourceDictionary applicationResourceDictionary;
 
     } //class ApplicationSatelliteAssemblyPluginImplementationBase
 

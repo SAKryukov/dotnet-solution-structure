@@ -8,16 +8,14 @@ namespace SA.Plugin.Localization {
 
     class Implementation : Agnostic.UI.ApplicationSatelliteAssemblyPluginImplementationBase, IApplicationSatelliteAssembly {
 
-        protected override FrameworkElement[] GetResourceSources() {
-            return new FrameworkElement[] { windowMain, about };
-        } //GetResourceSources()
-
-        ResourceDictionary IApplicationSatelliteAssembly.ApplicationResources =>
-            applicationResourceSource.Resources;
-
-        readonly SA.Application.View.WindowMain windowMain = new();
-        readonly SA.Application.View.About about = new();
-        readonly View.ApplicationResourceSource applicationResourceSource = new();
+        protected override ResourceDictionary AddResources() {
+            SA.Application.View.WindowMain windowMain = new();
+            Add(windowMain.GetType().FullName, windowMain.Resources);
+            SA.Application.View.About about = new();
+            Add(about.GetType().FullName, about.Resources);
+            View.ApplicationResourceSource applicationResourceSource = new();
+            return applicationResourceSource.Resources;
+        } //AddResources
 
     } //class Implementation
 

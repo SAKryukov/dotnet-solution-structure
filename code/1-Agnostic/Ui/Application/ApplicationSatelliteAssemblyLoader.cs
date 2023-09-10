@@ -4,7 +4,6 @@
     using ResourceDictionary = System.Windows.ResourceDictionary;
     using Assembly = System.Reflection.Assembly;
     using CultureInfo = System.Globalization.CultureInfo;
-    using Thread = System.Threading.Thread;
     using Path = System.IO.Path;
     using Directory = System.IO.Directory;
     using EnumerationOptions = System.IO.EnumerationOptions;
