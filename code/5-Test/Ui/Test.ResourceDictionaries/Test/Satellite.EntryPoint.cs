@@ -1,23 +1,8 @@
 namespace SA.Test {
     using Console = System.Console;
     using System.Windows;
-    using SnapshotDictionaryKeyValuePair = System.Collections.Generic.KeyValuePair<object, object>;
-    using SnapshotDictionary = System.Collections.Generic.Dictionary<System.Windows.ResourceDictionary, System.Collections.Generic.KeyValuePair<object, object>>;
-
-    static class SnapshotHelper {
-        internal static void StoreInSnapshot(ResourceDictionary dictionary, SnapshotDictionary snapshot) {
-            if (dictionary == null || snapshot == null) return;
-            foreach (var key in dictionary.Keys)
-                snapshot.Add(dictionary, new SnapshotDictionaryKeyValuePair(key, dictionary[key]));
-            foreach (var mergedDictionary in dictionary.MergedDictionaries)
-                StoreInSnapshot(mergedDictionary, snapshot);
-        } //StoreInSnapshot
-        internal static void RestoreFromSnapshot(ResourceDictionary dictionary, SnapshotDictionary snapshot) {
-            if (dictionary == null || snapshot == null) return;
-            foreach (var pair in snapshot)
-                pair.Key[pair.Value.Key] = pair.Value;
-        } //RestoreFromSnapshot
-    } //SnapshotHelper
+    using ResourceDictionarySet = System.Collections.Generic.HashSet<System.Windows.ResourceDictionary>;
+    using SnapshotDictionary = System.Collections.Generic.Dictionary<System.Windows.FrameworkElement, System.Windows.ResourceDictionary>;
 
     static class MergeHelper {
         internal static void SetValues(ResourceDictionary source, ResourceDictionary destination) {
@@ -29,18 +14,18 @@ namespace SA.Test {
             foreach (var key in source.Keys)
                 SetValue(key, source[key], destination);
         } //SetValues
-        internal static void SetValue(object key, object value, ResourceDictionary dictionary) {
+        static void SetValue(object key, object value, ResourceDictionary dictionary) {
             ResourceDictionary foundDictionary = FindKey(key, dictionary);
             if (foundDictionary == null) return;
             foundDictionary[key] = value;
         } //SetValue
-        internal static bool HasNonRecursiveKey(object key, ResourceDictionary dictionary) {
+        static bool HasNonRecursiveKey(object key, ResourceDictionary dictionary) {
             foreach (var dictionaryKey in dictionary.Keys)
-                if (dictionaryKey == key)
+                if (dictionaryKey.ToString() == key.ToString())
                     return true;
             return false;
         } //HasNonRecursiveKey
-        internal static ResourceDictionary FindKey(object key, ResourceDictionary dictionary) {
+        internal static ResourceDictionary FindKey(object key, ResourceDictionary dictionary) { // SA??? made private in final version
             if (!dictionary.Contains(key)) return null;
             if (HasNonRecursiveKey(key, dictionary))
                 return dictionary;
@@ -52,6 +37,38 @@ namespace SA.Test {
             return null;
         } //FindKey
     } //class MergeHelper
+    static class SnapshotHelper {
+        internal static void DeepClone(ResourceDictionary source, ResourceDictionary target, ResourceDictionarySet resourceDictionarySet) {
+            if (resourceDictionarySet == null)
+                resourceDictionarySet = new();
+            foreach (var key in source.Keys)
+                target[key] = source[key];
+            foreach (var mergedDictionary in source.MergedDictionaries) {
+                if (!resourceDictionarySet.Contains(mergedDictionary)) {
+                    resourceDictionarySet.Add(mergedDictionary);
+                    ResourceDictionary targetMergedDictionary = new();
+                    target.MergedDictionaries.Add(targetMergedDictionary);
+                    DeepClone(mergedDictionary, targetMergedDictionary, resourceDictionarySet);
+                } else
+                    DeepClone(mergedDictionary, mergedDictionary, resourceDictionarySet);
+            } //loop
+        } //DeepClone
+        internal static void StoreInSnapshot(FrameworkElement[] elements, SnapshotDictionary snapshot) {
+            ResourceDictionarySet resourceDictionarySet = new();
+            if (elements == null || snapshot == null) return;
+            foreach (var element in elements) {
+                ResourceDictionary target = new();
+                DeepClone(element.Resources, target, resourceDictionarySet);
+                System.Diagnostics.Debug.Assert(!snapshot.ContainsKey(element));
+                snapshot.Add(element, target);
+            } //loop
+        } //StoreInSnapshot
+        internal static void RestoreFromSnapshot(ResourceDictionary dictionary, SnapshotDictionary snapshot) {
+            if (dictionary == null || snapshot == null) return;
+            foreach (var pair in snapshot)
+                pair.Key.Resources = pair.Value;
+        } //RestoreFromSnapshot
+    } //SnapshotHelper
 
     class Test {
 
@@ -74,8 +91,8 @@ namespace SA.Test {
             child1[keyToFind] = $"{keyToFind} in child1";
             grandchild2[keyToFind] = $"{keyToFind} in grandchild2";
             object found = MergeHelper.FindKey(keyToFind, top);
-            SnapshotDictionary snapshot = new();
-            SnapshotHelper.StoreInSnapshot(top, snapshot);
+            ResourceDictionary snapshot = new();
+            SnapshotHelper.DeepClone(top, snapshot, null);
             Console.ReadKey(true);
         } //Execute
 

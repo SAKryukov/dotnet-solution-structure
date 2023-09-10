@@ -43,7 +43,7 @@
             } //get ImplementedCultures
         } //ImplementedCultures
 
-        static EnumerationOptions EnumerationOptions {
+        internal static EnumerationOptions EnumerationOptions {
             get => new EnumerationOptions() { IgnoreInaccessible = true, RecurseSubdirectories = false, ReturnSpecialDirectories = false };
         } //EnumerationOptions
 

@@ -6,10 +6,14 @@
     using Directory = System.IO.Directory;
     using EnumerationOptions = System.IO.EnumerationOptions;
     using ApplicationSatelliteAssemblyList = System.Collections.Generic.List<IApplicationSatelliteAssembly>;
-    using SnapshotDictionaryKeyValuePair = System.Collections.Generic.KeyValuePair<object, object>;
-    using SnapshotDictionary = System.Collections.Generic.Dictionary<System.Windows.ResourceDictionary, System.Collections.Generic.KeyValuePair<object, object>>;
+    using ResourceDictionarySet = System.Collections.Generic.HashSet<System.Windows.ResourceDictionary>;
+    using SnapshotDictionary = System.Collections.Generic.Dictionary<System.Windows.FrameworkElement, System.Windows.ResourceDictionary>;
+    using FrameworkElement = System.Windows.FrameworkElement;
+    using FrameworkElementCollection = System.Collections.Generic.IEnumerable<System.Windows.FrameworkElement>;
+    using FrameworkElementList = System.Collections.Generic.List<System.Windows.FrameworkElement>;
+    using Application = System.Windows.Application;
 
-    static class LocalizationContext {
+    class LocalizationContext {
 
         static class MergeHelper {
             internal static void SetValues(ResourceDictionary source, ResourceDictionary destination) {
@@ -45,21 +49,82 @@
             } //FindKey
         } //class MergeHelper
         static class SnapshotHelper {
-            internal static void StoreInSnapshot(ResourceDictionary dictionary, SnapshotDictionary snapshot) {
-                if (dictionary == null || snapshot == null) return;
-                foreach (var key in dictionary.Keys)
-                    snapshot.Add(dictionary, new SnapshotDictionaryKeyValuePair(key, dictionary[key]));
-                foreach (var mergedDictionary in dictionary.MergedDictionaries)
-                    StoreInSnapshot(mergedDictionary, snapshot);
+            static void DeepClone(ResourceDictionary source, ResourceDictionary target, ResourceDictionarySet resourceDictionarySet) {
+                if (resourceDictionarySet == null)
+                    resourceDictionarySet = new();
+                foreach (var key in source.Keys)
+                    target[key] = source[key];
+                foreach (var mergedDictionary in source.MergedDictionaries) {
+                    if (!resourceDictionarySet.Contains(mergedDictionary)) {
+                        resourceDictionarySet.Add(mergedDictionary);
+                        ResourceDictionary targetMergedDictionary = new();
+                        target.MergedDictionaries.Add(targetMergedDictionary);
+                        DeepClone(mergedDictionary, targetMergedDictionary, resourceDictionarySet);
+                    } else
+                        DeepClone(mergedDictionary, mergedDictionary, resourceDictionarySet);
+                } //loop
+            } //DeepClone
+            internal static void StoreInSnapshot(FrameworkElementCollection elements, SnapshotDictionary snapshot, Application application, ResourceDictionary applicationSnapshop) {
+                ResourceDictionarySet resourceDictionarySet = new();
+                if (elements == null || snapshot == null) return;
+                foreach (var element in elements) {
+                    ResourceDictionary target = new();
+                    DeepClone(element.Resources, target, resourceDictionarySet);
+                    System.Diagnostics.Debug.Assert(!snapshot.ContainsKey(element));
+                    snapshot.Add(element, target);
+                } //loop
+                DeepClone(application.Resources, applicationSnapshop, resourceDictionarySet);
             } //StoreInSnapshot
-            internal static void RestoreFromSnapshot(ResourceDictionary dictionary, SnapshotDictionary snapshot) {
+            internal static void RestoreFromSnapshot(ResourceDictionary dictionary, SnapshotDictionary snapshot, Application application, ResourceDictionary applicationSnapshop) {
                 if (dictionary == null || snapshot == null) return;
                 foreach (var pair in snapshot)
-                    pair.Key[pair.Value.Key] = pair.Value;
+                    MergeHelper.SetValues(pair.Value, pair.Key.Resources);
+                MergeHelper.SetValues(applicationSnapshop, application.Resources);
             } //RestoreFromSnapshot
         } //SnapshotHelper
 
-        internal static void Localize(CultureInfo culture, ResourceDictionary targetDictionary, string typeName) {
+        sealed class ApplicationSnapshot {
+            internal ApplicationSnapshot(CultureInfo startupCulture) {
+                this.startupCulture = startupCulture;
+            } //CultureInfo startupCulture
+            internal void Capture(Application application) {
+                FrameworkElementList list = new();
+                foreach (FrameworkElement window in application.Windows)
+                    list.Add(window);
+                SnapshotHelper.StoreInSnapshot(list, snapshotDictionary, application, applicationSnapshop);
+            } //Capture
+            internal void Restore(Application application, CultureInfo requestedCulture) {
+                FrameworkElementList list = new();
+                foreach (FrameworkElement window in application.Windows)
+                    list.Add(window);
+                SnapshotHelper.RestoreFromSnapshot(application.Resources, snapshotDictionary, application, applicationSnapshop);
+            } //Restore
+            CultureInfo startupCulture;
+            internal CultureInfo StartupCulture => startupCulture;
+            readonly SnapshotDictionary snapshotDictionary = new();
+            readonly ResourceDictionary applicationSnapshop = new();
+        } //class ApplicationSnapshot
+
+        internal void LocalizeApplication(CultureInfo culture, Application application) {
+            CultureInfo currentCulture = System.Threading.Thread.CurrentThread.CurrentUICulture;
+            if (SameCulture(culture, currentCulture))
+                return;
+            System.Threading.Thread.CurrentThread.CurrentCulture = culture;
+            System.Threading.Thread.CurrentThread.CurrentUICulture = culture;
+            if (applicationSnapshot == null) {
+                applicationSnapshot = new(currentCulture);
+                applicationSnapshot.Capture(application);
+            } else if (SameCulture(culture, applicationSnapshot.StartupCulture)) {
+                applicationSnapshot.Restore(application, culture);
+                return;
+            } //if
+            Localize(culture, application.Resources, null);
+            foreach (FrameworkElement window in application.Windows)
+                Localize(culture, window.Resources, window.GetType().FullName);
+        } //LocalizeApplication
+        ApplicationSnapshot applicationSnapshot;
+
+        static void Localize(CultureInfo culture, ResourceDictionary targetDictionary, string typeName) {
             bool isApplication = typeName == null;
             IApplicationSatelliteAssembly[] interfaceSet = Load(culture);
             if (interfaceSet == null) return;
@@ -86,7 +151,7 @@
             var candidates = Directory.EnumerateFiles(
                 satelliteDirectory,
                 Path.GetFileNameWithoutExtension(applicationFileName) + DefinitionSet.suffixSatelliteAssemblyFile,
-                EnumerationOptions); 
+                ApplicationSatelliteAssemblyIndex.EnumerationOptions); 
             ApplicationSatelliteAssemblyList list = new();
             foreach (string candidate in candidates) {
                 PluginLoader<IApplicationSatelliteAssembly> loader = new(candidate);
@@ -99,9 +164,6 @@
             if (list.Count < 1) return null;
             return list;
         } //Load
-        static EnumerationOptions EnumerationOptions {
-            get => new EnumerationOptions() { IgnoreInaccessible = true, RecurseSubdirectories = false, ReturnSpecialDirectories = false };
-        } //EnumerationOptions
 
         internal static bool SameCulture(CultureInfo left, CultureInfo right) =>
             string.Compare(left.Name, right.Name, System.StringComparison.InvariantCulture) == 0;

@@ -67,13 +67,7 @@
         public static new AdvancedApplicationBase Current { get { return (AdvancedApplicationBase)Application.Current; } }
 
         public void Localize(System.Globalization.CultureInfo culture) {
-            if (LocalizationContext.SameCulture(culture, System.Threading.Thread.CurrentThread.CurrentUICulture))
-                return;
-            System.Threading.Thread.CurrentThread.CurrentCulture = culture;
-            System.Threading.Thread.CurrentThread.CurrentUICulture = culture;
-            LocalizationContext.Localize(culture, Resources, null);
-            foreach (FrameworkElement window in Windows)
-                LocalizationContext.Localize(culture, window.Resources, window.GetType().FullName);
+            localizationContext.LocalizeApplication(culture, this);
         } //Localize
 
         public FlatResourceDictionary GetResources() {
@@ -104,7 +98,7 @@
         bool startupComplete;
 
         readonly AssemblyWrapper assemblyWrapper = new(Assembly.GetEntryAssembly());
-
+        readonly LocalizationContext localizationContext = new();
     } //class AdvancedApplicationBase
 
 }

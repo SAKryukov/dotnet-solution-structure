@@ -22,10 +22,11 @@
 
         void PopulateCultureMenu() {
             var cultures = ApplicationSatelliteAssemblyIndex.ImplementedCultures;
-            foreach (var culture in cultures) {
+            void AddCulture(CultureInfo culture) {
                 MenuItem menuItem = new() {
                     Header = Main.DefinitionSet.FormatCulture(culture.Name, culture.EnglishName, culture.NativeName),
-                    DataContext = culture };
+                    DataContext = culture
+                };
                 menuItem.Click += (sender, _) => {
                     if (sender is not MenuItem menuItemSender) return;
                     if (menuItemSender.DataContext is not CultureInfo itemCulture) return;
@@ -33,7 +34,10 @@
                     ShowCultureStatus(itemCulture);
                 }; //menuItem.Click
                 menuItemLanguage.Items.Add(menuItem);
-            } //loop
+            } //AddCulture
+            AddCulture(System.Threading.Thread.CurrentThread.CurrentUICulture);
+            foreach (var culture in cultures)
+                AddCulture(culture);
         } //PopulateCultureMenu
 
         void ShowCultureStatus(CultureInfo culture = null) {
