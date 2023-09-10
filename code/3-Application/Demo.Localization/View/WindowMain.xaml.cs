@@ -4,7 +4,7 @@
     using CultureInfo = System.Globalization.CultureInfo;
     using MenuItem = System.Windows.Controls.MenuItem;
     using AdvancedApplicationBase = Agnostic.UI.AdvancedApplicationBase;
-    using ApplicationSatelliteAssemblyLoader = Agnostic.UI.ApplicationSatelliteAssemblyLoader;
+    using ApplicationSatelliteAssemblyIndex = Agnostic.UI.ApplicationSatelliteAssemblyIndex;
 
     public partial class WindowMain : Window {
 
@@ -21,7 +21,7 @@
         } //WindowMain
 
         void PopulateCultureMenu() {
-            var cultures = ApplicationSatelliteAssemblyLoader.ImplementedCultures;
+            var cultures = ApplicationSatelliteAssemblyIndex.ImplementedCultures;
             foreach (var culture in cultures) {
                 MenuItem menuItem = new() {
                     Header = Main.DefinitionSet.FormatCulture(culture.Name, culture.EnglishName, culture.NativeName),

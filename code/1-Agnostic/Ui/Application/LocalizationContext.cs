@@ -1,14 +1,15 @@
 ﻿namespace SA.Agnostic.UI {
-    //using System.Windows;
-    //using StringDictionary = System.Collections.Generic.Dictionary<string, object>;
-    //using Thread = System.Threading.Thread;
-    using CultureInfo = System.Globalization.CultureInfo;
     using ResourceDictionary = System.Windows.ResourceDictionary;
+    using Assembly = System.Reflection.Assembly;
+    using CultureInfo = System.Globalization.CultureInfo;
+    using Path = System.IO.Path;
+    using Directory = System.IO.Directory;
+    using EnumerationOptions = System.IO.EnumerationOptions;
+    using ApplicationSatelliteAssemblyList = System.Collections.Generic.List<IApplicationSatelliteAssembly>;
     using SnapshotDictionaryKeyValuePair = System.Collections.Generic.KeyValuePair<object, object>;
     using SnapshotDictionary = System.Collections.Generic.Dictionary<System.Windows.ResourceDictionary, System.Collections.Generic.KeyValuePair<object, object>>;
-    using LocalizationContextDictionary = System.Collections.Generic.Dictionary<System.Windows.ResourceDictionary, System.Collections.Generic.Dictionary<string, object>>;
 
-    class LocalizationContext : LocalizationContextDictionary {
+    static class LocalizationContext {
 
         static class MergeHelper {
             internal static void SetValues(ResourceDictionary source, ResourceDictionary destination) {
@@ -27,7 +28,7 @@
             } //SetValue
             static bool HasNonRecursiveKey(object key, ResourceDictionary dictionary) {
                 foreach (var dictionaryKey in dictionary.Keys)
-                    if (dictionaryKey == key)
+                    if (dictionaryKey.ToString() == key.ToString())
                         return true;
                 return false;
             } //HasNonRecursiveKey
@@ -57,6 +58,50 @@
                     pair.Key[pair.Value.Key] = pair.Value;
             } //RestoreFromSnapshot
         } //SnapshotHelper
+
+        internal static void Localize(CultureInfo culture, ResourceDictionary targetDictionary, string typeName) {
+            bool isApplication = typeName == null;
+            IApplicationSatelliteAssembly[] interfaceSet = Load(culture);
+            if (interfaceSet == null) return;
+            foreach (var interfaceImplementation in interfaceSet) {
+                ResourceDictionary source = isApplication
+                    ? interfaceImplementation.ApplicationResources
+                    : interfaceImplementation[typeName];
+                MergeHelper.SetValues(source, targetDictionary);
+            } //loop
+        } //Localize
+
+        static IApplicationSatelliteAssembly[] Load(CultureInfo culture) {
+            string applicationFileName = Assembly.GetEntryAssembly().Location;
+            string executableDirectory = Path.GetDirectoryName(applicationFileName);
+            ApplicationSatelliteAssemblyList list = //exact name first;
+                Load(executableDirectory, applicationFileName, culture.Name);
+            if (list == null) //fallback one step:
+                list = Load(executableDirectory, applicationFileName, culture.TwoLetterISOLanguageName);
+            return list?.ToArray();
+        } //Load
+        static ApplicationSatelliteAssemblyList Load(string executableDirectory, string applicationFileName, string culture) {
+            string satelliteDirectory = Path.Combine(executableDirectory, culture);
+            if (!Directory.Exists(satelliteDirectory)) return null;
+            var candidates = Directory.EnumerateFiles(
+                satelliteDirectory,
+                Path.GetFileNameWithoutExtension(applicationFileName) + DefinitionSet.suffixSatelliteAssemblyFile,
+                EnumerationOptions); 
+            ApplicationSatelliteAssemblyList list = new();
+            foreach (string candidate in candidates) {
+                PluginLoader<IApplicationSatelliteAssembly> loader = new(candidate);
+                if (loader.Assembly != null && loader.Instance == null) {
+                    loader.Unload();
+                    continue;
+                } //if
+                list.Add(loader.Instance);
+            } //loop
+            if (list.Count < 1) return null;
+            return list;
+        } //Load
+        static EnumerationOptions EnumerationOptions {
+            get => new EnumerationOptions() { IgnoreInaccessible = true, RecurseSubdirectories = false, ReturnSpecialDirectories = false };
+        } //EnumerationOptions
 
         internal static bool SameCulture(CultureInfo left, CultureInfo right) =>
             string.Compare(left.Name, right.Name, System.StringComparison.InvariantCulture) == 0;

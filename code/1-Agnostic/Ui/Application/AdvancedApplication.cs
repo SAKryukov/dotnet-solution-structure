@@ -67,11 +67,13 @@
         public static new AdvancedApplicationBase Current { get { return (AdvancedApplicationBase)Application.Current; } }
 
         public void Localize(System.Globalization.CultureInfo culture) {
+            if (LocalizationContext.SameCulture(culture, System.Threading.Thread.CurrentThread.CurrentUICulture))
+                return;
             System.Threading.Thread.CurrentThread.CurrentCulture = culture;
             System.Threading.Thread.CurrentThread.CurrentUICulture = culture;
-            ApplicationSatelliteAssemblyLoader.Localize(culture, Resources, null);
+            LocalizationContext.Localize(culture, Resources, null);
             foreach (FrameworkElement window in Windows)
-                ApplicationSatelliteAssemblyLoader.Localize(culture, window);
+                LocalizationContext.Localize(culture, window.Resources, window.GetType().FullName);
         } //Localize
 
         public FlatResourceDictionary GetResources() {
