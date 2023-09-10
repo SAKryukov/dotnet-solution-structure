@@ -5,9 +5,8 @@ namespace SA.Application.Main {
     static class ApplicationStart {
         [STAThread]
         static void Main() {
-            Application app = new Agnostic.UI.AdvancedApplication<
-                View.WindowMain,
-                View.ApplicationResourceSource>();
+            Application app = new Agnostic.UI.AdvancedApplication
+                <View.WindowMain, View.ApplicationResourceSource>();
             app.Run();
         } //MainClass
     } //class ApplicationStart

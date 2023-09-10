@@ -3,6 +3,7 @@ namespace SA.Test {
     using System.Windows;
     using ResourceDictionarySet = System.Collections.Generic.HashSet<System.Windows.ResourceDictionary>;
     using SnapshotDictionary = System.Collections.Generic.Dictionary<System.Windows.FrameworkElement, System.Windows.ResourceDictionary>;
+    using FrameworkElementCollection = System.Collections.Generic.IEnumerable<System.Windows.FrameworkElement>;
 
     static class MergeHelper {
         internal static void SetValues(ResourceDictionary source, ResourceDictionary destination) {
@@ -25,7 +26,7 @@ namespace SA.Test {
                     return true;
             return false;
         } //HasNonRecursiveKey
-        internal static ResourceDictionary FindKey(object key, ResourceDictionary dictionary) { // SA??? made private in final version
+        internal static ResourceDictionary FindKey(object key, ResourceDictionary dictionary) {
             if (!dictionary.Contains(key)) return null;
             if (HasNonRecursiveKey(key, dictionary))
                 return dictionary;
@@ -53,7 +54,7 @@ namespace SA.Test {
                     DeepClone(mergedDictionary, mergedDictionary, resourceDictionarySet);
             } //loop
         } //DeepClone
-        internal static void StoreInSnapshot(FrameworkElement[] elements, SnapshotDictionary snapshot) {
+        internal static void StoreInSnapshot(FrameworkElementCollection elements, SnapshotDictionary snapshot, Application application, ResourceDictionary applicationSnapshop) {
             ResourceDictionarySet resourceDictionarySet = new();
             if (elements == null || snapshot == null) return;
             foreach (var element in elements) {
@@ -62,11 +63,13 @@ namespace SA.Test {
                 System.Diagnostics.Debug.Assert(!snapshot.ContainsKey(element));
                 snapshot.Add(element, target);
             } //loop
+            DeepClone(application.Resources, applicationSnapshop, resourceDictionarySet);
         } //StoreInSnapshot
-        internal static void RestoreFromSnapshot(ResourceDictionary dictionary, SnapshotDictionary snapshot) {
+        internal static void RestoreFromSnapshot(ResourceDictionary dictionary, SnapshotDictionary snapshot, Application application, ResourceDictionary applicationSnapshop) {
             if (dictionary == null || snapshot == null) return;
             foreach (var pair in snapshot)
-                pair.Key.Resources = pair.Value;
+                MergeHelper.SetValues(pair.Value, pair.Key.Resources);
+            MergeHelper.SetValues(applicationSnapshop, application.Resources);
         } //RestoreFromSnapshot
     } //SnapshotHelper
 

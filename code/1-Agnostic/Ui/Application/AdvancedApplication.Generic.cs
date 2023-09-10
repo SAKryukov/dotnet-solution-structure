@@ -12,7 +12,7 @@
 
     public class AdvancedApplication<MAINVIEW, APPLICATION_RESOURCES_SOURCE> : AdvancedApplication<MAINVIEW>
             where MAINVIEW : Window, new()
-            where APPLICATION_RESOURCES_SOURCE : FrameworkElement, new() {
+            where APPLICATION_RESOURCES_SOURCE : FrameworkContentElement, new() {
         public AdvancedApplication() {
             Resources = new APPLICATION_RESOURCES_SOURCE().Resources;
         } //AdvancedApplication

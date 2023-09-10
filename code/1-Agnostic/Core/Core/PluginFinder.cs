@@ -57,6 +57,7 @@
             } //loop
         } //Construct
 
+        private protected PluginFinder() { } // sic! required by PluginLoader
         public PluginFinder(Assembly assembly) {
             Construct(assembly);
         } //PluginFinder
@@ -64,8 +65,6 @@
         public INTERFACE Instance { get { return (INTERFACE)anInstance; } }
 
         object anInstance;
-
-        public PluginFinder() { }
 
     } //class PluginFinder
 

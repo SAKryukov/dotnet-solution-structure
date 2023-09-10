@@ -3,7 +3,6 @@
     using System.Reflection;
     using System.Windows;
     using MetadataDictionary = System.Collections.Generic.Dictionary<string, string>;
-    using FlatResourceDictionary = System.Collections.Generic.Dictionary<string, object>;
 
     public interface IExceptionPresenter {
         void Show(string exceptionTypeName, string exceptionMessage, string exception);
@@ -69,31 +68,6 @@
         public void Localize(System.Globalization.CultureInfo culture) {
             localizationContext.LocalizeApplication(culture, this);
         } //Localize
-
-        public FlatResourceDictionary GetResources() {
-            return GetResources(Resources);
-        } //GetResources
-        public static FlatResourceDictionary GetResources(Window window) {
-            return GetResources(window?.Resources);
-        } //GetResources
-        public static FlatResourceDictionary GetResources(ResourceDictionary dictionary) {
-            if (dictionary == null) return null;
-            FlatResourceDictionary result = new();
-            static void GetPartialResources(FlatResourceDictionary currentResult, ResourceDictionary partialDictionary) {
-                var keys = partialDictionary.Keys;
-                foreach (var merged in partialDictionary.MergedDictionaries)
-                    GetPartialResources(currentResult, merged);
-                foreach (var key in keys) {
-                    string stringKey = key.ToString();
-                    if (currentResult.ContainsKey(stringKey))
-                        currentResult[stringKey] = partialDictionary[key];
-                    else
-                        currentResult.Add(stringKey, partialDictionary[key]);
-                } //loop
-            } //GetPartialResources
-            GetPartialResources(result, dictionary);
-            return result;
-        } //GetResources
 
         bool startupComplete;
 

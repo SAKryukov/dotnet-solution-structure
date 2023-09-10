@@ -91,9 +91,9 @@
                     <TreeViewItem Header="{DynamicResource treeViewItem.Options}" >
                         <TreeViewItem Header="{DynamicResource treeViewItem.Display}">
                             <TreeViewItem Header="  ...  " IsEnabled="False" />
-                            <TreeViewItem Header="{DynamicResource treeViewItem.Layout}" IsSelected="True"/>
+                            <TreeViewItem Header="{DynamicResource treeViewItem.Layout}"/>
                             <TreeViewItem Header="{DynamicResource treeViewItem.Icons}"/>
-                            <TreeViewItem Header="{DynamicResource treeViewItem.Fonts}"/>
+                            <TreeViewItem Header="{DynamicResource treeViewItem.Fonts}" IsSelected="True"/>
                             <TreeViewItem Header="{DynamicResource treeViewItem.Color}"/>
                             <TreeViewItem Header="{DynamicResource treeViewItem.Tabstops}"/>
                             <TreeViewItem Header="{DynamicResource treeViewItem.FolderTabs}"/>
