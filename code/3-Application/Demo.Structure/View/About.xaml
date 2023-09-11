@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Style="{DynamicResource CommonFont}"
         ResizeMode="NoResize"
+        ShowInTaskbar="False"
         WindowStartupLocation="CenterOwner"
         SizeToContent="WidthAndHeight">
     <Window.Resources>
@@ -11,22 +12,28 @@
                 <ResourceDictionary Source="pack://application:,,,/Semantic.UI;component/Resources/Semantic.UI.Common.xaml"/>
                 <ResourceDictionary>
                     <Style TargetType="TextBlock" x:Key="textBlock">
-                        <Setter Property="Margin" Value="80 10 80 20"/>
+                        <Setter Property="Margin" Value="14 10 14 20"/>
                     </Style>
+                    <Thickness x:Key="buttonPadding">64 4 64 4</Thickness>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-    <Border Padding="30 12 30 12">
+    <Border Padding="30 12 30 9">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <TextBlock HorizontalAlignment="Center" Style="{StaticResource textBlock}">About</TextBlock>
+            <TextBlock HorizontalAlignment="Center" Style="{StaticResource textBlock}">
+                This project is a set of units and illustrative materials
+                <LineBreak/>
+                used to share several ideas on the improvement of
+                <LineBreak/>
+                the .NET solution structure.</TextBlock>
             <StatusBar Grid.Row="1" Background="Transparent">
                 <StatusBarItem HorizontalAlignment="Center">
-                    <Button Padding="{StaticResource LeftRightMargin}" IsCancel="True">Close</Button>
+                    <Button Padding="{StaticResource buttonPadding}" IsDefault="True" IsCancel="True">Close</Button>
                 </StatusBarItem>
             </StatusBar>
         </Grid>

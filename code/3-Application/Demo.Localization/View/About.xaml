@@ -4,6 +4,7 @@
         xmlns:system="clr-namespace:System;assembly=netstandard"
         Style="{DynamicResource CommonFont}"
         ResizeMode="NoResize"
+        ShowInTaskbar="False"      
         WindowStartupLocation="CenterOwner"
         SizeToContent="WidthAndHeight">
     <Window.Resources>

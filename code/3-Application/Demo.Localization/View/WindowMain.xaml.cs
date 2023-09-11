@@ -11,12 +11,7 @@
         public WindowMain() {
             InitializeComponent();
             PopulateCultureMenu();
-            menuItemHelp.Click += (_, _) => about.ShowAbout(this);
-            KeyDown += (_, eventArgs) => {
-                if (eventArgs.Key == System.Windows.Input.Key.F1)
-                    about.ShowAbout(this);
-            }; //KeyDown
-            menuItemQuit.Click += (_, _) => Close();
+            AddCommandBindings();
             ShowCultureStatus();
         } //WindowMain
 

@@ -4,6 +4,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <FrameworkContentElement.Resources>
         <ResourceDictionary>
+            <Thickness x:Key="treeViewItem.Padding">12 0 12 2</Thickness>
             <system:String x:Key="textBoxHeader.Text">XAML-based Localization with Satellite Assemblies</system:String>
             <system:String x:Key="menuItem.File">Archivo</system:String>
             <system:String x:Key="menuItem.View">Vistas</system:String>
