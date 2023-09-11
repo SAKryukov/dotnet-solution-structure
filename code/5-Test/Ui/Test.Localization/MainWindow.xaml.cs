@@ -10,6 +10,9 @@
             InitializeComponent();
             PopulateCultureMenu();
             ShowCultureStatus(System.Threading.Thread.CurrentThread.CurrentUICulture);
+            unimplementedCulture.Click += (_, _) => {
+                ShowCultureStatus(AdvancedApplicationBase.Localize(Application.Current, localizationContext, new CultureInfo("fr")));
+            };
         } //MainWindow
 
         void PopulateCultureMenu() {
@@ -22,10 +25,9 @@
                 menuItem.Click += (sender, _) => {
                     if (sender is not MenuItem menuItemSender) return;
                     if (menuItemSender.DataContext is not CultureInfo itemCulture) return;
-                    AdvancedApplicationBase.Localize(Application.Current, localizationContext, itemCulture);
-                    ShowCultureStatus(itemCulture);
+                    ShowCultureStatus(AdvancedApplicationBase.Localize(Application.Current, localizationContext, itemCulture));
                 }; //menuItem.Click
-                meniItemCulture.Items.Add(menuItem);
+                meniItemCulture.Items.Insert(meniItemCulture.Items.Count - 1, menuItem);
             } //AddCulture
             AddCulture(System.Threading.Thread.CurrentThread.CurrentUICulture);
             foreach (var culture in cultures)
@@ -33,7 +35,7 @@
         } //PopulateCultureMenu
 
         void ShowCultureStatus(CultureInfo culture) {
-            textBlockCulture.Text = culture.Name;
+            textBlockCulture.Text = culture.EnglishName;
         } //ShowCultureStatus
 
         readonly Agnostic.UI.LocalizationContext localizationContext = new();

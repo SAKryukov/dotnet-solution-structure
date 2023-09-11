@@ -25,8 +25,7 @@
                 menuItem.Click += (sender, _) => {
                     if (sender is not MenuItem menuItemSender) return;
                     if (menuItemSender.DataContext is not CultureInfo itemCulture) return;
-                    advancedApplication.Localize(itemCulture);
-                    ShowCultureStatus(itemCulture);
+                    ShowCultureStatus(advancedApplication.Localize(itemCulture));
                 }; //menuItem.Click
                 menuItemLanguage.Items.Add(menuItem);
             } //AddCulture

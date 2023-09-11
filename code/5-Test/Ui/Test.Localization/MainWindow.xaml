@@ -4,20 +4,27 @@
         FontSize="{DynamicResource fontSize}"
         Title="Localization test"
         SizeToContent="WidthAndHeight">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Semantic.UI;component/Resources/Semantic.UI.MenuItem.xaml"/>
+                <ResourceDictionary>
+                    <Thickness x:Key="paddingMain">20 8 20 8</Thickness>
+                    <Thickness x:Key="paddingStandard">8 0 8 2</Thickness>
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
     <Grid>
-        <Grid.Resources>
-            <ResourceDictionary>
-                <Thickness x:Key="paddingMain">20 8 20 8</Thickness>
-                <Thickness x:Key="paddingStandard">8 0 8 2</Thickness>
-            </ResourceDictionary>
-        </Grid.Resources>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Menu FontSize="{DynamicResource fontSize}">
-            <MenuItem x:Name="meniItemCulture" Header="{DynamicResource headerMenu}"/>
+            <MenuItem x:Name="meniItemCulture" Header="{DynamicResource headerMenu}">
+                <MenuItem x:Name="unimplementedCulture" Header="Test unimplemented culture" Icon="🕶"/>
+            </MenuItem>
         </Menu>
         <Border Grid.Row="1" Padding="{StaticResource paddingMain}" BorderThickness="0 0 0 1" BorderBrush="Gray" Background="{DynamicResource background}">
             <TextBlock Text="{DynamicResource textMain}"/>
