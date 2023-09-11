@@ -105,10 +105,10 @@
             readonly ResourceDictionary applicationSnapshop = new();
         } //class ApplicationSnapshot
 
-        internal void Localize(CultureInfo culture, Application application) {
+        internal CultureInfo Localize(CultureInfo culture, Application application) {
             CultureInfo currentCulture = System.Threading.Thread.CurrentThread.CurrentUICulture;
             if (SameCulture(culture, currentCulture))
-                return;
+                return null;
             System.Threading.Thread.CurrentThread.CurrentCulture = culture;
             System.Threading.Thread.CurrentThread.CurrentUICulture = culture;
             if (applicationSnapshot == null) {
@@ -116,23 +116,30 @@
                 applicationSnapshot.Capture(application);
             } else if (SameCulture(culture, applicationSnapshot.StartupCulture)) {
                 applicationSnapshot.Restore(application);
-                return;
+                return applicationSnapshot.StartupCulture;
             } //if
-            Localize(culture, application.Resources, null);
+            bool result = false;
+            result |= Localize(culture, application.Resources, null) != null;
             foreach (FrameworkElement window in application.Windows)
-                Localize(culture, window.Resources, window.GetType().FullName);
+                result |= Localize(culture, window.Resources, window.GetType().FullName) != null;
+            if (!result) {
+                applicationSnapshot.Restore(application);
+                return applicationSnapshot.StartupCulture;
+            } //if
+            return culture;
         } //Localize
 
-        static void Localize(CultureInfo culture, ResourceDictionary targetDictionary, string typeName) {
+        static CultureInfo Localize(CultureInfo culture, ResourceDictionary targetDictionary, string typeName) {
             bool isApplication = typeName == null;
             IApplicationSatelliteAssembly[] interfaceSet = Load(culture);
-            if (interfaceSet == null) return;
+            if (interfaceSet == null || interfaceSet.Length < 1) return null;
             foreach (var interfaceImplementation in interfaceSet) {
                 ResourceDictionary source = isApplication
                     ? interfaceImplementation.ApplicationResources
                     : interfaceImplementation[typeName];
                 MergeHelper.SetValues(source, targetDictionary);
             } //loop
+            return culture;
         } //Localize
 
         static IApplicationSatelliteAssembly[] Load(CultureInfo culture) {

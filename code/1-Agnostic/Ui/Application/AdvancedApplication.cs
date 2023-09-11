@@ -2,6 +2,7 @@
     using System;
     using System.Reflection;
     using System.Windows;
+    using CultureInfo = System.Globalization.CultureInfo;
     using MetadataDictionary = System.Collections.Generic.Dictionary<string, string>;
 
     public interface IExceptionPresenter {
@@ -65,11 +66,11 @@
         public string SupportedOSPlatformName { get { return assemblyWrapper.SupportedOSPlatformName; } }
         public static new AdvancedApplicationBase Current { get { return (AdvancedApplicationBase)Application.Current; } }
 
-        public void Localize(System.Globalization.CultureInfo culture) {
-            localizationContext.Localize(culture, this);
+        public CultureInfo Localize(CultureInfo culture) {
+            return localizationContext.Localize(culture, this);
         } //Localize
-        public static void Localize(Application application, LocalizationContext localizationContext, System.Globalization.CultureInfo culture) {
-            localizationContext?.Localize(culture, application);
+        public static CultureInfo Localize(Application application, LocalizationContext localizationContext, CultureInfo culture) {
+            return localizationContext?.Localize(culture, application);
         } //Localize
 
         bool startupComplete;
