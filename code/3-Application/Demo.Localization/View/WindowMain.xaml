@@ -11,11 +11,7 @@
                 <ResourceDictionary Source="pack://application:,,,/Semantic.UI;component/Resources/Semantic.UI.Common.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/Semantic.UI;component/Resources/Semantic.UI.MenuItem.xaml"/>
                 <ResourceDictionary>
-                    <Style TargetType="TreeViewItem">
-                        <Setter Property="IsExpanded" Value="True" />
-                        <Setter Property="Padding" Value="{StaticResource LeftRightBottomMargin}"/>
-                    </Style>
-                    <Style x:Key="treeViewItem" TargetType="TreeViewItem">
+                    <Style x:Key="treeViewItemBase" TargetType="TreeViewItem">
                         <Setter Property="IsExpanded" Value="True" />
                         <Setter Property="Padding" Value="{StaticResource LeftRightBottomMargin}"/>
                     </Style>
@@ -88,9 +84,11 @@
             <StackPanel Background="Transparent">
                 <TextBlock Style="{StaticResource headerTextBlock}" Text="{StaticResource textBoxHeader.Text}"/>
                 <TreeView x:Name="treeView" Padding="{DynamicResource RightMargin}" Background="Transparent">
-                    <TreeViewItem Header="{DynamicResource treeViewItem.Options}" >
+                    <TreeView.Resources>
+                        <Style TargetType="{x:Type TreeViewItem}" BasedOn="{StaticResource treeViewItemBase}"/>
+                    </TreeView.Resources>
+                    <TreeViewItem Header="{DynamicResource treeViewItem.Options}">
                         <TreeViewItem Header="{DynamicResource treeViewItem.Display}">
-                            <TreeViewItem Header="  ...  " IsEnabled="False" />
                             <TreeViewItem Header="{DynamicResource treeViewItem.Layout}"/>
                             <TreeViewItem Header="{DynamicResource treeViewItem.Icons}"/>
                             <TreeViewItem Header="{DynamicResource treeViewItem.Fonts}" IsSelected="True"/>
@@ -105,7 +103,7 @@
                         <TreeViewItem Header="{DynamicResource treeViewItem.Operation}">
                             <TreeViewItem Header="{DynamicResource treeViewItem.Edit/View}"/>
                             <TreeViewItem Header="{DynamicResource treeViewItem.Copy/Delete}"/>
-                            <TreeViewItem Header="{DynamicResource treeViewItem.Refresh}"/>
+                                <TreeViewItem Header="{DynamicResource treeViewItem.Refresh}"/>
                             <TreeViewItem Header="{DynamicResource treeViewItem.QuickSearch}"/>
                         </TreeViewItem>
                     </TreeViewItem>
