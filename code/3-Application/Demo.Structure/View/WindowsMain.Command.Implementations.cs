@@ -51,7 +51,7 @@ namespace SA.Application.View {
             if (listBoxPlugin.SelectedIndex < 0) return false;
             if (!doAct)
                 return pluginSet[listBoxPlugin.SelectedIndex].Classifier == Main.PluginSetElementClassifier.Ui;
-            if (pluginSet[listBoxPlugin.SelectedIndex].Plugin is not Semantic.IUiPlugin plugin) return false;
+            if (pluginSet[listBoxPlugin.SelectedIndex].Plugin is not Semantic.UI.IUiPlugin plugin) return false;
             plugin.Create(this);
             plugin.Execute();
             plugin.Destroy();

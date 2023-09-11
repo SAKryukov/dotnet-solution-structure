@@ -1,5 +1,5 @@
 namespace SA.Test.View {
-    using Semantic;
+    using Semantic.UI;
 
     public partial class WindowMainTest : IUiHost {
 

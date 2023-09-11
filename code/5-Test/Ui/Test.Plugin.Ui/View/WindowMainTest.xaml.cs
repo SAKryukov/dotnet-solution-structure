@@ -14,7 +14,7 @@
         void LoadAndExecuteUiPlugin() {
             loadPluginDialog.InitialDirectory = Agnostic.UI.AdvancedApplicationBase.Current.ExecutablePath;
             if (loadPluginDialog.ShowDialog() != true) return;
-            Agnostic.PluginLoader<Semantic.IUiPlugin> loader = new(loadPluginDialog.FileName);
+            Agnostic.PluginLoader<Semantic.UI.IUiPlugin> loader = new(loadPluginDialog.FileName);
             if (loader.Instance == null) return;
             loader.Instance.Create(this);
             loader.Instance.Execute();

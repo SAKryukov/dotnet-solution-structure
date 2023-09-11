@@ -1,6 +1,8 @@
 @echo off
 
 ::MAIN: deletes all "obj" subdirectories
+    call:RECURSIVE_PURGE \bin
+    call:RECURSIVE_PURGE \obj
     call:RECURSIVE_PURGE .vs
     call:RECURSIVE_PURGE .intermediateOutput
     call:RECURSIVE_PURGE output.*

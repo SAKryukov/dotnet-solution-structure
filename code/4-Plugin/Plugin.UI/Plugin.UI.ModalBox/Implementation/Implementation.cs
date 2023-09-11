@@ -1,11 +1,11 @@
 [assembly: SA.Agnostic.PluginManifest(
-    typeof(SA.Semantic.IUiPlugin),
+    typeof(SA.Semantic.UI.IUiPlugin),
     typeof(SA.Plugin.Implementation))]
 
 namespace SA.Plugin {
     using INamedPlugin = Semantic.INamedPlugin;
-    using IUiHost = Semantic.IUiHost;
-    using IUiPlugin = Semantic.IUiPlugin;
+    using IUiHost = Semantic.UI.IUiHost;
+    using IUiPlugin = Semantic.UI.IUiPlugin;
 
     class Implementation : IUiPlugin {
 

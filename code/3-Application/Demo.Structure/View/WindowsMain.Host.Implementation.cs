@@ -1,5 +1,6 @@
 namespace SA.Application.View {
     using Semantic;
+    using Semantic.UI;
 
     public partial class WindowMain : IHost, IUiHost {
 

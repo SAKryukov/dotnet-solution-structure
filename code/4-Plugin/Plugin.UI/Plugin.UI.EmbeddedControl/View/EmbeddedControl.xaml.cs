@@ -1,7 +1,7 @@
 ﻿namespace SA.Plugin.View {
     using System.Windows.Controls;
     using System.Windows.Media;
-    using IUiHost = Semantic.IUiHost;
+    using IUiHost = Semantic.UI.IUiHost;
 
     public partial class EmbeddedControl : UserControl {
 

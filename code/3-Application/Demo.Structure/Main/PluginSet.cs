@@ -3,7 +3,7 @@ namespace SA.Application.Main {
     using IPropertyPlugin = Semantic.IPropertyPlugin;
     using PluginSet = System.Collections.ObjectModel.ObservableCollection<PluginSetElement>;
     using PropertyPluginLoader = Agnostic.PluginLoader<Semantic.IPropertyPlugin>;
-    using UiPluginFinder = Agnostic.PluginFinder<Semantic.IUiPlugin>;
+    using UiPluginFinder = Agnostic.PluginFinder<Semantic.UI.IUiPlugin>;
 
     class PluginSetExtension : PluginSet {
         internal bool Add(string assemblyPath) {

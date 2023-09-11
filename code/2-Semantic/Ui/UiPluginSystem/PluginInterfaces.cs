@@ -1,4 +1,4 @@
-namespace SA.Semantic {
+namespace SA.Semantic.UI {
 
     public interface IUiHost {
         System.Windows.Window MainApplicationWindow { get { return null; } }
