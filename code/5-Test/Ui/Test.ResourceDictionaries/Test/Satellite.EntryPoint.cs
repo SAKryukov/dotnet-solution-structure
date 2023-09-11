@@ -93,9 +93,10 @@ namespace SA.Test {
             top[keyToFind] = $"{keyToFind} in Top";
             child1[keyToFind] = $"{keyToFind} in child1";
             grandchild2[keyToFind] = $"{keyToFind} in grandchild2";
-            object found = MergeHelper.FindKey(keyToFind, top);
+            //object found = MergeHelper.FindKey(keyToFind, top);
             ResourceDictionary snapshot = new();
             SnapshotHelper.DeepClone(top, snapshot, null);
+            Console.Write("Press any key...");
             Console.ReadKey(true);
         } //Execute
 
