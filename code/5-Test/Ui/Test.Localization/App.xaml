@@ -1,0 +1,14 @@
+﻿<Application x:Class="SA.Test.Localization.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:system="clr-namespace:System;assembly=netstandard"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <Brush x:Key="background">White</Brush>
+            <system:Double x:Key="fontSize">16</system:Double>
+            <system:String x:Key="headerMenu">C_ulture</system:String>
+            <system:String x:Key="textMain">This is the example of localization of a standard WPF application</system:String>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

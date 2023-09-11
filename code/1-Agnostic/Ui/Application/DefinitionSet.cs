@@ -5,8 +5,10 @@ namespace SA.Agnostic.UI {
         internal const string suffixSatelliteAssemblyFile = ".resources.dll";
 
         internal const string maskAllFiles = "*";
-        internal const string maskResourceFile = maskAllFiles + suffixSatelliteAssemblyFile;
         internal static System.Func<string, string> formatTitle = productName => $" {productName}";
+
+        internal static string MaskResourceFile(string baseName) =>
+            $"{baseName}{maskAllFiles + suffixSatelliteAssemblyFile}";
 
     } //class DefinitionSet
 

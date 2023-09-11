@@ -66,7 +66,10 @@
         public static new AdvancedApplicationBase Current { get { return (AdvancedApplicationBase)Application.Current; } }
 
         public void Localize(System.Globalization.CultureInfo culture) {
-            localizationContext.LocalizeApplication(culture, this);
+            localizationContext.Localize(culture, this);
+        } //Localize
+        public static void Localize(Application application, LocalizationContext localizationContext, System.Globalization.CultureInfo culture) {
+            localizationContext?.Localize(culture, application);
         } //Localize
 
         bool startupComplete;

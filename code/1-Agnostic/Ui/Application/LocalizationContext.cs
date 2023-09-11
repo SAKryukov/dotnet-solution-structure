@@ -13,11 +13,11 @@
     using Application = System.Windows.Application;
     using Debug = System.Diagnostics.Debug;
 
-    class LocalizationContext {
+    public class LocalizationContext {
 
         static class MergeHelper {
             internal static void SetValues(ResourceDictionary source, ResourceDictionary destination) {
-                Debug.Assert(source != null && destination != null);
+                if (source == null || destination == null) return;
                 for (int index = source.MergedDictionaries.Count - 1; index >= 0; --index) {
                     ResourceDictionary mergedDictionary = source.MergedDictionaries[index];
                     SetValues(mergedDictionary, destination);
@@ -105,7 +105,7 @@
             readonly ResourceDictionary applicationSnapshop = new();
         } //class ApplicationSnapshot
 
-        internal void LocalizeApplication(CultureInfo culture, Application application) {
+        internal void Localize(CultureInfo culture, Application application) {
             CultureInfo currentCulture = System.Threading.Thread.CurrentThread.CurrentUICulture;
             if (SameCulture(culture, currentCulture))
                 return;
@@ -121,8 +121,7 @@
             Localize(culture, application.Resources, null);
             foreach (FrameworkElement window in application.Windows)
                 Localize(culture, window.Resources, window.GetType().FullName);
-        } //LocalizeApplication
-        ApplicationSnapshot applicationSnapshot;
+        } //Localize
 
         static void Localize(CultureInfo culture, ResourceDictionary targetDictionary, string typeName) {
             bool isApplication = typeName == null;
@@ -167,6 +166,8 @@
 
         internal static bool SameCulture(CultureInfo left, CultureInfo right) =>
             string.Compare(left.Name, right.Name, System.StringComparison.InvariantCulture) == 0;
+
+        ApplicationSnapshot applicationSnapshot;
 
     } //class LocalizationContext
 

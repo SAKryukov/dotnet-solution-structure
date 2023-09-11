@@ -11,8 +11,11 @@
 
         public static CultureInfo[] ImplementedCultures {
             get {
+                string location = Assembly.GetEntryAssembly().Location;
+                string directoryPath = Path.GetDirectoryName(location);
+                string baseName = Path.GetFileNameWithoutExtension(location);
                 var directories = Directory.EnumerateDirectories(
-                    Path.GetDirectoryName(Assembly.GetEntryAssembly().Location),
+                    directoryPath,
                     DefinitionSet.maskAllFiles,
                     EnumerationOptions);
                 CultureList list = new();
@@ -24,7 +27,7 @@
                     if (culture == null) continue;
                     var files = Directory.EnumerateFiles(
                         directory,
-                        DefinitionSet.maskResourceFile,
+                        DefinitionSet.MaskResourceFile(baseName),
                         EnumerationOptions);
                     bool found = false;
                     foreach (var file in files) {
