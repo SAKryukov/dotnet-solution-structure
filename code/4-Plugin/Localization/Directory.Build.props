@@ -1,0 +1,13 @@
+﻿<Project>
+    <Import Project="$(SolutionDir)\Directory.Build.props"/>
+
+  <PropertyGroup>
+    <AssemblyName>Demo.Localization.resources</AssemblyName>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <UseWPF>true</UseWPF>
+    <TargetFramework>$(TargetFramework)-windows</TargetFramework>
+  </PropertyGroup>
+
+</Project>
