@@ -14,8 +14,6 @@ namespace SA.Test.CodeGeneration {
 
         void Execute(string filename, string namespaceName, string typeName) {
             ResourceDictionary dictionary = resourceCollector.Resources;
-            if (dictionary.MergedDictionaries.Count > 0)
-                dictionary = dictionary.MergedDictionaries[0];
             GenerateFileFromResourceDictionary(dictionary, filename, namespaceName, typeName);
         } //Execute
 
@@ -36,7 +34,8 @@ namespace SA.Test.CodeGeneration {
             destination.Add($"namespace {generatedNamespace}.GeneratedResourceSet {{");
             destination.Add(string.Empty);
             destination.Add($"    static class {generatedClassName} {{");
-            foreach (var key in dictionary.Keys) {
+            foreach (object key in dictionary.Keys) {
+                if (key is not string) continue;
                 string valid = MakeValidIdentifier(key.ToString());
                 object value = dictionary[key];
                 System.Type type = value.GetType();
