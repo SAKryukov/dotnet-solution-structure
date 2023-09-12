@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>SA.Test.CodeGeneration</RootNamespace>
+    <OutputType>Exe</OutputType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\1-Agnostic\Core\Agnostic.Core.csproj" />
+    <ProjectReference Include="..\..\..\1-Agnostic\Ui\Agnostic.UI.csproj" />
+    <ProjectReference Include="..\..\..\2-Semantic\Ui\Semantic.UI.csproj" />
+  </ItemGroup>
+  
+  <Target Name="GenerateCode" AfterTargets="Build;Rebuild">
+    <PropertyGroup>
+      <GeneratedCodeDirectory>Auto-Generated-Code</GeneratedCodeDirectory>
+      <GeneratedFileName>$(AssemblyName).Resources.cs</GeneratedFileName>
+    </PropertyGroup>
+    <ItemGroup>
+      <GeneratedCode Include="$(OutDir)$(GeneratedCodeDirectory)" />
+    </ItemGroup>
+    <MakeDir Directories="@(GeneratedCode)" />
+    <Exec Command="$(OutDir)$(AssemblyName).exe $(OutDir)$(GeneratedCodeDirectory)\$(GeneratedFileName)"/>
+  </Target>
+
+</Project>

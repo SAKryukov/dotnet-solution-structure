@@ -9,7 +9,7 @@ namespace SA.Test.Plugin {
 
     class Test {
 
-        void Execute() {
+        static void Execute() {
             EnumerationOptions enumerationOptions = new() { IgnoreInaccessible = true, RecurseSubdirectories = false, ReturnSpecialDirectories = false };
             var directories = Directory.EnumerateDirectories(
                 Path.GetDirectoryName(Assembly.GetEntryAssembly().Location),
@@ -33,13 +33,12 @@ namespace SA.Test.Plugin {
                     enumerationOptions);
                 bool found = false;
                 foreach (var file in files) {
-                    using (PluginLoader loader = new(file)) {
-                        if (loader.Instance != null) {
-                            found = true;
-                            break;
-                        } else
-                            continue;
-                    } //using
+                    using PluginLoader loader = new(file);
+                    if (loader.Instance != null) {
+                        found = true;
+                        break;
+                    } else
+                        continue;
                 } //inner loops
                 if (found)
                     Console.WriteLine(DefinitionSet.FormatFoundIn(directory));
@@ -51,7 +50,7 @@ namespace SA.Test.Plugin {
         [System.STAThread]
         static void Main() {
             Console.OutputEncoding = System.Text.Encoding.UTF8;
-            (new Test()).Execute();
+            Test.Execute();
         } //Main
 
     } //class Test

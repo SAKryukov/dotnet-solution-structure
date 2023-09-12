@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Test.CodeGeneration": {
+      "commandName": "Project",
+      "commandLineArgs": "___auto-generated-code.cs"
+    }
+  }
+}

@@ -53,6 +53,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test.Localization", "5-Test
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Plugin.Test.Localization.ru-RU", "4-Plugin\Localization\ru-RU.Test.Localization\Plugin.Test.Localization.ru-RU.csproj", "{9D3FCB6E-B750-458C-BF86-C0C662DCE05D}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test.CodeGeneration", "5-Test\Ui\Test.CodeGeneration\Test.CodeGeneration.csproj", "{7C019CE2-1F00-495E-9991-004DDB26B278}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -135,6 +137,10 @@ Global
 		{9D3FCB6E-B750-458C-BF86-C0C662DCE05D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9D3FCB6E-B750-458C-BF86-C0C662DCE05D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9D3FCB6E-B750-458C-BF86-C0C662DCE05D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C019CE2-1F00-495E-9991-004DDB26B278}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C019CE2-1F00-495E-9991-004DDB26B278}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C019CE2-1F00-495E-9991-004DDB26B278}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C019CE2-1F00-495E-9991-004DDB26B278}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -160,6 +166,7 @@ Global
 		{BAEE3BA4-CC5F-4446-BACC-1D37A4D94784} = {F313A634-779E-4650-BF6B-ECF9C98A8B28}
 		{575DB7EB-E867-48E2-9073-5B85A4EA7AAC} = {F313A634-779E-4650-BF6B-ECF9C98A8B28}
 		{9D3FCB6E-B750-458C-BF86-C0C662DCE05D} = {F3C014D0-48FC-4765-AA6E-49DE62F3CBDB}
+		{7C019CE2-1F00-495E-9991-004DDB26B278} = {F313A634-779E-4650-BF6B-ECF9C98A8B28}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {748AE680-2914-4777-8DD9-73C53395892D}
