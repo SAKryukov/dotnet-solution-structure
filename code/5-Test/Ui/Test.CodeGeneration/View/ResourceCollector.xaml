@@ -1,7 +1,21 @@
 ﻿<FrameworkContentElement x:Class="SA.Test.CodeGeneration.View.ResourceCollector"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                         xmlns:system="clr-namespace:System;assembly=netstandard"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <FrameworkContentElement.Resources>
-        <ResourceDictionary Source="pack://application:,,,/Semantic.UI;component/Resources/Semantic.UI.Common.xaml"/>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Semantic.UI;component/Resources/Semantic.UI.Common.xaml"/>
+                <ResourceDictionary>
+                    <system:String x:Key="outer.Name">My name</system:String>
+                    <system:Int64 x:Key="outer.Ind">1313</system:Int64>
+                    <system:Int64 x:Key="outer!Ind">1314</system:Int64>
+                    <system:Int64 x:Key="outer Ind">1315</system:Int64>
+                    <system:Int64 x:Key="outer?Ind">1316</system:Int64>
+                    <system:String x:Key="outer!Name">My name</system:String>
+                    <system:String x:Key="outer?Name">My name</system:String>
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </FrameworkContentElement.Resources>
 </FrameworkContentElement>

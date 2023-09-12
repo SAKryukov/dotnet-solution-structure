@@ -73,9 +73,9 @@ namespace SA.Test {
         } //RestoreFromSnapshot
     } //SnapshotHelper
 
-    class Test {
+    static class Test {
 
-        void Execute() {
+        static void Execute() {
             string keyName = "name";
             string keyLevel = "level";
             string keyToFind = "found!";
@@ -102,7 +102,7 @@ namespace SA.Test {
 
         static void Main() {
             Console.OutputEncoding = System.Text.Encoding.UTF8;
-            (new Test()).Execute();
+            Execute();
         } //Main
 
     } //class Test
