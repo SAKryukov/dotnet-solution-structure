@@ -7,20 +7,18 @@
         Some string resources moved here just to demonstrate that WPF markup extensions {DynamicResource ...} and {StaticResource ...}
         can reference not only FrameworkElement.Resources, but also Application.Resources
         -->
-        <ResourceDictionary>
-            <x:Array x:Key="arrayDemo" Type="system:String">
-                <system:String>Demonstration:</system:String>
-                <system:String>Resource markup extension</system:String>
-                <system:String>x:Array</system:String>
-                <system:String>used as ListBox.ItemSource</system:String>
-            </x:Array>
-            <system:String x:Key="menuItem.Quit">Quit</system:String>
-            <system:String x:Key="menuItem.Quit.Icon">❌</system:String>
-            <system:String x:Key="treeViewItem.Operation">Operation</system:String>
-            <system:String x:Key="treeViewItem.Edit/View">Edit/View</system:String>
-            <system:String x:Key="treeViewItem.Copy/Delete">Copy/Delete</system:String>
-            <system:String x:Key="treeViewItem.Refresh">Refresh</system:String>
-            <system:String x:Key="treeViewItem.QuickSearch">Quick Search</system:String>
-        </ResourceDictionary>
+        <x:Array x:Key="arrayDemo" Type="system:String">
+            <system:String>Demonstration:</system:String>
+            <system:String>Resource markup extension</system:String>
+            <system:String>x:Array</system:String>
+            <system:String>used as ListBox.ItemSource</system:String>
+        </x:Array>
+        <system:String x:Key="menuItem.Quit">Quit</system:String>
+        <system:String x:Key="menuItem.Quit.Icon">❌</system:String>
+        <system:String x:Key="treeViewItem.Operation">Operation</system:String>
+        <system:String x:Key="treeViewItem.Edit/View">Edit/View</system:String>
+        <system:String x:Key="treeViewItem.Copy/Delete">Copy/Delete</system:String>
+        <system:String x:Key="treeViewItem.Refresh">Refresh</system:String>
+        <system:String x:Key="treeViewItem.QuickSearch">Quick Search</system:String>
     </FrameworkContentElement.Resources>
 </FrameworkContentElement>

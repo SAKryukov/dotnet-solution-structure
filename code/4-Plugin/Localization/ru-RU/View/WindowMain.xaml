@@ -3,29 +3,27 @@
         xmlns:system="clr-namespace:System;assembly=netstandard"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <FrameworkContentElement.Resources>
-        <ResourceDictionary>
-            <Thickness x:Key="treeViewItem.Padding">12 2 12 4</Thickness>
-            <system:String x:Key="textBoxHeader.Text">XAML-based Localization with Satellite Assemblies</system:String>
-            <system:String x:Key="menuItem.File">Файлы</system:String>
-            <system:String x:Key="menuItem.View">Вид</system:String>
-            <system:String x:Key="menuItem.Language">Язык</system:String>
-            <system:String x:Key="menuItem.Help">Справка</system:String>
-            <system:String x:Key="menuItem.Help.About">О приложении</system:String>
-            <system:String x:Key="menuItem.Help.About.Icon">❔</system:String>
-            <system:String x:Key="treeViewItem.Options">Настройки</system:String>
-            <system:String x:Key="treeViewItem.Layout">Вид окна</system:String>
-            <system:String x:Key="treeViewItem.Display">Содержимое панелей</system:String>
-            <system:String x:Key="treeViewItem.Icons">Значки</system:String>
-            <system:String x:Key="treeViewItem.Fonts">Шрифты</system:String>
-            <system:String x:Key="treeViewItem.Color">Цвета</system:String>
-            <system:String x:Key="treeViewItem.Tabstops">Табуляторы</system:String>
-            <system:String x:Key="treeViewItem.FolderTabs">Вкладки папок</system:String>
-            <system:String x:Key="treeViewItem.CustomColumns">Наборы колонок</system:String>
-            <system:String x:Key="treeViewItem.ViewMode">Стили оформления</system:String>
-            <system:String x:Key="treeViewItem.AutoSwitchMode">Автовыбор стиля</system:String>
-            <Style x:Key="borderMain" TargetType="Border">
-                <Setter Property="Background" Value="#FFEEEE"/>
-            </Style>
-        </ResourceDictionary>
+        <Thickness x:Key="treeViewItem.Padding">12 2 12 4</Thickness>
+        <system:String x:Key="textBoxHeader.Text">XAML-based Localization with Satellite Assemblies</system:String>
+        <system:String x:Key="menuItem.File">Файлы</system:String>
+        <system:String x:Key="menuItem.View">Вид</system:String>
+        <system:String x:Key="menuItem.Language">Язык</system:String>
+        <system:String x:Key="menuItem.Help">Справка</system:String>
+        <system:String x:Key="menuItem.Help.About">О приложении</system:String>
+        <system:String x:Key="menuItem.Help.About.Icon">❔</system:String>
+        <system:String x:Key="treeViewItem.Options">Настройки</system:String>
+        <system:String x:Key="treeViewItem.Layout">Вид окна</system:String>
+        <system:String x:Key="treeViewItem.Display">Содержимое панелей</system:String>
+        <system:String x:Key="treeViewItem.Icons">Значки</system:String>
+        <system:String x:Key="treeViewItem.Fonts">Шрифты</system:String>
+        <system:String x:Key="treeViewItem.Color">Цвета</system:String>
+        <system:String x:Key="treeViewItem.Tabstops">Табуляторы</system:String>
+        <system:String x:Key="treeViewItem.FolderTabs">Вкладки папок</system:String>
+        <system:String x:Key="treeViewItem.CustomColumns">Наборы колонок</system:String>
+        <system:String x:Key="treeViewItem.ViewMode">Стили оформления</system:String>
+        <system:String x:Key="treeViewItem.AutoSwitchMode">Автовыбор стиля</system:String>
+        <Style x:Key="borderMain" TargetType="Border">
+            <Setter Property="Background" Value="#FFEEEE"/>
+        </Style>
     </FrameworkContentElement.Resources>
 </FrameworkContentElement>

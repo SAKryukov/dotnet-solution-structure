@@ -3,29 +3,27 @@
         xmlns:system="clr-namespace:System;assembly=netstandard"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <FrameworkContentElement.Resources>
-        <ResourceDictionary>
-            <Thickness x:Key="treeViewItem.Padding">12 0 12 2</Thickness>
-            <system:String x:Key="textBoxHeader.Text">XAML-based Localization with Satellite Assemblies</system:String>
-            <system:String x:Key="menuItem.File">Archivo</system:String>
-            <system:String x:Key="menuItem.View">Vistas</system:String>
-            <system:String x:Key="menuItem.Language">Idioma</system:String>
-            <system:String x:Key="menuItem.Help">Ayuda</system:String>
-            <system:String x:Key="menuItem.Help.About">Acerca de la aplicación...</system:String>
-            <system:String x:Key="menuItem.Help.About.Icon">❔</system:String>
-            <system:String x:Key="treeViewItem.Options">Opciones</system:String>
-            <system:String x:Key="treeViewItem.Layout">Apariencia</system:String>
-            <system:String x:Key="treeViewItem.Display">Pantalla</system:String>
-            <system:String x:Key="treeViewItem.Icons">Iconos</system:String>
-            <system:String x:Key="treeViewItem.Fonts">Fuentes</system:String>
-            <system:String x:Key="treeViewItem.Color">Colores</system:String>
-            <system:String x:Key="treeViewItem.Tabstops">Columnas</system:String>
-            <system:String x:Key="treeViewItem.FolderTabs">Pestańas</system:String>
-            <system:String x:Key="treeViewItem.CustomColumns">Vistas personalizadas</system:String>
-            <system:String x:Key="treeViewItem.ViewMode">Modo de vista</system:String>
-            <system:String x:Key="treeViewItem.AutoSwitchMode">Cambio automático de Vistas</system:String>
-            <Style x:Key="borderMain" TargetType="Border">
-                <Setter Property="Background" Value="#EEFFEE"/>
-            </Style>
-        </ResourceDictionary>
+        <Thickness x:Key="treeViewItem.Padding">12 0 12 2</Thickness>
+        <system:String x:Key="textBoxHeader.Text">XAML-based Localization with Satellite Assemblies</system:String>
+        <system:String x:Key="menuItem.File">Archivo</system:String>
+        <system:String x:Key="menuItem.View">Vistas</system:String>
+        <system:String x:Key="menuItem.Language">Idioma</system:String>
+        <system:String x:Key="menuItem.Help">Ayuda</system:String>
+        <system:String x:Key="menuItem.Help.About">Acerca de la aplicación...</system:String>
+        <system:String x:Key="menuItem.Help.About.Icon">❔</system:String>
+        <system:String x:Key="treeViewItem.Options">Opciones</system:String>
+        <system:String x:Key="treeViewItem.Layout">Apariencia</system:String>
+        <system:String x:Key="treeViewItem.Display">Pantalla</system:String>
+        <system:String x:Key="treeViewItem.Icons">Iconos</system:String>
+        <system:String x:Key="treeViewItem.Fonts">Fuentes</system:String>
+        <system:String x:Key="treeViewItem.Color">Colores</system:String>
+        <system:String x:Key="treeViewItem.Tabstops">Columnas</system:String>
+        <system:String x:Key="treeViewItem.FolderTabs">Pestańas</system:String>
+        <system:String x:Key="treeViewItem.CustomColumns">Vistas personalizadas</system:String>
+        <system:String x:Key="treeViewItem.ViewMode">Modo de vista</system:String>
+        <system:String x:Key="treeViewItem.AutoSwitchMode">Cambio automático de Vistas</system:String>
+        <Style x:Key="borderMain" TargetType="Border">
+            <Setter Property="Background" Value="#EEFFEE"/>
+        </Style>
     </FrameworkContentElement.Resources>
 </FrameworkContentElement>

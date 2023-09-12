@@ -4,11 +4,9 @@
              xmlns:system="clr-namespace:System;assembly=netstandard"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <ResourceDictionary>
-            <Brush x:Key="background">White</Brush>
-            <system:Double x:Key="fontSize">16</system:Double>
-            <system:String x:Key="headerMenu">C_ulture</system:String>
-            <system:String x:Key="textMain">This is the example of localization of a standard WPF application</system:String>
-        </ResourceDictionary>
+        <Brush x:Key="background">White</Brush>
+        <system:Double x:Key="fontSize">16</system:Double>
+        <system:String x:Key="headerMenu">C_ulture</system:String>
+        <system:String x:Key="textMain">This is the example of localization of a standard WPF application</system:String>
     </Application.Resources>
 </Application>

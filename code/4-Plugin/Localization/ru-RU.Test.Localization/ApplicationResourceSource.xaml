@@ -3,11 +3,9 @@
                          xmlns:system="clr-namespace:System;assembly=netstandard"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <FrameworkContentElement.Resources>
-        <ResourceDictionary>
-            <Brush x:Key="background">PowderBlue</Brush>
-            <system:Double x:Key="fontSize">20</system:Double>
-            <system:String x:Key="headerMenu">Язык</system:String>
-            <system:String x:Key="textMain">Это пример локализации стандартного приложения WPF</system:String>
-        </ResourceDictionary>
+        <Brush x:Key="background">PowderBlue</Brush>
+        <system:Double x:Key="fontSize">20</system:Double>
+        <system:String x:Key="headerMenu">Язык</system:String>
+        <system:String x:Key="textMain">Это пример локализации стандартного приложения WPF</system:String>
     </FrameworkContentElement.Resources>
 </FrameworkContentElement>

@@ -3,18 +3,16 @@
         xmlns:system="clr-namespace:System;assembly=netstandard"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <FrameworkContentElement.Resources>
-        <ResourceDictionary>
-            <system:String x:Key="mainText">¡Hola!</system:String>
-            <Style x:Key="borderMain" TargetType="Border">
-                <Setter Property="Background" Value="LightBlue"/>
-            </Style>
-            <Style x:Key="mainTextStyle" TargetType="TextBlock">
-                <Setter Property="Foreground" Value="Black"/>
-                <Setter Property="FontSize" Value="22" />
-                <Setter Property="Margin" Value="0 10 0 16"/>
-                <Setter Property="Padding" Value="40 0 40 0"/>
-                <Setter Property="FontWeight" Value="Bold"/>
-            </Style>
-        </ResourceDictionary>
+        <system:String x:Key="mainText">¡Hola!</system:String>
+        <Style x:Key="borderMain" TargetType="Border">
+            <Setter Property="Background" Value="LightBlue"/>
+        </Style>
+        <Style x:Key="mainTextStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontSize" Value="22" />
+            <Setter Property="Margin" Value="0 10 0 16"/>
+            <Setter Property="Padding" Value="40 0 40 0"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
     </FrameworkContentElement.Resources>
 </FrameworkContentElement>

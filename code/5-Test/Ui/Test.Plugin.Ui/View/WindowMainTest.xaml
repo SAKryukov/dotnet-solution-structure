@@ -19,7 +19,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Menu DockPanel.Dock="Top" Style="{StaticResource Menu}">
+        <Menu x:Name="menu" DockPanel.Dock="Top" Style="{StaticResource Menu}">
             <MenuItem Header="_Files">
                 <MenuItem x:Name="menuItemMain" Header="Load and _Execute Plugin" Icon="🛠"/>
             </MenuItem>

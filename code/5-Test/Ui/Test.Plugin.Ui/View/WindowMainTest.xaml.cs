@@ -9,6 +9,7 @@
             SetupDialogs();
             menuItemMain.Click += (_, _) => LoadAndExecuteUiPlugin();
             textBlockCopyright.Text = Agnostic.UI.AdvancedApplicationBase.Current.Copyright;
+            menu.GotKeyboardFocus += (_, _) => borderPluginHostContainer.Child = null;
         } //WindowMainTest
 
         void LoadAndExecuteUiPlugin() {
