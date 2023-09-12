@@ -12,14 +12,14 @@
                 <ResourceDictionary Source="pack://application:,,,/Semantic.UI;component/Resources/Semantic.UI.Common.xaml"/>
                 <ResourceDictionary>
                     <Style TargetType="TextBlock" x:Key="textBlock">
-                        <Setter Property="Margin" Value="14 10 14 20"/>
+                        <Setter Property="Margin" Value="14 10 14 24"/>
                     </Style>
-                    <Thickness x:Key="buttonPadding">64 4 64 4</Thickness>
+                    <Thickness x:Key="OuterPadding">30 12 30 9</Thickness>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-    <Border Padding="30 12 30 9">
+    <Border Padding="{StaticResource OuterPadding}">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -33,7 +33,7 @@
                 the .NET solution structure.</TextBlock>
             <StatusBar Grid.Row="1" Background="Transparent">
                 <StatusBarItem HorizontalAlignment="Center">
-                    <Button Padding="{StaticResource buttonPadding}" IsDefault="True" IsCancel="True">Close</Button>
+                    <Button Style="{StaticResource WideButton}" IsDefault="True" IsCancel="True">Close</Button>
                 </StatusBarItem>
             </StatusBar>
         </Grid>

@@ -27,7 +27,7 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <Button x:Name="buttonException" Margin="{StaticResource LeftRightTopBottomMargin}" Padding="{StaticResource LeftRightMargin}">Test _Exception</Button>
+                <Button x:Name="buttonException" Margin="{StaticResource LeftRightTopBottomMargin}" Style="{StaticResource Button}">Test _Exception</Button>
                 <Border Grid.Row="1">
                     <Rectangle Height="300" Width="1" />
                 </Border>

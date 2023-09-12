@@ -19,7 +19,7 @@
                     <Style x:Key="headerTextBlock" TargetType="TextBlock">
                         <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" />
                         <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}" />
-                        <Setter Property="Padding" Value="{StaticResource Padding}" />
+                        <Setter Property="Padding" Value="{StaticResource WidePadding}" />
                         <Setter Property="HorizontalAlignment" Value="Center" />
                     </Style>
                     <Style x:Key="listBoxDemo" TargetType="ListBox">
@@ -82,36 +82,38 @@
             </MenuItem>
         </Menu>
         <Border x:Name="borderMain" Grid.Row="1" Style="{DynamicResource borderMain}">
-            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" CanContentScroll="True">
-                <StackPanel Background="Transparent">
-                    <TextBlock Style="{StaticResource headerTextBlock}" Text="{DynamicResource textBoxHeader.Text}"/>
-                    <TreeView x:Name="treeView" Padding="{DynamicResource RightMargin}" Background="Transparent">
-                        <TreeView.Resources>
-                            <Style TargetType="{x:Type TreeViewItem}" BasedOn="{StaticResource treeViewItemBase}"/>
-                        </TreeView.Resources>
-                        <TreeViewItem Header="{DynamicResource treeViewItem.Options}">
-                            <TreeViewItem Header="{DynamicResource treeViewItem.Display}">
-                                <TreeViewItem Header="{DynamicResource treeViewItem.Layout}"/>
-                                <TreeViewItem Header="{DynamicResource treeViewItem.Icons}"/>
-                                <TreeViewItem Header="{DynamicResource treeViewItem.Fonts}" IsSelected="True"/>
-                                <TreeViewItem Header="{DynamicResource treeViewItem.Color}"/>
-                                <TreeViewItem Header="{DynamicResource treeViewItem.Tabstops}"/>
-                                <TreeViewItem Header="{DynamicResource treeViewItem.FolderTabs}"/>
-                                <TreeViewItem Header="{DynamicResource treeViewItem.CustomColumns}"/>
-                                <TreeViewItem Header="{DynamicResource treeViewItem.ViewMode}">
-                                    <TreeViewItem Header="{DynamicResource treeViewItem.AutoSwitchMode}"/>
-                                </TreeViewItem>
-                            </TreeViewItem>
-                            <TreeViewItem Header="{DynamicResource treeViewItem.Operation}">
-                                <TreeViewItem Header="{DynamicResource treeViewItem.Edit/View}"/>
-                                <TreeViewItem Header="{DynamicResource treeViewItem.Copy/Delete}"/>
-                                <TreeViewItem Header="{DynamicResource treeViewItem.Refresh}"/>
-                                <TreeViewItem Header="{DynamicResource treeViewItem.QuickSearch}"/>
+            <Grid Background="Transparent">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Style="{StaticResource headerTextBlock}" Text="{DynamicResource textBoxHeader.Text}"/>
+                <TreeView Grid.Row="1" x:Name="treeView" Padding="{DynamicResource RightMargin}" Background="Transparent">
+                    <TreeView.Resources>
+                        <Style TargetType="{x:Type TreeViewItem}" BasedOn="{StaticResource treeViewItemBase}"/>
+                    </TreeView.Resources>
+                    <TreeViewItem Header="{DynamicResource treeViewItem.Options}">
+                        <TreeViewItem Header="{DynamicResource treeViewItem.Display}">
+                            <TreeViewItem Header="{DynamicResource treeViewItem.Layout}"/>
+                            <TreeViewItem Header="{DynamicResource treeViewItem.Icons}"/>
+                            <TreeViewItem Header="{DynamicResource treeViewItem.Fonts}" IsSelected="True"/>
+                            <TreeViewItem Header="{DynamicResource treeViewItem.Color}"/>
+                            <TreeViewItem Header="{DynamicResource treeViewItem.Tabstops}"/>
+                            <TreeViewItem Header="{DynamicResource treeViewItem.FolderTabs}"/>
+                            <TreeViewItem Header="{DynamicResource treeViewItem.CustomColumns}"/>
+                            <TreeViewItem Header="{DynamicResource treeViewItem.ViewMode}">
+                                <TreeViewItem Header="{DynamicResource treeViewItem.AutoSwitchMode}"/>
                             </TreeViewItem>
                         </TreeViewItem>
-                    </TreeView>
-                </StackPanel>
-            </ScrollViewer>
+                        <TreeViewItem Header="{DynamicResource treeViewItem.Operation}">
+                            <TreeViewItem Header="{DynamicResource treeViewItem.Edit/View}"/>
+                            <TreeViewItem Header="{DynamicResource treeViewItem.Copy/Delete}"/>
+                            <TreeViewItem Header="{DynamicResource treeViewItem.Refresh}"/>
+                            <TreeViewItem Header="{DynamicResource treeViewItem.QuickSearch}"/>
+                        </TreeViewItem>
+                    </TreeViewItem>
+                </TreeView>
+            </Grid>
         </Border>
         <Border Grid.Row="2">
             <StatusBar Style="{StaticResource StatusBar}" HorizontalAlignment="Stretch">
