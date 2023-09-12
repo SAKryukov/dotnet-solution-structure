@@ -13,7 +13,7 @@
     a switch can have CommandLineSwitchStatus obtained from GetSwitch: Absent, Present (no plus or minus at the end), Plus or Minus.
     Simplified API this[<SWITCH ENUM>] returns boolean (true if Present or Plus).
   
-    Values:
+    Values:omm
     -key:value /key:value
     a value is a string obtained from this[<VALUE ENUM>]; no requirements are imposed on the values; they can be empty of contain prefixes/delimiters.
     if a -key:value option is missing, the value is null, if it is present in form -key: or /key: the value is empty string.

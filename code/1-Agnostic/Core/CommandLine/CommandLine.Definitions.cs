@@ -44,7 +44,7 @@ namespace SA.Universal.Utilities {
         CaseSensitiveAbbreviations = 2,
         CaseSensitiveFiles = 4,
         DefaultMicrosoft = CaseSensitiveKeys | CaseSensitiveAbbreviations,
-        DefaulUnix = CaseSensitiveKeys | CaseSensitiveAbbreviations | CommandLineParsingOptions.CaseSensitiveFiles,
+        DefaulUnix = CaseSensitiveKeys | CaseSensitiveAbbreviations | CaseSensitiveFiles,
         CaseInsensitive = 0,
     } //enum CommandLineParsingOptions
 
