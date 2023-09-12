@@ -2,7 +2,7 @@
   "profiles": {
     "Test.CodeGeneration": {
       "commandName": "Project",
-      "commandLineArgs": "___auto-generated-code.cs"
+      "commandLineArgs": "-filename:___auto-generated-code.cs -typeName:aaa.bbb"
     }
   }
 }

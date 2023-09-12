@@ -14,13 +14,16 @@
   <Target Name="GenerateCode" AfterTargets="Build;Rebuild">
     <PropertyGroup>
       <GeneratedCodeDirectory>Auto-Generated-Code</GeneratedCodeDirectory>
-      <GeneratedFileName>$(AssemblyName).Resources.cs</GeneratedFileName>
+      <GeneratedSimpleFilename>$(AssemblyName).Resources.cs</GeneratedSimpleFilename>
+      <GeneratedNamespace>Test.CodeGeneration</GeneratedNamespace>
+      <GeneratedTypeName>DefinitionSet</GeneratedTypeName>
+      <GeneratedFilename>$(OutDir)$(GeneratedCodeDirectory)\$(GeneratedSimpleFilename)</GeneratedFilename>
     </PropertyGroup>
     <ItemGroup>
       <GeneratedCode Include="$(OutDir)$(GeneratedCodeDirectory)" />
     </ItemGroup>
     <MakeDir Directories="@(GeneratedCode)" />
-    <Exec Command="$(OutDir)$(AssemblyName).exe $(OutDir)$(GeneratedCodeDirectory)\$(GeneratedFileName)"/>
+    <Exec Command="$(OutDir)$(AssemblyName).exe -filename:$(GeneratedFilename) -namespaceName:$(GeneratedNamespace) -typeName:$(GeneratedTypeName)"/>
   </Target>
 
 </Project>
