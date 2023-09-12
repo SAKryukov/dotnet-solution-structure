@@ -1,4 +1,4 @@
-namespace SA.Agnostic.UI {
+namespace SA.Agnostic.UI.CodeGeneration {
     using System.Windows;
     using StringList = System.Collections.Generic.List<string>;
     using File = System.IO.File;

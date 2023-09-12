@@ -15,7 +15,7 @@
     <PropertyGroup>
       <GeneratedCodeDirectory>Auto-Generated-Code</GeneratedCodeDirectory>
       <GeneratedSimpleFilename>$(AssemblyName).Resources.cs</GeneratedSimpleFilename>
-      <GeneratedNamespace>Test.CodeGeneration</GeneratedNamespace>
+      <GeneratedNamespace>$(RootNamespace).Generated</GeneratedNamespace>
       <GeneratedTypeName>DefinitionSet</GeneratedTypeName>
       <GeneratedFilename>$(OutDir)$(GeneratedCodeDirectory)\$(GeneratedSimpleFilename)</GeneratedFilename>
     </PropertyGroup>

@@ -24,7 +24,7 @@ namespace SA.Test.CodeGeneration {
         } //Main
 
         readonly View.ResourceCollector resourceCollector = new();
-        readonly Agnostic.UI.DictiionaryCodeGenerator generator = new();
+        readonly Agnostic.UI.CodeGeneration.DictiionaryCodeGenerator generator = new();
 
     } //class Generator
 

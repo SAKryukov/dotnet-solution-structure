@@ -1,10 +1,9 @@
-namespace SA.Agnostic.UI {
+namespace SA.Agnostic.UI.CodeGeneration {
 
     static class DefinitionSet {
 
         internal static class Default {
             internal const string generatedClassName = "DefinitionSet";
-            internal const string generatedNamespaceSuffix = ".GeneratedResourceSet";
         } //class Default
 
         internal static class Comment {
@@ -18,7 +17,7 @@ namespace SA.Agnostic.UI {
 
         internal static class Content {
             internal static string NamespaceBra(string name) =>
-                $"namespace {name}{Default.generatedNamespaceSuffix} {{";
+                $"namespace {name} {{";
             internal static string ClassBra(string name) =>
                 $"    static class {name} {{";
             internal static string EntryDeclaration(string typeFullName, string validIdentifier, string dictionaryTypeName) =>
