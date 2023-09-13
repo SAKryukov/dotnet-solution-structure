@@ -23,7 +23,7 @@
       <GeneratedCode Include="$(OutDir)$(GeneratedCodeDirectory)" />
     </ItemGroup>
     <MakeDir Directories="@(GeneratedCode)" />
-    <Exec Command="$(OutDir)$(AssemblyName).exe -filename:$(GeneratedFilename) -namespaceName:$(GeneratedNamespace) -typeName:$(GeneratedTypeName)"/>
+    <Exec Command="$(OutDir)$(AssemblyName).exe -f:$(GeneratedFilename) -n:$(GeneratedNamespace) -t:$(GeneratedTypeName)"/>
   </Target>
 
 </Project>

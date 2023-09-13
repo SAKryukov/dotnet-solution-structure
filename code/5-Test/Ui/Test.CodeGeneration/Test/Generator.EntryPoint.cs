@@ -8,20 +8,21 @@ namespace SA.Test.CodeGeneration {
 
     enum CommandLineOptions {
         [DisplayName("output file name")]
-        [Description("Generated C# file name")]
+        [Description("output C# file name")]
         [Abbreviation(1)]
         filename,
-
-        [Description("Namespace for generated code")]
-        [DisplayName("namespace name")]
+        [Description("namespace for generated code")]
+        [DisplayName("generated namespace name")]
         [Abbreviation(1)]
         namespaceName,
-
         [DisplayName("class name")]
-        [Description("Name for the static class with generated declarations")]
+        [Description("name for the static class with generated declarations")]
         [Abbreviation(1)]
         typeName }
-    enum CommandLineOptionsBitset {[Abbreviation(1)] Quiet }
+    enum CommandLineOptionsBitset {
+        [Description("no console output")]
+        [Abbreviation(1)]
+        Quiet }
 
     class Generator {
 
@@ -37,6 +38,11 @@ namespace SA.Test.CodeGeneration {
                 Console.WriteLine($"    -{item.Name}:<{item.DisplayName}>,");
                 Console.WriteLine($"    -{item.AbbreviatedName}:<{item.DisplayName}>");
                 Console.WriteLine($"            {item.Description}");
+            } //loop
+            foreach (var item in commandLine.SwitchEnumeration) {
+                Console.WriteLine($"    -{item.Name},");
+                Console.WriteLine($"    -{item.AbbreviatedName}");
+                Console.WriteLine($"            {item.Name}: {item.Description}");
             } //loop
         } //ShowUsage
 
