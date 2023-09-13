@@ -13,9 +13,8 @@ namespace SA.Universal.Enumerations {
     using System.Collections;
     using System.Collections.Generic;
     using System.Reflection;
-    using ReaderWriterLockSlim = System.Threading.ReaderWriterLockSlim;
     using Cardinal = System.UInt32;
-    using AbbreviationLength = System.Byte; //SA???new
+    using AbbreviationLength = System.Byte;
 
     /// <summary>
     /// NonEnumerableAttribute can be applied to an Enum field to exclude it from iteration sequence
@@ -25,19 +24,17 @@ namespace SA.Universal.Enumerations {
     [AttributeUsage(AttributeTargets.Field, AllowMultiple = false, Inherited = false)]
     public class NonEnumerableAttribute : Attribute { }
 
-    //SA???new:
     /// <summary>
     /// Abbreviation attribute allows to specify number of characters in the abbreviated string representing enumeration member name used in command line
-    /// (<seealso cref="SA.Universal.Utilities.CommandLine<SWITCHES, VALUES>"/>)
+    /// (<seealso cref="Utilities.CommandLine<SWITCHES, VALUES>"/>)
     /// </summary>
     [AttributeUsage(AttributeTargets.Field, AllowMultiple = false, Inherited = false)]
     public class AbbreviationAttribute : Attribute {
-        public AbbreviationAttribute() { this.abbreviationLength = 1; }
-        public AbbreviationAttribute(AbbreviationLength length) { this.abbreviationLength = length; }
+        public AbbreviationAttribute() { abbreviationLength = 1; }
+        public AbbreviationAttribute(AbbreviationLength length) { abbreviationLength = length; }
         public AbbreviationLength AbbreviationLength { get { return abbreviationLength; } }
         readonly AbbreviationLength abbreviationLength;
     } //class AbbreviationAttribute
-    //end SA???new:
 
     /// <summary>
     /// Class supporting interface IEnumerable
@@ -103,7 +100,7 @@ namespace SA.Universal.Enumerations {
         bool reverse;
 
         private class Enumerator : IEnumerator, IEnumerator<EnumerationItem<ENUM>> {
-            internal Enumerator(Enumeration<ENUM> owner) { this.Owner = owner; }
+            internal Enumerator(Enumeration<ENUM> owner) { Owner = owner; }
             object IEnumerator.Current { get { return enumerationCollection[Owner.collectionCurrent]; } }
             bool IEnumerator.MoveNext() {
                 if (collectionLength < 1) return false;
@@ -140,31 +137,10 @@ namespace SA.Universal.Enumerations {
         } //class Enumerator
 
         delegate void BuildAction();
-        /*
-        static void Build(BuildAction action, object existenceCheck, ReaderWriterLockSlim readwriteLock) { //just a locking pattern //SA???
-            readwriteLock.EnterUpgradeableReadLock();
-            try {
-                if (existenceCheck == null) {
-                    readwriteLock.EnterWriteLock();
-                    try {
-                        action();
-                    } finally {
-                        readwriteLock.ExitWriteLock();
-                    } //write lock
-                } //if
-            } finally {
-                readwriteLock.ExitUpgradeableReadLock();
-            } //read lock
-        } //Build
-        */
 
         static void BuildEnumerationCollection() {
-#if THREAD_SAFE_ENUMERATIONS
-            Build(BuildEnumerationCollectionCore, EnumerationCollection, EnumerationCollectionLock);
-#else
             if (enumerationCollection != null) return;
             BuildEnumerationCollectionCore();
-#endif
         } //BuildEnumerationCollection
 
         static void BuildEnumerationCollectionCore() {
@@ -187,7 +163,6 @@ namespace SA.Universal.Enumerations {
                         enumValue = eNUM;
                 } //if not enum
                 string name = field.Name;
-                //SA???new:
                 attributes = field.GetCustomAttributes(typeof(AbbreviationAttribute), false);
                 AbbreviationLength abbreviationLength = AbbreviationLength.MaxValue;
                 if (attributes.Length > 0) {
@@ -196,7 +171,6 @@ namespace SA.Universal.Enumerations {
                 } //if Abbreviation works
                 list.Add(new EnumerationItem<ENUM>(name, abbreviationLength, GetDisplayName(field), GetDescription(field), currentIndex, objValue, enumValue));
                 currentIndex++;
-                //end SA???new
             } //loop
             enumerationCollection = list.ToArray();
             collectionLength = (Cardinal)enumerationCollection.Length;
@@ -244,8 +218,6 @@ namespace SA.Universal.Enumerations {
         static Cardinal collectionLength;
         static EnumerationItem<ENUM>[] enumerationCollection; //only used to support EnumerationIndexedArray via GetIntegerIndexFromEnumValue
         static Dictionary<ENUM, Cardinal> indexDictionary;
-        //readonly static ReaderWriterLockSlim enumerationCollectionLock = new ReaderWriterLockSlim(); //SA???
-        //readonly static ReaderWriterLockSlim indexDictionaryLock = new ReaderWriterLockSlim(); //SA???
 
         #endregion implementation
 

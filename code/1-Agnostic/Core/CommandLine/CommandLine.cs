@@ -173,9 +173,6 @@ namespace SA.Universal.Utilities {
                 case PlatformID.Win32NT:
                 case PlatformID.Win32S:
                 case PlatformID.Win32Windows:
-#if ABOVE_2_0
-                case PlatformID.WinCE:
-#endif
                 case PlatformID.Xbox:
                     return CommandLineParsingOptions.DefaultMicrosoft;
                 case PlatformID.WinCE:
@@ -189,7 +186,7 @@ namespace SA.Universal.Utilities {
                 default: //this way, if Microsoft later recognized yet another platform and adds it to this enumeration type, it will still compile and fall into Unix category:
                     return CommandLineParsingOptions.DefaulUnix;
             } //switch
-            return CommandLineParsingOptions.DefaultMicrosoft; //SA???
+            return CommandLineParsingOptions.DefaulUnix; 
         } //GetDefaultCommandLineParsingOptions
 
         static string[] ExtractCommandLine() {
