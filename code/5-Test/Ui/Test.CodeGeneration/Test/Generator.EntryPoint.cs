@@ -9,7 +9,7 @@ namespace SA.Test.CodeGeneration {
         } //Execute
 
         static int Main() {
-            Away.DefinitionSet.GetParameters(out string filename, out string namespaceName, out string typeName);
+            var (filename, namespaceName, typeName) = Away.DefinitionSet.GetParameters();
             new Generator().Execute(filename, namespaceName, typeName);
             return 0;
         } //Main

@@ -26,6 +26,7 @@ namespace SA.Test.CodeGeneration.Away {
     static class DefinitionSet {
 
         static void ShowUsage(CommandLine commandLine) {
+            Console.OutputEncoding = System.Text.Encoding.UTF8;
             if (commandLine[CommandLineOptionsBitset.Quiet]) return;
             Console.WriteLine($"Command-line usage of {System.Reflection.Assembly.GetEntryAssembly().Location}:");
             foreach (var item in commandLine.ValueEnumeration) {
@@ -40,13 +41,13 @@ namespace SA.Test.CodeGeneration.Away {
             } //loop
         } //ShowUsage
 
-        internal static void GetParameters(out string filename, out string namespaceName, out string typeName) {
-            Console.OutputEncoding = System.Text.Encoding.UTF8;
+        internal static (string filename, string namespaceName, string typeName) GetParameters() {
             CommandLine commandLine = new(Universal.Utilities.CommandLineParsingOptions.CaseInsensitive);
             ShowUsage(commandLine);
-            filename = commandLine[CommandLineOptions.filename];
-            namespaceName = commandLine[CommandLineOptions.namespaceName];
-            typeName = commandLine[CommandLineOptions.typeName];
+            return (
+                commandLine[CommandLineOptions.filename],
+                commandLine[CommandLineOptions.namespaceName],
+                commandLine[CommandLineOptions.typeName]);
         } //GetParameters
 
     } //class DefinitionSet
