@@ -8,7 +8,7 @@
     http://www.SAKryukov.org
 */
 
-namespace SA.Universal.Enumerations {
+namespace SA.Agnostic.Enumerations {
     using System;
     using System.Collections;
     using System.Collections.Generic;
@@ -44,8 +44,8 @@ namespace SA.Universal.Enumerations {
     /// <typeparam name="ENUM">There is no constraint on this type; for most typical application this is an enumeration type</typeparam>
     public class Enumeration<ENUM> : IEnumerable<EnumerationItem<ENUM>> {
 
-        public Enumeration() {
-            BuildEnumerationCollection();
+        public Enumeration(bool refresh = false) {
+            BuildEnumerationCollection(refresh: refresh);
             enumeratorInstance = new Enumerator(this);
         } //Enumeration
 
@@ -138,8 +138,8 @@ namespace SA.Universal.Enumerations {
 
         delegate void BuildAction();
 
-        static void BuildEnumerationCollection() {
-            if (enumerationCollection != null) return;
+        static void BuildEnumerationCollection(bool refresh = false) {
+            if (!refresh && enumerationCollection != null) return;
             BuildEnumerationCollectionCore();
         } //BuildEnumerationCollection
 
@@ -169,34 +169,35 @@ namespace SA.Universal.Enumerations {
                     AbbreviationAttribute attr = (AbbreviationAttribute)attributes[0];
                     abbreviationLength = attr.AbbreviationLength;
                 } //if Abbreviation works
-                list.Add(new EnumerationItem<ENUM>(name, abbreviationLength, GetDisplayName(field), GetDescription(field), currentIndex, objValue, enumValue));
+                (string displayName, string description) = GetDisplay(type, field);
+                list.Add(new EnumerationItem<ENUM>(name, abbreviationLength, displayName, description, currentIndex, objValue, enumValue));
                 currentIndex++;
             } //loop
             enumerationCollection = list.ToArray();
             collectionLength = (Cardinal)enumerationCollection.Length;
         } //BuildEnumerationCollectionCore
 
-        static string GetDisplayName(FieldInfo field) {
-            string value = StringAttributeUtility.ResolveValue<DisplayNameAttribute>(field);
-            if (string.IsNullOrEmpty(value))
-                value = field.Name;
-            return value;
-        } //GetDisplayName
-        static string GetDescription(FieldInfo field) {
-            return StringAttributeUtility.ResolveValue<DescriptionAttribute>(field);
-        } //GetDescription
+        static (string name, string description) GetDisplay(Type type, FieldInfo field) {
+            (string displayName, string description) =
+                DisplayTextProviderAttribute.Resolve(type, field);
+            string finalDisplayName = DisplayNameAttribute.Resolve(field);
+            if (finalDisplayName == null)
+                finalDisplayName = displayName;
+            if (finalDisplayName == null)
+                finalDisplayName = field.Name;
+            string finalDescription = DescriptionAttribute.Resolve(field);
+            if (finalDescription == null)
+                finalDescription = description;
+            return (finalDisplayName, finalDescription);
+        } //GetDisplay
 
         /// <summary>
         /// BuildIndexDictionary only used to support EnumerationIndexedArray via GetIntegerIndexFromEnumValue;
-            /// If nobody calls GetIntegerIndexFromEnumValue, IndexDictionary remains null
+        /// If nobody calls GetIntegerIndexFromEnumValue, IndexDictionary remains null
         /// </summary>
         static void BuildIndexDictionary() {
-#if THREAD_SAFE_ENUMERATIONS
-            Build(BuildIndexDictionaryCore, IndexDictionary, IndexDictionaryLock);
-#else
             if (indexDictionary != null) return;
             BuildIndexDictionaryCore();
-#endif
         } //BuildIndexDictionary
 
         static void BuildIndexDictionaryCore() {

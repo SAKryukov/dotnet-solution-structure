@@ -1,9 +1,9 @@
 namespace SA.Test.CodeGeneration.Away {
     using Console = System.Console;
-    using DisplayNameAttribute = Universal.Enumerations.DisplayNameAttribute;
-    using DescriptionAttribute = Universal.Enumerations.DescriptionAttribute;
-    using AbbreviationAttribute = Universal.Enumerations.AbbreviationAttribute;
-    using CommandLine = Universal.Utilities.CommandLine<CommandLineOptionsBitset, CommandLineOptions>;
+    using DisplayNameAttribute = Agnostic.Enumerations.DisplayNameAttribute;
+    using DescriptionAttribute = Agnostic.Enumerations.DescriptionAttribute;
+    using AbbreviationAttribute = Agnostic.Enumerations.AbbreviationAttribute;
+    using CommandLine = Agnostic.Utilities.CommandLine<CommandLineOptionsBitset, CommandLineOptions>;
 
     enum CommandLineOptions {
         [DisplayName("output file name")]
@@ -42,7 +42,7 @@ namespace SA.Test.CodeGeneration.Away {
         } //ShowUsage
 
         internal static (string filename, string namespaceName, string typeName) GetParameters() {
-            CommandLine commandLine = new(Universal.Utilities.CommandLineParsingOptions.CaseInsensitive);
+            CommandLine commandLine = new(Agnostic.Utilities.CommandLineParsingOptions.CaseInsensitive);
             ShowUsage(commandLine);
             return (
                 commandLine[CommandLineOptions.filename],

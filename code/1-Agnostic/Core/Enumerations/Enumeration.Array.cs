@@ -8,7 +8,7 @@
     http://www.SAKryukov.org
 */
 
-namespace SA.Universal.Enumerations {
+namespace SA.Agnostic.Enumerations {
 
     /// <summary>
     /// Generic class EnumerationIndexedArray implements enumeration-indexed arrays

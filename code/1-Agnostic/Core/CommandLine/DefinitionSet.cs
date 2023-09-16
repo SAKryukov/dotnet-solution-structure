@@ -1,4 +1,4 @@
-﻿/* 
+﻿/*  
     Command Line Utility:
     
     CommandLine is based on Enumeration and EnumerationIndexedArray
@@ -9,7 +9,7 @@
     http://www.SAKryukov.org
 */
 
-namespace SA.Universal.Utilities {
+namespace SA.Agnostic.Utilities {
 
     /// <summary>
     /// Status of the switch-like command line option (formatted as [-|/]option[-|+])

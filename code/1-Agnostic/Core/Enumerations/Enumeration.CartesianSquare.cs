@@ -8,7 +8,7 @@
     http://www.SAKryukov.org
 */
 
-namespace SA.Universal.Enumerations {
+namespace SA.Agnostic.Enumerations {
 
     /// <summary>
     /// Generic class CartesianSquareIndexedArray implements indexed arrays indexed by a Cartesian Square based on an enumeration
