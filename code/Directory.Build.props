@@ -10,7 +10,7 @@
     <Product>Improved .NET Solution Structure</Product>
     <Description>Bunch of ideas on how to improve .NET solution structure</Description>
     <Company>SA</Company>
-    <AssemblyTitle>$(Product) Demo</AssemblyTitle>
+    <AssemblyTitle>$(Product)</AssemblyTitle>
   </PropertyGroup>
 
   <ItemGroup> <!-- custom attributes, can be multiple: -->

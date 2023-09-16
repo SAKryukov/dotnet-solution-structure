@@ -25,10 +25,10 @@
         public string ExecutableDirectory { get { return assemblyWrapper.AssemblyDirectory; } }
 
         protected override void OnStartup(StartupEventArgs e) {
-            this.ShutdownMode = ShutdownMode.OnMainWindowClose;
+            ShutdownMode = ShutdownMode.OnMainWindowClose;
             var mainWindow = CreateMainWindow();
             MainWindow = mainWindow;
-            mainWindow.Title = DefinitionSet.formatTitle(ProductName);
+            mainWindow.Title = DefinitionSet.formatTitle(Title);
             mainWindow.Show();
             base.OnStartup(e);
             startupComplete = true;

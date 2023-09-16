@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <Product>Localization Demo</Product>
+    <AssemblyTitle>$(Product): Localization</AssemblyTitle>
   </PropertyGroup>
 
   <ItemGroup>
