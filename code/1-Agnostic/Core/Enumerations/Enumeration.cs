@@ -49,6 +49,11 @@ namespace SA.Agnostic.Enumerations {
             enumeratorInstance = new Enumerator(this);
         } //Enumeration
 
+        public Enumeration() {
+            BuildEnumerationCollection(refresh: false);
+            enumeratorInstance = new Enumerator(this);
+        } //Enumeration
+
         public static Cardinal CollectionLength {
             get {
                 BuildEnumerationCollection();

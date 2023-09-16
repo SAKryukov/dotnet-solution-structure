@@ -18,57 +18,16 @@ namespace SA.Agnostic.Enumerations {
     /// EnumerationItem provides more comprehensive information and resolves the situation when different enum members have same integer values.
     /// </summary>
     /// <typeparam name="ENUM">Any type; however, only the set of the public static fields of the type are essential</typeparam>
-    public sealed class EnumerationItem<ENUM> {
+    public sealed class EnumerationItem<ENUM> : EnumerationItemBase {
         
         private EnumerationItem() { }
 
-        internal EnumerationItem(string name, AbbreviationLength abbreviationLength, string displayName, string description, Cardinal index, object value, ENUM enumValue) {
-            this.name = name;
-            this.description = description;
-            this.displayName = displayName;
-            this.index = index;
-            this.value = value;
+        internal EnumerationItem(string name, AbbreviationLength abbreviationLength, string displayName, string description, Cardinal index, object value, ENUM enumValue)
+        : base(name, abbreviationLength, displayName, description, index, value) {
             this.enumValue = enumValue;
-            this.abbreviationLength = abbreviationLength;
-            Debug.Assert(this.abbreviationLength > 0, "Abbreviation Length must be greater than zero");
-            if (this.abbreviationLength < 1)
-                this.abbreviationLength = 1;
+            GenericEnumValue = enumValue;
         } //EnumerationItem
 
-        /// <summary>
-        /// Name of the static field representing enumeration item.
-        /// </summary>
-        public string Name { get { return name; } }
-
-        /// <summary>
-        /// Abbreviated name of the static field representing enumeration item; abbreviation is defined by the AbbreviationAttribute
-        /// </summary>
-        public string AbbreviatedName {
-            get {
-                if (abbreviatedName == null) //lazy
-                    abbreviatedName = GetAbbreviatedName();
-                return abbreviatedName;
-            } //get AbbreviatedName
-        } //AbbreviatedName
-
-        /// <summary>
-        /// Name of the item based on DisplayNameAttribute;
-        /// the purpose of this member is to provide human-readable name for an item;
-        /// it the attribute is not available or does not resolve the name, default value is used: DisplayName = Name 
-        /// </summary>
-        public string DisplayName { get { return displayName; } }
-
-        /// <summary>
-        /// Description of the item based on DescriptionAttribute;
-        /// it the attribute is not available or does not resolve the name, default value is used: Description = null
-        /// </summary>
-        public string Description { get { return description; } }
-
-        /// <summary>
-        /// Index of a static field corresponding to present instance of EnumerationItem in the order it appears in the declaration
-        /// </summary>
-        public Cardinal Index { get { return index; } }
-        
         /// <summary>
         /// Value of the static field representing enumeration member.
         /// If ENUM is not an enumeration type, the type of a static field corresponding to present instance of EnumerationItem may be of the type other then ENUN;
@@ -76,28 +35,10 @@ namespace SA.Agnostic.Enumerations {
         /// </summary>
         public ENUM EnumValue { get { return enumValue; } }
 
-        /// <summary>
-        /// Value of a static field corresponding to present instance of EnumerationItem.
-        /// The type of Value is always ENUM if ENUM is enumeration type, otherwise it can be of any type.
-        /// </summary>
-        public object Value { get { return value; } }
-
         #region implementation
 
-        string GetAbbreviatedName() {
-            int len = name.Length;
-            if (abbreviationLength >= len)
-                return name;
-            else
-                return name.Substring(0, abbreviationLength);
-        } //GetAbbreviatedName
-
-        readonly Cardinal index;
-        readonly string name, displayName, description;
-        string abbreviatedName;
-        readonly AbbreviationLength abbreviationLength;
         readonly ENUM enumValue;
-        readonly object value;
+
         #endregion implementation
 
     } //struct EnumerationItem
