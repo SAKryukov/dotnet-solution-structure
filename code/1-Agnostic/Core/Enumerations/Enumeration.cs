@@ -44,13 +44,13 @@ namespace SA.Agnostic.Enumerations {
     /// <typeparam name="ENUM">There is no constraint on this type; for most typical application this is an enumeration type</typeparam>
     public class Enumeration<ENUM> : IEnumerable<EnumerationItem<ENUM>> {
 
-        public Enumeration(bool refresh = false) {
-            BuildEnumerationCollection(refresh: refresh);
+        public Enumeration(bool dynamic = false) {
+            BuildEnumerationCollection(dynamic: dynamic);
             enumeratorInstance = new Enumerator(this);
         } //Enumeration
 
         public Enumeration() {
-            BuildEnumerationCollection(refresh: false);
+            BuildEnumerationCollection(dynamic: false);
             enumeratorInstance = new Enumerator(this);
         } //Enumeration
 
@@ -143,8 +143,8 @@ namespace SA.Agnostic.Enumerations {
 
         delegate void BuildAction();
 
-        static void BuildEnumerationCollection(bool refresh = false) {
-            if (!refresh && enumerationCollection != null) return;
+        static void BuildEnumerationCollection(bool dynamic = false) {
+            if (!dynamic && enumerationCollection != null) return;
             BuildEnumerationCollectionCore();
         } //BuildEnumerationCollection
 
