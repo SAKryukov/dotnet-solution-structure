@@ -9,12 +9,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\1-Agnostic\Core\Agnostic.Core.csproj" >
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\1-Agnostic\Ui\Agnostic.UI.csproj">
-      <Private>False</Private>
-    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\1-Agnostic\Core\Agnostic.Core.csproj" />
+    <ProjectReference Include="..\..\..\..\1-Agnostic\Ui\Agnostic.UI.csproj" />
   </ItemGroup>
 
 </Project>
