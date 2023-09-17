@@ -1,3 +1,10 @@
+Article Series
+[Improving .NET Solution Structure: Code Isolation](https://www.codeproject.com/Articles/5367811/Solution-Structure-Code-Isolation)
+Improving .NET Solition Structure: WPF
+XAML-based Localization with Satellite Assemblies
+XAML and ResourceDictionary Code Generation
+
+===============================================================
 How to use referenced referenced assembly ResourceDictionary File, pack://application:
 https://learn.microsoft.com/en-us/dotnet/desktop/wpf/app-development/pack-uris-in-wpf?view=netframeworkdesktop-4.8
 
@@ -32,3 +39,9 @@ https://learn.microsoft.com/en-us/dotnet/core/dependency-loading/default-probing
 
 In-depth:
 https://natemcmaster.com/blog/2019/01/09/netcore-primitives-3/
+
+System Colors, shown:
+https://wpf.2000things.com/tag/systemcolors/
+https://stackoverflow.com/questions/5094447/how-do-i-use-the-correct-windows-system-colors
+With different themes:
+https://www.google.com/imgres?imgurl=https%3A%2F%2Fi.stack.imgur.com%2FE2VBv.png&tbnid=GQWypdt1GDtp7M&vet=12ahUKEwjej8q407KBAxWIF2IAHYCLAB8QMygKegQIARBl..i&imgrefurl=https%3A%2F%2Fstackoverflow.com%2Fquestions%2F955597%2Fwpf-systemcolors-color-of-textbox-border&docid=BnZrdpLzdqGIUM&w=617&h=720&q=wpf%20system%20colors&ved=2ahUKEwjej8q407KBAxWIF2IAHYCLAB8QMygKegQIARBl
