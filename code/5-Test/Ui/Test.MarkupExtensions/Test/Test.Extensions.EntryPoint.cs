@@ -14,9 +14,9 @@
             ResourceSource source = new();
             ResourceDictionary dictionary = source.Resources.MergedDictionaries[0];
             ResourceTarget target1 = new(), target2 = new();
-            ResourseDictionaryUtility.Collect(dictionary, target1);
+            ResourseDictionaryUtility.CollectForInstance(dictionary, target1);
             dictionary = source.Resources.MergedDictionaries[1];
-            ResourseDictionaryUtility.SimpleCollect(dictionary, target2);
+            ResourseDictionaryUtility.Collect(dictionary, target2);
         } //Execute
 
         [System.STAThread]

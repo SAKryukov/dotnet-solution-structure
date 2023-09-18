@@ -42,6 +42,7 @@
         }
 
     public class Member : MarkupExtension {
+        public bool Static { get; set; }
         public Type Type { get; set; }
         public Type TargetType { get; set; }
         public MemberKind MemberKind { get; set; }
