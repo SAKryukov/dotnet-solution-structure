@@ -7,16 +7,26 @@
         public string Description { get; set; }
         public int Count { get; set; }
     } //class ResourceTarget
+    
+    internal class ResourceTarget2 {
+        public string Name2 = null;
+        public string Description2 { get; set; }
+        public int Count2 { get; set; }
+    } //class ResourceTarget
 
     static class Test {
 
         static void Execute() {
             ResourceSource source = new();
             ResourceDictionary dictionary = source.Resources.MergedDictionaries[0];
-            ResourceTarget target1 = new(), target2 = new();
-            ResourseDictionaryUtility.CollectForInstance(dictionary, target1);
+            ResourceTarget target1type1 = new(), target2type1 = new();
+            ResourceTarget2 target1type2 = new();
+            ResourseDictionaryUtility.CollectForInstance(dictionary, target1type1);
+            ResourseDictionaryUtility.CollectForInstance(dictionary, target1type2);
+            var result = ResourseDictionaryUtility.CollectDictionary(dictionary);
             dictionary = source.Resources.MergedDictionaries[1];
-            ResourseDictionaryUtility.Collect(dictionary, target2);
+            ResourseDictionaryUtility.Collect(dictionary, target2type1);
+            Console.WriteLine(result.Count);
         } //Execute
 
         [System.STAThread]

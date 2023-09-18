@@ -19,27 +19,9 @@
             IXamlTypeResolver resolver = (IXamlTypeResolver)serviceProvider.GetService(typeof(IXamlTypeResolver));
             return resolver.Resolve(TargetType);
             */
-            return this;
+            return TargetType;
         } //ResourSet
     } //class EKey
-
-        public class NestedTypeExtension : TypeExtension {
-            public NestedTypeExtension() { }
-            public NestedTypeExtension(string typeName) : base(typeName) { }
-            public override object ProvideValue(IServiceProvider serviceProvider) {
-                string[] types = TypeName.Split('.');
-                IXamlTypeResolver resolver = (IXamlTypeResolver)serviceProvider.GetService(typeof(IXamlTypeResolver));
-                if (resolver != null && types.Length > 0) {
-                    Type t = resolver.Resolve(types[0]);
-                    for (int i = 1; i < types.Length; i++) {
-                        t = t.GetNestedType(types[i]);
-                    }
-                    Type = t;
-                    return t;
-                }
-                return null;
-            }
-        }
 
     public class Member : MarkupExtension {
         public bool Static { get; set; }
@@ -53,8 +35,12 @@
         } //ProvideValue
     } //class MemberBase
 
-    public class KeyedMember : Member {
-        public string Name { get; set; }
-    } //KeyedMember
+    public class DataTypeProvider : MarkupExtension {
+        public DataTypeProvider() { Children = new(); }
+        public ResourceDictionary Children { get; set; }
+        public override object ProvideValue(IServiceProvider serviceProvider) {
+            return this;
+        } //ProvideValue
+    } //DataTypeProvider
 
 }

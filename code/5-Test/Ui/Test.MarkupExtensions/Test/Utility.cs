@@ -17,14 +17,13 @@
             InstanceDictionary instanceDictionary = new();
             foreach (var key in dictionary.Keys) {
                 object value = dictionary[key];
-                if (value is not KeyedMember resourceSource) continue;
-                if (key is not EKey targetKey) continue;
-                Type targetType = targetKey.TargetType;
+                if (value is not DataTypeProvider resourceSource) continue;
+                if (key is not Type targetType) continue;
                 if (!instanceDictionary.TryGetValue(targetType, out object instance)) {
                     instance = Activator.CreateInstance(targetType);
                     instanceDictionary.Add(targetType, instance);
-                } //if
-                AssignMember(resourceSource, targetType, resourceSource.Name, instance);
+                } //
+                AssignInstanceMembers(resourceSource, targetType, instance);
             } //keys loop
             return instanceDictionary;
         } //CollectDictionary
@@ -34,12 +33,11 @@
             Type instanceType = instance.GetType();
             foreach (var key in dictionary.Keys) {
                 object value = dictionary[key];
-                if (value is not KeyedMember resourceSource) continue;
-                if (key is not EKey targetKey) continue;
-                Type targetType = targetKey.TargetType;
+                if (value is not DataTypeProvider resourceSource) continue;
+                if (key is not Type targetType) continue;
                 if (!targetType.IsAssignableTo(instanceType))
                     continue;
-                AssignMember(resourceSource, targetType, resourceSource.Name, instance);
+                AssignInstanceMembers(resourceSource, targetType, instance);
             } //keys loop
         } //CollectForInstance
 
@@ -81,6 +79,16 @@
                 property.SetValue(instance, memberValue);
             } //if
         } //AssignMember
+
+        static void AssignInstanceMembers(DataTypeProvider resourceSource, Type targetType, object instance) {
+            foreach (object childKey in resourceSource.Children.Keys) {
+                if (childKey is not string memberName) continue;
+                object childValue = resourceSource.Children[childKey];
+                if (childValue == null) continue; //SA???
+                if (childValue is not Member member) continue; //SA???
+                AssignMember(member, targetType, memberName, instance);
+            } //loop
+        } //AssignInstanceMembers
 
         static void Raise(string message) {
             throw new SystemException(message);

@@ -8,30 +8,31 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary>
-                    <Ext:KeyedMember x:Key="{Ext:EKey TargetType={x:Type Test:ResourceTarget}}"
-                         Name="Name"
-                         MemberKind="Field"
-                         Value="My name"/>
-                    <Ext:KeyedMember x:Key="{Ext:EKey TargetType={x:Type Test:ResourceTarget}}"
-                         Name="Count"
-                         Type="{x:Type System:Int32}"
-                         MemberKind="Property"
-                         Value="13"/>
-                    <Ext:KeyedMember x:Key="{Ext:EKey TargetType={x:Type Test:ResourceTarget}}"
-                         Name="Description"
-                         MemberKind="Property"
-                         Value="This is a demonstration of getting values from a resource dictionary"/>
+                    <Ext:DataTypeProvider x:Key="{Ext:EKey TargetType={x:Type Test:ResourceTarget}}">
+                        <Ext:DataTypeProvider.Children>
+                            <Ext:Member x:Key="Name" MemberKind="Field" Value="My family name"/>
+                            <Ext:Member x:Key="Count" Type="{x:Type System:Int32}" Value="100"/>
+                            <Ext:Member x:Key="Description" Value="This is a simpler demonstration of getting values from a resource dictionary"/>
+                        </Ext:DataTypeProvider.Children>
+                    </Ext:DataTypeProvider>
+                    <Ext:DataTypeProvider x:Key="{Ext:EKey TargetType={x:Type Test:ResourceTarget2}}">
+                        <Ext:DataTypeProvider.Children>
+                            <Ext:Member x:Key="Name2" MemberKind="Field" Value="Type 2: My family name"/>
+                            <Ext:Member x:Key="Count2" Type="{x:Type System:Int32}" Value="200"/>
+                            <Ext:Member x:Key="Description2" Value="Type 2: This is a simpler demonstration of getting values from a resource dictionary"/>
+                        </Ext:DataTypeProvider.Children>
+                    </Ext:DataTypeProvider>
                 </ResourceDictionary>
                 <ResourceDictionary>
                     <Ext:Member x:Key="Name"
                          MemberKind="Field"
-                         Value="My family name"/>
+                         Value="Basic: My family name"/>
                     <!-- Below are all properties, default: -->
                     <Ext:Member x:Key="Count"
                          Type="{x:Type System:Int32}"
-                         Value="100"/>
+                         Value="1"/>
                     <Ext:Member x:Key="Description"
-                         Value="This is a simpler demonstration of getting values from a resource dictionary"/>
+                         Value="Basic: This is a simpler demonstration of getting values from a resource dictionary"/>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
