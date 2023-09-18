@@ -1,0 +1,13 @@
+﻿<FrameworkContentElement x:Class="SA.Test.Extensions.ResourceSource"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:System="clr-namespace:System;assembly=netstandard"
+        xmlns:Ext="clr-namespace:SA.Test.Extensions.Declarations"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <FrameworkContentElement.Resources>
+        <Ext:ResourceSource x:Key="1" TargetType="{x:Type Ext:ResourceSet}">
+            <Ext:ResourceSource.Setters>
+                <Ext:MemberSetter x:Key="2" MemberKind="Field" MemberType="System:Int32" Value="12"></Ext:MemberSetter>
+            </Ext:ResourceSource.Setters>
+        </Ext:ResourceSource>
+    </FrameworkContentElement.Resources>
+</FrameworkContentElement>
