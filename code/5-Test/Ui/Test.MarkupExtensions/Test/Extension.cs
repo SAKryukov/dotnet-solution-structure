@@ -58,6 +58,7 @@
             } //keys loop
         } //Collect
         static void Assign(Member resourceSource, Type targetType, object instance) {
+            if (targetType == null) Raise("Target Type cannot be null");
             MemberKind memberKind = resourceSource.MemberKind;
             string memberName = resourceSource.Name;
             if (memberName == null) Raise("Member Name cannot be null");
