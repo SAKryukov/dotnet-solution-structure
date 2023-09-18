@@ -4,12 +4,6 @@
     using System.Windows.Markup;
 
     public enum MemberKind { Property, Field }
-    public class MemberSetter {
-        public MemberKind MemberKind { get; set; }
-        public Type MemberType { get; set; }
-        public string Name { get; set; }
-        public object Value { get; set; }
-    } //class MemberSetter
 
     public class TypeKey : TypeExtension {
         public TypeKey() { }

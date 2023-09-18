@@ -9,6 +9,10 @@
 
     static class ResourseDictionaryUtility {
 
+        class DataTypeProviderException : SystemException {
+            internal DataTypeProviderException(string message) : base(message) { }
+        } //class DataTypeProviderException
+
         static BindingFlags DefaultFlags =>
             BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
         static BindingFlags DefaultFlagsStatic =>
@@ -65,9 +69,9 @@
             //Type converterType = typeof(TypeConverter);
             //TypeConverter converter = new();
             MemberKind memberKind = resourceSource.MemberKind;
-            if (memberName == null) Raise("Member Name cannot be null");
+            if (memberName == null) throw new DataMisalignedException("Member Name cannot be null");
             object memberValue = resourceSource.Value;
-            if (memberValue == null) Raise("Member Value cannot be null");
+            if (memberValue == null) throw new DataMisalignedException("Member Value cannot be null");
             Type memberType = resourceSource.Type;
             ////SA???
             string stringMemberValue = null;
@@ -81,15 +85,15 @@
                 memberValue = Convert.ChangeType(memberValue, memberType);
             if (memberKind == MemberKind.Field) {
                 FieldInfo field = targetType.GetField(memberName, resourceSource.Static ? DefaultFlagsStatic : DefaultFlags);
-                if (field == null) Raise($"Field {memberName} cannot be null");
+                if (field == null) throw new DataMisalignedException($"Field {memberName} cannot be null");
                 if (isString)
                     memberValue = TryTypeConverter(field, memberType, stringMemberValue, memberValue);
                 field.SetValue(instance, memberValue);
             } else {
                 PropertyInfo property = targetType.GetProperty(memberName, resourceSource.Static ? DefaultFlagsStatic : DefaultFlags);
-                if (property == null) Raise($"Property {memberName} cannot be null");
+                if (property == null) throw new DataMisalignedException($"Property {memberName} cannot be null");
                 if (!property.CanWrite)
-                    Raise($"Property {property.Name} is read-only, and it cannot be populated");
+                    throw new DataMisalignedException($"Property {property.Name} is read-only, and it cannot be populated");
                 if (isString)
                     memberValue = TryTypeConverter(property, memberType, stringMemberValue, memberValue);
                 property.SetValue(instance, memberValue);
@@ -112,15 +116,10 @@
             foreach (object childKey in resourceSource.Members.Keys) {
                 if (childKey is not string memberName) continue;
                 object childValue = resourceSource.Members[childKey];
-                if (childValue == null) continue; //SA???
-                if (childValue is not Member member) continue; //SA???
+                if (childValue is not Member member) throw new DataMisalignedException($"Members should have the type {typeof(Member).Name}, a member cannot be {childValue}");
                 AssignMember(member, targetType, memberName, instance);
             } //loop
         } //AssignInstanceMembers
-
-        static void Raise(string message) {
-            throw new SystemException(message);
-        } //Raise
 
     } //ResourseDictionaryUtility
 
