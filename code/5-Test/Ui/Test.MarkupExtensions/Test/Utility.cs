@@ -88,7 +88,7 @@
             } else {
                 PropertyInfo property = targetType.GetProperty(memberName, resourceSource.Static ? DefaultFlagsStatic : DefaultFlags);
                 if (property == null) Raise($"Property {memberName} cannot be null");
-                if (property.CanWrite)
+                if (!property.CanWrite)
                     Raise($"Property {property.Name} is read-only, and it cannot be populated");
                 if (isString)
                     memberValue = TryTypeConverter(property, memberType, stringMemberValue, memberValue);
