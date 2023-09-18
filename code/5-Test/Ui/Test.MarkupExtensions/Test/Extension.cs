@@ -11,17 +11,14 @@
         public object Value { get; set; }
     } //class MemberSetter
 
-    public class EKey : TypeExtension {
+    public class TypeKey : TypeExtension {
+        public TypeKey() { }
+        public TypeKey(Type targetType) { TargetType = targetType; }
         public Type TargetType { get; set; }
         public override object ProvideValue(IServiceProvider serviceProvider) {
-            if (TargetType == null) return null;
-            /*
-            IXamlTypeResolver resolver = (IXamlTypeResolver)serviceProvider.GetService(typeof(IXamlTypeResolver));
-            return resolver.Resolve(TargetType);
-            */
             return TargetType;
-        } //ResourSet
-    } //class EKey
+        } //ProvideValue
+    } //class TypeKey
 
     public class Member : MarkupExtension {
         public bool Static { get; set; }
@@ -36,8 +33,8 @@
     } //class MemberBase
 
     public class DataTypeProvider : MarkupExtension {
-        public DataTypeProvider() { Children = new(); }
-        public ResourceDictionary Children { get; set; }
+        public DataTypeProvider() { Members = new(); }
+        public ResourceDictionary Members { get; set; }
         public override object ProvideValue(IServiceProvider serviceProvider) {
             return this;
         } //ProvideValue

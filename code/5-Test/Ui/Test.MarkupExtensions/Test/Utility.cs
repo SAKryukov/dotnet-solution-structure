@@ -4,6 +4,8 @@
     using System.Reflection;
     using System.Windows;
     using InstanceDictionary = System.Collections.Generic.Dictionary<System.Type, object>;
+    using TypeConverter = System.ComponentModel.TypeConverter;
+    using TypeConverterAttribute = System.ComponentModel.TypeConverterAttribute;
 
     static class ResourseDictionaryUtility {
 
@@ -60,30 +62,56 @@
         } //Collect
 
         static void AssignMember(Member resourceSource, Type targetType, string memberName, object instance) {
+            //Type converterType = typeof(TypeConverter);
+            //TypeConverter converter = new();
             MemberKind memberKind = resourceSource.MemberKind;
             if (memberName == null) Raise("Member Name cannot be null");
             object memberValue = resourceSource.Value;
             if (memberValue == null) Raise("Member Value cannot be null");
             Type memberType = resourceSource.Type;
+            ////SA???
+            string stringMemberValue = null;
+            if (memberValue is string stringCandidate) 
+                stringMemberValue = stringCandidate;
+            bool isString = stringMemberValue != null;
+            ////SA???
             if (memberType == null)
                 memberType = typeof(string);
-            if (memberValue.GetType() != memberType)
+            if (memberValue.GetType() != memberType && memberType.IsPrimitive)
                 memberValue = Convert.ChangeType(memberValue, memberType);
             if (memberKind == MemberKind.Field) {
                 FieldInfo field = targetType.GetField(memberName, resourceSource.Static ? DefaultFlagsStatic : DefaultFlags);
                 if (field == null) Raise($"Field {memberName} cannot be null");
+                if (isString)
+                    memberValue = TryTypeConverter(field, memberType, stringMemberValue, memberValue);
                 field.SetValue(instance, memberValue);
             } else {
                 PropertyInfo property = targetType.GetProperty(memberName, resourceSource.Static ? DefaultFlagsStatic : DefaultFlags);
                 if (property == null) Raise($"Property {memberName} cannot be null");
+                if (property.CanWrite)
+                    Raise($"Property {property.Name} is read-only, and it cannot be populated");
+                if (isString)
+                    memberValue = TryTypeConverter(property, memberType, stringMemberValue, memberValue);
                 property.SetValue(instance, memberValue);
             } //if
         } //AssignMember
 
+        static object TryTypeConverter(MemberInfo member, Type memberType, string stringMemberValue, object memberValue) {
+            TypeConverterAttribute typeConverterAttribute = (TypeConverterAttribute)Attribute.GetCustomAttribute(memberType, typeof(TypeConverterAttribute));
+            TypeConverterAttribute propertyConvertedAttribute = (TypeConverterAttribute)Attribute.GetCustomAttribute(member, typeof(TypeConverterAttribute));
+            TypeConverterAttribute converterAttribute = typeConverterAttribute ?? propertyConvertedAttribute;
+            if (converterAttribute != null) {
+                Type converterType = Type.GetType(converterAttribute.ConverterTypeName);
+                var converter = (TypeConverter)Activator.CreateInstance(converterType);
+                return converter.ConvertFromString(stringMemberValue);
+            } //if
+            return memberValue;
+        } //TryTypeConverter
+
         static void AssignInstanceMembers(DataTypeProvider resourceSource, Type targetType, object instance) {
-            foreach (object childKey in resourceSource.Children.Keys) {
+            foreach (object childKey in resourceSource.Members.Keys) {
                 if (childKey is not string memberName) continue;
-                object childValue = resourceSource.Children[childKey];
+                object childValue = resourceSource.Members[childKey];
                 if (childValue == null) continue; //SA???
                 if (childValue is not Member member) continue; //SA???
                 AssignMember(member, targetType, memberName, instance);
