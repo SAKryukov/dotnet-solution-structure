@@ -12,8 +12,8 @@
                     <Ext:DataTypeProvider x:Key="{Ext:TypeKey TargetType={x:Type Test:ResourceTarget}}">
                         <Ext:DataTypeProvider.Members>
                             <Ext:Member x:Key="Thickness" Type="{x:Type Thickness}" Value="0 2 13 1"/>
-                            <Ext:Member x:Key="Name" MemberKind="Field" Value="My family name"/>
-                            <Ext:Member x:Key="Count" Type="{x:Type System:Int32}" Value="100"/>
+                            <Ext:Member x:Key="Name" Value="My family name"/>
+                            <Ext:Member x:Key="Count" MemberKind="Field" Type="{x:Type System:Int32}" Value="100"/>
                             <Ext:Member x:Key="Color" Type="{x:Type Color}" Value="Red"/>
                             <Ext:Member x:Key="Description" Value="This is a simpler demonstration of getting values from a resource dictionary"/>
                         </Ext:DataTypeProvider.Members>
@@ -22,18 +22,18 @@
                     <Ext:DataTypeProvider x:Key="{Ext:TypeKey {x:Type Test:ResourceTarget2}}">
                         <Ext:DataTypeProvider.Members>
                             <Ext:Member x:Key="Thickness2" MemberKind="Field" Type="{x:Type Thickness}" Value="202 4 15 2"/>
-                            <Ext:Member x:Key="Name2" MemberKind="Field" Value="Type 2: My family name"/>
-                            <Ext:Member x:Key="Count2" Type="{x:Type System:Int32}" Value="200"/>
+                            <Ext:Member x:Key="Name2" Value="Type 2: My family name"/>
+                            <Ext:Member x:Key="count2" MemberKind="Field" Type="{x:Type System:Int32}" Value="200"/>
                             <Ext:Member x:Key="Description2" Value="Type 2: This is a simpler demonstration of getting values from a resource dictionary"/>
                         </Ext:DataTypeProvider.Members>
                     </Ext:DataTypeProvider>
                 </ResourceDictionary>
                 <ResourceDictionary>
                     <Ext:Member x:Key="Name"
-                         MemberKind="Field"
                          Value="Basic: My family name"/>
                     <!-- Below are all properties, default: -->
                     <Ext:Member x:Key="Count"
+                         MemberKind="Field"
                          Type="{x:Type System:Int32}"
                          Value="1"/>
                     <Ext:Member x:Key="Description"
