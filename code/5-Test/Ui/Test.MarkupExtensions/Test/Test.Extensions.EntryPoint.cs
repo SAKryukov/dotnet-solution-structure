@@ -1,7 +1,6 @@
-namespace SA.Test.Extensions {
+﻿namespace SA.Test.Extensions {
     using Console = System.Console;
     using System.Windows;
-    using Declarations;
 
     internal class ResourceTarget {
         public string Name = null;
@@ -13,9 +12,11 @@ namespace SA.Test.Extensions {
 
         static void Execute() {
             ResourceSource source = new();
-            ResourceDictionary dictionary = source.Resources;
-            ResourceTarget target = new();
-            Member.Collect(dictionary, target);
+            ResourceDictionary dictionary = source.Resources.MergedDictionaries[0];
+            ResourceTarget target1 = new(), target2 = new();
+            ResourseDictionaryUtility.Collect(dictionary, target1);
+            dictionary = source.Resources.MergedDictionaries[1];
+            ResourseDictionaryUtility.SimpleCollect(dictionary, target2);
         } //Execute
 
         [System.STAThread]
