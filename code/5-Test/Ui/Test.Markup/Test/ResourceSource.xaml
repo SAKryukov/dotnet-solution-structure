@@ -6,11 +6,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <FrameworkContentElement.Resources>
         <!-- using parameterless TypeKey constructor, TargetType is assigned as property -->
-        <System:String x:Key="uniqueName">Unique name</System:String>
         <e:DataTypeProvider x:Key="{e:TypeKey TargetType={x:Type Test:ResourceTarget}}">
             <e:DataTypeProvider.Members>
                 <e:Member Name="Thickness" Type="{x:Type Thickness}" Value="0 2 13 1"/>
-                <e:Member Name="Name" Value="DynamicResource uniqueName"/>
+                <e:Member Name="Name" Value="My family name"/>
+                <e:Member Name="ClassName" Value="Static name of the entire class" Static="True"/>
                 <e:Member Name="Count" Value="100" MemberKind="Field" Type="{x:Type System:Int32}" />
                 <e:Member Name="Color" Value="Red" Type="{x:Type Color}" />
                 <e:Member Name="Description" Value="This is a simpler demonstration of getting values from a resource dictionary"/>
@@ -21,6 +21,7 @@
             <e:DataTypeProvider.Members>
                 <e:Member Name="Thickness2" Value="202 4 15 2" MemberKind="Field" Type="{x:Type Thickness}"/>
                 <e:Member Name="Name2" Value="Type 2: My family name"/>
+                <e:Member Name="ClassName2" Value="Static name of the entire second class" Static="True"/>
                 <e:Member Name="count2" Value="200" MemberKind="Field" Type="{x:Type System:Int32}"/>
                 <e:Member Name="Description2" Value="Type 2: This is a simpler demonstration of getting values from a resource dictionary"/>
             </e:DataTypeProvider.Members>

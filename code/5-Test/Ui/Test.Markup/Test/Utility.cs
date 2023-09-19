@@ -16,6 +16,8 @@
             BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
         static BindingFlags DefaultFlagsStatic =>
             BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static;
+        static BindingFlags DefaultFlagsPrefetch =>
+            BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.Instance;
 
         public static void CollectForInstance(ResourceDictionary dictionary, object instance) {
             if (dictionary == null) return;
@@ -80,17 +82,34 @@
                 memberType = typeof(string);
             if (memberValue.GetType() != memberType && memberType.IsPrimitive)
                 memberValue = Convert.ChangeType(memberValue, memberType);
+            string resourceDictionaryName = typeof(ResourceDictionary).Name;
             if (memberKind == MemberKind.Field) {
+                FieldInfo prefetchField = targetType.GetField(memberName, DefaultFlagsPrefetch);
+                if (!resourceSource.Static && prefetchField.IsStatic)
+                    throw new DataTypeProviderException(DefinitionSet.StaticMismatch.FieldInstanceInDictionaryButStatic(
+                        memberName, resourceDictionaryName, targetType.Name));
+                if (resourceSource.Static && !prefetchField.IsStatic)
+                    throw new DataTypeProviderException(DefinitionSet.StaticMismatch.FieldStaticInDictionaryButInstance(
+                        memberName, resourceDictionaryName, targetType.Name));
                 FieldInfo field = targetType.GetField(memberName, resourceSource.Static ? DefaultFlagsStatic : DefaultFlags);
                 if (field == null) throw new DataTypeProviderException(DefinitionSet.MissingField(memberName));
                 if (isString)
                     memberValue = TryTypeConverter(field, memberType, stringMemberValue, memberValue);
                 field.SetValue(instance, memberValue);
             } else {
+                PropertyInfo prefetchProperty = targetType.GetProperty(memberName, DefaultFlagsPrefetch);
+                if (!prefetchProperty.CanWrite)
+                    throw new DataTypeProviderException(DefinitionSet.ReadOnlyProperty(prefetchProperty.Name));
+                bool isStatic = prefetchProperty.SetMethod.IsStatic;
+                if (!resourceSource.Static && isStatic)
+                    throw new DataTypeProviderException(DefinitionSet.StaticMismatch.PropertyInstanceInDictionaryButStatic(
+                        memberName, resourceDictionaryName, targetType.Name));
+                //"Property: Instance in ResourceDictionary, Static in class");
+                if (resourceSource.Static && !isStatic)
+                    throw new DataTypeProviderException(DefinitionSet.StaticMismatch.PropertyStaticInDictionaryButInstance(
+                        memberName, resourceDictionaryName, targetType.Name));
                 PropertyInfo property = targetType.GetProperty(memberName, resourceSource.Static ? DefaultFlagsStatic : DefaultFlags);
                 if (property == null) throw new DataTypeProviderException(DefinitionSet.MissingProperty(memberName));
-                if (!property.CanWrite)
-                    throw new DataTypeProviderException(DefinitionSet.ReadOnlyProperty(property.Name));
                 if (isString)
                     memberValue = TryTypeConverter(property, memberType, stringMemberValue, memberValue);
                 property.SetValue(instance, memberValue);
