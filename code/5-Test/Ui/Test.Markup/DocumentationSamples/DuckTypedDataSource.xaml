@@ -7,8 +7,8 @@
         <e:Member x:Key="Country" Value="Italy"/>
         <e:Member x:Key="Language" Value="Italian"/>
         <e:Member x:Key="Capital" Value="Rome"/>
-        <e:Member x:Key="Area" Value="301230.11" Type="{x:Type System:Double}"/>
-        <e:Member x:Key="PopulationDensity" Value="201.3" Type="{x:Type System:Double}"/>
+        <e:Member x:Key="Area" Value="301230.11" Type="System:Double"/>
+        <e:Member x:Key="PopulationDensity" Value="201.3" Type="System:Double"/>
         <!-- Leading blank space in Value is important: -->
         <e:Member x:Key="AreaUnits" Value=" km²"/>
         <e:Member x:Key="PopulationDensityUnits" Value="/km²"/>

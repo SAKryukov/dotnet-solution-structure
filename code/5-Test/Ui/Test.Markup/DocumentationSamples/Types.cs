@@ -24,7 +24,6 @@
         public static string Mountains = null;
         internal int Provinces { get; set; }
         public int MetropolitanCities = 0;
-        internal Color[] FlagColors { get; set; }
         public override string ToString() {
             (string name, string value) city = (nameof(City), City);
             (string name, string value) mountains = (nameof(Mountains), Mountains);
@@ -38,17 +37,21 @@
         internal string Animal { get; set; }
         internal string Dish { get; set; }
         public string Festival = null;
+        internal string RacingColorName { get; set; }
+        public Color RacingColor { get; set; }
         internal string Tragedy { get; set; }
         internal string Comedy { get; set; }
         public override string ToString() {
             (string name, string value) animal = (nameof(Animal), Animal);
             (string name, string value) dish = (nameof(Dish), Dish);
             (string name, string value) festival = (nameof(Festival), Festival);
+            (string name, string value) racingColor = (nameof(RacingColor), RacingColorName + RacingColor.ToString());
             (string name, string value) tragedy = (nameof(Tragedy), Tragedy);
             (string name, string value) comedy = (nameof(Comedy), Comedy);
-            return DefinitionSet.Dump(GetType().Name, animal, dish, festival, tragedy, comedy);
+            return DefinitionSet.Dump(GetType().Name, animal, dish, festival, racingColor, tragedy, comedy);
         }
     } // class Fun
+
 
     /*
     Main, duck:
@@ -68,6 +71,7 @@
     Animal: |Italiano Mediterranean buffalo Italiano Bufalo mediterraneo italiano
     Dish: Lasagna !Italiano Lasagna Lasagne al forno
     Festival: Venice Film Festival !Italiano Mostra internazionale d'arte cinematografica
+    RacingColor: !Italiano Red Rosso corsa
     Tragedy: Romeo and Juliet !Italiano Romeo e Giulietta
     Comedy: The Servant of Two Masters !Italiano Il servitore di due padroni
     */
