@@ -10,6 +10,10 @@ namespace SA.Agnostic.UI {
         internal static string MaskResourceFile(string baseName) =>
             $"{baseName}{maskAllFiles + suffixSatelliteAssemblyFile}";
 
+        internal static class ConsoleHelperUtility {
+            internal const string showExit = "Done";
+        } //class ConsoleHelperUtility
+
     } //class DefinitionSet
 
 }

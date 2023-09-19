@@ -41,6 +41,7 @@ For CodeProject, makes sure there are no HTML comments in the area to past!
 
 ## Introduction
 
+
 ## Code Generation
 
 ### Code
@@ -48,6 +49,43 @@ For CodeProject, makes sure there are no HTML comments in the area to past!
 ### MSBuild
 
 ### Why not MSBuilt Custom Task?
+
+## Markup Implementation
+
+```{lang=C#}
+namespace SA.Agnostic.UI.Markup {
+    using System;
+    using TypeExtension = System.Windows.Markup.TypeExtension;
+    using MemberCollection =
+        System.Collections.ObjectModel.Collection&ltMember&gt;
+
+    public class TypeKey : TypeExtension {
+        public TypeKey() { }
+        public TypeKey(Type targetType) { TargetType = targetType; }
+        public Type TargetType { get; set; }
+        public override object ProvideValue(IServiceProvider _) {
+            return TargetType;
+        } //ProvideValue
+    } //class TypeKey
+
+    public enum MemberKind { Property, Field }
+
+    public class Member {
+        public bool Static { get; set; }
+        public Type Type { get; set; }
+        public Type TargetType { get; set; }
+        public MemberKind MemberKind { get; set; }
+        public string Name { get; set; }
+        public object Value { get; set; }
+    } //class Member
+
+    public class DataTypeProvider {
+        public DataTypeProvider() { Members = new(); }
+        public MemberCollection Members { get; set; }
+    } //DataTypeProvider
+
+}
+```
 
 ## Code Generation vs Markup
 

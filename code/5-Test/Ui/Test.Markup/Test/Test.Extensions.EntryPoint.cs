@@ -1,6 +1,5 @@
 namespace SA.Test.Markup {
     using Console = System.Console;
-    using System.Windows;
     using ResourseDictionaryUtility = Agnostic.UI.Markup.ResourseDictionaryUtility;
 
     static class Test {
@@ -17,6 +16,7 @@ namespace SA.Test.Markup {
             My.Fun fun = new();
             ResourseDictionaryUtility.CollectForInstance(DataSource.Resources, fun);
             Console.WriteLine(fun);
+            Agnostic.UI.ConsoleHelperUtility.ShowExit();
         } //Execute
 
         [System.STAThread]
