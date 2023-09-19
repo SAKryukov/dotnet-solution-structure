@@ -52,30 +52,4 @@
         }
     } // class Fun
 
-    /*
-    Main, duck:
-    Country: Italy !Italiano Italia
-    Language: Italian !Italiano Italiano
-    Capital: Rome !Italiano Roma
-    Area: 301,230 square kilometres !Italiano 
-    PopulationDensity
-    AreaUnits
-    PopulationDensityUnits
-
-    Detail:
-    City: Milan !Italiano Milano
-    Mountains Alps !Italiano Alpi
-    Provinces: 107
-    MetropolitanCities: 14
-    Flag Colors: Green White Red
-
-    Fun:
-    Animal: |Italiano Mediterranean buffalo Italiano Bufalo mediterraneo italiano
-    Dish: Lasagna !Italiano Lasagna Lasagne al forno
-    Festival: Venice Film Festival !Italiano Mostra internazionale d'arte cinematografica
-    RacingColor: Red !Italiano Rosso corsa
-    Tragedy: Romeo and Juliet !Italiano Romeo e Giulietta
-    Comedy: The Servant of Two Masters !Italiano Il servitore di due padroni
-    */
-
 }

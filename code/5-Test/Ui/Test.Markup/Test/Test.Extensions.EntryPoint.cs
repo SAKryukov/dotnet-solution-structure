@@ -4,11 +4,13 @@ namespace SA.Test.Markup {
 
     static class Test {
 
-        static void Execute(bool localize) {
+        static void Execute() {
+            bool? localize = Agnostic.UI.ConsoleHelperUtility.RequestYesNoCancel(DefinitionSet.localizationRequest);
+            if (localize == null) return;
             My.DuckTypedDataSource duckTypedDataSource = new();
             My.DataSource dataSource = new();
             My.DuckTyped duck = new();
-            TestLocalization.Localize(dataSource, duckTypedDataSource, localize);
+            TestLocalization.Localize(dataSource, duckTypedDataSource, localize == true);
             ResourseDictionaryUtility.CollectForDuckTypedInstance(duckTypedDataSource.Resources, duck);
             Console.WriteLine(duck);
             My.Detail detail = new();
@@ -23,7 +25,7 @@ namespace SA.Test.Markup {
         [System.STAThread]
         static void Main(string[] args) {
             Console.OutputEncoding = System.Text.Encoding.UTF8;
-            Execute(args.Length > 0);
+            Execute();
         } //Main
 
     } //class Test
