@@ -1,5 +1,5 @@
 ﻿namespace SA.Test.Extensions {
-    using SA.Agnostic.IO.Extensions;
+    using SA.Agnostic.UI.Extensions;
     using System;
     using System.Reflection;
     using System.Windows;

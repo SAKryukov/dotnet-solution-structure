@@ -1,13 +1,21 @@
 ﻿<FrameworkContentElement x:Class="SA.Test.Extensions.ResourceSource"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:System="clr-namespace:System;assembly=netstandard"
-        xmlns:Ext="clr-namespace:SA.Agnostic.IO.Extensions"
+        xmlns:Ext="clr-namespace:SA.Agnostic.UI.Extensions"
         xmlns:Test="clr-namespace:SA.Test.Extensions"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <FrameworkContentElement.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary>
+                    <Ext:TestParent x:Key="test parent o!">
+                        <Ext:TestParent.Children>
+                            <Ext:TestChild Descr="1111111111111111"/>
+                            <Ext:TestChild Descr="222222222222222222222222"/>
+                            <Ext:TestChild Descr="3---"/>
+                            <Ext:TestChild Descr="3333333333333333"/>
+                        </Ext:TestParent.Children>
+                    </Ext:TestParent>
                     <!-- using parameterless TypeKey constructor, TargetType is assigned as property -->
                     <Ext:DataTypeProvider x:Key="{Ext:TypeKey TargetType={x:Type Test:ResourceTarget}}">
                         <Ext:DataTypeProvider.Members>
