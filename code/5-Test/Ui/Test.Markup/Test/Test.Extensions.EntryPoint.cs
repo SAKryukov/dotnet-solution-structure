@@ -6,18 +6,17 @@ namespace SA.Test.Markup {
     static class Test {
 
         static void Execute() {
-            ResourceSource source = new();
-            ResourceDictionary dictionary = source.Resources;
-            ResourceTarget target1 = new();
-            ResourceTarget targetUntyped = new();
-            ResourceTarget2 target2 = new();
-            ResourseDictionaryUtility.CollectForInstance(dictionary, target1);
-            ResourseDictionaryUtility.CollectForInstance(dictionary, target2);
-            ResourseDictionaryUtility.CollectForDuckTypedInstance(dictionary, targetUntyped);
-            var result = ResourseDictionaryUtility.CollectDictionary(dictionary);
-            Console.WriteLine(result.Count);
-            Console.WriteLine($"{target1}");
-            Console.WriteLine($"{targetUntyped}");
+            My.DuckTypedDataSource duckTypedDataSource = new();
+            My.DataSource DataSource = new();
+            My.DuckTyped duck = new();
+            ResourseDictionaryUtility.CollectForDuckTypedInstance(duckTypedDataSource.Resources, duck);
+            Console.WriteLine(duck);
+            My.Detail detail = new();
+            ResourseDictionaryUtility.CollectForInstance(DataSource.Resources, detail);
+            Console.WriteLine(detail);
+            My.Fun fun = new();
+            ResourseDictionaryUtility.CollectForInstance(DataSource.Resources, fun);
+            Console.WriteLine(fun);
         } //Execute
 
         [System.STAThread]

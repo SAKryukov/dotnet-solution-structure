@@ -6,8 +6,12 @@
     <TargetFramework>$(TargetFramework)-windows</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <_toRemove>.\**\Documentation\**</_toRemove>
+  </PropertyGroup>
   <ItemGroup>
-    <Page Remove=".\**\Documentation\*" />
+    <Compile Remove="$(_toRemove)" />
+    <Page Remove="$(_toRemove)" />
   </ItemGroup>
 
   <ItemGroup>

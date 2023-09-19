@@ -1,0 +1,26 @@
+﻿<FrameworkContentElement x:Class="My.DataSource"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:e="clr-namespace:SA.Agnostic.UI.Markup;assembly=Agnostic.UI"
+        xmlns:my="clr-namespace:My"
+        xmlns:System="clr-namespace:System;assembly=netstandard"                         
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <FrameworkContentElement.Resources>
+        <e:DataTypeProvider x:Key="{e:TypeKey TargetType={x:Type my:Detail}}">
+            <e:DataTypeProvider.Members>
+                <e:Member Name="City" Value="Milan"/>
+                <e:Member Name="Mountains" Value="Alps" Static="True" MemberKind="Field"/>
+                <e:Member Name="Provinces" Value="107" Type="{x:Type System:Int32}" />
+                <e:Member Name="MetropolitanCities" Value="14" Type="{x:Type System:Int32}" MemberKind="Field"/>
+            </e:DataTypeProvider.Members>
+        </e:DataTypeProvider>
+        <e:DataTypeProvider x:Key="{e:TypeKey TargetType={x:Type my:Fun}}">
+            <e:DataTypeProvider.Members>
+                <e:Member Name="Animal" Value="Italiano Mediterranean buffalo"/>
+                <e:Member Name="Dish" Value="Lasagna"/>
+                <e:Member Name="Festival" Value="Venice Film Festival" MemberKind="Field"/>
+                <e:Member Name="Tragedy" Value="Romeo and Juliet"/>
+                <e:Member Name="Comedy" Value="The Servant of Two Masters"/>
+            </e:DataTypeProvider.Members>
+        </e:DataTypeProvider>
+    </FrameworkContentElement.Resources>
+</FrameworkContentElement>
