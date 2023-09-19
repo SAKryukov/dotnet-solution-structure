@@ -2,7 +2,8 @@
 
   <PropertyGroup>
     <RootNamespace>SA.Test.Extensions</RootNamespace>
-    <OutputType>Exe</OutputType>
+    <AssemblyName>Test.Markup.resources</AssemblyName>
+    <OutputPath>$(OutputPath)\it</OutputPath>
   </PropertyGroup>
 
   <ItemGroup>
@@ -10,5 +11,6 @@
     <ProjectReference Include="..\..\..\1-Agnostic\Ui\Agnostic.UI.csproj" />
     <ProjectReference Include="..\Test.Markup.DataTypes\Test.Markup.DataTypes.csproj" />
   </ItemGroup>
+
 
 </Project>

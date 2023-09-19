@@ -1,14 +1,14 @@
 ﻿namespace My {
     using System.Windows.Media;
 
-    class DuckTyped {
-        internal string Country { get; set; }
-        internal string Language { get; set; }
-        internal string Capital { get; set; }
-        internal double Area { get; set; }
-        internal double PopulationDensity { get; set; }
-        internal string AreaUnits { get; set; }
-        internal string PopulationDensityUnits { get; set; }
+    public class DuckTyped {
+        public string Country { get; set; }
+        public string Language { get; set; }
+        public string Capital { get; set; }
+        public double Area { get; set; }
+        public double PopulationDensity { get; set; }
+        public string AreaUnits { get; set; }
+        public string PopulationDensityUnits { get; set; }
         public override string ToString() {
             (string name, string value) country = (nameof(Country), Country);
             (string name, string value) language = (nameof(Language), Language);
@@ -19,10 +19,10 @@
         }
     } //class DuckTyped
 
-    class Detail {
-        internal string City { get; set; }
+    public class Detail {
+        public string City { get; set; }
         public static string Mountains = null;
-        internal int Provinces { get; set; }
+        public int Provinces { get; set; }
         public int MetropolitanCities = 0;
         public override string ToString() {
             (string name, string value) city = (nameof(City), City);
@@ -33,14 +33,14 @@
         } //Detail
     } //class Detail
 
-    class Fun {
-        internal string Animal { get; set; }
-        internal string Dish { get; set; }
+    public class Fun {
+        public string Animal { get; set; }
+        public string Dish { get; set; }
         public string Festival = null;
-        internal string RacingColorName { get; set; }
+        public string RacingColorName { get; set; }
         public Color RacingColor { get; set; }
-        internal string Tragedy { get; set; }
-        internal string Comedy { get; set; }
+        public string Tragedy { get; set; }
+        public string Comedy { get; set; }
         public override string ToString() {
             (string name, string value) animal = (nameof(Animal), Animal);
             (string name, string value) dish = (nameof(Dish), Dish);
@@ -52,13 +52,15 @@
         }
     } // class Fun
 
-
     /*
     Main, duck:
     Country: Italy !Italiano Italia
     Language: Italian !Italiano Italiano
     Capital: Rome !Italiano Roma
     Area: 301,230 square kilometres !Italiano 
+    PopulationDensity
+    AreaUnits
+    PopulationDensityUnits
 
     Detail:
     City: Milan !Italiano Milano
@@ -71,7 +73,7 @@
     Animal: |Italiano Mediterranean buffalo Italiano Bufalo mediterraneo italiano
     Dish: Lasagna !Italiano Lasagna Lasagne al forno
     Festival: Venice Film Festival !Italiano Mostra internazionale d'arte cinematografica
-    RacingColor: !Italiano Red Rosso corsa
+    RacingColor: Red !Italiano Rosso corsa
     Tragedy: Romeo and Juliet !Italiano Romeo e Giulietta
     Comedy: The Servant of Two Masters !Italiano Il servitore di due padroni
     */

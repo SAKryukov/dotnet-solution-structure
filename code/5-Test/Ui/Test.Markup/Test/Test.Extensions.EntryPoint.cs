@@ -4,25 +4,26 @@ namespace SA.Test.Markup {
 
     static class Test {
 
-        static void Execute() {
+        static void Execute(bool localize) {
             My.DuckTypedDataSource duckTypedDataSource = new();
-            My.DataSource DataSource = new();
+            My.DataSource dataSource = new();
             My.DuckTyped duck = new();
+            TestLocalization.Localize(dataSource, duckTypedDataSource, localize);
             ResourseDictionaryUtility.CollectForDuckTypedInstance(duckTypedDataSource.Resources, duck);
             Console.WriteLine(duck);
             My.Detail detail = new();
-            ResourseDictionaryUtility.CollectForInstance(DataSource.Resources, detail);
+            ResourseDictionaryUtility.CollectForInstance(dataSource.Resources, detail);
             Console.WriteLine(detail);
             My.Fun fun = new();
-            ResourseDictionaryUtility.CollectForInstance(DataSource.Resources, fun);
+            ResourseDictionaryUtility.CollectForInstance(dataSource.Resources, fun);
             Console.WriteLine(fun);
             Agnostic.UI.ConsoleHelperUtility.ShowExit();
         } //Execute
 
         [System.STAThread]
-        static void Main() {
+        static void Main(string[] args) {
             Console.OutputEncoding = System.Text.Encoding.UTF8;
-            Execute();
+            Execute(args.Length > 0);
         } //Main
 
     } //class Test
