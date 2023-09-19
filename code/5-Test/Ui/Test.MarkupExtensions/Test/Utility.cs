@@ -18,6 +18,19 @@
         static BindingFlags DefaultFlagsStatic =>
             BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static;
 
+        public static void CollectForInstance(ResourceDictionary dictionary, object instance) {
+            if (dictionary == null) return;
+            Type instanceType = instance.GetType();
+            foreach (var key in dictionary.Keys) {
+                object value = dictionary[key];
+                if (value is not DataTypeProvider resourceSource) continue;
+                if (key is not Type targetType) continue;
+                if (!targetType.IsAssignableTo(instanceType))
+                    continue;
+                AssignInstanceMembers(resourceSource, targetType, instance);
+            } //keys loop
+        } //CollectForInstance
+
         public static InstanceDictionary CollectDictionary(ResourceDictionary dictionary) {
             if (dictionary == null) return null;
             InstanceDictionary instanceDictionary = new();
@@ -33,19 +46,6 @@
             } //keys loop
             return instanceDictionary;
         } //CollectDictionary
-
-        public static void CollectForInstance(ResourceDictionary dictionary, object instance) {
-            if (dictionary == null) return;
-            Type instanceType = instance.GetType();
-            foreach (var key in dictionary.Keys) {
-                object value = dictionary[key];
-                if (value is not DataTypeProvider resourceSource) continue;
-                if (key is not Type targetType) continue;
-                if (!targetType.IsAssignableTo(instanceType))
-                    continue;
-                AssignInstanceMembers(resourceSource, targetType, instance);
-            } //keys loop
-        } //CollectForInstance
 
         public static void Collect(ResourceDictionary dictionary, object instance) {
             if (dictionary == null || instance == null) return;
@@ -69,9 +69,9 @@
             //Type converterType = typeof(TypeConverter);
             //TypeConverter converter = new();
             MemberKind memberKind = resourceSource.MemberKind;
-            if (memberName == null) throw new DataMisalignedException("Member Name cannot be null");
+            if (memberName == null) throw new DataTypeProviderException("Member Name cannot be null");
             object memberValue = resourceSource.Value;
-            if (memberValue == null) throw new DataMisalignedException("Member Value cannot be null");
+            if (memberValue == null) throw new DataTypeProviderException("Member Value cannot be null");
             Type memberType = resourceSource.Type;
             ////SA???
             string stringMemberValue = null;
@@ -85,15 +85,15 @@
                 memberValue = Convert.ChangeType(memberValue, memberType);
             if (memberKind == MemberKind.Field) {
                 FieldInfo field = targetType.GetField(memberName, resourceSource.Static ? DefaultFlagsStatic : DefaultFlags);
-                if (field == null) throw new DataMisalignedException($"Field {memberName} cannot be null");
+                if (field == null) throw new DataTypeProviderException($"Field {memberName} cannot be null");
                 if (isString)
                     memberValue = TryTypeConverter(field, memberType, stringMemberValue, memberValue);
                 field.SetValue(instance, memberValue);
             } else {
                 PropertyInfo property = targetType.GetProperty(memberName, resourceSource.Static ? DefaultFlagsStatic : DefaultFlags);
-                if (property == null) throw new DataMisalignedException($"Property {memberName} cannot be null");
+                if (property == null) throw new DataTypeProviderException($"Property {memberName} cannot be null");
                 if (!property.CanWrite)
-                    throw new DataMisalignedException($"Property {property.Name} is read-only, and it cannot be populated");
+                    throw new DataTypeProviderException($"Property {property.Name} is read-only, and it cannot be populated");
                 if (isString)
                     memberValue = TryTypeConverter(property, memberType, stringMemberValue, memberValue);
                 property.SetValue(instance, memberValue);
@@ -106,17 +106,16 @@
             TypeConverterAttribute converterAttribute = typeConverterAttribute ?? propertyConvertedAttribute;
             if (converterAttribute != null) {
                 Type converterType = Type.GetType(converterAttribute.ConverterTypeName);
-                var converter = (TypeConverter)Activator.CreateInstance(converterType);
+                TypeConverter converter = (TypeConverter)Activator.CreateInstance(converterType);
                 return converter.ConvertFromString(stringMemberValue);
             } //if
             return memberValue;
         } //TryTypeConverter
 
         static void AssignInstanceMembers(DataTypeProvider resourceSource, Type targetType, object instance) {
-            foreach (object childKey in resourceSource.Members.Keys) {
-                if (childKey is not string memberName) continue;
-                object childValue = resourceSource.Members[childKey];
-                if (childValue is not Member member) throw new DataMisalignedException($"Members should have the type {typeof(Member).Name}, a member cannot be {childValue}");
+            foreach (object child in resourceSource.Members) {
+                if (child is not string memberName) continue;
+                if (child is not Member member) throw new DataTypeProviderException($"Members should have the type {typeof(Member).Name}, a member cannot be {child}");
                 AssignMember(member, targetType, memberName, instance);
             } //loop
         } //AssignInstanceMembers

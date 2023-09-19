@@ -5,49 +5,24 @@
         xmlns:Test="clr-namespace:SA.Test.Extensions"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <FrameworkContentElement.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary>
-                    <Ext:TestParent x:Key="test parent o!">
-                        <Ext:TestParent.Children>
-                            <Ext:TestChild Descr="1111111111111111"/>
-                            <Ext:TestChild Descr="222222222222222222222222"/>
-                            <Ext:TestChild Descr="3---"/>
-                            <Ext:TestChild Descr="3333333333333333"/>
-                        </Ext:TestParent.Children>
-                    </Ext:TestParent>
-                    <!-- using parameterless TypeKey constructor, TargetType is assigned as property -->
-                    <Ext:DataTypeProvider x:Key="{Ext:TypeKey TargetType={x:Type Test:ResourceTarget}}">
-                        <Ext:DataTypeProvider.Members>
-                            <Ext:Member x:Key="Thickness" Type="{x:Type Thickness}" Value="0 2 13 1"/>
-                            <Ext:Member x:Key="Name" Value="My family name"/>
-                            <Ext:Member x:Key="Count" MemberKind="Field" Type="{x:Type System:Int32}" Value="100"/>
-                            <Ext:Member x:Key="Color" Type="{x:Type Color}" Value="Red"/>
-                            <Ext:Member x:Key="Description" Value="This is a simpler demonstration of getting values from a resource dictionary"/>
-                        </Ext:DataTypeProvider.Members>
-                    </Ext:DataTypeProvider>
-                    <!-- using TypeKey constructor with Type parameter used to set TargetType property -->
-                    <Ext:DataTypeProvider x:Key="{Ext:TypeKey {x:Type Test:ResourceTarget2}}">
-                        <Ext:DataTypeProvider.Members>
-                            <Ext:Member x:Key="Thickness2" MemberKind="Field" Type="{x:Type Thickness}" Value="202 4 15 2"/>
-                            <Ext:Member x:Key="Name2" Value="Type 2: My family name"/>
-                            <Ext:Member x:Key="count2" MemberKind="Field" Type="{x:Type System:Int32}" Value="200"/>
-                            <Ext:Member x:Key="Description2" Value="Type 2: This is a simpler demonstration of getting values from a resource dictionary"/>
-                        </Ext:DataTypeProvider.Members>
-                    </Ext:DataTypeProvider>
-                </ResourceDictionary>
-                <ResourceDictionary>
-                    <Ext:Member x:Key="Name"
-                         Value="Basic: My family name"/>
-                    <!-- Below are all properties, default: -->
-                    <Ext:Member x:Key="Count"
-                         MemberKind="Field"
-                         Type="{x:Type System:Int32}"
-                         Value="1"/>
-                    <Ext:Member x:Key="Description"
-                         Value="Basic: This is a simpler demonstration of getting values from a resource dictionary"/>
-                </ResourceDictionary>
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
+        <!-- using parameterless TypeKey constructor, TargetType is assigned as property -->
+        <Ext:DataTypeProvider x:Key="{Ext:TypeKey TargetType={x:Type Test:ResourceTarget}}">
+            <Ext:DataTypeProvider.Members>
+                <Ext:Member Name="Thickness" Type="{x:Type Thickness}" Value="0 2 13 1"/>
+                <Ext:Member Name="Name" Value="My family name"/>
+                <Ext:Member Name="Count" Value="100" MemberKind="Field" Type="{x:Type System:Int32}" />
+                <Ext:Member Name="Color" Value="Red" Type="{x:Type Color}" />
+                <Ext:Member Name="Description" Value="This is a simpler demonstration of getting values from a resource dictionary"/>
+            </Ext:DataTypeProvider.Members>
+        </Ext:DataTypeProvider>
+        <!-- using TypeKey constructor with Type parameter used to set TargetType property -->
+        <Ext:DataTypeProvider x:Key="{Ext:TypeKey {x:Type Test:ResourceTarget2}}">
+            <Ext:DataTypeProvider.Members>
+                <Ext:Member Name="Thickness2" Value="202 4 15 2" MemberKind="Field" Type="{x:Type Thickness}"/>
+                <Ext:Member Name="Name2" Value="Type 2: My family name"/>
+                <Ext:Member Name="count2" Value="200" MemberKind="Field" Type="{x:Type System:Int32}"/>
+                <Ext:Member Name="Description2" Value="Type 2: This is a simpler demonstration of getting values from a resource dictionary"/>
+            </Ext:DataTypeProvider.Members>
+        </Ext:DataTypeProvider>
     </FrameworkContentElement.Resources>
 </FrameworkContentElement>

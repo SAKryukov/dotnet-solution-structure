@@ -2,6 +2,7 @@
     using System;
     using System.Windows;
     using System.Windows.Markup;
+    using MemberCollection = System.Collections.ObjectModel.Collection<Member>;
 
     public enum MemberKind { Property, Field }
 
@@ -20,23 +21,13 @@
         public Type TargetType { get; set; }
         public MemberKind MemberKind { get; set; }
         public ResourceDictionary Setters { get; set; }
+        public object Name { get; set; }
         public object Value { get; set; }
     } //class MemberBase
 
     public class DataTypeProvider {
         public DataTypeProvider() { Members = new(); }
-        public ResourceDictionary Members { get; set; }
+        public MemberCollection Members { get; set; }
     } //DataTypeProvider
-
-    //-------------------------------------------------------------------------
-
-    public class TestParent {
-        public TestParent() { Children = new(); }
-        public System.Collections.ObjectModel.Collection<TestChild> Children { get; set; }
-    }
-
-    public class TestChild {
-        public string Descr { get; set; }
-    }
 
 }
