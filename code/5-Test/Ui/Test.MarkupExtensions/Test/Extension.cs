@@ -21,9 +21,9 @@
         public Type TargetType { get; set; }
         public MemberKind MemberKind { get; set; }
         public ResourceDictionary Setters { get; set; }
-        public object Name { get; set; }
+        public string Name { get; set; }
         public object Value { get; set; }
-    } //class MemberBase
+    } //class Member
 
     public class DataTypeProvider {
         public DataTypeProvider() { Members = new(); }

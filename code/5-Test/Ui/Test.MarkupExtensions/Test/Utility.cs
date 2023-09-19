@@ -53,7 +53,9 @@
             foreach (var key in dictionary.Keys) {
                 object value = dictionary[key];
                 if (value is not Member resourceSource) continue;
-                if (key is not string memberName) continue;
+                string memberName = resourceSource.Name;
+                if (memberName == null && key is string keyMemberName)
+                    memberName = keyMemberName;
                 if (resourceSource.TargetType == null)
                     resourceSource.TargetType = instanceType;
                 Type targetType = resourceSource.TargetType;
@@ -66,8 +68,6 @@
         } //Collect
 
         static void AssignMember(Member resourceSource, Type targetType, string memberName, object instance) {
-            //Type converterType = typeof(TypeConverter);
-            //TypeConverter converter = new();
             MemberKind memberKind = resourceSource.MemberKind;
             if (memberName == null) throw new DataTypeProviderException("Member Name cannot be null");
             object memberValue = resourceSource.Value;
@@ -114,9 +114,8 @@
 
         static void AssignInstanceMembers(DataTypeProvider resourceSource, Type targetType, object instance) {
             foreach (object child in resourceSource.Members) {
-                if (child is not string memberName) continue;
                 if (child is not Member member) throw new DataTypeProviderException($"Members should have the type {typeof(Member).Name}, a member cannot be {child}");
-                AssignMember(member, targetType, memberName, instance);
+                AssignMember(member, targetType, member.Name, instance);
             } //loop
         } //AssignInstanceMembers
 

@@ -1,6 +1,5 @@
 ﻿namespace SA.Test.Extensions {
     using System.Windows;
-    //using Type = System.Type;
     using System.Windows.Media;
 
     internal class ResourceTarget {

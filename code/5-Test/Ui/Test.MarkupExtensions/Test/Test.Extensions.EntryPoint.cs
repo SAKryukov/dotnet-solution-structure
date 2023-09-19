@@ -7,12 +7,13 @@
         static void Execute() {
             ResourceSource source = new();
             ResourceDictionary dictionary = source.Resources;
-            ResourceTarget target1type1 = new(), target2type1 = new();
-            ResourceTarget2 target1type2 = new();
-            ResourseDictionaryUtility.CollectForInstance(dictionary, target1type1);
-            ResourseDictionaryUtility.CollectForInstance(dictionary, target1type2);
+            ResourceTarget target1 = new();
+            ResourceTarget targetUntyped = new();
+            ResourceTarget2 target2 = new();
+            ResourseDictionaryUtility.CollectForInstance(dictionary, target1);
+            ResourseDictionaryUtility.CollectForInstance(dictionary, target2);
+            ResourseDictionaryUtility.Collect(dictionary, targetUntyped);
             var result = ResourseDictionaryUtility.CollectDictionary(dictionary);
-            ResourseDictionaryUtility.Collect(dictionary, target2type1);
             Console.WriteLine(result.Count);
         } //Execute
 
