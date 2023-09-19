@@ -6,7 +6,7 @@
     using TypeConverter = System.ComponentModel.TypeConverter;
     using TypeConverterAttribute = System.ComponentModel.TypeConverterAttribute;
 
-    static class ResourseDictionaryUtility {
+    public static class ResourseDictionaryUtility {
 
         class DataTypeProviderException : SystemException {
             internal DataTypeProviderException(string message) : base(message) { }

@@ -9,6 +9,9 @@
         public static string ClassName { get; set; }
         public string Description { get; set; }
         public int Count = default;
+        public override string ToString() {
+            return $"{nameof(ClassName)}: {ClassName}!!!, {nameof(Thickness)}: {Thickness}, {nameof(Color)}: {Color}, {nameof(Name)}: {Name}, {nameof(Description)}: {Description}";
+        }
     } //class ResourceTarget
 
     internal class ResourceTarget2 {
