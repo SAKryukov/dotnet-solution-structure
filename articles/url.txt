@@ -1,4 +1,5 @@
 Article Series
+XAML Data to Code
 [Improving .NET Solution Structure: Code Isolation](https://www.codeproject.com/Articles/5367811/Solution-Structure-Code-Isolation)
 Improving .NET Solition Structure: WPF
 XAML-based Localization with Satellite Assemblies

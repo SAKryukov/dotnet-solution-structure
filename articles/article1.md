@@ -37,6 +37,30 @@ For CodeProject, makes sure there are no HTML comments in the area to past!
 
 ## Introduction
 
+### Accessing ResourceDictionary
+
+[Microsof documentation suggested way](https://learn.microsoft.com/en-us/dotnet/desktop/wpf/systems/xaml-resources-and-code?view=netdesktop-7.0#accessing-resources-from-code) is this:
+
+```{lang=C#}{id=code-resource-lookup}
+Button b = sender as Button;
+b.Background = (Brush)this.FindResource("RainbowBrush");
+```
+What if you need to get a resource dictionary value from a XAML file?
+
+Here is what [one stackoverflow answer](https://stackoverflow.com/a/3553781) recommends:
+
+```{lang=C#}{id=code-find-resource-dictionary}
+var resource = new ResourceDictionary
+{
+    Source = new Uri("/myAssemblyName;component/Themes/generic.xaml",
+                     UriKind.RelativeOrAbsolute)
+};```
+
+Needless to say, both techniques demonstrate the well-known [magic string](https://en.wikipedia.org/wiki/Magic_string) anti-pattern. Not only in the above code samples an innocent typo won't be detected by the build process, but the code will be broken if the developer moves some files around.
+
+Fortubately, for the first problem I have a simple workaround...
+
+
 This is the first article of the projected diptych of two article on the .NET solution structure:
 
 1. *Present article*
