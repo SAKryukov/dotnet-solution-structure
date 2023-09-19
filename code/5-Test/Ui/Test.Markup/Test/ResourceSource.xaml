@@ -1,8 +1,8 @@
-﻿<FrameworkContentElement x:Class="SA.Test.Extensions.ResourceSource"
+﻿<FrameworkContentElement x:Class="SA.Test.Markup.ResourceSource"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:System="clr-namespace:System;assembly=netstandard"
-                         xmlns:e="clr-namespace:SA.Agnostic.UI.Extensions"
-        xmlns:Test="clr-namespace:SA.Test.Extensions"
+                         xmlns:e="clr-namespace:SA.Agnostic.UI.Markup"
+        xmlns:Test="clr-namespace:SA.Test.Markup"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <FrameworkContentElement.Resources>
         <!-- using parameterless TypeKey constructor, TargetType is assigned as property -->
@@ -16,7 +16,7 @@
                 <e:Member Name="Description" Value="This is a simpler demonstration of getting values from a resource dictionary"/>
             </e:DataTypeProvider.Members>
         </e:DataTypeProvider>
-        <!-- using TypeKey constructor with Type parameter used to set TargetType property -->
+        <!-- using TypeKey constructor with Type parameter used to set TargetType proper -->
         <e:DataTypeProvider x:Key="{e:TypeKey {x:Type Test:ResourceTarget2}}">
             <e:DataTypeProvider.Members>
                 <e:Member Name="Thickness2" Value="202 4 15 2" MemberKind="Field" Type="{x:Type Thickness}"/>

@@ -1,4 +1,4 @@
-﻿namespace SA.Agnostic.UI.Extensions {
+﻿namespace SA.Agnostic.UI.Markup {
 
     class DefinitionSet {
 

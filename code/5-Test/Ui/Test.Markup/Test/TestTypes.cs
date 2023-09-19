@@ -1,4 +1,4 @@
-﻿namespace SA.Test.Extensions {
+﻿namespace SA.Test.Markup {
     using System.Windows;
     using System.Windows.Media;
 
