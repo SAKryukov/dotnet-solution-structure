@@ -85,6 +85,7 @@
             string resourceDictionaryName = typeof(ResourceDictionary).Name;
             if (memberKind == MemberKind.Field) {
                 FieldInfo prefetchField = targetType.GetField(memberName, DefaultFlagsPrefetch);
+                if (prefetchField == null) throw new DataTypeProviderException(DefinitionSet.MissingField(memberName));
                 if (!resourceSource.Static && prefetchField.IsStatic)
                     throw new DataTypeProviderException(DefinitionSet.StaticMismatch.FieldInstanceInDictionaryButStatic(
                         memberName, resourceDictionaryName, targetType.Name));
@@ -98,6 +99,7 @@
                 field.SetValue(instance, memberValue);
             } else {
                 PropertyInfo prefetchProperty = targetType.GetProperty(memberName, DefaultFlagsPrefetch);
+                if (prefetchProperty == null) throw new DataTypeProviderException(DefinitionSet.MissingProperty(memberName));
                 if (!prefetchProperty.CanWrite)
                     throw new DataTypeProviderException(DefinitionSet.ReadOnlyProperty(prefetchProperty.Name));
                 bool isStatic = prefetchProperty.SetMethod.IsStatic;
