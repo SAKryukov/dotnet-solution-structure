@@ -1,5 +1,4 @@
-﻿namespace SA.Test.Extensions {
-    using SA.Agnostic.UI.Extensions;
+﻿namespace SA.Agnostic.UI.Extensions {
     using System;
     using System.Reflection;
     using System.Windows;
@@ -47,7 +46,7 @@
             return instanceDictionary;
         } //CollectDictionary
 
-        public static void Collect(ResourceDictionary dictionary, object instance) {
+        public static void CollectForDuckTypedInstance(ResourceDictionary dictionary, object instance) {
             if (dictionary == null || instance == null) return;
             Type instanceType = instance.GetType();
             foreach (var key in dictionary.Keys) {
@@ -65,35 +64,33 @@
                     continue;
                 AssignMember(resourceSource, targetType, memberName, instance);
             } //keys loop
-        } //Collect
+        } //CollectForDuckTypedInstance
 
         static void AssignMember(Member resourceSource, Type targetType, string memberName, object instance) {
             MemberKind memberKind = resourceSource.MemberKind;
-            if (memberName == null) throw new DataTypeProviderException("Member Name cannot be null");
+            if (memberName == null) throw new DataTypeProviderException(DefinitionSet.missingMemberName);
             object memberValue = resourceSource.Value;
-            if (memberValue == null) throw new DataTypeProviderException("Member Value cannot be null");
+            if (memberValue == null) throw new DataTypeProviderException(DefinitionSet.missingMemberValue);
             Type memberType = resourceSource.Type;
-            ////SA???
             string stringMemberValue = null;
             if (memberValue is string stringCandidate) 
                 stringMemberValue = stringCandidate;
             bool isString = stringMemberValue != null;
-            ////SA???
             if (memberType == null)
                 memberType = typeof(string);
             if (memberValue.GetType() != memberType && memberType.IsPrimitive)
                 memberValue = Convert.ChangeType(memberValue, memberType);
             if (memberKind == MemberKind.Field) {
                 FieldInfo field = targetType.GetField(memberName, resourceSource.Static ? DefaultFlagsStatic : DefaultFlags);
-                if (field == null) throw new DataTypeProviderException($"Field {memberName} cannot be null");
+                if (field == null) throw new DataTypeProviderException(DefinitionSet.MissingField(memberName));
                 if (isString)
                     memberValue = TryTypeConverter(field, memberType, stringMemberValue, memberValue);
                 field.SetValue(instance, memberValue);
             } else {
                 PropertyInfo property = targetType.GetProperty(memberName, resourceSource.Static ? DefaultFlagsStatic : DefaultFlags);
-                if (property == null) throw new DataTypeProviderException($"Property {memberName} cannot be null");
+                if (property == null) throw new DataTypeProviderException(DefinitionSet.MissingProperty(memberName));
                 if (!property.CanWrite)
-                    throw new DataTypeProviderException($"Property {property.Name} is read-only, and it cannot be populated");
+                    throw new DataTypeProviderException(DefinitionSet.ReadOnlyProperty(property.Name));
                 if (isString)
                     memberValue = TryTypeConverter(property, memberType, stringMemberValue, memberValue);
                 property.SetValue(instance, memberValue);
@@ -114,7 +111,9 @@
 
         static void AssignInstanceMembers(DataTypeProvider resourceSource, Type targetType, object instance) {
             foreach (object child in resourceSource.Members) {
-                if (child is not Member member) throw new DataTypeProviderException($"Members should have the type {typeof(Member).Name}, a member cannot be {child}");
+                if (child is not Member member)
+                    throw new DataTypeProviderException(
+                        DefinitionSet.WrongChildrenCollectionMember(typeof(Member).Name, child.ToString()));
                 AssignMember(member, targetType, member.Name, instance);
             } //loop
         } //AssignInstanceMembers

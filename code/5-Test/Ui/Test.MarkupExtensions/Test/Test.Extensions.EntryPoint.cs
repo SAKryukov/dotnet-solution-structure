@@ -1,6 +1,7 @@
 ﻿namespace SA.Test.Extensions {
     using Console = System.Console;
     using System.Windows;
+    using ResourseDictionaryUtility = SA.Agnostic.UI.Extensions.ResourseDictionaryUtility;
 
     static class Test {
 
@@ -12,7 +13,7 @@
             ResourceTarget2 target2 = new();
             ResourseDictionaryUtility.CollectForInstance(dictionary, target1);
             ResourseDictionaryUtility.CollectForInstance(dictionary, target2);
-            ResourseDictionaryUtility.Collect(dictionary, targetUntyped);
+            ResourseDictionaryUtility.CollectForDuckTypedInstance(dictionary, targetUntyped);
             var result = ResourseDictionaryUtility.CollectDictionary(dictionary);
             Console.WriteLine(result.Count);
         } //Execute
