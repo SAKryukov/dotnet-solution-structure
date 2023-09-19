@@ -70,7 +70,7 @@
                 foreach (var element in elements) {
                     ResourceDictionary target = new();
                     DeepClone(element.Resources, target, resourceDictionarySet);
-                    System.Diagnostics.Debug.Assert(!snapshot.ContainsKey(element));
+                    Debug.Assert(!snapshot.ContainsKey(element));
                     snapshot.Add(element, target);
                 } //loop
                 DeepClone(application.Resources, applicationSnapshop, resourceDictionarySet);
