@@ -23,7 +23,7 @@ namespace SA.Test.Markup {
         } //Execute
 
         [System.STAThread]
-        static void Main(string[] args) {
+        static void Main() {
             Console.OutputEncoding = System.Text.Encoding.UTF8;
             Execute();
         } //Main

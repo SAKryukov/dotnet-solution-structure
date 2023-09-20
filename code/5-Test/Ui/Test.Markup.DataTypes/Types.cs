@@ -1,24 +1,6 @@
 ﻿namespace My {
     using System.Windows.Media;
 
-    public class DuckTyped {
-        public string Country { get; set; }
-        public string Language { get; set; }
-        public string Capital { get; set; }
-        public double Area { get; set; }
-        public double PopulationDensity { get; set; }
-        public string AreaUnits { get; set; }
-        public string PopulationDensityUnits { get; set; }
-        public override string ToString() {
-            (string name, string value) country = (nameof(Country), Country);
-            (string name, string value) language = (nameof(Language), Language);
-            (string name, string value) capital = (nameof(Capital), Capital);
-            (string name, string value) area = (nameof(area), Area.ToString() + AreaUnits);
-            (string name, string value) populationDensity = (nameof(PopulationDensity), PopulationDensity.ToString() + PopulationDensityUnits);
-            return DefinitionSet.Dump(GetType().Name, country, language, capital, area, populationDensity);
-        }
-    } //class DuckTyped
-
     public class Detail {
         public string City { get; set; }
         public static string Mountains = null;
