@@ -33,7 +33,7 @@ namespace SA.Test.Plugin {
         [System.STAThread]
         static void Main() {
             (new Test()).Execute();
-            Agnostic.UI.ConsoleHelperUtility.ShowExit();
+            Agnostic.UI.ConsoleHelperUtility.ShowExit(showUnderDebugger: false);
         } //Main
 
     } //class Test

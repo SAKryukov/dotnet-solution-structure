@@ -5,7 +5,7 @@
         xmlns:System="clr-namespace:System;assembly=netstandard"                         
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <FrameworkContentElement.Resources>
-        <e:DataTypeProvider x:Key="{e:TypeKey TargetType=my:Detail}">
+        <e:DataTypeProvider x:Key="{e:TypeKey my:Detail}">
             <e:DataTypeProvider.Members>
                 <e:Member Name="City" Value="Milan"/>
                 <e:Member Name="Mountains" Value="Alps" Static="True" MemberKind="Field"/>
@@ -13,7 +13,7 @@
                 <e:Member Name="MetropolitanCities" Value="14" Type="System:Int32" MemberKind="Field"/>
             </e:DataTypeProvider.Members>
         </e:DataTypeProvider>
-        <e:DataTypeProvider x:Key="{e:TypeKey TargetType=my:Fun}">
+        <e:DataTypeProvider x:Key="{e:TypeKey my:Fun}">
             <e:DataTypeProvider.Members>
                 <e:Member Name="Animal" Value="Italiano Mediterranean buffalo"/>
                 <e:Member Name="Dish" Value="Lasagna"/>

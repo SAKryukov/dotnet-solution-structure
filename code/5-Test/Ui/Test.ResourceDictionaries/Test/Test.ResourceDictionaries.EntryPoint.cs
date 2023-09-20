@@ -97,7 +97,7 @@ namespace SA.Test {
             ResourceDictionary snapshot = new();
             SnapshotHelper.DeepClone(top, snapshot, null);
             Console.WriteLine(found.ToString());
-            Agnostic.UI.ConsoleHelperUtility.ShowExit();
+            Agnostic.UI.ConsoleHelperUtility.ShowExit(showUnderDebugger: false);
         } //Execute
 
         static void Main() {

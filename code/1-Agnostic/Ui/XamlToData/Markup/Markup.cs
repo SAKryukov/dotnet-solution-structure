@@ -8,7 +8,7 @@
         public TypeKey() { }
         public TypeKey(Type targetType) { TargetType = targetType; }
         public Type TargetType { get; set; }
-        public override object ProvideValue(IServiceProvider _) {
+        public override object ProvideValue(IServiceProvider serviceProvider) {
             return TargetType;
         } //ProvideValue
     } //class TypeKey

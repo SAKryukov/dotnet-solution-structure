@@ -19,7 +19,7 @@ namespace SA.Test.Markup {
             My.Fun fun = new();
             ResourseDictionaryUtility.CollectForInstance(dataSource.Resources, fun);
             Console.WriteLine(fun);
-            Agnostic.UI.ConsoleHelperUtility.ShowExit();
+            Agnostic.UI.ConsoleHelperUtility.ShowExit(showUnderDebugger: false);
         } //Execute
 
         [System.STAThread]
