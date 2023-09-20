@@ -5,16 +5,16 @@
         xmlns:System="clr-namespace:System;assembly=netstandard"                         
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <FrameworkContentElement.Resources>
-        <e:DataTypeProvider x:Key="{e:TypeKey my:Detail}">
-            <e:DataTypeProvider.Members>
+        <e:DataSetter x:Key="{e:TypeKey my:Detail}">
+            <e:DataSetter.Members>
                 <e:Member Name="City" Value="Milan"/>
                 <e:Member Name="Mountains" Value="Alps" Static="True" MemberKind="Field"/>
                 <e:Member Name="Provinces" Value="107" Type="{x:Type System:Int32}"/>
                 <e:Member Name="MetropolitanCities" Value="14" Type="System:Int32" MemberKind="Field"/>
-            </e:DataTypeProvider.Members>
-        </e:DataTypeProvider>
-        <e:DataTypeProvider x:Key="{e:TypeKey my:Fun}">
-            <e:DataTypeProvider.Members>
+            </e:DataSetter.Members>
+        </e:DataSetter>
+        <e:DataSetter x:Key="{e:TypeKey my:Fun}">
+            <e:DataSetter.Members>
                 <e:Member Name="Animal" Value="Italiano Mediterranean buffalo"/>
                 <e:Member Name="Dish" Value="Lasagna"/>
                 <!-- Leading blank space in Value is important: -->
@@ -23,7 +23,7 @@
                 <e:Member Name="Festival" Value="Venice Film Festival" MemberKind="Field"/>
                 <e:Member Name="Tragedy" Value="Romeo and Juliet"/>
                 <e:Member Name="Comedy" Value="The Servant of Two Masters"/>
-            </e:DataTypeProvider.Members>
-        </e:DataTypeProvider>
+            </e:DataSetter.Members>
+        </e:DataSetter>
     </FrameworkContentElement.Resources>
 </FrameworkContentElement>

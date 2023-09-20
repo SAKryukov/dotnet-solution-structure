@@ -24,7 +24,7 @@
             Type instanceType = instance.GetType();
             foreach (var key in dictionary.Keys) {
                 object value = dictionary[key];
-                if (value is not DataTypeProvider resourceSource) continue;
+                if (value is not DataSetter resourceSource) continue;
                 if (key is not Type targetType) continue;
                 if (!targetType.IsAssignableTo(instanceType))
                     continue;
@@ -37,7 +37,7 @@
             InstanceDictionary instanceDictionary = new();
             foreach (var key in dictionary.Keys) {
                 object value = dictionary[key];
-                if (value is not DataTypeProvider resourceSource) continue;
+                if (value is not DataSetter resourceSource) continue;
                 if (key is not Type targetType) continue;
                 if (!instanceDictionary.TryGetValue(targetType, out object instance)) {
                     instance = Activator.CreateInstance(targetType);
@@ -130,7 +130,7 @@
             return memberValue;
         } //TryTypeConverter
 
-        static void AssignInstanceMembers(DataTypeProvider resourceSource, Type targetType, object instance) {
+        static void AssignInstanceMembers(DataSetter resourceSource, Type targetType, object instance) {
             foreach (object child in resourceSource.Members) {
                 if (child is not Member member)
                     throw new DataTypeProviderException(
