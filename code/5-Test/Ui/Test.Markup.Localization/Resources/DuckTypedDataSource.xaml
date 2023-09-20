@@ -6,6 +6,15 @@
     <FrameworkContentElement.Resources>
         <e:Member x:Key="Country" Value="Italia"/>
         <e:Member x:Key="Language" Value="Italiano"/>
+        <e:Member x:Key="Flag">
+            <e:Member.Value>
+                <x:Array Type="Color">
+                    <Color>Green</Color>
+                    <Color>White</Color>
+                    <Color>Red</Color>
+                </x:Array>
+            </e:Member.Value>
+        </e:Member>
         <e:Member x:Key="Capital" Value="Roma"/>
         <e:Member x:Key="Area" Value="301230.11" Type="System:Double"/>
         <e:Member x:Key="PopulationDensity" Value="201.3" Type="System:Double"/>

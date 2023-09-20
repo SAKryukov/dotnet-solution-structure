@@ -5,6 +5,15 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <FrameworkContentElement.Resources>
         <e:Member x:Key="Country" Value="Italy"/>
+        <e:Member x:Key="Flag">
+            <e:Member.Value>
+                <x:Array Type="Color">
+                    <Color>Green</Color>
+                    <Color>White</Color>
+                    <Color>Red</Color>
+                </x:Array>
+            </e:Member.Value>
+        </e:Member>
         <e:Member x:Key="Language" Value="Italian"/>
         <e:Member x:Key="Capital" Value="Rome"/>
         <e:Member x:Key="Area" Value="301230.11" Type="System:Double"/>

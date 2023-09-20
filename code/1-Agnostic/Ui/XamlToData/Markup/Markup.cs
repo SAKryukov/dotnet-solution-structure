@@ -24,14 +24,14 @@
         public string Name { get; set; }
         public static DependencyProperty ValueProperty = DependencyProperty.Register(
             nameof(Value),
-            typeof(string),
+            typeof(object),
             typeof(Member),
             new PropertyMetadata(string.Empty, (sender, eventArgs) => {
                 if (sender is Member member)
-                    member.Value = (string)eventArgs.NewValue;
+                    member.Value = eventArgs.NewValue;
             }));
-        public string Value {
-            get => (string)GetValue(ValueProperty);
+        public object Value {
+            get => GetValue(ValueProperty);
             set => SetValue(ValueProperty, value); 
         }
     } //class Member
