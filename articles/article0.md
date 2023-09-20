@@ -41,7 +41,47 @@ For CodeProject, makes sure there are no HTML comments in the area to past!
 
 ## Introduction
 
+```{lang=XML}
+&lt;FrameworkContentElement x:Class="My.DuckTypedDataSource"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:my="clr-namespace:My;assembly=Test.Markup.DataTypes"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"&gt;
+    &lt;FrameworkContentElement.Resources&gt;
+        &lt;my:Main x:Key=" "
+                 Country="Italy" Language="Italian" Capital="Rome"
+                 Area="301230.11" AreaUnits=" km²"
+                 PopulationDensity="201.3" PopulationDensityUnits="/km²" &gt;
+            &lt;my:Main.Flag&gt;
+                &lt;x:Array Type="Color"&gt;
+                    &lt;Color&gt;Green&lt;/Color&gt;
+                    &lt;Color&gt;White&lt;/Color&gt;
+                    &lt;Color&gt;Red&lt;/Color&gt;
+                &lt;/x:Array&gt;
+            &lt;/my:Main.Flag&gt;
+        &lt;/my:Main&gt;
+    &lt;/FrameworkContentElement.Resources&gt;
+&lt;/FrameworkContentElement&gt;
+```
 
+```{lang=XML}
+&lt;FrameworkContentElement x:Class="My.DataSource"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:e="clr-namespace:SA.Agnostic.UI.Markup;assembly=Agnostic.UI"
+        xmlns:my="clr-namespace:My;assembly=Test.Markup.DataTypes"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"&gt;
+    &lt;FrameworkContentElement.Resources&gt;
+        &lt;my:Detail x:Key="{e:TypeKey my:Detail}"
+                City="Milan" Provinces="107" MetropolitanCities="14"
+                Mountains="Alps" /&gt;
+        &lt;my:Fun x:Key="{e:TypeKey my:Fun}"
+                Animal="Italiano Mediterranean buffalo" Dish="Lasagna"
+                RacingColorName="Red " RacingColor="Red"
+                Festival="Venice Film Festival"
+                Tragedy="Romeo and Juliet"
+                Comedy="The Servant of Two Masters"/&gt;
+    &lt;/FrameworkContentElement.Resources&gt;
+&lt;/FrameworkContentElement&gt;
+```
 ## Code Generation
 
 ### Code
