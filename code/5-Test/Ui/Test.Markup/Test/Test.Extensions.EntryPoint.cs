@@ -16,6 +16,15 @@ namespace SA.Test.Markup {
             Console.WriteLine(duckObject);
             Console.WriteLine(detailObject);
             Console.WriteLine(funObject);
+            Console.WriteLine();
+            Console.WriteLine();
+            var dictionary = ResourseDictionaryUtility.CollectDictionary(duck.Resources);
+            foreach (var pair in dictionary)
+                Console.WriteLine(pair.Value);
+            Agnostic.UI.ConsoleHelperUtility.ShowExit(showUnderDebugger: false);
+            dictionary = ResourseDictionaryUtility.CollectDictionary(source.Resources);
+            foreach (var pair in dictionary)
+                Console.WriteLine(pair.Value);
             Agnostic.UI.ConsoleHelperUtility.ShowExit(showUnderDebugger: false);
         } //Execute
 
@@ -23,7 +32,7 @@ namespace SA.Test.Markup {
         static void Main() {
             Console.OutputEncoding = System.Text.Encoding.UTF8;
             Execute();
-        } //M
+        } //Main
 
     } //class Test
 
