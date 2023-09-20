@@ -2,29 +2,17 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:e="clr-namespace:SA.Agnostic.UI.Markup;assembly=Agnostic.UI"
         xmlns:my="clr-namespace:My;assembly=Test.Markup.DataTypes"
-        xmlns:System="clr-namespace:System;assembly=netstandard"                         
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <FrameworkContentElement.Resources>
-        <Color x:Key="1">Red</Color>
-        <e:DataSetter x:Key="{e:TypeKey my:Detail}">
-            <e:DataSetter.Members>
-                <e:Member Name="City" Value="Milano"/>
-                <e:Member Name="Mountains" Value="Alpi" Static="True" MemberKind="Field"/>
-                <e:Member Name="Provinces" Value="107" Type="{x:Type System:Int32}"/>
-                <e:Member Name="MetropolitanCities" Value="14" Type="System:Int32" MemberKind="Field"/>
-            </e:DataSetter.Members>
-        </e:DataSetter>
-        <e:DataSetter x:Key="{e:TypeKey my:Fun}">
-            <e:DataSetter.Members>
-                <e:Member Name="Animal" Value="Italiano Bufalo mediterraneo italiano"/>
-                <e:Member Name="Dish" Value="Lasagna Lasagne al forno"/>
-                <!-- Leading blank space in Value is important: -->
-                <e:Member Name="RacingColorName" Value="Rosso corsa "/>
-                <e:Member Name="RacingColor" Value="Red" Type="Color"/>
-                <e:Member Name="Festival" Value="Mostra internazionale d'arte cinematografica" MemberKind="Field"/>
-                <e:Member Name="Tragedy" Value="Romeo e Giulietta"/>
-                <e:Member Name="Comedy" Value="Il servitore di due padroni"/>
-            </e:DataSetter.Members>
-        </e:DataSetter>
+        <my:Detail x:Key="{e:TypeKey my:Detail}"
+                   City="Milano" Provinces="107" MetropolitanCities="14"
+                   Mountains="Alpi" />
+        <!-- RacingColorName: Trailing blank space in Value is important: -->
+        <my:Fun x:Key="{e:TypeKey my:Fun}"
+                Animal="Italiano Bufalo mediterraneo italiano" Dish="Lasagna Lasagne al forno"
+                RacingColorName="Rosso corsa " RacingColor="Red"
+                Festival="Mostra internazionale d'arte cinematografica"
+                Tragedy="Romeo e Giulietta"
+                Comedy="Il servitore di due padroni"/>
     </FrameworkContentElement.Resources>
 </FrameworkContentElement>

@@ -1,25 +1,20 @@
 ﻿<FrameworkContentElement x:Class="My.DuckTypedDataSource"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:System="clr-namespace:System;assembly=netstandard"                         
-        xmlns:e="clr-namespace:SA.Agnostic.UI.Markup;assembly=Agnostic.UI"
+        xmlns:my="clr-namespace:My;assembly=Test.Markup.DataTypes"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <FrameworkContentElement.Resources>
-        <e:Member x:Key="Country" Value="Italia"/>
-        <e:Member x:Key="Language" Value="Italiano"/>
-        <e:Member x:Key="Flag">
-            <e:Member.Value>
+        <!-- AreaUnits: Leading blank space in Value is important: -->
+        <my:Main x:Key="1"
+                 Country="Italia" Language="Italiano" Capital="Roma"
+                 Area="301230.11" AreaUnits=" km²"
+                 PopulationDensity="201.3" PopulationDensityUnits="/km²" >
+            <my:Main.Flag>
                 <x:Array Type="Color">
                     <Color>Green</Color>
                     <Color>White</Color>
                     <Color>Red</Color>
                 </x:Array>
-            </e:Member.Value>
-        </e:Member>
-        <e:Member x:Key="Capital" Value="Roma"/>
-        <e:Member x:Key="Area" Value="301230.11" Type="System:Double"/>
-        <e:Member x:Key="PopulationDensity" Value="201.3" Type="System:Double"/>
-        <!-- Leading blank space in Value is important: -->
-        <e:Member x:Key="AreaUnits" Value=" km²"/>
-        <e:Member x:Key="PopulationDensityUnits" Value="/km²"/>
+            </my:Main.Flag>
+        </my:Main>
     </FrameworkContentElement.Resources>
 </FrameworkContentElement>

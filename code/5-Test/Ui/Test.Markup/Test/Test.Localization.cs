@@ -1,4 +1,5 @@
 namespace SA.Test.Markup {
+    using System.Windows;
     using ApplicationSatelliteAssemblyIndex = Agnostic.UI.ApplicationSatelliteAssemblyIndex;
     using CultureInfo = System.Globalization.CultureInfo;
     using Instance = Agnostic.UI.IApplicationSatelliteAssembly;

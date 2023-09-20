@@ -1,11 +1,31 @@
 ﻿namespace My {
     using System.Windows.Media;
 
+    public class Main {
+        public Color[] Flag { get; set; }
+        public string Country { get; set; }
+        public string Language { get; set; }
+        public string Capital { get; set; }
+        public double Area { get; set; }
+        public double PopulationDensity { get; set; }
+        public string AreaUnits { get; set; }
+        public string PopulationDensityUnits { get; set; }
+        public override string ToString() {
+            (string name, string value) flag = (nameof(Flag), DefinitionSet.FormatColors(Flag));
+            (string name, string value) country = (nameof(Country), Country);
+            (string name, string value) language = (nameof(Language), Language);
+            (string name, string value) capital = (nameof(Capital), Capital);
+            (string name, string value) area = (nameof(area), Area.ToString() + AreaUnits);
+            (string name, string value) populationDensity = (nameof(PopulationDensity), PopulationDensity.ToString() + PopulationDensityUnits);
+            return DefinitionSet.Dump(GetType().Name, country, language, flag, capital, area, populationDensity);
+        }
+    } //class Main
+
     public class Detail {
         public string City { get; set; }
-        public static string Mountains = null;
-        public int Provinces { get; set; }
-        public int MetropolitanCities = 0;
+        public string Mountains { get; set; }
+        public uint Provinces { get; set; }
+        public uint MetropolitanCities { get; set; }
         public override string ToString() {
             (string name, string value) city = (nameof(City), City);
             (string name, string value) mountains = (nameof(Mountains), Mountains);
@@ -18,7 +38,7 @@
     public class Fun {
         public string Animal { get; set; }
         public string Dish { get; set; }
-        public string Festival = null;
+        public string Festival { get; set; }
         public string RacingColorName { get; set; }
         public Color RacingColor { get; set; }
         public string Tragedy { get; set; }

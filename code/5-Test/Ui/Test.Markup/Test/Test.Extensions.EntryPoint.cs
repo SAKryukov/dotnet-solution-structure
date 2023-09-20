@@ -7,18 +7,15 @@ namespace SA.Test.Markup {
         static void Execute() {
             bool? localize = Agnostic.UI.ConsoleHelperUtility.RequestYesNoCancel(DefinitionSet.localizationRequest);
             if (localize == null) return;
-            My.DuckTypedDataSource duckTypedDataSource = new();
-            My.DataSource dataSource = new();
-            My.DuckTyped duck = new();
-            TestLocalization.Localize(dataSource, duckTypedDataSource, localize == true);
-            ResourseDictionaryUtility.CollectForDuckTypedInstance(duckTypedDataSource.Resources, duck);
-            Console.WriteLine(duck);
-            My.Detail detail = new();
-            ResourseDictionaryUtility.CollectForInstance(dataSource.Resources, detail);
-            Console.WriteLine(detail);
-            My.Fun fun = new();
-            ResourseDictionaryUtility.CollectForInstance(dataSource.Resources, fun);
-            Console.WriteLine(fun);
+            My.DuckTypedDataSource duck = new();
+            My.DataSource source = new();
+            TestLocalization.Localize(source, duck, localize == true);
+            var duckObject = ResourseDictionaryUtility.FindObject<My.Main>(duck.Resources);
+            var detailObject = ResourseDictionaryUtility.GetObject<My.Detail>(source.Resources);
+            var funObject = ResourseDictionaryUtility.GetObject<My.Fun>(source.Resources);
+            Console.WriteLine(duckObject);
+            Console.WriteLine(detailObject);
+            Console.WriteLine(funObject);
             Agnostic.UI.ConsoleHelperUtility.ShowExit(showUnderDebugger: false);
         } //Execute
 
@@ -26,7 +23,7 @@ namespace SA.Test.Markup {
         static void Main() {
             Console.OutputEncoding = System.Text.Encoding.UTF8;
             Execute();
-        } //Main
+        } //M
 
     } //class Test
 

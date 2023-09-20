@@ -2,28 +2,17 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:e="clr-namespace:SA.Agnostic.UI.Markup;assembly=Agnostic.UI"
         xmlns:my="clr-namespace:My;assembly=Test.Markup.DataTypes"
-        xmlns:System="clr-namespace:System;assembly=netstandard"                         
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <FrameworkContentElement.Resources>
-        <e:DataSetter x:Key="{e:TypeKey my:Detail}">
-            <e:DataSetter.Members>
-                <e:Member Name="City" Value="Milan"/>
-                <e:Member Name="Mountains" Value="Alps" Static="True" MemberKind="Field"/>
-                <e:Member Name="Provinces" Value="107" Type="{x:Type System:Int32}"/>
-                <e:Member Name="MetropolitanCities" Value="14" Type="System:Int32" MemberKind="Field"/>
-            </e:DataSetter.Members>
-        </e:DataSetter>
-        <e:DataSetter x:Key="{e:TypeKey my:Fun}">
-            <e:DataSetter.Members>
-                <e:Member Name="Animal" Value="Italiano Mediterranean buffalo"/>
-                <e:Member Name="Dish" Value="Lasagna"/>
-                <!-- Leading blank space in Value is important: -->
-                <e:Member Name="RacingColorName" Value="Red "/>
-                <e:Member Name="RacingColor" Value="Red" Type="Color"/>
-                <e:Member Name="Festival" Value="Venice Film Festival" MemberKind="Field"/>
-                <e:Member Name="Tragedy" Value="Romeo and Juliet"/>
-                <e:Member Name="Comedy" Value="The Servant of Two Masters"/>
-            </e:DataSetter.Members>
-        </e:DataSetter>
+        <my:Detail x:Key="{e:TypeKey my:Detail}"
+                City="Milan" Provinces="107" MetropolitanCities="14"
+                Mountains="Alps" />
+        <!-- RacingColorName: Trailing blank space in Value is important: -->
+        <my:Fun x:Key="{e:TypeKey my:Fun}"
+                Animal="Italiano Mediterranean buffalo" Dish="Lasagna"
+                RacingColorName="Red " RacingColor="Red"
+                Festival="Venice Film Festival"
+                Tragedy="Romeo and Juliet"
+                Comedy="The Servant of Two Masters"/>
     </FrameworkContentElement.Resources>
 </FrameworkContentElement>

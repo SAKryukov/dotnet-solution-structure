@@ -12,12 +12,18 @@
             internal DataTypeProviderException(string message) : base(message) { }
         } //class DataTypeProviderException
 
-        static BindingFlags DefaultFlags =>
-            BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
-        static BindingFlags DefaultFlagsStatic =>
-            BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static;
-        static BindingFlags DefaultFlagsPrefetch =>
-            BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.Instance;
+        public static T_REQUIRED FindObject<T_REQUIRED>(ResourceDictionary dictionary) where T_REQUIRED: new() {
+            foreach (object key in dictionary.Keys)
+                if (dictionary[key] is T_REQUIRED required)
+                    return required;
+            foreach (ResourceDictionary child in dictionary.MergedDictionaries)
+                return FindObject<T_REQUIRED>(child);
+            return default;
+        } //FindObject
+
+        public static T_REQUIRED GetObject<T_REQUIRED>(ResourceDictionary dictionary) where T_REQUIRED : new() {
+            return (T_REQUIRED)dictionary[typeof(T_REQUIRED)];
+        } //GetObject
 
         public static void CollectForInstance(ResourceDictionary dictionary, object instance) {
             if (dictionary == null) return;
@@ -138,6 +144,13 @@
                 AssignMember(member, targetType, member.Name, instance);
             } //loop
         } //AssignInstanceMembers
+
+        static BindingFlags DefaultFlags =>
+            BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
+        static BindingFlags DefaultFlagsStatic =>
+            BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static;
+        static BindingFlags DefaultFlagsPrefetch =>
+            BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.Instance;
 
     } //ResourseDictionaryUtility
 
