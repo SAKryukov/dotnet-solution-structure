@@ -7,10 +7,10 @@ namespace SA.Test.Markup {
         static void Execute() {
             bool? localize = Agnostic.UI.ConsoleHelperUtility.RequestYesNoCancel(DefinitionSet.localizationRequest);
             if (localize == null) return;
-            My.DuckTypedDataSource duck = new();
-            My.DataSource source = new();
-            TestLocalization.Localize(source, duck, localize == true);
-            var duckObject = ResourseDictionaryUtility.FindObject<My.Main>(duck.Resources);
+            My.SingleObjectDataSource main = new();
+            My.MultiObjectDataSource source = new();
+            TestLocalization.Localize(source, main, localize == true);
+            var duckObject = ResourseDictionaryUtility.FindObject<My.Main>(main.Resources);
             var detailObject = ResourseDictionaryUtility.GetObject<My.Detail>(source.Resources);
             var funObject = ResourseDictionaryUtility.GetObject<My.Fun>(source.Resources);
             Console.WriteLine(duckObject);
@@ -18,7 +18,7 @@ namespace SA.Test.Markup {
             Console.WriteLine(funObject);
             Console.WriteLine();
             Console.WriteLine();
-            var dictionary = ResourseDictionaryUtility.CollectDictionary(duck.Resources);
+            var dictionary = ResourseDictionaryUtility.CollectDictionary(main.Resources);
             foreach (var pair in dictionary)
                 Console.WriteLine(pair.Value);
             Agnostic.UI.ConsoleHelperUtility.ShowExit(showUnderDebugger: false);

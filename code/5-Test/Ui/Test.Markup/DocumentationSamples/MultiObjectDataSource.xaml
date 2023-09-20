@@ -1,4 +1,4 @@
-﻿<FrameworkContentElement x:Class="My.DataSource"
+﻿<FrameworkContentElement x:Class="My.MultiObjectDataSource"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:e="clr-namespace:SA.Agnostic.UI.Markup;assembly=Agnostic.UI"
         xmlns:my="clr-namespace:My;assembly=Test.Markup.DataTypes"
@@ -7,7 +7,6 @@
         <my:Detail x:Key="{e:TypeKey my:Detail}"
                 City="Milan" Provinces="107" MetropolitanCities="14"
                 Mountains="Alps" />
-        <!-- RacingColorName: Trailing blank space in Value is important: -->
         <my:Fun x:Key="{e:TypeKey my:Fun}"
                 Animal="Italiano Mediterranean buffalo" Dish="Lasagna"
                 RacingColorName="Red " RacingColor="Red"

@@ -1,6 +1,6 @@
 ﻿namespace My {
-    public partial class DataSource : System.Windows.FrameworkContentElement {
-        public DataSource() {
+    public partial class MultiObjectDataSource : System.Windows.FrameworkContentElement {
+        public MultiObjectDataSource() {
             InitializeComponent();
         }
     }

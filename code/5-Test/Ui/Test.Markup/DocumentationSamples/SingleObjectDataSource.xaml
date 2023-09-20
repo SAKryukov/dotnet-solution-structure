@@ -1,11 +1,11 @@
-﻿<FrameworkContentElement x:Class="My.DuckTypedDataSource"
+﻿<FrameworkContentElement x:Class="My.SingleObjectDataSource"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:my="clr-namespace:My;assembly=Test.Markup.DataTypes"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <FrameworkContentElement.Resources>
         <!-- AreaUnits: Leading blank space in Value is important: -->
-        <my:Main x:Key="1"
-                 Country="Italia" Language="Italiano" Capital="Roma"
+        <my:Main x:Key=" "
+                 Country="Italy" Language="Italian" Capital="Rome"
                  Area="301230.11" AreaUnits=" km²"
                  PopulationDensity="201.3" PopulationDensityUnits="/km²" >
             <my:Main.Flag>

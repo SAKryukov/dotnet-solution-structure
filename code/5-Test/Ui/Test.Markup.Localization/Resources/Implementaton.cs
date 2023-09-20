@@ -9,12 +9,12 @@ namespace SA.Test.Markup.Localization {
     class Implementation : IApplicationSatelliteAssembly {
 
         ResourceDictionary IApplicationSatelliteAssembly.this[string fullTypeName] =>
-            fullTypeName == nameof(My.DataSource) ? dataSource : duckTypedDataSource;
+            fullTypeName == nameof(My.MultiObjectDataSource) ? multiObjectDataSource : singleObjectDataSource;
 
         ResourceDictionary IApplicationSatelliteAssembly.ApplicationResources => null;
 
-        readonly ResourceDictionary dataSource = new My.DataSource().Resources;
-        readonly ResourceDictionary duckTypedDataSource = new My.DuckTypedDataSource().Resources;
+        readonly ResourceDictionary multiObjectDataSource = new My.MultiObjectDataSource().Resources;
+        readonly ResourceDictionary singleObjectDataSource = new My.SingleObjectDataSource().Resources;
 
     } //class Implementation
 
