@@ -46,3 +46,6 @@ https://wpf.2000things.com/tag/systemcolors/
 https://stackoverflow.com/questions/5094447/how-do-i-use-the-correct-windows-system-colors
 With different themes:
 https://www.google.com/imgres?imgurl=https%3A%2F%2Fi.stack.imgur.com%2FE2VBv.png&tbnid=GQWypdt1GDtp7M&vet=12ahUKEwjej8q407KBAxWIF2IAHYCLAB8QMygKegQIARBl..i&imgrefurl=https%3A%2F%2Fstackoverflow.com%2Fquestions%2F955597%2Fwpf-systemcolors-color-of-textbox-border&docid=BnZrdpLzdqGIUM&w=617&h=720&q=wpf%20system%20colors&ved=2ahUKEwjej8q407KBAxWIF2IAHYCLAB8QMygKegQIARBl
+
+!!!!
+https://subscription.packtpub.com/book/web-development/9781849686228/1/ch01lvl1sec14/creating-a-custom-markup-extension
