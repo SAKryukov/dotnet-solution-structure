@@ -4,9 +4,12 @@
         xmlns:System="clr-namespace:System;assembly=netstandard"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <FrameworkContentElement.Resources>
-        <e:Member x:Key="NationalBird" Value="Passer italiae"/>
-        <e:Member x:Key="NationalTree" Value="Corbezzolo"/>
-        <e:Member x:Key="NationalAnimal" Value="Canis lupus italicus"/>
+        <e:Member x:Key="?" Name="NationalBird" Value="Passer italiae"/>
+        <e:Member x:Key="NationalTree" Value="Corbezzolo"
+                  Static="True"
+                  MemberKind="Field"/>
+        <e:Member x:Key="NationalAnimal" Value="Canis lupus italicus"
+                  MemberKind="Field"/>
         <e:Member x:Key="Аnthem" Value="Il Canto degli Italiani"/>
         <e:Member x:Key="CarMakes">
             <e:Member.Value>

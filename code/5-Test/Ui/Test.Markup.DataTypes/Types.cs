@@ -18,7 +18,7 @@
             (string name, string value) area = (nameof(area), Area.ToString() + AreaUnits);
             (string name, string value) populationDensity = (nameof(PopulationDensity), PopulationDensity.ToString() + PopulationDensityUnits);
             return DefinitionSet.Dump(GetType().Name, country, language, flag, capital, area, populationDensity);
-        }
+        } //ToString
     } //class Main
 
     public class Detail {
@@ -32,7 +32,7 @@
             (string name, string value) provinces = (nameof(Provinces), Provinces.ToString());
             (string name, string value) metropolitanCities = (nameof(MetropolitanCities), MetropolitanCities.ToString());
             return DefinitionSet.Dump(GetType().Name, city, mountains, provinces, metropolitanCities);
-        } //Detail
+        } //ToString
     } //class Detail
 
     public class Fun {
@@ -51,7 +51,7 @@
             (string name, string value) tragedy = (nameof(Tragedy), Tragedy);
             (string name, string value) comedy = (nameof(Comedy), Comedy);
             return DefinitionSet.Dump(GetType().Name, animal, dish, festival, racingColor, tragedy, comedy);
-        }
+        } //ToString
     } // class Fun
 
 }

@@ -8,7 +8,7 @@
 
     public static class ResourseDictionaryUtility {
 
-        class DataTypeProviderException : System.SystemException {
+        class DataTypeProviderException : SystemException {
             internal DataTypeProviderException(string message) : base(message) { }
         } //class DataTypeProviderException
 
@@ -51,35 +51,6 @@
             BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static;
         static BindingFlags DefaultFlagsPrefetch =>
             BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.Instance;
-
-        public static void CollectForInstance(ResourceDictionary dictionary, object instance) {
-            if (dictionary == null) return;
-            Type instanceType = instance.GetType();
-            foreach (var key in dictionary.Keys) {
-                object value = dictionary[key];
-                if (value is not DataSetter resourceSource) continue;
-                if (key is not Type targetType) continue;
-                if (!targetType.IsAssignableTo(instanceType))
-                    continue;
-                AssignInstanceMembers(resourceSource, targetType, instance);
-            } //keys loop
-        } //CollectForInstance
-
-        public static InstanceDictionary CollectDictionaryOldWay(ResourceDictionary dictionary) {
-            if (dictionary == null) return null;
-            InstanceDictionary instanceDictionary = new();
-            foreach (var key in dictionary.Keys) {
-                object value = dictionary[key];
-                if (value is not DataSetter resourceSource) continue;
-                if (key is not Type targetType) continue;
-                if (!instanceDictionary.TryGetValue(targetType, out object instance)) {
-                    instance = Activator.CreateInstance(targetType);
-                    instanceDictionary.Add(targetType, instance);
-                } //
-                AssignInstanceMembers(resourceSource, targetType, instance);
-            } //keys loop
-            return instanceDictionary;
-        } //CollectDictionaryOldWay //SA???
 
         public static void CollectForDuckTypedInstance(ResourceDictionary dictionary, object instance) {
             if (dictionary == null || instance == null) return;
@@ -162,16 +133,6 @@
             } //if
             return memberValue;
         } //TryTypeConverter
-
-
-        static void AssignInstanceMembers(DataSetter resourceSource, Type targetType, object instance) {
-            foreach (object child in resourceSource.Members) {
-                if (child is not Member member)
-                    throw new DataTypeProviderException(
-                        DefinitionSet.WrongChildrenCollectionMember(typeof(Member).Name, child.ToString()));
-                AssignMember(member, targetType, member.Name, instance);
-            } //loop
-        } //AssignInstanceMembers
 
     } //ResourseDictionaryUtility
 

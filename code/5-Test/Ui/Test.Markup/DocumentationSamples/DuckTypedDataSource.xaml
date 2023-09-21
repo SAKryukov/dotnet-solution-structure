@@ -5,8 +5,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <FrameworkContentElement.Resources>
         <e:Member x:Key="NationalBird" Value="Italian Sparrow"/>
-        <e:Member x:Key="NationalTree" Value="Arbutus unedo"/>
-        <e:Member x:Key="NationalAnimal" Value="Italian wolf"/>
+        <e:Member x:Key="NationalTree" Value="Arbutus unedo"
+                  Static="True" MemberKind="Field"/>
+        <e:Member x:Key="NationalAnimal" Value="Italian wolf"
+                  MemberKind="Field"/>
         <e:Member x:Key="Аnthem" Value="The Song of the Italians"/>
         <e:Member x:Key="CarMakes">
             <e:Member.Value>

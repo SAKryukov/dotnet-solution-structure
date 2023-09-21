@@ -4,10 +4,10 @@
         xmlns:my="clr-namespace:My;assembly=Test.Markup.DataTypes"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <FrameworkContentElement.Resources>
-        <my:Detail x:Key=" "
+        <my:Detail x:Key="{e:TypeKey my:Detail}"
                 City="Milan" Provinces="107" MetropolitanCities="14"
                 Mountains="Alps" />
-        <my:Fun x:Key="e:TypeKey my:Fun"
+        <my:Fun x:Key="{e:TypeKey my:Fun}"
                 Animal="Italiano Mediterranean buffalo" Dish="Lasagna"
                 RacingColorName="Red " RacingColor="Red"
                 Festival="Venice Film Festival"
