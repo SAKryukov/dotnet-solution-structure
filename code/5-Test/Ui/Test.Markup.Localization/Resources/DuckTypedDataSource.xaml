@@ -1,25 +1,24 @@
 ﻿<FrameworkContentElement x:Class="My.DuckTypedDataSource"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:System="clr-namespace:System;assembly=netstandard"                         
         xmlns:e="clr-namespace:SA.Agnostic.UI.Markup;assembly=Agnostic.UI"
+        xmlns:System="clr-namespace:System;assembly=netstandard"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <FrameworkContentElement.Resources>
-        <e:Member x:Key="Country" Value="Italia"/>
-        <e:Member x:Key="Language" Value="Italiano"/>
-        <e:Member x:Key="Flag">
+        <e:Member x:Key="NationalBird" Value="Passer italiae"/>
+        <e:Member x:Key="NationalTree" Value="Corbezzolo"/>
+        <e:Member x:Key="NationalAnimal" Value="Canis lupus italicus"/>
+        <e:Member x:Key="Аnthem" Value="Il Canto degli Italiani"/>
+        <e:Member x:Key="CarMakes">
             <e:Member.Value>
-                <x:Array Type="Color">
-                    <Color>Green</Color>
-                    <Color>White</Color>
-                    <Color>Red</Color>
+                <x:Array Type="System:String">
+                    <System:String>Alfa Romeo</System:String>
+                    <System:String>Ferrari</System:String>
+                    <System:String>Fiat</System:String>
+                    <System:String>Lamborghini</System:String>
+                    <System:String>Lancia</System:String>
+                    <System:String>Maserati</System:String>
                 </x:Array>
             </e:Member.Value>
         </e:Member>
-        <e:Member x:Key="Capital" Value="Roma"/>
-        <e:Member x:Key="Area" Value="301230.11" Type="System:Double"/>
-        <e:Member x:Key="PopulationDensity" Value="201.3" Type="System:Double"/>
-        <!-- Leading blank space in Value is important: -->
-        <e:Member x:Key="AreaUnits" Value=" km²"/>
-        <e:Member x:Key="PopulationDensityUnits" Value="/km²"/>
     </FrameworkContentElement.Resources>
 </FrameworkContentElement>

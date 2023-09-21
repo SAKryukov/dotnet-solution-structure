@@ -13,10 +13,10 @@
         } //Dump
 
         internal static string FormatColors(Color[] colors) {
+            if (colors == null || colors.Length < 1) return "[]";
             string array = string.Join(", ", System.Array.ConvertAll<Color, string>(colors, value => value.ToString()));
             return $"[ {array} ]";
         } //FormatColors
-
     } //class DefinitionSet
 
 }

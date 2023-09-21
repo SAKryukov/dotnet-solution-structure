@@ -11,10 +11,11 @@ namespace SA.Test.Markup.Localization {
         ResourceDictionary IApplicationSatelliteAssembly.this[string fullTypeName] =>
             fullTypeName == nameof(My.MultiObjectDataSource) ? multiObjectDataSource : singleObjectDataSource;
 
-        ResourceDictionary IApplicationSatelliteAssembly.ApplicationResources => null;
+        ResourceDictionary IApplicationSatelliteAssembly.ApplicationResources => duckTypedDataSource;
 
         readonly ResourceDictionary multiObjectDataSource = new My.MultiObjectDataSource().Resources;
         readonly ResourceDictionary singleObjectDataSource = new My.SingleObjectDataSource().Resources;
+        readonly ResourceDictionary duckTypedDataSource = new My.DuckTypedDataSource().Resources;
 
     } //class Implementation
 

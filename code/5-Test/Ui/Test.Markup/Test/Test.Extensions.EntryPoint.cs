@@ -7,23 +7,23 @@ namespace SA.Test.Markup {
         static void Execute() {
             bool? localize = Agnostic.UI.ConsoleHelperUtility.RequestYesNoCancel(DefinitionSet.localizationRequest);
             if (localize == null) return;
-            //My.DuckTypedDataSource ducduckduck = new();
-            My.SingleObjectDataSource main = new();
-            My.MultiObjectDataSource source = new();
-            TestLocalization.Localize(source, main, localize == true);
-            var duckObject = ResourseDictionaryUtility.FindObject<My.Main>(main.Resources);
-            var detailObject = ResourseDictionaryUtility.GetObject<My.Detail>(source.Resources);
-            var funObject = ResourseDictionaryUtility.GetObject<My.Fun>(source.Resources);
+            My.DuckTypedDataSource duckTypedDataSource = new();
+            My.SingleObjectDataSource singleObjectDataSource = new();
+            My.MultiObjectDataSource multiObjectDataSource = new();
+            TestLocalization.Localize(singleObjectDataSource, multiObjectDataSource, duckTypedDataSource, localize == true);
+            var duckObject = ResourseDictionaryUtility.FindObject<My.Main>(singleObjectDataSource.Resources);
+            var detailObject = ResourseDictionaryUtility.GetObject<My.Detail>(multiObjectDataSource.Resources);
+            var funObject = ResourseDictionaryUtility.GetObject<My.Fun>(multiObjectDataSource.Resources);
             Console.WriteLine(duckObject);
             Console.WriteLine(detailObject);
             Console.WriteLine(funObject);
             Console.WriteLine();
             Console.WriteLine();
-            var dictionary = ResourseDictionaryUtility.CollectDictionary(main.Resources);
+            var dictionary = ResourseDictionaryUtility.CollectDictionary(singleObjectDataSource.Resources);
             foreach (var pair in dictionary)
                 Console.WriteLine(pair.Value);
             Agnostic.UI.ConsoleHelperUtility.ShowExit(showUnderDebugger: false);
-            dictionary = ResourseDictionaryUtility.CollectDictionary(source.Resources);
+            dictionary = ResourseDictionaryUtility.CollectDictionary(multiObjectDataSource.Resources);
             foreach (var pair in dictionary)
                 Console.WriteLine(pair.Value);
             Agnostic.UI.ConsoleHelperUtility.ShowExit(showUnderDebugger: false);

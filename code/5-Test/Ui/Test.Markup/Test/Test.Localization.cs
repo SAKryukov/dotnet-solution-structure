@@ -7,13 +7,18 @@ namespace SA.Test.Markup {
 
     static class TestLocalization {
 
-        internal static void Localize(My.MultiObjectDataSource dataSource, My.SingleObjectDataSource duckTypedDataSource, bool doLocalize) {
+        internal static void Localize(
+            My.SingleObjectDataSource singleObjectDataSource,
+            My.MultiObjectDataSource multiObjectDataSource,
+            My.DuckTypedDataSource duckTypedDataSource,
+            bool doLocalize) {
             PlugInstanceList list = new();
             CultureInfo[] cultures = ApplicationSatelliteAssemblyIndex.GetImplementedCultures(list);
             if (!doLocalize || cultures.Length < 1) return;
             Instance instance = list[0];
-            dataSource.Resources = instance[typeof(My.MultiObjectDataSource).Name];
-            duckTypedDataSource.Resources = instance[typeof(My.SingleObjectDataSource).Name];
+            multiObjectDataSource.Resources = instance[typeof(My.MultiObjectDataSource).Name];
+            singleObjectDataSource.Resources = instance[typeof(My.SingleObjectDataSource).Name];
+            duckTypedDataSource.Resources = instance.ApplicationResources;
         } //Localize
 
     } //TestLocalization
