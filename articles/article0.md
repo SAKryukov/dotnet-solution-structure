@@ -86,6 +86,9 @@ For CodeProject, makes sure there are no HTML comments in the area to past!
 
 And now, one more approach, [duck typing](https://en.wikipedia.org/wiki/Duck_typing) style. As everyone knows "If it walks like a duck and it quacks like a duck, then..." oh no, then it is not necessarily a duck, but there are cases when we don't care. We are going to develop the approach where some object is populated with XAML data when there is a match between the data members declared in XAML and the properties and fields of the object being populated.
 
+[dynamic](https://en.wikipedia.org/wiki/Type_system#DYNAMIC)
+[weak](https://en.wikipedia.org/wiki/Strong_and_weak_typing)
+
 This approach is the most sophisticated, the most powerful but not as reliable as the approaches described above. It has one powerful benefit though: it can work with the localization sattellite assemblies having no access to the data types of the host. As we don't use any type identity, we don't need shared data types.
 
 However, it does not mean we cannot force type identity at all. This option still remains, through specialized `ResouceDictionary` keys speficied by the class `Agnostic.UI.Markup.TypeKey`.
