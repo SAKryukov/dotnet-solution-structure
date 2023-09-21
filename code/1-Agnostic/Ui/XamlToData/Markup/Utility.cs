@@ -35,7 +35,7 @@
             static void CollectWithKey(ResourceDictionary dictionary, object key, InstanceDictionary instanceDictionary) {
                 object @object = dictionary[key];
                 if (@object == null) return;
-                System.Type objectType = @object.GetType();
+                Type objectType = @object.GetType();
                 if (instanceDictionary.ContainsKey(objectType)) return;
                 instanceDictionary.Add(objectType, @object);
             } //CollectWithKey
@@ -71,6 +71,29 @@
                 AssignMember(resourceSource, targetType, memberName, instance);
             } //keys loop
         } //CollectForDuckTypedInstance
+
+        public static void NormalizeDictionary(ResourceDictionary dictionary) {
+            /*
+            ObjectList list = new();
+            static void NormalizeDictionaryKey(object key, ResourceDictionary dictionary) {
+                object value = dictionary[key];
+                Type valueType = value.GetType();
+                if ((Type)key == valueType) return;
+                dictionary.Remove(key);
+                dictionary.Add(valueType, value);
+            } //NormalizeDictionary
+            static void GetAllKeys(ResourceDictionary top, ObjectList list) {
+                foreach (object key in top.Keys)
+                    if (key is Type)
+                        list.Add(key);
+                foreach (ResourceDictionary child in top.MergedDictionaries)
+                    GetAllKeys(child, list);
+            } //GetAllKeys
+            GetAllKeys(dictionary, list);
+            foreach (object key in list)
+                NormalizeDictionaryKey(key, dictionary);
+            */
+        } //NormalizeDictionary
 
         static void AssignMember(Member resourceSource, Type targetType, string memberName, object instance) {
             MemberKind memberKind = resourceSource.MemberKind;

@@ -10,6 +10,7 @@ namespace SA.Test.Markup {
             My.DuckTypedDataSource duckTypedDataSource = new();
             My.SingleObjectDataSource singleObjectDataSource = new();
             My.MultiObjectDataSource multiObjectDataSource = new();
+            ResourseDictionaryUtility.NormalizeDictionary(multiObjectDataSource.Resources); //SA??? to implement correctly
             TestLocalization.Localize(singleObjectDataSource, multiObjectDataSource, duckTypedDataSource, localize == true);
             var main = ResourseDictionaryUtility.FindObject<My.Main>(singleObjectDataSource.Resources);
             var detail = ResourseDictionaryUtility.GetObject<My.Detail>(multiObjectDataSource.Resources);
