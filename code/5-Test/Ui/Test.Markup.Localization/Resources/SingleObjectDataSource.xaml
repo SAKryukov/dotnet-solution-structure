@@ -9,11 +9,9 @@
                  Area="301230.11" AreaUnits=" km²"
                  PopulationDensity="201.3" PopulationDensityUnits="/km²" >
             <my:Main.Flag>
-                <x:Array Type="Color">
-                    <Color>Green</Color>
-                    <Color>White</Color>
-                    <Color>Red</Color>
-                </x:Array>
+                <Color>Green</Color>
+                <Color>White</Color>
+                <Color>Red</Color>
             </my:Main.Flag>
         </my:Main>
     </FrameworkContentElement.Resources>

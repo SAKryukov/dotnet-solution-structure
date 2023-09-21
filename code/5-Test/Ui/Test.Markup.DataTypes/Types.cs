@@ -1,8 +1,10 @@
 ﻿namespace My {
-    using System.Windows.Media;
+    using Color = System.Windows.Media.Color;
+    using ColorList = System.Collections.Generic.List<System.Windows.Media.Color>;
 
     public class Main {
-        public Color[] Flag { get; set; }
+        public Main() { Flag = new();  }
+        public ColorList Flag { get; set; }
         public string Country { get; set; }
         public string Language { get; set; }
         public string Capital { get; set; }
@@ -11,7 +13,7 @@
         public string AreaUnits { get; set; }
         public string PopulationDensityUnits { get; set; }
         public override string ToString() {
-            (string name, string value) flag = (nameof(Flag), DefinitionSet.FormatColors(Flag));
+            (string name, string value) flag = (nameof(Flag), DefinitionSet.FormatColors(Flag.ToArray()));
             (string name, string value) country = (nameof(Country), Country);
             (string name, string value) language = (nameof(Language), Language);
             (string name, string value) capital = (nameof(Capital), Capital);

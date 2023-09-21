@@ -53,7 +53,7 @@
         static BindingFlags DefaultFlagsPrefetch =>
             BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.Instance;
 
-        public static void CollectForDuckTypedInstance(ResourceDictionary dictionary, object instance) {
+        public static void CollectForDuckTypedInstance(ResourceDictionary dictionary, object instance, bool ignoreMissingMembers = false) {
             if (dictionary == null || instance == null) return;
             Type instanceType = instance.GetType();
             foreach (var key in dictionary.Keys) {
@@ -69,7 +69,7 @@
                     targetType = instance.GetType();
                 if (!targetType.IsAssignableTo(instanceType))
                     continue;
-                AssignMember(resourceSource, targetType, memberName, instance);
+                AssignMember(resourceSource, targetType, memberName, instance, ignoreMissingMembers: ignoreMissingMembers);
             } //keys loop
         } //CollectForDuckTypedInstance
 
@@ -94,7 +94,7 @@
                 container.Add(value.GetType(), value);
         } //NormalizeDictionary
 
-        static void AssignMember(Member resourceSource, Type targetType, string memberName, object instance) {
+        static void AssignMember(Member resourceSource, Type targetType, string memberName, object instance, bool ignoreMissingMembers = false) {
             MemberKind memberKind = resourceSource.MemberKind;
             if (memberName == null) throw new DataTypeProviderException(DefinitionSet.missingMemberName);
             object memberValue = resourceSource.Value;
@@ -111,7 +111,11 @@
             string resourceDictionaryName = typeof(ResourceDictionary).Name;
             if (memberKind == MemberKind.Field) {
                 FieldInfo prefetchField = targetType.GetField(memberName, DefaultFlagsPrefetch);
-                if (prefetchField == null) throw new DataTypeProviderException(DefinitionSet.MissingField(memberName));
+                if (prefetchField == null)
+                    if (ignoreMissingMembers)
+                        return;
+                    else
+                        throw new DataTypeProviderException(DefinitionSet.MissingField(memberName));
                 if (!resourceSource.Static && prefetchField.IsStatic)
                     throw new DataTypeProviderException(DefinitionSet.StaticMismatch.FieldInstanceInDictionaryButStatic(
                         memberName, resourceDictionaryName, targetType.Name));
@@ -125,7 +129,11 @@
                 field.SetValue(instance, memberValue);
             } else {
                 PropertyInfo prefetchProperty = targetType.GetProperty(memberName, DefaultFlagsPrefetch);
-                if (prefetchProperty == null) throw new DataTypeProviderException(DefinitionSet.MissingProperty(memberName));
+                if (prefetchProperty == null)
+                    if (ignoreMissingMembers)
+                        return;
+                    else
+                        throw new DataTypeProviderException(DefinitionSet.MissingProperty(memberName));
                 if (!prefetchProperty.CanWrite)
                     throw new DataTypeProviderException(DefinitionSet.ReadOnlyProperty(prefetchProperty.Name));
                 bool isStatic = prefetchProperty.SetMethod.IsStatic;

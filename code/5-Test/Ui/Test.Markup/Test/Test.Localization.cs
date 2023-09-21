@@ -2,7 +2,6 @@ namespace SA.Test.Markup {
     using ResourseDictionaryUtility = Agnostic.UI.Markup.ResourseDictionaryUtility;
     using ApplicationSatelliteAssemblyIndex = Agnostic.UI.ApplicationSatelliteAssemblyIndex;
     using CultureInfo = System.Globalization.CultureInfo;
-    using ResourceDictionary = System.Windows.ResourceDictionary;
     using Instance = Agnostic.UI.IApplicationSatelliteAssembly;
     using PlugInstanceList = System.Collections.Generic.List<Agnostic.UI.IApplicationSatelliteAssembly>; 
 

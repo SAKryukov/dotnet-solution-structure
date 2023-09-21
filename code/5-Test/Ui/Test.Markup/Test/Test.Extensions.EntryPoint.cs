@@ -15,7 +15,7 @@ namespace SA.Test.Markup {
             var detail = ResourseDictionaryUtility.GetObject<My.Detail>(multiObjectDataSource.Resources);
             var funObject = ResourseDictionaryUtility.GetObject<My.Fun>(multiObjectDataSource.Resources);
             var duck = new My.DuckTypedSample();
-            ResourseDictionaryUtility.CollectForDuckTypedInstance(duckTypedDataSource.Resources, duck);
+            ResourseDictionaryUtility.CollectForDuckTypedInstance(duckTypedDataSource.Resources, duck, ignoreMissingMembers: false);
             Console.WriteLine(main);
             Console.WriteLine(detail);
             Console.WriteLine(funObject);
