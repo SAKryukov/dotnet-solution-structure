@@ -43,6 +43,23 @@ For CodeProject, makes sure there are no HTML comments in the area to past!
 
 ## Custom XAML Markup
 
+Why would anyone needs the generation of code out of `ResourceDictinary` data? My guess is that could be inertia of thinking based on the code already generated for .res resource files and XAML files. Well this is a working approach, and this is the first thing I was thinking of.
+
+However, this is a typical situation when the intermediate goal is mistakenly taken for an ultimate goal. What is the ultimate goal though?
+
+We need to enter data in the XAML form and make it reusable. One of the uses would be using the data in code, accessing it through the native programming language entities: variables and type members. We need it for several important reasons:
+
+* Separation of data and code
+* Data-agnostic programming
+* Maintainability
+* Globalization
+
+We just need the usable code, access to it in the code text, Intellisence support, compiler support, build-time error handling, all that stuff. So, here is the idea: we simply need programmable objects which are not necesserily generated. They can be created by the developer, but the data should be populated from XAML.
+
+So, let's start with the approaches based on XAML markup. It should be based on developer-defined data types and enforce entering data in XAML in a safe manner, backed by Intellisense.
+
+Basically, we need to support usual data types defined be the developer using already available XAML markup. Some usefule custom markup is predefined by three custom classes defined in "Markup.cs". The access to data objects is obtained by the method of the utility class `ResourseDictionaryUtility`, "Utility.cs".
+
 ### How to Obtain Resource Dictionary?
 
 If we are developing a UI application, we already have immediate access to resource dictionaries related to the application. For example, we have the access to instance members `System.Windows.Application.Resources` and `Window.Resources` for every loaded window. Same goes for `Page`, all types of `Control`, and many more classes. We can read data from these resources immediately, without loading any files.
@@ -261,7 +278,53 @@ And now, one more approach, [duck typing](https://en.wikipedia.org/wiki/Duck_typ
 
 This approach is the most sophisticated, the most powerful but not as reliable as the approaches described above. It has one powerful benefit though: it can work with the localization sattellite assemblies having no access to the data types of the host. As we don't use any type identity, we don't need shared data types.
 
-However, it does not mean we cannot force type identity at all. This option still remains, through specialized `ResouceDictionary` keys speficied by the class `Agnostic.UI.Markup.TypeKey`.
+Duck typing overcome several limitation of the approached described above:
+
+* The data is collected using type-agnostic approach, based on `System.Reflection`.
+* Therefore, there is no a need in data type defined in a separate assembly.
+* Therefore, sattellite application don't need access to any semantic types, so their developent is the most independent from their applications' specifics.
+* Therefore, non-public members are also supported.
+* Not only properties, but fields are also supported.
+* Not only instance properties and fields, but also static properties and fields are supported.
+
+However, it does not mean we cannot force type identity at all. This option still remains, through specialized `ResouceDictionary` keys speficied by the class `Agnostic.UI.Markup.TypeKey`. SA???
+
+Let's look at a complete XAML sample:
+
+```{lang=XML}
+&lt;FrameworkContentElement x:Class="My.DuckTypedDataSource"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:e="clr-namespace:SA.Agnostic.UI.Markup;assembly=Agnostic.UI"
+        xmlns:System="clr-namespace:System;assembly=netstandard"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"&gt;
+    &lt;FrameworkContentElement.Resources&gt;
+        &lt;e:Member x:Key="NationalBird" Value="Italian Sparrow"/&gt;
+        &lt;e:Member x:Key="NationalTree" Value="Arbutus unedo"
+                  Static="True" MemberKind="Field"/&gt;
+        &lt;e:Member x:Key="NationalAnimal" Value="Italian wolf"
+                  MemberKind="Field"/&gt;
+        &lt;e:Member x:Key="Аnthem" Value="The Song of the Italians"/&gt;
+        &lt;e:Member x:Key="CarMakes"&gt;
+            &lt;e:Member.Value&gt;
+                &lt;x:Array Type="System:String"&gt;
+                    &lt;System:String&gt;Alfa Romeo&lt;/System:String&gt;
+                    &lt;System:String&gt;Ferrari&lt;/System:String&gt;
+                    &lt;System:String&gt;Fiat&lt;/System:String&gt;
+                    &lt;System:String&gt;Lamborghini&lt;/System:String&gt;
+                    &lt;System:String&gt;Lancia&lt;/System:String&gt;
+                    &lt;System:String&gt;Maserati&lt;/System:String&gt;
+                &lt;/x:Array&gt;
+            &lt;/e:Member.Value&gt;
+        &lt;/e:Member&gt;
+    &lt;/FrameworkContentElement.Resources&gt;
+&lt;/FrameworkContentElement&gt;
+```
+
+Isn't that clear? Instead of specifying the attributes corresponding to the data type's properties, we specify each property in a separate element, and it may or may not match a speficic property or a field. The corresponding utility method `ResourseDictionaryUtility.CollectForDuckTypedInstance` tried to find a match between the declared XAML `Member` elements and the actual object member and use `System.Reflection` to populate the members with XAML-provied data.
+
+That's why we can separately specify if we're looking for a static member using the `Static` Boolean attribute (default: `False`, that is, a member is a property by defaukt) and if we are looking for a property (default) or a field using the `MemberKind` attribute.
+
+What happens in the case of mismatch? There are some options. SA???
 
 ### Combining Approaches and DataSetter
 
@@ -282,6 +345,8 @@ Despite the fact
 Quite naturally, the approaches based on custom XAML markup have some limitations.
 
 First and foremost, the extension `{DynamicResource}` is not supported. The extension `{StaticResource}` is supported but is pretty much useless in this case. Indeed, when a XAML based parent object is alreay loaded and the data is transferred to the underlying data objects, it it too late to inject the extension source static data. By the same reason, it is useless for the localization.
+
+If someone has a better idea on the support of `{DynamicResource}` I would greatly appreciate it.
 
 Even though many data types of the data object members are supported not all types are supported automatically. To use some more sophisticated data types the developer would need to develope special facilities, such as type converted and the like.
 
