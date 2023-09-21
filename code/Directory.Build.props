@@ -1,23 +1,10 @@
 ﻿<Project>
+    <Import Project="$(SolutionDir)\Metadata.props"/>
  
   <PropertyGroup> <!-- customize:  -->
     <TargetFramework>net5.0</TargetFramework>
-    <_customUnifiedVersion>0.6.1.0</_customUnifiedVersion>
-    <!-- can be alpha, beta, RC1, RC2, etc.: -->
-    <_customInformationalVersionSuffix>pre-alpha</_customInformationalVersionSuffix>
     <RootNamespace>SA</RootNamespace>
-    <Copyright>Copyright © 2023 Sergey A Kryukov</Copyright>
-    <Product>Improved .NET Solution Structure</Product>
-    <Description>Bunch of ideas on how to improve .NET solution structure</Description>
-    <Company>SA</Company>
-    <AssemblyTitle>$(Product)</AssemblyTitle>
   </PropertyGroup>
-
-  <ItemGroup> <!-- custom attributes, can be multiple: -->
-    <Authors Include="Sergey A Kryukov"/> <!-- custom SA.Agnostic.AuthorAttribute -->
-    <AssemblyMetadata Include="Custom Metadata: Purpose" Value="Demo"/>
-    <AssemblyMetadata Include="Custom Metadata: Build UTC" Value="$([System.DateTime]::UtcNow.ToString(yyyy-MM-dd HH:mm:ss))"/>
-  </ItemGroup>
 
   <PropertyGroup> <!-- change value, don't change property name: -->
     <_intermediateOutputPathRoot>$(SolutionDir).intermediateOutput</_intermediateOutputPathRoot>
@@ -42,9 +29,9 @@
     <WarningsAsErrors></WarningsAsErrors>
     <WarningsNotAsErrors></WarningsNotAsErrors>
 
-    <AssemblyVersion>$(_customUnifiedVersion)</AssemblyVersion>
-    <FileVersion>$(_customUnifiedVersion)</FileVersion>
-    <InformationalVersion>$(_customUnifiedVersion) $(_customInformationalVersionSuffix)</InformationalVersion>
+    <AssemblyVersion>$(CustomUnifiedVersion)</AssemblyVersion>
+    <FileVersion>$(CustomUnifiedVersion)</FileVersion>
+    <InformationalVersion>$(CustomUnifiedVersion) $(CustomInformationalVersionSuffix)</InformationalVersion>
 
   </PropertyGroup>
 
