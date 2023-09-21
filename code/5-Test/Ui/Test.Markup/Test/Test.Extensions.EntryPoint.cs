@@ -7,6 +7,7 @@ namespace SA.Test.Markup {
         static void Execute() {
             bool? localize = Agnostic.UI.ConsoleHelperUtility.RequestYesNoCancel(DefinitionSet.localizationRequest);
             if (localize == null) return;
+            //My.DuckTypedDataSource ducduckduck = new();
             My.SingleObjectDataSource main = new();
             My.MultiObjectDataSource source = new();
             TestLocalization.Localize(source, main, localize == true);
