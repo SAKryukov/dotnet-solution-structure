@@ -1,7 +1,8 @@
 namespace SA.Test.Markup {
-    using System.Windows;
+    using ResourseDictionaryUtility = Agnostic.UI.Markup.ResourseDictionaryUtility;
     using ApplicationSatelliteAssemblyIndex = Agnostic.UI.ApplicationSatelliteAssemblyIndex;
     using CultureInfo = System.Globalization.CultureInfo;
+    using ResourceDictionary = System.Windows.ResourceDictionary;
     using Instance = Agnostic.UI.IApplicationSatelliteAssembly;
     using PlugInstanceList = System.Collections.Generic.List<Agnostic.UI.IApplicationSatelliteAssembly>; 
 
@@ -14,11 +15,17 @@ namespace SA.Test.Markup {
             bool doLocalize) {
             PlugInstanceList list = new();
             CultureInfo[] cultures = ApplicationSatelliteAssemblyIndex.GetImplementedCultures(list);
-            if (!doLocalize || cultures.Length < 1) return;
+            if (!doLocalize || cultures.Length < 1) {
+                ResourseDictionaryUtility.NormalizeDictionary(multiObjectDataSource.Resources);
+                return;
+            } //if
+            System.Threading.Thread.CurrentThread.CurrentCulture = cultures[0];
+            System.Threading.Thread.CurrentThread.CurrentUICulture = cultures[0];
             Instance instance = list[0];
             multiObjectDataSource.Resources = instance[typeof(My.MultiObjectDataSource).Name];
             singleObjectDataSource.Resources = instance[typeof(My.SingleObjectDataSource).Name];
             duckTypedDataSource.Resources = instance.ApplicationResources;
+            ResourseDictionaryUtility.NormalizeDictionary(multiObjectDataSource.Resources);
         } //Localize
 
     } //TestLocalization

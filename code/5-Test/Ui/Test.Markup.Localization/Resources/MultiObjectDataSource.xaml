@@ -4,11 +4,11 @@
         xmlns:my="clr-namespace:My;assembly=Test.Markup.DataTypes"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <FrameworkContentElement.Resources>
-        <my:Detail x:Key="{e:TypeKey my:Detail}"
+        <my:Detail x:Key="{e:TypeKey my:Fun}"
                    City="Milano" Provinces="107" MetropolitanCities="14"
                    Mountains="Alpi" />
         <!-- RacingColorName: Trailing blank space in Value is important: -->
-        <my:Fun x:Key="{e:TypeKey my:Fun}"
+        <my:Fun x:Key="{e:TypeKey my:Detail}"
                 Animal="Italiano Bufalo mediterraneo italiano" Dish="Lasagna Lasagne al forno"
                 RacingColorName="Rosso corsa " RacingColor="Red"
                 Festival="Mostra internazionale d'arte cinematografica"

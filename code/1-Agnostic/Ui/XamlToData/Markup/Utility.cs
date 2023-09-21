@@ -5,6 +5,7 @@
     using InstanceDictionary = System.Collections.Generic.Dictionary<System.Type, object>;
     using TypeConverter = System.ComponentModel.TypeConverter;
     using TypeConverterAttribute = System.ComponentModel.TypeConverterAttribute;
+    using PatologicalList  = System.Collections.Generic.List<(object, object, System.Windows.ResourceDictionary)>;
 
     public static class ResourseDictionaryUtility {
 
@@ -73,26 +74,24 @@
         } //CollectForDuckTypedInstance
 
         public static void NormalizeDictionary(ResourceDictionary dictionary) {
-            /*
-            ObjectList list = new();
-            static void NormalizeDictionaryKey(object key, ResourceDictionary dictionary) {
-                object value = dictionary[key];
-                Type valueType = value.GetType();
-                if ((Type)key == valueType) return;
-                dictionary.Remove(key);
-                dictionary.Add(valueType, value);
-            } //NormalizeDictionary
-            static void GetAllKeys(ResourceDictionary top, ObjectList list) {
-                foreach (object key in top.Keys)
-                    if (key is Type)
-                        list.Add(key);
+            PatologicalList list = new();
+            static void GetAllKeys(ResourceDictionary top, PatologicalList list) {
+                foreach (object key in top.Keys) {
+                    if (key is not Type) continue;
+                    object value = top[key];
+                    if (value == null) continue;
+                    Type valueType = value.GetType();
+                    if ((Type)key == valueType) continue;
+                    list.Add((key, value, top));
+                } //loop
                 foreach (ResourceDictionary child in top.MergedDictionaries)
                     GetAllKeys(child, list);
             } //GetAllKeys
             GetAllKeys(dictionary, list);
-            foreach (object key in list)
-                NormalizeDictionaryKey(key, dictionary);
-            */
+            foreach ((object key, object _, ResourceDictionary container) in list)
+                container.Remove(key);
+            foreach ((object _, object value, ResourceDictionary container) in list)
+                container.Add(value.GetType(), value);
         } //NormalizeDictionary
 
         static void AssignMember(Member resourceSource, Type targetType, string memberName, object instance) {
