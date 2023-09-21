@@ -1,7 +1,7 @@
 ﻿<Project>
  
   <PropertyGroup> <!-- customize:  -->
-    <CustomUnifiedVersion>0.6.1.0</CustomUnifiedVersion>
+    <CustomUnifiedVersion>0.7.0.0</CustomUnifiedVersion>
     <CustomInformationalVersionSuffix>pre-alpha</CustomInformationalVersionSuffix>
     <!-- can be alpha, beta, RC1, RC2, etc.: -->
     <Copyright>Copyright © 2023 Sergey A Kryukov</Copyright>
