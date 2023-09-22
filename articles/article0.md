@@ -223,7 +223,7 @@ Here is the idea: to have multiple data objects represented in a single XAML and
 
 The only legitimate way to utilize `System.Type` keys is the development of a custom markup extension based on `System.Windows.Markup.TypeExtension`. Let's implement such a thing in a pretty simple way:
 
-```{lang=C#}
+```{lang=C#}{id=code-type-key}
 namespace SA.Agnostic.UI.Markup {
     using System;
     using TypeExtension = System.Windows.Markup.TypeExtension;
@@ -285,7 +285,7 @@ But what can happen if one messes up the one-to-one mapping between up with the 
 
 It looks like nothing can enforce the requirement: the data type mentioned in the XAML tag and corresponding `x:Key` value defined throught the extension should be the same. XAML processing will only enforce the uniqueness of the keys --- at the build time. To see what happens, let's look at the `ResourseDictionaryUtility` method used to obtain the access to a particular data type:
 
-```{lang=XML}
+```{lang=XML}{id=code-get-object}
         public static T_REQUIRED GetObject&lt;;T_REQUIRED&lt;;(ResourceDictionary dictionary) where T_REQUIRED : new() =>
             (T_REQUIRED)dictionary?[typeof(T_REQUIRED)];
 ```
@@ -293,6 +293,8 @@ It looks like nothing can enforce the requirement: the data type mentioned in th
 Of course, it works very quickly. But If the keys are messed up, you will get the instance of one data type and will try to type-cast it to a wrong type. Isn't that bad?
 
 Nevertheless, everything will still work. One can even use unrelated type names, such as `String`, provided the uniquerness of the keys is preserved. How? To achive that, I developed  this this `ResourseDictionaryUtility.NormalizeDictionary` method. Let's look at it closely.
+
+The code for [`GetObject`](#code-get-object) and [`TypeKey`](#code-type-key) is a bit simplified. In the source code, one can find a bit more complicated experimanta code with additional data type and parameters, indicating what to use for the type identification. The ideas for that are fuzzy and are not really used in any applications.
 
 ### Multiple Objects: Possible Mistakes and Dictionary Normalization
 
