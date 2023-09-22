@@ -4,15 +4,18 @@
         xmlns:my="clr-namespace:My;assembly=Test.Markup.DataTypes"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <FrameworkContentElement.Resources>
+        <Style TargetType="TextBlock"/>
         <!-- 
         my:Fun and my:Detail keys are intentionally swapped
         Those keys of the type System.Type are still unique,
             so the XAML is loaded successfully
         The mess is fixed by ResourseDictionaryUtility.NormalizeDictionary
         -->
+        <!--
         <my:Detail x:Key="{e:TypeKey my:Fun}"
                 City="Milan" Provinces="107" MetropolitanCities="14"
                 Mountains="Alps" />
+        -->
         <!-- RacingColorName: Trailing blank space in Value is important: -->
         <my:Fun x:Key="{e:TypeKey my:Detail}"
                 Animal="Italiano Mediterranean buffalo" Dish="Lasagna"
