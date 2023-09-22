@@ -35,7 +35,6 @@
     public class Member : DependencyPropertyOwner {
         public bool Static { get; set; }
         public Type Type { get; set; }
-        public Type TargetType { get; set; }
         public MemberKind MemberKind { get; set; }
         public string Name { get; set; }
         public static readonly DependencyProperty ValueProperty =

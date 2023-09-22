@@ -75,32 +75,25 @@
                 if (value is Member resourceSource)
                     CollectMember(resourceSource, key, instanceType, instance, ignoreMissingMembers);
                 else if (value is DataSetter dataSetter)
-                    CollectDataSetter(dataSetter, instance, ignoreMissingMembers);
+                    CollectDataSetter(dataSetter, instance, instanceType, ignoreMissingMembers);
             } //keys loop
             foreach (ResourceDictionary child in dictionary.MergedDictionaries)
                 CollectForDuckTypedInstance(child, instance, ignoreMissingMembers);
         } //CollectForDuckTypedInstance
 
-        static void CollectDataSetter(DataSetter dataSetter, object instance, bool ignoreMissingMembers) {
+        static void CollectDataSetter(DataSetter dataSetter, object instance, Type instanceType, bool ignoreMissingMembers) {
             foreach (Member member in dataSetter)
-                AssignMember(member, instance.GetType(), member.Name, instance, ignoreMissingMembers: ignoreMissingMembers);
+                AssignMember(member, member.Name, instance, instanceType, ignoreMissingMembers: ignoreMissingMembers);
         } //CollectDataSetter
 
         static void CollectMember(Member resourceSource, object key, Type instanceType, object instance, bool ignoreMissingMembers) {
             string memberName = resourceSource.Name;
             if (memberName == null && key is string keyMemberName)
                 memberName = keyMemberName;
-            if (resourceSource.TargetType == null)
-                resourceSource.TargetType = instanceType;
-            Type targetType = resourceSource.TargetType;
-            if (targetType == null)
-                targetType = instance.GetType();
-            if (!targetType.IsAssignableTo(instanceType))
-                return;
-            AssignMember(resourceSource, targetType, memberName, instance, ignoreMissingMembers: ignoreMissingMembers);
+            AssignMember(resourceSource, memberName, instance, instanceType, ignoreMissingMembers: ignoreMissingMembers);
         } //CollectMember
 
-        static void AssignMember(Member resourceSource, Type targetType, string memberName, object instance, bool ignoreMissingMembers = false) {
+        static void AssignMember(Member resourceSource, string memberName, object instance, Type instanceType, bool ignoreMissingMembers = false) {
             MemberKind memberKind = resourceSource.MemberKind;
             if (memberName == null) throw new DataTypeProviderException(DefinitionSet.missingMemberName);
             object memberValue = resourceSource.Value;
@@ -116,7 +109,7 @@
                 memberValue = Convert.ChangeType(memberValue, memberType);
             string resourceDictionaryName = typeof(ResourceDictionary).Name;
             if (memberKind == MemberKind.Field) {
-                FieldInfo prefetchField = targetType.GetField(memberName, DefaultFlagsPrefetch);
+                FieldInfo prefetchField = instanceType.GetField(memberName, DefaultFlagsPrefetch);
                 if (prefetchField == null)
                     if (ignoreMissingMembers)
                         return;
@@ -124,17 +117,17 @@
                         throw new DataTypeProviderException(DefinitionSet.MissingField(memberName));
                 if (!resourceSource.Static && prefetchField.IsStatic)
                     throw new DataTypeProviderException(DefinitionSet.StaticMismatch.FieldInstanceInDictionaryButStatic(
-                        memberName, resourceDictionaryName, targetType.Name));
+                        memberName, resourceDictionaryName, instanceType.Name));
                 if (resourceSource.Static && !prefetchField.IsStatic)
                     throw new DataTypeProviderException(DefinitionSet.StaticMismatch.FieldStaticInDictionaryButInstance(
-                        memberName, resourceDictionaryName, targetType.Name));
-                FieldInfo field = targetType.GetField(memberName, resourceSource.Static ? DefaultFlagsStatic : DefaultFlags);
+                        memberName, resourceDictionaryName, instanceType.Name));
+                FieldInfo field = instanceType.GetField(memberName, resourceSource.Static ? DefaultFlagsStatic : DefaultFlags);
                 if (field == null) throw new DataTypeProviderException(DefinitionSet.MissingField(memberName));
                 if (isString)
                     memberValue = TryTypeConverter(field, memberType, stringMemberValue, memberValue);
                 field.SetValue(instance, memberValue);
             } else {
-                    PropertyInfo prefetchProperty = targetType.GetProperty(memberName, DefaultFlagsPrefetch);
+                    PropertyInfo prefetchProperty = instanceType.GetProperty(memberName, DefaultFlagsPrefetch);
                 if (prefetchProperty == null)
                     if (ignoreMissingMembers)
                         return;
@@ -145,12 +138,12 @@
                 bool isStatic = prefetchProperty.SetMethod.IsStatic;
                 if (!resourceSource.Static && isStatic)
                     throw new DataTypeProviderException(DefinitionSet.StaticMismatch.PropertyInstanceInDictionaryButStatic(
-                        memberName, resourceDictionaryName, targetType.Name));
+                        memberName, resourceDictionaryName, instanceType.Name));
                 //"Property: Instance in ResourceDictionary, Static in class");
                 if (resourceSource.Static && !isStatic)
                     throw new DataTypeProviderException(DefinitionSet.StaticMismatch.PropertyStaticInDictionaryButInstance(
-                        memberName, resourceDictionaryName, targetType.Name));
-                PropertyInfo property = targetType.GetProperty(memberName, resourceSource.Static ? DefaultFlagsStatic : DefaultFlags);
+                        memberName, resourceDictionaryName, instanceType.Name));
+                PropertyInfo property = instanceType.GetProperty(memberName, resourceSource.Static ? DefaultFlagsStatic : DefaultFlags);
                 if (property == null) throw new DataTypeProviderException(DefinitionSet.MissingProperty(memberName));
                 if (isString)
                     memberValue = TryTypeConverter(property, memberType, stringMemberValue, memberValue);
