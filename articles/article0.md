@@ -365,6 +365,7 @@ Let's look at a complete XAML sample:
         &lt;e:Member x:Key="NationalAnimal" Value="Italian wolf"
                   MemberKind="Field"/&gt;
         &lt;e:Member x:Key="Аnthem" Value="The Song of the Italians"/&gt;
+        &lt;e:Member x:Key="WordHeritageSites" Value="58" Type="System:Int32"/&gt;
         &lt;e:Member x:Key="CarMakes"&gt;
             &lt;e:Member.Value&gt;
                 &lt;x:Array Type="System:String"&gt;
@@ -402,7 +403,10 @@ Let's make our duck typing sample more complicated:
             &lt;ResourceDictionary.MergedDictionaries&gt;
                 &lt;ResourceDictionary&gt;
                     &lt;e:DataSetter x:Key="1"&gt;
-                        &lt;e:Member Name="Аnthem" Value="The Song..."/&gt;
+                        &lt;e:Member Name="Аnthem"
+                                  Value="The Song of the Italians"/&gt;
+                        &lt;e:Member Name="WordHeritageSites"
+                                  Value="58" Type="System:Int32"/&gt;
                         &lt;e:Member Name="CarMakes"&gt;
                             &lt;e:Member.Value&gt;
                                 &lt;x:Array Type="System:String"&gt;
