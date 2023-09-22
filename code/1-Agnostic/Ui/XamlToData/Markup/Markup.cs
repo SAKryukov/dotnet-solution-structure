@@ -2,6 +2,7 @@
     using System;
     using TypeExtension = System.Windows.Markup.TypeExtension;
     using System.Windows;
+    using MemberList = System.Collections.Generic.List<Member>;
 
     public enum TypeKeyKind { Type, TypeHandle, FullName, Name }
 
@@ -45,8 +46,6 @@
         } //Value
     } //class Member
 
-    public class DataSetter {
-        public Member[] Members { get; set; }
-    } //DataSetter
+    public class DataSetter : MemberList { }
 
 }

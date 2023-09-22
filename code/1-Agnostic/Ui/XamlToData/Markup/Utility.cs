@@ -9,10 +9,6 @@
 
     public static class ResourseDictionaryUtility {
 
-        class DataTypeProviderException : SystemException {
-            internal DataTypeProviderException(string message) : base(message) { }
-        } //class DataTypeProviderException
-
         public static T_REQUIRED FindObject<T_REQUIRED>(ResourceDictionary dictionary) where T_REQUIRED : new() {
             if (dictionary == null) return default;
             foreach (object key in dictionary.Keys)
@@ -47,33 +43,6 @@
             return instanceDictionary;
         } //CollectDictionary
 
-        static BindingFlags DefaultFlags =>
-            BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
-        static BindingFlags DefaultFlagsStatic =>
-            BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static;
-        static BindingFlags DefaultFlagsPrefetch =>
-            BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.Instance;
-
-        public static void CollectForDuckTypedInstance(ResourceDictionary dictionary, object instance, bool ignoreMissingMembers = false) {
-            if (dictionary == null || instance == null) return;
-            Type instanceType = instance.GetType();
-            foreach (var key in dictionary.Keys) {
-                object value = dictionary[key];
-                if (value is not Member resourceSource) continue;
-                string memberName = resourceSource.Name;
-                if (memberName == null && key is string keyMemberName)
-                    memberName = keyMemberName;
-                if (resourceSource.TargetType == null)
-                    resourceSource.TargetType = instanceType;
-                Type targetType = resourceSource.TargetType;
-                if (targetType == null)
-                    targetType = instance.GetType();
-                if (!targetType.IsAssignableTo(instanceType))
-                    continue;
-                AssignMember(resourceSource, targetType, memberName, instance, ignoreMissingMembers: ignoreMissingMembers);
-            } //keys loop
-        } //CollectForDuckTypedInstance
-
         public static void NormalizeDictionary(ResourceDictionary dictionary) {
             PatologicalList list = new();
             static void GetAllKeys(ResourceDictionary top, PatologicalList list) {
@@ -92,8 +61,41 @@
             foreach ((object key, object _, ResourceDictionary container) in list)
                 container.Remove(key);
             foreach ((object _, object value, ResourceDictionary container) in list)
-                    container.Add(value.GetType(), value);
+                container.Add(value.GetType(), value);
         } //NormalizeDictionary
+
+        public static void CollectForDuckTypedInstance(ResourceDictionary dictionary, object instance, bool ignoreMissingMembers = false) {
+            if (dictionary == null || instance == null) return;
+            Type instanceType = instance.GetType();
+            foreach (var key in dictionary.Keys) {
+                    object value = dictionary[key];
+                if (value is Member resourceSource)
+                    CollectMember(resourceSource, key, instanceType, instance, ignoreMissingMembers);
+                else if (value is DataSetter dataSetter)
+                    CollectDataSetter(dataSetter, instance, ignoreMissingMembers);
+            } //keys loop
+            foreach (ResourceDictionary child in dictionary.MergedDictionaries)
+                CollectForDuckTypedInstance(child, instance, ignoreMissingMembers);
+        } //CollectForDuckTypedInstance
+
+        static void CollectDataSetter(DataSetter dataSetter, object instance, bool ignoreMissingMembers) {
+            foreach (Member member in dataSetter)
+                AssignMember(member, instance.GetType(), member.Name, instance, ignoreMissingMembers: ignoreMissingMembers);
+        } //CollectDataSetter
+
+        static void CollectMember(Member resourceSource, object key, Type instanceType, object instance, bool ignoreMissingMembers) {
+            string memberName = resourceSource.Name;
+            if (memberName == null && key is string keyMemberName)
+                memberName = keyMemberName;
+            if (resourceSource.TargetType == null)
+                resourceSource.TargetType = instanceType;
+            Type targetType = resourceSource.TargetType;
+            if (targetType == null)
+                targetType = instance.GetType();
+            if (!targetType.IsAssignableTo(instanceType))
+                return;
+            AssignMember(resourceSource, targetType, memberName, instance, ignoreMissingMembers: ignoreMissingMembers);
+        } //CollectMember
 
         static void AssignMember(Member resourceSource, Type targetType, string memberName, object instance, bool ignoreMissingMembers = false) {
             MemberKind memberKind = resourceSource.MemberKind;
@@ -129,7 +131,7 @@
                     memberValue = TryTypeConverter(field, memberType, stringMemberValue, memberValue);
                 field.SetValue(instance, memberValue);
             } else {
-                PropertyInfo prefetchProperty = targetType.GetProperty(memberName, DefaultFlagsPrefetch);
+                    PropertyInfo prefetchProperty = targetType.GetProperty(memberName, DefaultFlagsPrefetch);
                 if (prefetchProperty == null)
                     if (ignoreMissingMembers)
                         return;
@@ -164,6 +166,17 @@
             } //if
             return memberValue;
         } //TryTypeConverter
+
+        class DataTypeProviderException : SystemException {
+            internal DataTypeProviderException(string message) : base(message) { }
+        } //class DataTypeProviderException
+
+        static BindingFlags DefaultFlags =>
+            BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
+        static BindingFlags DefaultFlagsStatic =>
+            BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static;
+        static BindingFlags DefaultFlagsPrefetch =>
+            BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.Instance;
 
     } //ResourseDictionaryUtility
 

@@ -4,23 +4,33 @@
         xmlns:System="clr-namespace:System;assembly=netstandard"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <FrameworkContentElement.Resources>
-        <e:Member x:Key="NationalBird" Value="Italian Sparrow"/>
-        <e:Member x:Key="NationalTree" Value="Arbutus unedo"
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary>
+                    <e:DataSetter x:Key="1">
+                        <e:Member Name="Аnthem" Value="The Song of the Italians"/>
+                        <e:Member Name="CarMakes">
+                            <e:Member.Value>
+                                <x:Array Type="System:String">
+                                    <System:String>Alfa Romeo</System:String>
+                                    <System:String>Ferrari</System:String>
+                                    <System:String>Fiat</System:String>
+                                    <System:String>Lamborghini</System:String>
+                                    <System:String>Lancia</System:String>
+                                    <System:String>Maserati</System:String>
+                                </x:Array>
+                            </e:Member.Value>
+                        </e:Member>
+                    </e:DataSetter>
+                </ResourceDictionary>
+                <ResourceDictionary>
+                    <e:Member x:Key="NationalBird" Value="Italian Sparrow"/>
+                    <e:Member x:Key="NationalTree" Value="Arbutus unedo"
                   Static="True" MemberKind="Field"/>
-        <e:Member x:Key="NationalAnimal" Value="Italian wolf"
+                    <e:Member x:Key="NationalAnimal" Value="Italian wolf"
                   MemberKind="Field"/>
-        <e:Member x:Key="Аnthem" Value="The Song of the Italians"/>
-        <e:Member x:Key="CarMakes">
-            <e:Member.Value>
-                <x:Array Type="System:String">
-                    <System:String>Alfa Romeo</System:String>
-                    <System:String>Ferrari</System:String>
-                    <System:String>Fiat</System:String>
-                    <System:String>Lamborghini</System:String>
-                    <System:String>Lancia</System:String>
-                    <System:String>Maserati</System:String>
-                </x:Array>
-            </e:Member.Value>
-        </e:Member>
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </FrameworkContentElement.Resources>
 </FrameworkContentElement>
