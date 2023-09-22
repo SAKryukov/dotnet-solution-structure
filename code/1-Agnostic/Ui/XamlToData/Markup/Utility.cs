@@ -71,34 +71,24 @@
             if (dictionary == null || instance == null) return;
             Type instanceType = instance.GetType();
             foreach (var key in dictionary.Keys) {
-                    object value = dictionary[key];
-                if (value is Member resourceSource)
-                    CollectMember(resourceSource, key, instanceType, instance, ignoreMissingMembers);
-                else if (value is DataSetter dataSetter)
-                    CollectDataSetter(dataSetter, instance, instanceType, ignoreMissingMembers);
+                if (key is not string memberName)
+                    throw new DataTypeProviderException(DefinitionSet.NonStringKeyMemberName(
+                        key.GetType().FullName,
+                        typeof(Member).Name));
+                object value = dictionary[key];
+                if (value is Member memberDeclaration)
+                    AssignMember(memberDeclaration, memberName, instance, instanceType, ignoreMissingMembers);
             } //keys loop
             foreach (ResourceDictionary child in dictionary.MergedDictionaries)
                 CollectForDuckTypedInstance(child, instance, ignoreMissingMembers);
         } //CollectForDuckTypedInstance
 
-        static void CollectDataSetter(DataSetter dataSetter, object instance, Type instanceType, bool ignoreMissingMembers) {
-            foreach (Member member in dataSetter)
-                AssignMember(member, member.Name, instance, instanceType, ignoreMissingMembers: ignoreMissingMembers);
-        } //CollectDataSetter
-
-        static void CollectMember(Member resourceSource, object key, Type instanceType, object instance, bool ignoreMissingMembers) {
-            string memberName = resourceSource.Name;
-            if (memberName == null && key is string keyMemberName)
-                memberName = keyMemberName;
-            AssignMember(resourceSource, memberName, instance, instanceType, ignoreMissingMembers: ignoreMissingMembers);
-        } //CollectMember
-
-        static void AssignMember(Member resourceSource, string memberName, object instance, Type instanceType, bool ignoreMissingMembers = false) {
-            MemberKind memberKind = resourceSource.MemberKind;
+        static void AssignMember(Member memberDeclaration, string memberName, object instance, Type instanceType, bool ignoreMissingMembers = false) {
+            MemberKind memberKind = memberDeclaration.MemberKind;
             if (memberName == null) throw new DataTypeProviderException(DefinitionSet.missingMemberName);
-            object memberValue = resourceSource.Value;
+            object memberValue = memberDeclaration.Value;
             if (memberValue == null) throw new DataTypeProviderException(DefinitionSet.missingMemberValue);
-            Type memberType = resourceSource.Type;
+            Type memberType = memberDeclaration.Type;
             string stringMemberValue = null;
             if (memberValue is string stringCandidate)
                 stringMemberValue = stringCandidate;
@@ -115,13 +105,13 @@
                         return;
                     else
                         throw new DataTypeProviderException(DefinitionSet.MissingField(memberName));
-                if (!resourceSource.Static && prefetchField.IsStatic)
+                if (!memberDeclaration.Static && prefetchField.IsStatic)
                     throw new DataTypeProviderException(DefinitionSet.StaticMismatch.FieldInstanceInDictionaryButStatic(
                         memberName, resourceDictionaryName, instanceType.Name));
-                if (resourceSource.Static && !prefetchField.IsStatic)
+                if (memberDeclaration.Static && !prefetchField.IsStatic)
                     throw new DataTypeProviderException(DefinitionSet.StaticMismatch.FieldStaticInDictionaryButInstance(
                         memberName, resourceDictionaryName, instanceType.Name));
-                FieldInfo field = instanceType.GetField(memberName, resourceSource.Static ? DefaultFlagsStatic : DefaultFlags);
+                FieldInfo field = instanceType.GetField(memberName, memberDeclaration.Static ? DefaultFlagsStatic : DefaultFlags);
                 if (field == null) throw new DataTypeProviderException(DefinitionSet.MissingField(memberName));
                 if (isString)
                     memberValue = TryTypeConverter(field, memberType, stringMemberValue, memberValue);
@@ -136,14 +126,14 @@
                 if (!prefetchProperty.CanWrite)
                     throw new DataTypeProviderException(DefinitionSet.ReadOnlyProperty(prefetchProperty.Name));
                 bool isStatic = prefetchProperty.SetMethod.IsStatic;
-                if (!resourceSource.Static && isStatic)
+                if (!memberDeclaration.Static && isStatic)
                     throw new DataTypeProviderException(DefinitionSet.StaticMismatch.PropertyInstanceInDictionaryButStatic(
                         memberName, resourceDictionaryName, instanceType.Name));
                 //"Property: Instance in ResourceDictionary, Static in class");
-                if (resourceSource.Static && !isStatic)
+                if (memberDeclaration.Static && !isStatic)
                     throw new DataTypeProviderException(DefinitionSet.StaticMismatch.PropertyStaticInDictionaryButInstance(
                         memberName, resourceDictionaryName, instanceType.Name));
-                PropertyInfo property = instanceType.GetProperty(memberName, resourceSource.Static ? DefaultFlagsStatic : DefaultFlags);
+                PropertyInfo property = instanceType.GetProperty(memberName, memberDeclaration.Static ? DefaultFlagsStatic : DefaultFlags);
                 if (property == null) throw new DataTypeProviderException(DefinitionSet.MissingProperty(memberName));
                 if (isString)
                     memberValue = TryTypeConverter(property, memberType, stringMemberValue, memberValue);

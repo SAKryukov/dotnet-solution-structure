@@ -15,9 +15,9 @@
         public override object ProvideValue(IServiceProvider serviceProvider) =>
             TypeKeyKind switch {
                 TypeKeyKind.Type => TargetType,
-                TypeKeyKind.TypeHandle => TargetType.TypeHandle,
-                TypeKeyKind.FullName => TargetType.FullName,
-                TypeKeyKind.Name => TargetType.Name,
+                TypeKeyKind.TypeHandle => TargetType?.TypeHandle,
+                TypeKeyKind.FullName => TargetType?.FullName,
+                TypeKeyKind.Name => TargetType?.Name,
                 _ => TargetType,
             };
         internal static object UserKey(Type requiredType, TypeKeyKind keyKind) =>
@@ -36,7 +36,6 @@
         public bool Static { get; set; }
         public Type Type { get; set; }
         public MemberKind MemberKind { get; set; }
-        public string Name { get; set; }
         public static readonly DependencyProperty ValueProperty =
             RegisterDependencyProperty<Member, object>(nameof(Value), (thisObject, newValue) => { thisObject.Value = newValue; });
         public object Value {
@@ -44,7 +43,5 @@
             set => SetValue(ValueProperty, value);
         } //Value
     } //class Member
-
-    public class DataSetter : MemberList { }
 
 }

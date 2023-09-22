@@ -4,7 +4,7 @@
         xmlns:System="clr-namespace:System;assembly=netstandard"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <FrameworkContentElement.Resources>
-        <e:Member x:Key="?" Name="NationalBird" Value="Passer italiae"/>
+        <e:Member x:Key="NationalBird" Value="Passer italiae"/>
         <e:Member x:Key="NationalTree" Value="Corbezzolo"
                   Static="True"
                   MemberKind="Field"/>

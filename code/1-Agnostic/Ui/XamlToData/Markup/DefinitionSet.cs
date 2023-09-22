@@ -5,6 +5,9 @@
         internal const string missingMemberName = "Member Name cannot be null";
         internal const string missingMemberValue = "Member Value cannot be null";
 
+        internal static string NonStringKeyMemberName(string typeName, string memberTypeName) =>
+            $"Dictionary key type {typeName} is not supported for {memberTypeName}, {typeof(string).FullName} key is expected; this key is used for property of field name";
+
         internal static string MissingField(string memberName) =>
             $"Field {memberName} cannot be null";
         internal static string MissingProperty(string memberName) =>
