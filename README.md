@@ -21,6 +21,8 @@ WPF-specific topics:
 * Centralized adaptive exception handling
 * Centralized and cascading styling and resource dictionaries 
 * XAML-based localization with satellite assemblies
+* XAML to code: custom markup for arbitrary data resources
+* XAML to code: code generation
 
 ## Under development
 
