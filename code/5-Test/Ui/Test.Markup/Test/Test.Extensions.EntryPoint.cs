@@ -25,7 +25,6 @@ namespace SA.Test.Markup {
             var dictionary = ResourseDictionaryUtility.CollectDictionary(singleObjectDataSource.Resources);
             foreach (var pair in dictionary)
                 Console.WriteLine(pair.Value);
-            Agnostic.UI.ConsoleHelperUtility.ShowExit(showUnderDebugger: false);
             dictionary = ResourseDictionaryUtility.CollectDictionary(multiObjectDataSource.Resources);
             foreach (var pair in dictionary)
                 Console.WriteLine(pair.Value);
