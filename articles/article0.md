@@ -223,7 +223,7 @@ Here is the idea: to have multiple data objects represented in a single XAML and
 
 The only legitimate way to utilize `System.Type` keys is the development of a custom markup extension based on `System.Windows.Markup.TypeExtension`. Let's implement such a thing in a pretty simple way:
 
-```{lang=C#}
+```{lang=C#}{id=code-type-key}
 namespace SA.Agnostic.UI.Markup {
     using System;
     using TypeExtension = System.Windows.Markup.TypeExtension;
@@ -285,7 +285,7 @@ But what can happen if one messes up the one-to-one mapping between up with the 
 
 It looks like nothing can enforce the requirement: the data type mentioned in the XAML tag and corresponding `x:Key` value defined throught the extension should be the same. XAML processing will only enforce the uniqueness of the keys --- at the build time. To see what happens, let's look at the `ResourseDictionaryUtility` method used to obtain the access to a particular data type:
 
-```{lang=XML}
+```{lang=XML}{id=code-get-object}
         public static T_REQUIRED GetObject&lt;;T_REQUIRED&lt;;(ResourceDictionary dictionary) where T_REQUIRED : new() =>
             (T_REQUIRED)dictionary?[typeof(T_REQUIRED)];
 ```
@@ -293,6 +293,8 @@ It looks like nothing can enforce the requirement: the data type mentioned in th
 Of course, it works very quickly. But If the keys are messed up, you will get the instance of one data type and will try to type-cast it to a wrong type. Isn't that bad?
 
 Nevertheless, everything will still work. One can even use unrelated type names, such as `String`, provided the uniquerness of the keys is preserved. How? To achive that, I developed  this this `ResourseDictionaryUtility.NormalizeDictionary` method. Let's look at it closely.
+
+The code for [`GetObject`](#code-get-object) and [`TypeKey`](#code-type-key) is a bit simplified. In the source code, one can find a bit more complicated experimanta code with additional data type and parameters, indicating what to use for the type identification. The ideas for that are fuzzy and are not really used in any applications.
 
 ### Multiple Objects: Possible Mistakes and Dictionary Normalization
 
@@ -441,6 +443,12 @@ System.Collections.Generic.List&lt;Member&gt;
 Being derived from a list class, the class `DataSetter` now can accept *direct content*, and that content should be a set of `Member` objects.
 
 This way, a `Member` object can be contained in different contaners, in a `ResourceDictionary` or an instance of `DataSetter`. There is a big difference though: `ResourceDictionary` requires a `Key` for each child element, and `DataSetter` don't accept keys. For this purpose, the name of the target data type object can be indicated with the property `Member.Name`. In a `ResourceDictionary`, `Name` also can be used, and it takes priority over a key. More exactly, `Name` value is not null (element `Name` is specified in XAML), `Key` plays the role of a mere key, and the actual data type member name is defined by the `Name` attribute.
+
+### Structural Flexibility: Combination of Approaches
+
+All the approaches described above can be combined in the same XAML in a pretty free matter. It makes little sense to describe all options, instead, a common logic should work. In particular, nothing prevents you from adding an additional `ResourceDictionary` under one or another `MergedDictionaries` container and use a different approach inside it.
+
+Another technique coudld be using dictionary keys based on `TypeKey` extension even where it does not carry any semantics related to undelying data objects.
 
 Unlimited nesting of merged dictionaries is also supported. For the approach #2, multiple data type object identified by their type, it does not compromize performance in any way. However, it is not desirable for other two approaches. Actually, on the single-object approach #1 it makes no sense at all, but for the duck-typed approach #3 it may have some merits: one can support multiple target types under the same XAML. How? Again, in this approach XAML code is totally agnostic to the target type, it does not "know" which members belong to which type. One can visually isolate them using different instances of `ResourceDictionary` or `DataSetter` as containers.
 
