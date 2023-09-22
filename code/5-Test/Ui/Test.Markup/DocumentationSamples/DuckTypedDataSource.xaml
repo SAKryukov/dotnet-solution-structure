@@ -8,8 +8,10 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary>
                     <e:DataSetter x:Key="1">
-                        <e:Member Name="Аnthem" Value="The Song of the Italians"/>
-                        <e:Member Name="WordHeritageSites" Value="58" Type="System:Int32"/>
+                        <e:Member Name="Аnthem"
+                                  Value="The Song of the Italians"/>
+                        <e:Member Name="WordHeritageSites"
+                                  Value="58" Type="System:Int32"/>
                         <e:Member Name="CarMakes">
                             <e:Member.Value>
                                 <x:Array Type="System:String">
