@@ -23,8 +23,9 @@
             return default;
         } //FindObject
 
-        public static T_REQUIRED GetObject<T_REQUIRED>(ResourceDictionary dictionary) where T_REQUIRED : new() =>
-            (T_REQUIRED)dictionary?[typeof(T_REQUIRED)];
+        public static T_REQUIRED GetObject<T_REQUIRED>(ResourceDictionary dictionary, TypeKeyKind keyKind = default)
+            where T_REQUIRED : new() =>
+                (T_REQUIRED)dictionary?[TypeKey.UserKey(typeof(T_REQUIRED), keyKind)];
 
         public static InstanceDictionary CollectDictionary(ResourceDictionary dictionary) {
             static void CollectDictionary(ResourceDictionary dictionary, InstanceDictionary instanceDictionary) {
@@ -91,7 +92,7 @@
             foreach ((object key, object _, ResourceDictionary container) in list)
                 container.Remove(key);
             foreach ((object _, object value, ResourceDictionary container) in list)
-                container.Add(value.GetType(), value);
+                    container.Add(value.GetType(), value);
         } //NormalizeDictionary
 
         static void AssignMember(Member resourceSource, Type targetType, string memberName, object instance, bool ignoreMissingMembers = false) {
