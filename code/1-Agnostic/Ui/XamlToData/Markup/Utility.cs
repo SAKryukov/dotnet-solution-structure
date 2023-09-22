@@ -14,8 +14,11 @@
             foreach (object key in dictionary.Keys)
                 if (dictionary[key] is T_REQUIRED required)
                     return required;
-            foreach (ResourceDictionary child in dictionary.MergedDictionaries)
-                return FindObject<T_REQUIRED>(child);
+            foreach (ResourceDictionary child in dictionary.MergedDictionaries) {
+                var found = FindObject<T_REQUIRED>(child);
+                if (found != null)
+                    return found;
+            } //loop
             return default;
         } //FindObject
 
