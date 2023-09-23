@@ -548,7 +548,7 @@ Note that all keys in the entire dictionary hierarhy are presented in a flat con
 
 ### MSBuild
 
-For the demonstration of code generation, please see the project "Test.CodeGeneration.csproj". It makes just a console application (yes, WPF project can make console applications) producing an output C# file, and its command-line parameters speficy the name and location of an output file and some naming options.
+For the demonstration of code generation, please see the project "Test.CodeGeneration.csproj". It makes just a console application (yes, WPF project can make console applications) producing an output C# file, and its command-line parameters speficy the name and location of an output file and some naming options. To see the output with command-line documentation
 
 There is nothing fancy here. However, command-line facility and its use is pretty interesting. Basically, it is explained in my article *[Enumeration-based Command Line Utility](https://www.codeproject.com/Articles/144349/Enumeration-based-Command-Line-Utility)*. In turn, this article is a part of a series of article devoted to enumerations. However, the code for enumerations facility and command line is now seriously improved, so it deserves a separate article. A complete code with new demo applications can be found in a separate GitHub repository [dotnet-enumerations-command-line](https://github.com/SAKryukov/dotnet-enumerations-command-line). It also contains fully-fledged XAML-based XAML-based localization with satellite assemblies, and the localization also comes with a demo application.
 
@@ -565,6 +565,8 @@ SA???
 MSBuild tasks is quite a powerful development tool. Development of custom tasks [is easy](https://learn.microsoft.com/en-us/visualstudio/msbuild/msbuild-api?view=vs-2022). At the same time, in contrast to .NET framework, .NET does not include required "Microsoft.Build.*" assemblies, so development requires downloading additional NuGet packages, and I don't want to add any dependencies in my public open-source code.
 
 On the other hand, code generation is such a simple thing that a simple UI-free application is more than enough, as it can be invoked via the available [MSBuild task Exec](https://learn.microsoft.com/en-us/visualstudio/msbuild/exec-task?view=vs-2022), and console output is optional, can be used only during the debugging of the development cycle.
+
+Anyone is more than welcome to take my code and embed it in some MSBuild Task if it seems to be appropriate by some reason. This is easy.
 
 ## Custom Markup vs Code Generation 
 
