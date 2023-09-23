@@ -28,7 +28,7 @@ For CodeProject, makes sure there are no HTML comments in the area to past!
 αβγδΔπ
 ------------------------------------------->
 
-![Title](markup.png)
+![Gantry](title-gantry.png)
 
 <blockquote id="epigraph" class="FQ"><div class="FQA">Epigraph:</div>
 <dt><i>Saying</i></dt>
@@ -99,7 +99,7 @@ Fortubately, for the first problem I have a simple workaround...
 
 But first, let's think about the basics. Why do we need the data in code?
 
-### Two Different Approaches
+### Different Approaches
 
 The goal of code generation is not having the code. The goal is using the code. It is used for some action. For example, we need a place to define some default options, some data that may change from time to time. Also, we need to keep data separate from code and globalized, with the potential of using the data in the localization sattellite assemblies [without strong coupling](https://en.wikipedia.org/wiki/Loose_coupling) with the main code.
 
@@ -242,6 +242,8 @@ namespace SA.Agnostic.UI.Markup {
 }
 ```
 
+The code for [`GetObject`](#code-get-object) and [`TypeKey`](#code-type-key) is a bit simplified. In the source code, one can find a bit more complicated experimantal code with additional data type and parameters, indicating what to use for the type identification.
+
 Let's see: this class transparenly passes an instance of its property `TargetType`. It can be defined in XAML in one of the two ways: as a property or a contructor parameter of the `TypeExtension` syntax, `<my:Detail x:Key="{e:TypeKey TargetType=my:Detail}"/>` or `<my:Detail x:Key="{e:TypeKey my:Detail}"/>`, correspondently. Here `my:Detail` refers to a data class `My.Detail`. Let's look at the entire XAML sample:
 
 ```{lang=XML}
@@ -294,11 +296,9 @@ Of course, it works very quickly. But If the keys are messed up, you will get th
 
 Nevertheless, everything will still work. One can even use unrelated type names, such as `String`, provided the uniquerness of the keys is preserved. How? To achive that, I developed  this this `ResourseDictionaryUtility.NormalizeDictionary` method. Let's look at it closely.
 
-The code for [`GetObject`](#code-get-object) and [`TypeKey`](#code-type-key) is a bit simplified. In the source code, one can find a bit more complicated experimanta code with additional data type and parameters, indicating what to use for the type identification. The ideas for that are fuzzy and are not really used in any applications.
+### Multiple Objects: Dictionary Normalization
 
-### Multiple Objects: Possible Mistakes and Dictionary Normalization
-
-Unfortunately, I cannot see a way to bind anything in a key value with anything at all --- binding does not work inside a key. So, I developed the normalization procedure:
+The situation described above is one of the possible developer's mistakes. Unfortunately, I cannot see a way to bind anything in a key value with anything at all --- binding does not work inside a key. So, I developed the normalization procedure:
 
 ```{lang=XML}
 public static void NormalizeDictionary(ResourceDictionary dictionary) {
@@ -329,6 +329,8 @@ It is used to collect all the pathological cases when an object type `valueType`
 The the test application "Test.Markup" the normalization is performed as a part of *localization* even when the data is not actually localized.
 
 Taking this precausion makes the reliability of the approach match the reliability of usual XAML content: not all the mistakes are revealed at the build time, but loading the data using XAML at runtime is the first guart revealing all remaining problems.
+
+I would use `NormalizeDictionary` during certain developent stage and remove it when the functionality is tested. Removing this call is the simple test which gives clear diagnostics on this problem and make it clear how to fix it.
 
 ### Approach #3: Duck Typing
 
@@ -388,7 +390,7 @@ That's why we can separately specify if we're looking for a static member using 
 
 What happens in the case of mismatch? There are some options. SA???
 
-### Structural Flexibility: MergedDictionaries and DataSetter
+### MergedDictionaries and Combination of Approaches
 
 Let's make our duck typing sample more complicated:
 
@@ -402,24 +404,22 @@ Let's make our duck typing sample more complicated:
         &lt;ResourceDictionary&gt;
             &lt;ResourceDictionary.MergedDictionaries&gt;
                 &lt;ResourceDictionary&gt;
-                    &lt;e:DataSetter x:Key="1"&gt;
-                        &lt;e:Member Name="Аnthem"
-                                  Value="The Song of the Italians"/&gt;
-                        &lt;e:Member Name="WordHeritageSites"
-                                  Value="58" Type="System:Int32"/&gt;
-                        &lt;e:Member Name="CarMakes"&gt;
-                            &lt;e:Member.Value&gt;
-                                &lt;x:Array Type="System:String"&gt;
-                                    &lt;System:String&gt;Alfa Romeo&lt;/System:String&gt;
-                                    &lt;System:String&gt;Ferrari&lt;/System:String&gt;
-                                    &lt;System:String&gt;Fiat&lt;/System:String&gt;
-                                    &lt;System:String&gt;Lamborghini&lt;/System:String&gt;
-                                    &lt;System:String&gt;Lancia&lt;/System:String&gt;
-                                    &lt;System:String&gt;Maserati&lt;/System:String&gt;
-                                &lt;/x:Array&gt;
-                            &lt;/e:Member.Value&gt;
-                        &lt;/e:Member&gt;
-                    &lt;/e:DataSetter&gt;
+                    &lt;e:Member x:Key="?nthem"
+                              Value="The Song of the Italians"/&gt;
+                    &lt;e:Member x:Key="WordHeritageSites"
+                              Value="58" Type="System:Int32"/&gt;
+                    &lt;e:Member x:Key="CarMakes"&gt;
+                        &lt;e:Member.Value&gt;
+                            &lt;x:Array Type="System:String"&gt;
+                                &lt;System:String&gt;Alfa Romeo&lt;/System:String&gt;
+                                &lt;System:String&gt;Ferrari&lt;/System:String&gt;
+                                &lt;System:String&gt;Fiat&lt;/System:String&gt;
+                                &lt;System:String&gt;Lamborghini&lt;/System:String&gt;
+                                &lt;System:String&gt;Lancia&lt;/System:String&gt;
+                                &lt;System:String&gt;Maserati&lt;/System:String&gt;
+                            &lt;/x:Array&gt;
+                        &lt;/e:Member.Value&gt;
+                    &lt;/e:Member&gt;
                 &lt;/ResourceDictionary&gt;
                 &lt;ResourceDictionary&gt;
                     &lt;e:Member x:Key="NationalBird" Value="Italian Sparrow"/&gt;
@@ -434,45 +434,54 @@ Let's make our duck typing sample more complicated:
 &lt;/FrameworkContentElement&gt;
 ```
 
-This XAML provides exact same structure [as before](code-duck-typed-data-source), but in some overlycomplicated form: the same set of members is split between two different `ResourceDictionary` instances. Moreover, two elements, `Аnthem` and `CarMakes`, go under the new element, `DataSetter`. This element is very simple: it is just a list of `Member` instances:
-
-```{lang=C$}
-public class DataSetter : MemberList { }
-```
-where `MemberList` is
-
-```{lang=C$}
-System.Collections.Generic.List&lt;Member&gt;
-```
-Being derived from a list class, the class `DataSetter` now can accept *direct content*, and that content should be a set of `Member` objects.
-
-This way, a `Member` object can be contained in different contaners, in a `ResourceDictionary` or an instance of `DataSetter`. There is a big difference though: `ResourceDictionary` requires a `Key` for each child element, and `DataSetter` don't accept keys. For this purpose, the name of the target data type object can be indicated with the property `Member.Name`. In a `ResourceDictionary`, `Name` also can be used, and it takes priority over a key. More exactly, `Name` value is not null (element `Name` is specified in XAML), `Key` plays the role of a mere key, and the actual data type member name is defined by the `Name` attribute.
-
-### Structural Flexibility: Combination of Approaches
+This XAML provides the exact same structure [as before](code-duck-typed-data-source), but in some overly complicated form: the same set of members is split between two different `ResourceDictionary` instances. Anyway, it works, because the data from merged dictionaries is, well... merged. Unlimited nesting of merged dictionaries is supported. For more detail, see also [the explanation below](#paragraph-knowledge-resource-dictionary).
 
 All the approaches described above can be combined in the same XAML in a pretty free matter. It makes little sense to describe all options, instead, a common logic should work. In particular, nothing prevents you from adding an additional `ResourceDictionary` under one or another `MergedDictionaries` container and use a different approach inside it.
 
 Another technique coudld be using dictionary keys based on `TypeKey` extension even where it does not carry any semantics related to undelying data objects.
 
-Unlimited nesting of merged dictionaries is also supported. For the approach #2, multiple data type object identified by their type, it does not compromize performance in any way. However, it is not desirable for other two approaches. Actually, on the single-object approach #1 it makes no sense at all, but for the duck-typed approach #3 it may have some merits: one can support multiple target types under the same XAML. How? Again, in this approach XAML code is totally agnostic to the target type, it does not "know" which members belong to which type. One can visually isolate them using different instances of `ResourceDictionary` or `DataSetter` as containers.
+Does it make any sense, using multiple resource dictionaries in one XAML? It may. Some may want to visually segregate different parts of the resources. Actually, on the single-object [approach #1](#heading-approach-2313a-a-very-simple-one) it makes no sense at all, just because this approach is the best for a single data type instance.
 
-Why using the duck-typed approach anyway? It is the slowest in performance? Well, it has its benefits. Besides, this topic is not the place where most developers would worry too much about performance, because the total amound of XAML data is never too high. Anyway, let's summarize pro and contra for all the approaches.
+For the multi-object [approach #2](#heading-approach-2323a-multiple-objects) it may make sense if there are many data object types and data objects. In this case, it is important not to use each type more than once, because otherwise it can create some confusion, because it will allow to have the same `TypeKey` in different dictionaries without key uniqueness conflict. As a result `ResourseDictionaryUtility.GetObject` can get an object of right type, but wrong instance. At the same time, as the instances are found by their type, having multiple dictionaries does not compromize performance.
+
+What about the duck-typed [approach #3](#heading-approach-2333a-duck-typing)? Having multiple resource dictionaries in one XAML may have some merits: one can support multiple target types under the same XAML. How? Again, in this approach XAML code is totally agnostic to the target type, it does not "know" which members belong to which type. One can visually isolate them using different instances of `ResourceDictionary` or `DataSetter` as containers. However, in contrast to the [approach #2](#heading-approach-2323a-multiple-objects), processing time directly depends on the total number of elements in a XAML, and not specifically on the number of dictionaries. It is slow simply because every time the target instance is populated, the system has to traverse entire dictionary of a XAML and visit each and every `Member` element.
+
+Why using the duck-typed approach anyway, it it is the slowest in performance? Well, it has its benefits. Besides, this topic is not the place where most developers would worry too much about performance, because the total amound of XAML data is never too high. Anyway, let's summarize pro and contra for all the approaches.
 
 ### Three Approaches: Pro and Contra
 
-* Simplest Single-Object Approach
+1. [Very simple single-object approach](#heading-approach-2313a-a-very-simple-one)<br/>
+    It is so simple that it does not require a single line of code from my solution. Just the idea would be quite enough.<br/>
+    It makes sense only if there is only one data type instance to create per XAML. For many application, this is perfectly fine.<br/>
+    If there are more than one instances, they should be of different types and the approach would work, but it makes no sense. It would cost next to nothing to use next approach.
 
-* Multiple-Object Approach
+1. [Multiple-object approach](#heading-approach-2323a-multiple-objects)
+    It is designed to have several data types and create only one instance per type per XAML. It does not seem to be a limitation, because the application of the feature does not imply several instances.<br/>
+    This approach uses just few lines of code from my solution.<br/>
+    Getting objects from XAML is the fastest, and it does not depend on number of types and the total volume of a `ResourceDictionary`.
 
-Despite the fact SA???
+1. [Duck-typed approach](#heading-approach-2333a-duck-typing)
+    This approach is the slowest, requires complicated processing code, but offers additional flexibility:
+    It can work with both public and non-public members.<br/>
+    It can work with both properties and fields.<br/>
+    It can work with both static and instance properties and fields.<br/>
+    The type safety is low and generally corresponds to a typical duck-typing approach.
+    It is totally type-agnostic. It can process multiple objects of multiple types simply because it does not "know" what members belong to what data type.<br/>
+    It does not requite using data types accessible by both sattellite and host assemblies.
 
-SA???
-
-* Duck Typing Approach
+    All three approaches can work with the same set of the data member types, not only with strings and primitive types, but with a wide range of structured types. In case of custom data types, some of them require custom type converters, other are based on already existing type, such as generic containers and collections.
 
 ### Globalization
 
-SA???
+One main reason for keeping arbitrary data in a resource dictionary is *globalization*. The demo project "Test.Markup.csproj" demonstrates localization of the data in "DocumentaionSamples" directory of this project.
+
+This kind of localization has little to do with standard localization based on satellite assemblies, but it it compatible with it and can be embedded in standard satellite assemblies. The source code provided with the present article is the part of a [bigger solution "dotnet-solution-structure"](#heading-solution-structure-preview). This repository provide a comprehensive XAML-based localization with satellite assemblies, and that deserves a separate article.
+
+For further detail, please see the projects "Test.Markup.csproj" and "Test.Markup.Localization". The second project implements localized version of data and makes an assembly located and named according the the general rules for the localization satellite assemblies. It implements the interfaces `IApplicationSatelliteAssembly` and applies the assembly-level attribute `[PluginManifest]` used by the agnostic localization facility to locate and load satellite assembly. The properties of `IApplicationSatelliteAssembly` provide the access to localized versions of all resource dictionaries found by the full names of the container classes of these resources.
+
+The localization of the arbitrary data on the host application side is reduced to direct assignment of the `Resources` properties for each container to the `ResourceDictionary` objects automatically obtained from a satellite assembly chosen based on the required culture, including possible fallback cultures.
+
+These "Test.Markup.*.csproj" make just the basic demonstration of a globalized applicaton with localization. Anyone can take this code and embedd it into a fully-fledged system with the localization of all resources. The present demonstration show how to localize arbitrary data types, not necesseraly related to UI.
 
 ### Limitations
 
@@ -492,7 +501,9 @@ This is already beyond the expectaions of those who asked those questions about 
 
 Code generation itself is fairly simple. Please see the class `DictionaryCodeGenerator` in a source file "DictionaryCodeGenerator.cs". There a just a few delicate details though.
 
-This is a little piece of knowledge on `ResourceDictionary`. This is a normal hash dictionary, but with an additional member `MergedDictionary`. It you simply try to access the value by a known key using its indexer `[]`, it can find a value not it its own key set, but also in any of the merged resource dictionaries on any level of nesting. Is it possible that some key appears more then once in all this dictionary hierarchy? Yes! Which one is found is not really specified, but I know the priority order from my experimental study. Anyone can find out what exactly is returned. What is important is that we need to find out all the keys in the entire hierarchy, preferrably in the same order. This is how:
+### Implemention
+
+{id=paragraph-knowledge-resource-dictionary}This is a little piece of knowledge on `ResourceDictionary`. This is a normal hash dictionary, but with an additional member `MergedDictionary`. It you simply try to access the value by a known key using its indexer `[]`, it can find a value not it its own key set, but also in any of the merged resource dictionaries on any level of nesting. Is it possible that some key appears more then once in all this dictionary hierarchy? Yes! Which one is found is not really specified, but I know the priority order from my experimental study. Anyone can find out what exactly is returned. What is important is that we need to find out all the keys in the entire hierarchy, preferrably in the same order. This is how:
 
 ```{lang=C#}
 using KeySet = System.Collections.Generic.HashSet<string>;
@@ -551,6 +562,10 @@ SA???
 
 ### Why not MSBuilt Custom Task?
 
+MSBuild tasks is quite a powerful development tool. Development of custom tasks [is easy](https://learn.microsoft.com/en-us/visualstudio/msbuild/msbuild-api?view=vs-2022). At the same time, in contrast to .NET framework, .NET does not include required "Microsoft.Build.*" assemblies, so development requires downloading additional NuGet packages, and I don't want to add any dependencies in my public open-source code.
+
+On the other hand, code generation is such a simple thing that a simple UI-free application is more than enough, as it can be invoked via the available [MSBuild task Exec](https://learn.microsoft.com/en-us/visualstudio/msbuild/exec-task?view=vs-2022), and console output is optional, can be used only during the debugging of the development cycle.
+
 ## Custom Markup vs Code Generation 
 
 The current snapshot of the code can be found in my [GitHub repository](https://github.com/SAKryukov/dotnet-solution-structure).
@@ -558,6 +573,14 @@ The current snapshot of the code can be found in my [GitHub repository](https://
 ## Solution Structure Preview
 
 The code provided with this article is a part of a bigger solution "SolutionStructure" under the title "Improved .NET Solution Structure". This is a collection of units and illustrative materials used to share several ideas on the improvement of the .NET solution structure. The code is nearly ready for publication but I may upgrade it during the preparation of other articles related to this work. It can also be found in a GitHub repository [dotnet-solution-structure](https://github.com/SAKryukov/dotnet-solution-structure) where I also keep the sources for the CodeProject articles. Please see the repository title page --- it shows the topic covered.
+
+## Compatibility and Testing
+
+The solution requires .NET version 5 or later. The build is based on <dotnet> and batch build, it does not require Visual Studio or any other IDE.
+
+Tested on .NET 5 and 7.
+
+To change a target framework, edit the file Directory.Build.props, modify the property `<TargetFramework>`. It will change target frameworks in all projects automatically, including those requring "-windows".
 
 ## Conclusions
 
