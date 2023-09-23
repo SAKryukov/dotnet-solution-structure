@@ -17,13 +17,10 @@
       <GeneratedSimpleFilename>$(AssemblyName).Resources.cs</GeneratedSimpleFilename>
       <GeneratedNamespace>$(RootNamespace).Generated</GeneratedNamespace>
       <GeneratedTypeName>DefinitionSet</GeneratedTypeName>
-      <GeneratedFilename>$(OutDir)$(GeneratedCodeDirectory)\$(GeneratedSimpleFilename)</GeneratedFilename>
+      <GeneratedFilename>$(OutputPath)$(GeneratedCodeDirectory)\$(GeneratedSimpleFilename)</GeneratedFilename>
     </PropertyGroup>
-    <ItemGroup>
-      <GeneratedCode Include="$(OutDir)$(GeneratedCodeDirectory)" />
-    </ItemGroup>
-    <MakeDir Directories="@(GeneratedCode)" />
-    <Exec Command="$(OutDir)$(AssemblyName).exe -f:$(GeneratedFilename) -n:$(GeneratedNamespace) -t:$(GeneratedTypeName)"/>
+    <MakeDir Directories="$(OutputPath)$(GeneratedCodeDirectory)" />
+    <Exec Command="$(OutputPath)$(AssemblyName).exe -f:$(GeneratedFilename) -n:$(GeneratedNamespace) -t:$(GeneratedTypeName) -Q"/>
   </Target>
 
 </Project>
