@@ -33,14 +33,17 @@
        height="1551.8068"
        x="-951.80035"
        y="-586.64075" />
+    <rect
+       style="fill:#666b6e;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;paint-order:markers stroke fill;stop-color:#000000"
+       id="rect958-4-8"
+       width="1672.1666"
+       height="60"
+       x="-719.66669"
+       y="-127" />
     <path
        style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m -543.09168,237.33534 -3.20723,12.82893"
        id="path1560" />
-    <path
-       id="path1600"
-       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.264582px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m -234.58854,203.07038 c -60.96389,93.91693 -151.00891,223.175 -151.00891,251.31074 0,28.13571 63.92615,0 108.21469,-9.88112 0,0 0,130.73879 0,130.73879 0,0 86.88276,0 86.88276,0 0,0 0,-130.73879 0,-130.73879 46.69962,13.44018 115.400931,38.01683 115.400931,9.88112 0,-28.13574 -97.659311,-158.06019 -158.842301,-252.30249 0,0 -0.62565,0.95876 -0.62565,0.95876 0,0 -0.0215,0.033 -0.0215,0.033 z" />
     <rect
        style="fill:#008400;fill-opacity:1;stroke:#ffffff;stroke-width:6;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill;stop-color:#000000"
        id="rect1594"
@@ -254,10 +257,28 @@
          id="tspan108"
          x="412.75"
          y="-127"
-         style="stroke-width:0.264583"></tspan><tspan
+         style="stroke-width:0.264583" /><tspan
          x="412.75"
          y="-120.82638"
          style="stroke-width:0.264583"
          id="tspan112" /></text>
+    <rect
+       style="fill:#666b6e;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;paint-order:markers stroke fill;stop-color:#000000"
+       id="rect958"
+       width="84.666672"
+       height="2610.4521"
+       x="910.16669"
+       y="-148.16667"
+       rx="40"
+       ry="40" />
+    <rect
+       style="fill:#666b6e;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;paint-order:markers stroke fill;stop-color:#000000"
+       id="rect958-4"
+       width="84.666672"
+       height="2610.4524"
+       x="-746.12665"
+       y="-148.16692"
+       rx="40"
+       ry="40" />
   </g>
 </svg>
