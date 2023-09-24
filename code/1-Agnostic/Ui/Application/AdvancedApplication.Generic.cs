@@ -1,4 +1,11 @@
-﻿namespace SA.Agnostic.UI {
+﻿/*
+    Copyright (C) 2006-2023 by Sergey A Kryukov
+    https://www.SAKryukov.org
+    https://github.com/SAKryukov
+    https://www.codeproject.com/Members/SAKryukov
+*/
+
+namespace SA.Agnostic.UI {
     using System.Windows;
 
     public class AdvancedApplication<MAINVIEW> : AdvancedApplicationBase where MAINVIEW : Window, new() {

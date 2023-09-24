@@ -1,9 +1,16 @@
-﻿<Project>
+﻿<!--
+    Copyright (C) 2023 by Sergey A Kryukov
+    https://www.SAKryukov.org
+    https://github.com/SAKryukov
+    https://www.codeproject.com/Members/SAKryukov
+-->
+
+<Project>
  
   <PropertyGroup> <!-- customize:  -->
     <CustomUnifiedVersion>0.7.0.0</CustomUnifiedVersion>
-    <CustomInformationalVersionSuffix>pre-alpha</CustomInformationalVersionSuffix>
     <!-- can be alpha, beta, RC1, RC2, etc.: -->
+    <CustomInformationalVersionSuffix>pre-alpha</CustomInformationalVersionSuffix>
     <Copyright>Copyright © 2023 Sergey A Kryukov</Copyright>
     <Product>Improved .NET Solution Structure</Product>
     <Description>Bunch of ideas on how to improve .NET solution structure</Description>

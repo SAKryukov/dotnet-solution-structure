@@ -1,4 +1,11 @@
-﻿<FrameworkContentElement x:Class="SA.Application.View.ApplicationResourceSource"
+﻿<!--
+    Copyright (C) 2023 by Sergey A Kryukov
+    https://www.SAKryukov.org
+    https://github.com/SAKryukov
+    https://www.codeproject.com/Members/SAKryukov
+-->
+
+<FrameworkContentElement x:Class="SA.Application.View.ApplicationResourceSource"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:system="clr-namespace:System;assembly=netstandard"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">

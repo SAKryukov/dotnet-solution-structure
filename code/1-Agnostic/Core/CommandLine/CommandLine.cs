@@ -31,7 +31,9 @@
     All user's command line errors are collected in UnrecognizedOptions, RepeatedFiles, RepeatedSwitches and RepeatedValues; no exceptions are thrown.
     
     Copyright (C) 2004-2023 by Sergey A Kryukov
-    http://www.SAKryukov.org
+    https://www.SAKryukov.org
+    https://github.com/SAKryukov
+    https://www.codeproject.com/Members/SAKryukov
 */
 
 namespace SA.Agnostic.Utilities {

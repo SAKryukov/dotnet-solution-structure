@@ -1,4 +1,11 @@
-﻿namespace SA.Application.View {
+﻿/*
+    Copyright (C) 2023 by Sergey A Kryukov
+    https://www.SAKryukov.org
+    https://github.com/SAKryukov
+    https://www.codeproject.com/Members/SAKryukov
+*/
+
+namespace SA.Application.View {
     using System.Windows;
     using AdvancedApplicationBase = Agnostic.UI.AdvancedApplicationBase;
     using DataGridSet = System.Collections.ObjectModel.ObservableCollection<WindowMain.DataGridRow>;

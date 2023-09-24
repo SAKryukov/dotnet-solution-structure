@@ -5,7 +5,9 @@
     Generic class CartesianSquareIndexedArray implements indexed arrays indexed by a Cartesian Square based on an enumeration
     
     Copyright (C) 2008-2023 by Sergey A Kryukov
-    http://www.SAKryukov.org
+    https://www.SAKryukov.org
+    https://github.com/SAKryukov
+    https://www.codeproject.com/Members/SAKryukov
 */
 
 namespace SA.Agnostic.Enumerations {

@@ -1,3 +1,10 @@
+/*
+    Copyright (C) 2006-2023 by Sergey A Kryukov
+    https://www.SAKryukov.org
+    https://github.com/SAKryukov
+    https://www.codeproject.com/Members/SAKryukov
+*/
+
 namespace SA.Semantic {
     using Assembly = System.Reflection.Assembly;
     using IRecognizable = Agnostic.IRecognizable;

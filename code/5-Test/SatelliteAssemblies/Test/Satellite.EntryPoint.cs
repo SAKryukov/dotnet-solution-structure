@@ -1,3 +1,10 @@
+/*
+    Copyright (C) 2023 by Sergey A Kryukov
+    https://www.SAKryukov.org
+    https://github.com/SAKryukov
+    https://www.codeproject.com/Members/SAKryukov
+*/
+
 namespace SA.Test.Plugin {
     using Assembly = System.Reflection.Assembly;
     using Console = System.Console;

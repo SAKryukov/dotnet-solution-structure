@@ -1,4 +1,11 @@
-﻿namespace SA.Plugin.View {
+﻿/*
+    Copyright (C) 2023 by Sergey A Kryukov
+    https://www.SAKryukov.org
+    https://github.com/SAKryukov
+    https://www.codeproject.com/Members/SAKryukov
+*/
+
+namespace SA.Plugin.View {
     using System.Windows.Controls;
     using System.Windows.Media;
     using IUiHost = Semantic.UI.IUiHost;

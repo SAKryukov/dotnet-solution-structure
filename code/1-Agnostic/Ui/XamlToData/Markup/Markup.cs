@@ -1,4 +1,11 @@
-﻿namespace SA.Agnostic.UI.Markup {
+﻿/*
+    Copyright (C) 2023 by Sergey A Kryukov
+    https://www.SAKryukov.org
+    https://github.com/SAKryukov
+    https://www.codeproject.com/Members/SAKryukov
+*/
+
+namespace SA.Agnostic.UI.Markup {
     using System;
     using TypeExtension = System.Windows.Markup.TypeExtension;
     using System.Windows;

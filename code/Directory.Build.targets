@@ -1,4 +1,11 @@
-﻿<Project>
+﻿<!--
+    Copyright (C) 2023 by Sergey A Kryukov
+    https://www.SAKryukov.org
+    https://github.com/SAKryukov
+    https://www.codeproject.com/Members/SAKryukov
+-->
+
+<Project>
 
   <PropertyGroup> <!-- change values, don't change property names  -->
      <_temporaryFileName>__temporary.attrubutes-applied-to-assembly.cs</_temporaryFileName>
