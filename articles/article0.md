@@ -149,7 +149,7 @@ Naturally, it is based on `My.Main`, a class with at least those three propertie
 namespace My {
     using Color = System.Windows.Media.Color;
     using ColorList =
-        System.Collections.Generic.List<System.Windows.Media.Color>;
+        System.Collections.Generic.List&lt;System.Windows.Media.Color&gt;
 
     public class Main {
         public Main() { Flag = new();  }
@@ -283,8 +283,8 @@ But what can happen if one messes up the one-to-one mapping between the keys and
 It looks like nothing can enforce the requirement: the data type mentioned in the XAML tag and the corresponding `x:Key` value defined through the extension should be the same. XAML processing will only enforce the uniqueness of the keys --- at the build time. To see what happens, let's look at the `ResourseDictionaryUtility` method used to obtain access to a particular data type:
 
 ```{lang=C#}{id=code-get-object}
-        public static T_REQUIRED GetObject&lt;;T_REQUIRED&lt;;(ResourceDictionary dictionary) where T_REQUIRED : new() =>
-            (T_REQUIRED)dictionary?[typeof(T_REQUIRED)];
+public static T_REQUIRED GetObject&lt;T_REQUIRED&gt;(ResourceDictionary dictionary) where T_REQUIRED : new() =>
+    (T_REQUIRED)dictionary?[typeof(T_REQUIRED)];
 ```
 
 Of course, it works very quickly. But If the keys are messed up, you will get the instance of one data type and will try to type-cast it to the wrong type. Isn't that bad?
@@ -315,7 +315,7 @@ public static void NormalizeDictionary(ResourceDictionary dictionary) {
         container.Remove(key);
     foreach ((object _, object value, ResourceDictionary container) in list)
             container.Add(value.GetType(), value);
-} //NormalizeDictionary
+}
 ```
 
 Here, `PatologicalList` is a list of *tuples* ((object, object, System.Windows.ResourceDictionary)).
@@ -499,7 +499,7 @@ Code generation itself is fairly simple. Please see the class `DictionaryCodeGen
 {id=paragraph-knowledge-resource-dictionary}This is a little piece of knowledge on `ResourceDictionary`. This is a normal hash dictionary but with an additional member `MergedDictionary`. If you simply try to access the value by a known key using its indexer `[]`, it can find a value not of its own key set, but in any of the merged resource dictionaries on any level of nesting. A key can have a duplicate in some merged dictionary. This kind of duplication can be a developer's mistake, but it also can be intentional: "I'll decide later which one to use", no matter if it is a good or a bad habit. To find all the keys, we need to traverse the dictionary recursively and find all keys, including duplicates. But when the key entry is accessed, only one instance of the duplicate will work. So, which of the duplicate keys should be used for code generation? Taking the wrong one may create a mess. I confirmed it experimentally: when the dictionary's indexer `[]` is called, it returns the entry at the key as if the keys were found using width-first order. To use the right key, we need to traverse the dictionary in the same order and record only the first occurrence of each key. This is how:
 
 ```{lang=C#}
-using KeySet = System.Collections.Generic.HashSet<string>;
+using KeySet = System.Collections.Generic.HashSet&lt;string&gt;;
 //...
 void FindAllKeys(ResourceDictionary dictionary) {
     foreach (object key in dictionary.Keys) {
@@ -510,31 +510,31 @@ void FindAllKeys(ResourceDictionary dictionary) {
     }; //loop
     foreach (ResourceDictionary mergedDictionary in dictionary.MergedDictionaries)
         FindAllKeys(mergedDictionary);
-} //FindAllKeys
+}
 ```
 
 Here, non-string keys are not taken into consideration. Using the traversal method shown above, we don't get duplicate keys. However, a key is not necessarily a valid language identifier (I support only C# at this moment). If we modify the key string to get a valid identifier, we can create name clashes. So, we also need to modify some resulting identifiers to avoid duplicates:
 
 ```{lang=C#}
-        string MakeValidIdentifier(string value) {
-            stringBuilder.Clear();
-            foreach (char letter in value)
-                stringBuilder.Append(char.IsLetter(letter)
-                ? letter
-                : DefinitionSet.ValidIdentifier.nonLetterPlaceholder);
-            string newValue = stringBuilder.ToString();
-            if (newValue != value) {
-                long index = 1;
-                string uniqueValue = newValue;
-                while (identifierSet.Contains(uniqueValue))
-                    uniqueValue =
-                        DefinitionSet.ValidIdentifier.UniqueName(
-                            newValue,
-                            index++);
-                newValue = uniqueValue;
-            } //if
-            return newValue;
-        } //MakeValidIdentifier
+string MakeValidIdentifier(string value) {
+    stringBuilder.Clear();
+        foreach (char letter in value)
+            stringBuilder.Append(char.IsLetter(letter)
+            ? letter
+            : DefinitionSet.ValidIdentifier.nonLetterPlaceholder);
+        string newValue = stringBuilder.ToString();
+        if (newValue != value) {
+            long index = 1;
+            string uniqueValue = newValue;
+            while (identifierSet.Contains(uniqueValue))
+                uniqueValue =
+                    DefinitionSet.ValidIdentifier.UniqueName(
+                        newValue,
+                        index++);
+            newValue = uniqueValue;
+        } //if
+    return newValue;
+}
 ```
 
 Note that all keys in the entire dictionary hierarchy are presented in flat content because this is what corresponds to the purpose of the generated code. Indeed, any key entry of the generated code should return a value.
