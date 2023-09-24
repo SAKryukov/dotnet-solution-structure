@@ -3,6 +3,10 @@
 This project is a set of units and illustrative materials used to share several ideas on the improvement of the .NET solution structure.<br/>
 Compatible with .NET v.&thinsp;5 and later, partially applicable to .NET Framework.
 
+### Original publications:
+
+[XAML Data to Code](https://www.codeproject.com/Articles/5368892/XAML-Data-to-Code)
+
 Covered topics:
 
 * Source code isolation based on shared MSBuild properties
