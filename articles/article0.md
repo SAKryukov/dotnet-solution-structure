@@ -96,7 +96,17 @@ We need to keep data separate from the code and globalized, with the potential o
 
 We just need the usable code, access to it in the code text, Intellisence support, compiler support, build-time error handling, and all that stuff.
 
-### Different Approaches
+## How to Obtain Resource Dictionary?
+
+If we are developing a UI application, we already have immediate access to resource dictionaries related to the application. For example, we have the access to instance members `System.Windows.Application.Resources` and `Window.Resources` for every loaded window. The same goes for `Page`, all types of `Control`, and many more classes. We can read data from these resources immediately, without loading any files.
+
+But when do we really need an independent way to put data in a `ResourceDictionary` and access this data in code at any time? In such cases, we may not even have an application. Moreover, we can even develop a WPF application without any UI; it could take data from the command line and produce some results, put data in files or databases without user interaction, and it still can use XAML data as resources.
+
+No, loading a file via `Uri` is not an acceptable option. We should not use any *magic strings*, ever. Instead, we can embed a resource dictionary in some framework element with the `Resources` property. If we do so, we can use the luxury of the XAML editor. To see how to do it, let's start with the example below.
+
+That was the common part. And now when we have access to a `ResourceDictionary`, the approaches can be different.
+
+## Different Approaches
 
 In addition to code generation, we can go the other way around. Instead of adopting code to arbitrary XAML data, we can apply the idea of [inversion of control](https://en.wikipedia.org/wiki/Inversion_of_control) and adapt XAML to the required data structure we need to represent. Instead of pulling all data from XAML, we can make XAML behave as an editor for the data structure we need and populate it immediately when XAML is loaded.
 
@@ -109,16 +119,6 @@ This second approach could be called "custom XAML markup". Let's consider it fir
 So, let's start with the approaches based on XAML markup. It should be based on developer-defined data types and enforce entering data in XAML in a safe manner, backed by Intellisense.
 
 Basically, we need to support the usual data types defined by the developer using already available XAML markup. Some useful custom markup is predefined by three custom classes defined in "Markup.cs". The access to data objects is obtained by the method of the utility class `ResourseDictionaryUtility`, "Utility.cs".
-
-### How to Obtain Resource Dictionary?
-
-If we are developing a UI application, we already have immediate access to resource dictionaries related to the application. For example, we have the access to instance members `System.Windows.Application.Resources` and `Window.Resources` for every loaded window. The same goes for `Page`, all types of `Control`, and many more classes. We can read data from these resources immediately, without loading any files.
-
-But when do we really need an independent way to put data in a `ResourceDictionary` and access this data in code at any time? In such cases, we may not even have an application. Moreover, we can even develop a WPF application without any UI; it could take data from the command line and produce some results, put data in files or databases without user interaction, and it still can use XAML data as resources.
-
-No, loading a file via `Uri` is not an acceptable option. We should not use any *magic strings*, ever. Instead, we can embed a resource dictionary in some framework element with the `Resources` property. If we do so, we can use the luxury of the XAML editor. To see how to do it, let's start with the example below.
-
-Let's first consider the simplest possible approach.
 
 ### Approach #1: A Very Simple One
 
