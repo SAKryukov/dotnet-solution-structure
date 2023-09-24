@@ -10,7 +10,7 @@ How to generate C# code from XAML? But why? Anyway, this question is answered, b
 
 Many people asked this question about the generation of code out of XAML. And there are many unsatisfactory answers. At the same time, the problem is pretty easy to solve. And code generation is not the only approach. Another approach would be XAML markup created specially for the population of predefined data objects from XAML. Both approaches have their benefits, are easy to use, and are covered in detail in the present article, as well as XAML-based Globalization and Localization of arbitrary data, not necessarily related to UI.
 
-<!-- https://www.codeproject.com/Articles/5367811/Solution-Structure-Code-Isolation -->
+<!-- https://www.codeproject.com/Articles/5368892/XAML-Data-to-Code -->
 
 <!-- <h2>Contents</h2> is not Markdown element, just to avoid adding it to TOC -->
 <!-- change style in next line <ul> to <ul style="list-style-type: none"> -->
