@@ -181,7 +181,6 @@ Let's take a step further. We can support not only strings and primitive data ty
         xmlns:my="clr-namespace:My;assembly=Test.Markup.DataTypes"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"&gt;
     &lt;FrameworkContentElement.Resources&gt;
-        &lt;!-- AreaUnits: Leading blank space in Value is important: --&gt;
         &lt;my:Main x:Key="?"
                  Country="Italy" Language="Italian" Capital="Rome"
                  Area="301230.11" AreaUnits=" km²"
@@ -248,10 +247,10 @@ Let's see: this class transparently passes an instance of its property `TargetTy
         xmlns:my="clr-namespace:My;assembly=Test.Markup.DataTypes"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"&gt;
     &lt;FrameworkContentElement.Resources&gt;
-        &lt;my:Detail x:Key="{e:TypeKey my:Fun}"
+        &lt;my:Detail x:Key="{e:TypeKey my:Detail}"
                 City="Milan" Provinces="107" MetropolitanCities="14"
                 Mountains="Alps" /&gt;
-        &lt;my:Fun x:Key="{e:TypeKey my:Detail}"
+        &lt;my:Fun x:Key="{e:TypeKey my:Fun}"
                 Animal="Italiano Mediterranean buffalo" Dish="Lasagna"
                 RacingColorName="Red " RacingColor="Red"
                 Festival="Venice Film Festival"
@@ -272,9 +271,9 @@ But what can happen if one messes up the one-to-one mapping between the keys and
         xmlns:my="clr-namespace:My;assembly=Test.Markup.DataTypes"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"&gt;
         ...
-        &lt;my:Detail x:Key="{e:TypeKey my:Detail}" .../&gt;
+        &lt;my:Detail x:Key="{e:TypeKey my:Fun}" .../&gt;
         ...
-        &lt;my:Fun x:Key="{e:TypeKey my:} my:Fun" .../&gt;
+        &lt;my:Fun x:Key="{e:TypeKey my:} my:Detail" .../&gt;
         ...
     &lt;/FrameworkContentElement.Resources&gt;
 &lt;/FrameworkContentElement&gt;
@@ -283,8 +282,9 @@ But what can happen if one messes up the one-to-one mapping between the keys and
 It looks like nothing can enforce the requirement: the data type mentioned in the XAML tag and the corresponding `x:Key` value defined through the extension should be the same. XAML processing will only enforce the uniqueness of the keys --- at the build time. To see what happens, let's look at the `ResourseDictionaryUtility` method used to obtain access to a particular data type:
 
 ```{lang=C#}{id=code-get-object}
-public static T_REQUIRED GetObject&lt;T_REQUIRED&gt;(ResourceDictionary dictionary) where T_REQUIRED : new() =>
-    (T_REQUIRED)dictionary?[typeof(T_REQUIRED)];
+public static T_REQUIRED GetObject&lt;T_REQUIRED&gt;(ResourceDictionary dictionary)
+    where T_REQUIRED : new() =>
+        (T_REQUIRED)dictionary?[typeof(T_REQUIRED)];
 ```
 
 Of course, it works very quickly. But If the keys are messed up, you will get the instance of one data type and will try to type-cast it to the wrong type. Isn't that bad?
@@ -629,7 +629,7 @@ The code provided with this article is a part of a bigger solution "SolutionStru
 
 ## Compatibility and Testing
 
-The solution requires .NET version 5 or later. The build is based on <dotnet> and batch build, it does not require Visual Studio or any other IDE.
+The solution requires .NET version 5 or later. The build is based on .NET and batch build, it does not require Visual Studio or any other IDE.
 
 Tested on .NET 5 and 7.
 
