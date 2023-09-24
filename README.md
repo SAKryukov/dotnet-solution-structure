@@ -7,7 +7,9 @@ Compatible with .NET v.&thinsp;5 and later, partially applicable to .NET Framewo
 
 [XAML Data to Code](https://www.codeproject.com/Articles/5368892/XAML-Data-to-Code)
 
-Covered topics:
+More to come&hellip;
+
+### Covered topics:
 
 * Source code isolation based on shared MSBuild properties
 * Batch build and clean-up
@@ -18,7 +20,7 @@ Covered topics:
 * Dependency layers
 * Plugin architecture
 
-WPF-specific topics:
+### WPF-specific topics:
 
 * `AdvancedApplication` class used to expose standard and custom MSBuild properties
 * Explicit `Main`
@@ -27,7 +29,5 @@ WPF-specific topics:
 * XAML-based localization with satellite assemblies
 * XAML to code: custom markup for arbitrary data resources
 * XAML to code: code generation
-
-## Under development
 
 ![Demo application](articles/application.full-size.png.webp)
