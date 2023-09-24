@@ -36,30 +36,15 @@ For CodeProject, makes sure there are no HTML comments in the area to past!
 
 ## Introduction
 
-XAML is a pretty sophisticated technology designed to provide data of virtually any nature and structure. (Some may say — bloated :-) Why not use it for this purpose? In common practice, it is used to provide data defining the look and behavior of some UI, and, more rarely, vector graphics roughly equivalent to 2D SVG or 3D OpenGL or WebGL. It does not mean that XAML is designed just for that. If we already use XAML, why not use it as a data source for arbitrary data? There are many [good reasons for that](#heading-why3f). SA???
+XAML is a pretty sophisticated technology designed to provide data of virtually any nature and structure. (Some may say — bloated :-) In common practice, it is used to provide data defining the look and behavior of some UI, and, more rarely, vector graphics roughly equivalent to 2D SVG or 3D OpenGL or WebGL. It does not mean that XAML is designed just for that. If we already use XAML, why not use it as a data source for arbitrary data? There are many [good reasons for that](#heading-why3f).
 
 So, the questions about the generation of some code are quite understandable. It was my idea, too. However, after some thinking, it becomes clear that this is not necessarily the best approach. It depends on the purpose and requirements.
 
+The goal of code generation is not having the code. The goal is to use what code gives us. It is used for some action. For example, we need a place to define some default options and some data that may change from time to time, and so on.
+
 The answers to those questions I found so far were [really frustrating](#heading-how-to-obtain-resource-dictionary3f). I don't quite understand why. The problem is important enough and not so hard to solve with a good quality. It did not take me too much time to figure out the approaches I'm offering in this article. The major thing here is to understand the real purpose of all this activity.
 
-### Why?
-
-Why would anyone need the generation of code out of `ResourceDictinary` data? My guess is that could be the inertia of thinking based on the code already generated for .res resource files and XAML files. Well, this is a pretty good working approach, and this is the first thing I was thinking of.
-
-However, this is a typical situation when the intermediate goal is mistakenly taken for an ultimate goal. What is the ultimate goal though?
-
-We need to enter data in the XAML form and make it reusable. One of the uses would be using the data in code (SA???), accessing it through the native programming language entities: variables and type members. We need it for several important reasons:
-
-* Separation of data and code
-* Data-agnostic programming
-* Maintainability
-* Globalization
-
-We just need the usable code, access to it in the code text, Intellisence support, compiler support, build-time error handling, and all that stuff.
-
-### How do they Access ResourceDictionary?
-
-SA???
+### What do they Advise?
 
 What if you need to get a resource dictionary value from a XAML file?
 
@@ -96,11 +81,24 @@ Fortunately, I have a simple workaround for the first problem ...
 
 But first, let's think about the basics. Why do we need the data in code?
 
+### Why?
+
+Why would anyone need the generation of code out of `ResourceDictinary` data? My guess is that could be the inertia of thinking based on the code already generated for .res resource files and XAML files. Well, this is a pretty good working approach, and it was the first thing I was thinking of. Why XAML resources are only compiled into the intermediate output path and not built in the same project to give usable names for accessing resource data directly?
+
+However, this is a typical situation when the intermediate goal is mistakenly taken for an ultimate goal. What is the ultimate goal though?
+
+We need to keep data separate from the code and globalized, with the potential of using the data in the localization satellite assemblies [without strong coupling](https://en.wikipedia.org/wiki/Loose_coupling) with the main code. We need to enter data in the XAML form and make it reusable. One of the uses would be using the data in code, and accessing it through the native programming language entities: variables and type members. We need it for several important reasons:
+
+* Separation of data and code
+* Data-agnostic programming
+* Maintainability
+* Globalization
+
+We just need the usable code, access to it in the code text, Intellisence support, compiler support, build-time error handling, and all that stuff.
+
 ### Different Approaches
 
-The goal of code generation is not having the code. The goal is to use the code. It is used for some action. For example, we need a place to define some default options and some data that may change from time to time. Also, we need to keep data separate from the code and globalized, with the potential of using the data in the localization satellite assemblies [without strong coupling](https://en.wikipedia.org/wiki/Loose_coupling) with the main code.
-
-In addition to code generation, we go the other way around. Instead of adopting code to arbitrary XAML data, we can apply the idea of [inversion of control](https://en.wikipedia.org/wiki/Inversion_of_control) and adapt XAML to the required data structure we need to represent. Instead of pulling all data from XAML, we can make XAML behave as an editor for the data structure we need and populate it immediately when XAML is loaded.
+In addition to code generation, we can go the other way around. Instead of adopting code to arbitrary XAML data, we can apply the idea of [inversion of control](https://en.wikipedia.org/wiki/Inversion_of_control) and adapt XAML to the required data structure we need to represent. Instead of pulling all data from XAML, we can make XAML behave as an editor for the data structure we need and populate it immediately when XAML is loaded.
 
 So, here is the idea: we simply need programmable objects which are not necessarily generated. They can be created by the developer, but the data should be populated from XAML.
 
@@ -476,7 +474,7 @@ For further details, please see the projects "Test.Markup.csproj" and "Test.Mark
 
 The localization of the arbitrary data on the host application side is reduced to the direct assignment of the `Resources` properties for each container to the `ResourceDictionary` objects automatically obtained from a satellite assembly chosen based on the required culture, including possible fallback cultures.
 
-These "Test.Markup.*.csproj" projects make just the basic demonstration of a globalized applicaton with localization. Anyone can take this code and embed it into a fully-fledged system with the localization of all resources. The present demonstration shows how to localize arbitrary data types, not necesseraly related to UI.
+These "Test.Markup.*.csproj" projects make just the basic demonstration of a globalized applicaton with localization. Anyone can take this code and embed it into a fully-fledged system with the localization of all resources. The present demonstration shows how to localize arbitrary data types, not necessarily related to UI.
 
 ### Limitations
 
@@ -583,7 +581,13 @@ namespace SA.Test.CodeGeneration.Generated {
 
 In particular, it illustrates the generation of valid C# identifiers out of arbitrary string keys and the resolution of possible name clashes. Note that the dictionary entry values at the moment of generation are generated as comments. The types of entry values don't matter: data of any type can be accessed, and this is one benefit of code generation.
 
-SA???
+Now, what to do with this generated code? There can be different scenarios, but we have one obvious limitation: we cannot use the generated codes in any reasonable way in the project that generates it. I think it is obvious and don't want to discuss it.
+
+Therefore, we need to have separate projects and separate assemblies placed in different dependency layers. Let's say, the generated code represents a part of the API created in a lower layer. The projects in a higher layer can take the generated code file into compilation and get access to the proper keywords and declaration they need to use that API. The generated identifiers, static members of the generated class, play the role of these keywords, and the usage is controlled by the compiler, making the runtime errors impossible.
+
+Here, we face the peculiarity of the development cycle. What happens if the API changes? The generated code can change so some identifiers may be removed or renamed. It leads to compilation errors in the layer using the API, and it will require fixes in the using code.
+
+All this activity constitutes the usual development chores, but it all should be taken into account before deciding to use the code generation feature.
 
 ### Why not MSBuilt Custom Task?
 
@@ -595,9 +599,29 @@ Anyone is more than welcome to take my code and embed it in some MSBuild Task if
 
 ## Custom Markup vs. Code Generation 
 
-The current snapshot of the code can be found in my [GitHub repository](https://github.com/SAKryukov/dotnet-solution-structure).
+When it comes to representing any custom structural data in XAML, all the approaches carry the same potential burden:
+custom structural data types may require custom type converters, to parse data from XAML strings. In other aspects, different approaches have different peculiarities:
 
-SA???
+### Code Generation Benefits
+
+* It is very simple.
+* It is fast.
+
+### Code Generation Issues
+
+* The development cycle requires good understanding and thorough consideration.
+* It requires a better understanding of MSBuild operation.
+
+### Custom Markup Benefits
+
+* It is simple.
+* It does not affect the development cycle in any way: the data is available here and now.
+* It does not affect the dependencies between assemblies, which are still defined solely by references.
+
+### Custom Markup Issues
+
+* It is possible to mess up things, but no more than with any other XAML technique.
+* Some of the approaches can take some performance toll, but this is not at all critical to the applications using resources reasonably.
 
 ## Solution Structure Preview
 
@@ -615,4 +639,6 @@ To change a target framework, edit the file "Directory.Build.props", and modify 
 
 The [title image on top of the present article](#image-title) symbolizes the merging of dictionaries, the help provided to the readers, and different ways to take. Also, the mess of characters of various writing systems suggests the importance of globalization and localization.
 
-In the solution, there are many techniques I'm using for the very firt time, and I would greatly appreciate any suggestions, advice, and criticism.
+All the approaches presented here are productive, if the right way is taken, and the right way is the one most suitable to the development goals of a particular project.
+
+In the solution, there are many techniques I've developed recently and using them for the very first time, and I would greatly appreciate any suggestions, advice, and criticism.
