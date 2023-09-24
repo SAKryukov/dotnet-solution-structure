@@ -12,7 +12,7 @@ namespace SA.Agnostic.UI.CodeGeneration {
     using Path = System.IO.Path;
     using KeySet = System.Collections.Generic.HashSet<string>;
 
-    public class DictiionaryCodeGenerator {
+    public class DictionaryCodeGenerator {
 
         public void Generate(ResourceDictionary dictionary, string filename, string namespaceName, string typeName) {
             if (filename == null) return;
@@ -82,6 +82,6 @@ namespace SA.Agnostic.UI.CodeGeneration {
         readonly KeySet keySet = new();
         readonly KeySet identifierSet = new();
 
-    } //DictiionaryCodeGenerator
+    } //DictionaryCodeGenerator
 
 }
