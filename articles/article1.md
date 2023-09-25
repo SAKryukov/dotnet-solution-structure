@@ -210,9 +210,25 @@ SA???
 
 ## Plugin Architecture
 
-SA???
+In the general case, all plugin systems are pretty interesting: there is always a host system and a set of plugins, and their dependencies are reciprocal: the host provides access to a certaint context for the plugins to operate, and the plugins provide the interface to their implementation to the host.
+
+For example, if a type of plugin is supposed to generate some data items, the host may need to provide each plugin instance with some container object where this data should be placed. And anything elase like that. These reciprocal dependencies are figuratively depicted  as colored arrows in the picture shown below:
+
+![Plugins](plugin.png)
+
+These diagram, despite of its playful character, still observes some of the rules of the UML diagram. In particular, it shows interfaces, inheritance and directed associations. The interfaces are required to provide that reciprocal dependencies between implementations of the host and the plugins, and stay away from referencing the implementations themselves. It is generally very important, and it is critically important for plugin architecures, where the host cannot access any plugin implementation detail in principle, because at the moment of the build plugin implementations are absolutely unknown to the system.
+
+Before considering further details of the architecture, let's discuss how it looks in the aspect of the dependency layer.
+
+### Plugin Architecture in Dependency Layers
+
+At this moment, it should become clear that the schema of the dependency layers I suggested [above](#heading-dependency-layers) is not so arbitrary. Let's do some reasoning on dependencies. 
+
+* Both the host and plugins need to reference some host interfaces and some plugin interfaces. Therefore, the base plugin interfaces and base host interfaces needs to be implemented 
 
 ### Plugin Interfaces
+
+In .NET, interfaces presents a weak form of multiple inheritance, so the host and plugins may implement more than one interface. The host operate
 
 SA???
 
