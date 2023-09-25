@@ -5,7 +5,8 @@ Compatible with .NET v.&thinsp;5 and later, partially applicable to .NET Framewo
 
 ### Original publications:
 
-[XAML Data to Code](https://www.codeproject.com/Articles/5368892/XAML-Data-to-Code)
+1. [XAML Data to Code](https://www.codeproject.com/Articles/5368892/XAML-Data-to-Code)
+1. [Improving .NET Solution Structure: Code Isolation](https://www.codeproject.com/Articles/5367811/Solution-Structure-Code-Isolation) (under development)
 
 More to come&hellip;
 

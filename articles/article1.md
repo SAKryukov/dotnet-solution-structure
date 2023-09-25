@@ -6,10 +6,9 @@
 
 [*Sergey A Kryukov*](https://www.SAKryukov.org)
 
-
 Good news: your development life can be more pleasant and less troublesome than you thought
 
-This article is a set of units and illustrative materials used to share several ideas on the improvement of the .NET solution structure SA???
+This article presents a set of units and illustrative materials used to share several ideas on the improvement of a .NET solution structure. As a part of a projected series of articles on the topic and corresponding code repository, it covers code isolation in general, and in specific isolation aspects: isolation of source code, solution metadata, versions, dependency layers, metadata-driven technologies, and plugin architecture.
 
 <!-- https://www.codeproject.com/Articles/5367811/Solution-Structure-Code-Isolation -->
 
@@ -38,7 +37,9 @@ For CodeProject, makes sure there are no HTML comments in the area to past!
 
 ## Introduction
 
-SA???
+Albert Einstein made it quite clear about "as simple as possible", and the present article elaborates on "but no simpler". Moreover, it should make it clear that "too simple" in effect means "overcomplicated".
+
+When we create a new .NET solution in a default way, and then add at least two projects in a default way, it is already too simple. And already creates a badly overcomplicated solution. Sounds weird to you? Then you really need to read more about it.
 
 ## Code Isolation
 
@@ -233,7 +234,11 @@ SA???
 
 ## What's Next?
 
-SA???
+In a next article, I plan to discuss UI-specific aspects and, in particular, WPF.
+
+First and foremost, we need to discuss XAML-based localization with satellite assemblies. This is a feature already implemented in the demo solution. Please see the [GitHub repository dotnet-solution-structure](https://github.com/SAKryukov/dotnet-solution-structure).
+
+Keep in touch!
 
 ## Conclustions
 
