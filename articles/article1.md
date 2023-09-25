@@ -24,6 +24,7 @@ For CodeProject, makes sure there are no HTML comments in the area to past!
 αβγδΔπ
 ------------------------------------------->
 
+{id=image-title}
 ![Title](title.png)
 
 <blockquote id="epigraph" class="FQ"><div class="FQA">Epigraph:</div>
@@ -43,13 +44,57 @@ When we create a new .NET solution in a default way, and then add at least two p
 
 ## Code Isolation
 
-SA???
-
 ### Why Default Solution is Bad?
 
 SA???
 
 ### Isolation of Source Code
+
+SA???
+
+```{lang=XML}{id=code-directory-build-props}
+&lt;Project&gt;
+    &lt;Import Project="$(SolutionDir)/Metadata.props"/&gt;
+ 
+&lt;PropertyGroup&gt; &lt;!-- customize:  --&gt;
+  &lt;TargetFramework&gt;net7.0&lt;/TargetFramework&gt;
+&lt;/PropertyGroup&gt;
+
+&lt;PropertyGroup&gt; &lt;!-- change value, don't change property name: --&gt;
+  &lt;_intermediateOutputPathRoot&gt;.intermediate&lt;/_intermediateOutputPathRoot&gt;
+&lt;/PropertyGroup&gt;
+
+&lt;PropertyGroup Condition="'$(Configuration)'=='Release'"&gt;
+  &lt;DebugType&gt;none&lt;/DebugType&gt;
+  &lt;DebugSymbols&gt;false&lt;/DebugSymbols&gt;
+&lt;/PropertyGroup&gt;
+
+&lt;PropertyGroup&gt;
+
+  &lt;BaseIntermediateOutputPath&gt;$([System.IO.Path]::Combine(
+      $(SolutionDir),
+      $(_intermediateOutputPathRoot),
+      $(MSBuildProjectName),
+      $(Configuration).$(Platform)))&lt;/BaseIntermediateOutputPath&gt;
+  &lt;OutputPath&gt;$([System.IO.Path]::Combine(
+      $(SolutionDir),
+      output.$(Configuration).$(Platform)))&lt;/OutputPath&gt;
+  &lt;AppendTargetFrameworkToOutputPath&gt;false&lt;/AppendTargetFrameworkToOutputPath&gt;
+  &lt;ProduceReferenceAssembly&gt;false&lt;/ProduceReferenceAssembly&gt;
+
+  &lt;TreatWarningsAsErrors&gt;true&lt;/TreatWarningsAsErrors&gt;
+  &lt;!-- Placeholders: --&gt;
+  &lt;WarningsAsErrors&gt;&lt;/WarningsAsErrors&gt;
+  &lt;WarningsNotAsErrors&gt;&lt;/WarningsNotAsErrors&gt;
+
+  &lt;AssemblyVersion&gt;$(CustomUnifiedVersion)&lt;/AssemblyVersion&gt;
+  &lt;FileVersion&gt;$(CustomUnifiedVersion)&lt;/FileVersion&gt;
+  &lt;InformationalVersion&gt;$(CustomUnifiedVersion) $(...))&lt;/InformationalVersion&gt;
+
+&lt;/PropertyGroup&gt;
+
+&lt;/Project&gt;
+```
 
 SA???
 
@@ -79,8 +124,8 @@ Please see the file SA???
 
   &lt;ItemGroup&gt; &lt;!-- optional custom attributes, can be multiple: --&gt;
     &lt;!-- for example: ---&gt;
+    &lt;!-- custom SA.Agnostic.AuthorAttribute: --&gt;
     &lt;Authors Include="..."/&gt;
-    &lt;!-- or use custom Agnostic.AuthorAttribute --&gt;
     &lt;AssemblyMetadata Include="Custom Metadata: Purpose" Value="Demo"/&gt;
     &lt;AssemblyMetadata
         Include="Custom Metadata: Build UTC"
@@ -125,15 +170,15 @@ I decided that it is a good reason to develop and demonstrate some MSBuild techn
 First, let's add the attribute `Author` to one of the assemblies on the lowest layer:
 
 ```{lang=C#}
-    [AttributeUsage(
-        AttributeTargets.Assembly,
-        AllowMultiple = true,
-        Inherited = false)]
-    public class AuthorAttribute : Attribute {
-        public AuthorAttribute(string author) { this.author = author; }
-        readonly string author;
-        public string Author { get { return author; } }
-    }
+[AttributeUsage(
+    AttributeTargets.Assembly,
+    AllowMultiple = true,
+    Inherited = false)]
+public class AuthorAttribute : Attribute {
+    public AuthorAttribute(string author) { this.author = author; }
+    readonly string author;
+    public string Author { get { return author; } }
+}
 ```
 
 My first idea was to introduce two attributes, "Author" and "Authors", with a string array property, but immediately realized, that it would be much better to create only `AuthorAttribute`, but allow it to be multiple. Then the application could collect all the attributes of this type applied to an assembly and then present this information in different ways, depending on how many authors are found, zero, one or more. In my sample code the class `AssemblyWrapper` just re-works these attribute into a string array:
@@ -248,6 +293,14 @@ SA???
 
 SA???
 
+## Compatibility and Testing
+
+The solution requires .NET version 5 or later. The build is based on .NET and batch build, it does not require Visual Studio or any other IDE.
+
+Tested on .NET 5 and 7.
+
+To change a target framework, edit the file "Directory.Build.props", and modify the property `<TargetFramework>`. It will change target frameworks in all projects automatically, including those requiring "-windows".
+
 ## What's Next?
 
 In a next article, I plan to discuss UI-specific aspects and, in particular, WPF.
@@ -258,4 +311,7 @@ Keep in touch!
 
 ## Conclustions
 
-SA???
+The [title image on top of the present article](#image-title) symbolizes, with the help of the Yin and Yang conception, two important things:
+
+* The relationships between things are not hierarchical, because the mythical simplicity of the hierarchical tree structure in real life is disrupted by the ubiquity of reciprocal relations.
+* We still can cope with this complexity with strictly layered dependency organization.
