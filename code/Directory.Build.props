@@ -14,7 +14,7 @@
   </PropertyGroup>
 
   <PropertyGroup> <!-- change value, don't change property name: -->
-    <_intermediateOutputPathRoot>$(SolutionDir).intermediateOutput</_intermediateOutputPathRoot>
+    <_intermediateOutputPathRoot>.intermediateOutput</_intermediateOutputPathRoot>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)'=='Release'">
@@ -27,6 +27,7 @@
     <NoWarn>$(NoWarn);NETSDK1138</NoWarn>
 
     <BaseIntermediateOutputPath>$([System.IO.Path]::Combine(
+        $(SolutionDir),
         $(_intermediateOutputPathRoot),
         $(MSBuildProjectName),
         $(Configuration).$(Platform)))</BaseIntermediateOutputPath>
