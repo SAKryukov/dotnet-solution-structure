@@ -1,5 +1,8 @@
-<table>
-<tr><td><img src="articles/title.png" alt="Logo" width="64"/></td><td><h1 style="margin-left: 1em">Improved .NET Solution Structure</h1></td></tr>
+
+<table style="border: none">
+<tr>
+<td style="vertical-align: middle"><img src="articles/title.png" alt="Logo" width="64"/></td>
+<td><h1 style="margin: 0; margin-left: 1em; vertical-align: middle">Improved .NET Solution Structure</h1></td></tr>
 </table>
 
 This project is a set of units and illustrative materials used to share several ideas on the improvement of the .NET solution structure.<br/>
