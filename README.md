@@ -1,4 +1,6 @@
-# Improved .NET Solution Structure
+<table>
+<tr><td><img src="articles/title.png" alt="Logo" width="64"/></td><td><h1 style="margin-left: 1em">Improved .NET Solution Structure</h1></td></tr>
+</table>
 
 This project is a set of units and illustrative materials used to share several ideas on the improvement of the .NET solution structure.<br/>
 Compatible with .NET v.&thinsp;5 and later, partially applicable to .NET Framework.
