@@ -10,7 +10,7 @@
   <PropertyGroup> <!-- customize:  -->
     <CustomUnifiedVersion>1.0.0.0</CustomUnifiedVersion>
     <!-- can be alpha, beta, RC1, RC2, etc.: -->
-    <CustomInformationalVersionSuffix>pre-alpha</CustomInformationalVersionSuffix>
+    <CustomInformationalVersionSuffix></CustomInformationalVersionSuffix>
     <Copyright>Copyright © 2023 Sergey A Kryukov</Copyright>
     <Product>Improved .NET Solution Structure</Product>
     <Description>Bunch of ideas on how to improve .NET solution structure</Description>

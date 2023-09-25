@@ -16,11 +16,11 @@ goto:EOF //return
 
 :PURGE
 :: parameter: %1 full or relative directory name to purge and remove
-    del /s /q %1\*.*
-    rmdir /s /q %1
+    del /s /q %1\*.* 2> nul
+    rmdir /s /q %1 2> nul
 goto:EOF //return
 
 :RECURSIVE_DEL
 :: parameter %1 is top directory, %2 is a file mask
-    del /s /q %1\%2
+    del /s /q %1\%2 2> nul
 goto:EOF //return

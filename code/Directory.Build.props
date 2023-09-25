@@ -6,7 +6,7 @@
 -->
 
 <Project>
-    <Import Project="$(SolutionDir)\Metadata.props"/>
+    <Import Project="$(SolutionDir)/Metadata.props"/>
  
   <PropertyGroup> <!-- customize:  -->
     <TargetFramework>net5.0</TargetFramework>
@@ -26,8 +26,13 @@
 
     <NoWarn>$(NoWarn);NETSDK1138</NoWarn>
 
-    <BaseIntermediateOutputPath>$(_intermediateOutputPathRoot)\$(MSBuildProjectName)\$(Configuration).$(Platform)</BaseIntermediateOutputPath>
-    <OutputPath>$(SolutionDir)\output.$(Configuration).$(Platform)</OutputPath>
+    <BaseIntermediateOutputPath>$([System.IO.Path]::Combine(
+        $(_intermediateOutputPathRoot),
+        $(MSBuildProjectName),
+        $(Configuration).$(Platform)))</BaseIntermediateOutputPath>
+    <OutputPath>$([System.IO.Path]::Combine(
+        $(SolutionDir),
+        output.$(Configuration).$(Platform)))</OutputPath>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <ProduceReferenceAssembly>false</ProduceReferenceAssembly>
 
