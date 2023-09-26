@@ -10,6 +10,7 @@
   <PropertyGroup> <!-- change values, don't change property names  -->
      <_temporaryFileName>__temporary.attrubutes-applied-to-assembly.cs</_temporaryFileName>
     <_temporaryFilePathName>$([System.IO.Path]::Combine(
+        $(SolutionDir),
         $(_intermediateOutputPathRoot),
         $(_temporaryFileName)))</_temporaryFilePathName>
 
