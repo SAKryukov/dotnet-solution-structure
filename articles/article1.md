@@ -92,7 +92,7 @@ SA???
 
     &lt;AssemblyVersion&gt;$(CustomUnifiedVersion)&lt;/AssemblyVersion&gt;
     &lt;FileVersion&gt;$(CustomUnifiedVersion)&lt;/FileVersion&gt;
-    &lt;InformationalVersion&gt;$(CustomUnifiedVersion) $(...))&lt;/InformationalVersion&gt;
+    &lt;InformationalVersion&gt;$(CustomUnifiedVersion) $(...)&lt;/InformationalVersion&gt;
 
   &lt;/PropertyGroup&gt;
 
