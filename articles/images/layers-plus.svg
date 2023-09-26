@@ -1,38 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg
    width="132.82083mm"
-   height="33.866673mm"
-   viewBox="0 0 132.82083 33.866672"
+   height="46.734966mm"
+   viewBox="0 0 132.82083 46.734966"
    version="1.1"
    id="svg2272"
-   sodipodi:docname="layers-plus.svg"
-   inkscape:version="1.3 (0e150ed6c4, 2023-07-21)"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:cc="http://creativecommons.org/ns#"
    xmlns:dc="http://purl.org/dc/elements/1.1/">
-  <sodipodi:namedview
-     id="namedview1"
-     pagecolor="#505050"
-     bordercolor="#eeeeee"
-     borderopacity="1"
-     inkscape:showpageshadow="0"
-     inkscape:pageopacity="0"
-     inkscape:pagecheckerboard="0"
-     inkscape:deskcolor="#f1e9bc"
-     inkscape:document-units="mm"
-     inkscape:zoom="2.2549801"
-     inkscape:cx="251"
-     inkscape:cy="64.080388"
-     inkscape:window-width="1920"
-     inkscape:window-height="1027"
-     inkscape:window-x="-8"
-     inkscape:window-y="-8"
-     inkscape:window-maximized="1"
-     inkscape:current-layer="svg2272" />
   <defs
      id="defs2266" />
   <metadata
@@ -47,103 +24,250 @@
     </rdf:RDF>
   </metadata>
   <g
-     id="layer1"
-     transform="translate(0.26458351,26.714877)">
-    <g
-       id="g1092">
-      <rect
-         style="fill:#d6ffd0;fill-opacity:1;stroke:#000000;stroke-width:0.529167;paint-order:markers stroke fill"
-         id="rect96-2"
-         width="132.29167"
-         height="5.2916665"
-         x="-7.6979827e-09"
-         y="-42.325294" />
-      <rect
-         style="fill:#d6ffd0;fill-opacity:1;stroke:#000000;stroke-width:0.529167;paint-order:markers stroke fill"
-         id="rect96-2-7"
-         width="132.29167"
-         height="5.2916665"
-         x="-7.6979827e-09"
-         y="-35.313835" />
-      <rect
-         style="fill:#d6ffd0;fill-opacity:1;stroke:#000000;stroke-width:0.529167;paint-order:markers stroke fill"
-         id="rect96-2-7-8"
-         width="132.29167"
-         height="5.2916665"
-         x="-7.6979827e-09"
-         y="-28.302376" />
-      <rect
-         style="fill:#d6ffd0;fill-opacity:1;stroke:#000000;stroke-width:0.529167;paint-order:markers stroke fill"
-         id="rect96-2-7-89"
-         width="132.29167"
-         height="5.2916665"
-         x="-7.6979827e-09"
-         y="-21.290915" />
-      <rect
-         style="fill:#d6ffd0;fill-opacity:1;stroke:#000000;stroke-width:0.529167;paint-order:markers stroke fill"
-         id="rect96-2-7-89-9"
-         width="132.29167"
-         height="5.2916665"
-         x="-7.6979827e-09"
-         y="-14.279457" />
-    </g>
-    <g
-       id="g1085"
-       transform="translate(0,0.26726952)">
-      <text
-         xml:space="preserve"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52778px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000074;stroke-width:0.264583"
-         x="62.719685"
-         y="-38.418556"
-         id="text1028"><tspan
-           id="tspan1026"
-           x="62.719685"
-           y="-38.418556"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52778px;font-family:sans-serif;-inkscape-font-specification:sans-serif;fill:#000074;stroke-width:0.264583">Test</tspan></text>
-      <text
-         xml:space="preserve"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52777px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000074;stroke-width:0.264583"
-         x="60.723267"
-         y="-31.694765"
-         id="text1028-9"><tspan
-           id="tspan1026-4"
-           x="60.723267"
-           y="-31.694765"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52777px;font-family:sans-serif;-inkscape-font-specification:sans-serif;fill:#000074;stroke-width:0.264583">Plugin</tspan></text>
-      <text
-         xml:space="preserve"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52777px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000074;stroke-width:0.264583"
-         x="56.42638"
-         y="-24.683306"
-         id="text1028-7"><tspan
-           id="tspan1026-1"
-           x="56.42638"
-           y="-24.683306"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52777px;font-family:sans-serif;-inkscape-font-specification:sans-serif;fill:#000074;stroke-width:0.264583">Application</tspan></text>
-      <text
-         xml:space="preserve"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52777px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000074;stroke-width:0.264583"
-         x="57.865566"
-         y="-17.32992"
-         id="text1028-8"><tspan
-           id="tspan1026-9"
-           x="57.865566"
-           y="-17.32992"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52777px;font-family:sans-serif;-inkscape-font-specification:sans-serif;fill:#000074;stroke-width:0.264583">Semantic</tspan></text>
-      <text
-         xml:space="preserve"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52777px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000074;stroke-width:0.264583"
-         x="58.647602"
-         y="-10.660386"
-         id="text1028-92"><tspan
-           id="tspan1026-3"
-           x="58.647602"
-           y="-10.660386"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52777px;font-family:sans-serif;-inkscape-font-specification:sans-serif;fill:#000074;stroke-width:0.264583">Agnostic</tspan><tspan
-           x="58.647602"
-           y="-6.2506733"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52777px;font-family:sans-serif;-inkscape-font-specification:sans-serif;fill:#000074;stroke-width:0.264583"
-           id="tspan1072" /></text>
-    </g>
+     id="g5"
+     style="fill:#fae7f8;fill-opacity:1"
+     transform="translate(0,5.7918353)">
+    <rect
+       style="fill:#fae7f8;fill-opacity:1;stroke:#000000;stroke-width:0.529167;paint-order:markers stroke fill"
+       id="rect96-2"
+       width="61.603889"
+       height="5.2916665"
+       x="0.2645835"
+       y="0.2645835" />
+    <rect
+       style="fill:#fae7f8;fill-opacity:1;stroke:#000000;stroke-width:0.529167;paint-order:markers stroke fill"
+       id="rect96-2-7"
+       width="61.603889"
+       height="5.2916665"
+       x="0.2645835"
+       y="7.2890434" />
+    <rect
+       style="fill:#fae7f8;fill-opacity:1;stroke:#000000;stroke-width:0.529167;paint-order:markers stroke fill"
+       id="rect96-2-7-8"
+       width="61.603889"
+       height="5.2916665"
+       x="0.2645835"
+       y="14.313504" />
+    <rect
+       style="fill:#fae7f8;fill-opacity:1;stroke:#000000;stroke-width:0.529167;paint-order:markers stroke fill"
+       id="rect96-2-7-89"
+       width="61.603889"
+       height="5.2916665"
+       x="0.2645835"
+       y="21.337961" />
+    <rect
+       style="fill:#fae7f8;fill-opacity:1;stroke:#000000;stroke-width:0.529167;paint-order:markers stroke fill"
+       id="rect96-2-7-89-9"
+       width="61.603889"
+       height="5.2916665"
+       x="0.2645835"
+       y="28.362421" />
   </g>
+  <rect
+     style="fill:#ffccaa;fill-opacity:1;stroke:#000000;stroke-width:0.529167;paint-order:markers stroke fill"
+     id="rect96-2-7-89-9-9"
+     width="61.603889"
+     height="5.2916665"
+     x="0.2645835"
+     y="41.178719" />
+  <rect
+     style="fill:#dde9e7;fill-opacity:1;stroke:#000000;stroke-width:0.529167;paint-order:markers stroke fill"
+     id="rect96-2-6"
+     width="61.603889"
+     height="5.2916665"
+     x="70.952362"
+     y="6.0564189" />
+  <rect
+     style="fill:#dde9e7;fill-opacity:1;stroke:#000000;stroke-width:0.529167;paint-order:markers stroke fill"
+     id="rect96-2-7-4"
+     width="61.603889"
+     height="5.2916665"
+     x="70.952362"
+     y="13.080878" />
+  <rect
+     style="fill:#dde9e7;fill-opacity:1;stroke:#000000;stroke-width:0.529167;paint-order:markers stroke fill"
+     id="rect96-2-7-8-1"
+     width="61.603889"
+     height="5.2916665"
+     x="70.952362"
+     y="20.105339" />
+  <rect
+     style="fill:#dde9e7;fill-opacity:1;stroke:#000000;stroke-width:0.529167;paint-order:markers stroke fill"
+     id="rect96-2-7-89-7"
+     width="61.603889"
+     height="5.2916665"
+     x="70.952362"
+     y="27.129797" />
+  <rect
+     style="fill:#ffccaa;fill-opacity:1;stroke:#000000;stroke-width:0.529167;paint-order:markers stroke fill"
+     id="rect96-2-7-89-9-0"
+     width="61.603889"
+     height="5.2916665"
+     x="70.952362"
+     y="34.154255" />
+  <rect
+     style="fill:#dde9e7;fill-opacity:1;stroke:#000000;stroke-width:0.529167;paint-order:markers stroke fill"
+     id="rect96-2-7-89-9-9-3"
+     width="61.603889"
+     height="5.2916665"
+     x="70.952362"
+     y="41.178719" />
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52778px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000074;stroke-width:0.264583"
+     x="98.328156"
+     y="9.9631577"
+     id="text1028"><tspan
+       id="tspan1026"
+       x="98.328156"
+       y="9.9631577"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52778px;font-family:sans-serif;-inkscape-font-specification:sans-serif;fill:#000074;stroke-width:0.264583">Test</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52777px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000074;stroke-width:0.264583"
+     x="96.331734"
+     y="16.699949"
+     id="text1028-9"><tspan
+       id="tspan1026-4"
+       x="96.331734"
+       y="16.699949"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52777px;font-family:sans-serif;-inkscape-font-specification:sans-serif;fill:#000074;stroke-width:0.264583">Plugin</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52777px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000074;stroke-width:0.264583"
+     x="92.034851"
+     y="23.724409"
+     id="text1028-7"><tspan
+       id="tspan1026-1"
+       x="92.034851"
+       y="23.724409"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52777px;font-family:sans-serif;-inkscape-font-specification:sans-serif;fill:#000074;stroke-width:0.264583">Application</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52777px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000074;stroke-width:0.264583"
+     x="93.474037"
+     y="31.090794"
+     id="text1028-8"><tspan
+       id="tspan1026-9"
+       x="93.474037"
+       y="31.090794"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52777px;font-family:sans-serif;-inkscape-font-specification:sans-serif;fill:#000074;stroke-width:0.264583">Semantic</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52778px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000074;stroke-width:0.264583"
+     x="27.640379"
+     y="9.9631577"
+     id="text1028-5"><tspan
+       id="tspan1026-6"
+       x="27.640379"
+       y="9.9631577"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52778px;font-family:sans-serif;-inkscape-font-specification:sans-serif;fill:#000074;stroke-width:0.264583">Test</tspan></text>
+  <g
+     id="g6"
+     transform="translate(0,5.1281002)">
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52778px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke-width:0.264583"
+       x="20.449598"
+       y="-2.4478142"
+       id="text1028-5-3"><tspan
+         id="tspan1026-6-8"
+         x="20.449598"
+         y="-2.4478142"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52778px;font-family:sans-serif;-inkscape-font-specification:sans-serif;fill:#000000;fill-opacity:1;stroke-width:0.264583">Maybe this?</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52778px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke-width:0.264583"
+       x="93.081276"
+       y="-2.4478142"
+       id="text1028-5-3-2"><tspan
+         id="tspan1026-6-8-3"
+         x="93.081276"
+         y="-2.4478142"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52778px;font-family:sans-serif;-inkscape-font-specification:sans-serif;fill:#000000;fill-opacity:1;stroke-width:0.264583">…Or this?</tspan></text>
+  </g>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52777px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000074;stroke-width:0.264583"
+     x="25.643959"
+     y="16.699949"
+     id="text1028-9-7"><tspan
+       id="tspan1026-4-4"
+       x="25.643959"
+       y="16.699949"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52777px;font-family:sans-serif;-inkscape-font-specification:sans-serif;fill:#000074;stroke-width:0.264583">Plugin</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52777px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000074;stroke-width:0.264583"
+     x="21.347075"
+     y="23.724409"
+     id="text1028-7-5"><tspan
+       id="tspan1026-1-7"
+       x="21.347075"
+       y="23.724409"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52777px;font-family:sans-serif;-inkscape-font-specification:sans-serif;fill:#000074;stroke-width:0.264583">Application</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52777px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000074;stroke-width:0.264583"
+     x="22.786259"
+     y="31.090794"
+     id="text1028-8-3"><tspan
+       id="tspan1026-9-6"
+       x="22.786259"
+       y="31.090794"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52777px;font-family:sans-serif;-inkscape-font-specification:sans-serif;fill:#000074;stroke-width:0.264583">Semantic</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52777px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000074;stroke-width:0.264583"
+     x="23.568295"
+     y="37.773327"
+     id="text1028-92-5"><tspan
+       id="tspan1026-3-7"
+       x="23.568295"
+       y="37.773327"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52777px;font-family:sans-serif;-inkscape-font-specification:sans-serif;fill:#000074;stroke-width:0.264583">Agnostic</tspan><tspan
+       x="23.568295"
+       y="42.183041"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52777px;font-family:sans-serif;-inkscape-font-specification:sans-serif;fill:#000074;stroke-width:0.264583"
+       id="tspan1072-7" /></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52777px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000074;stroke-width:0.264583"
+     x="26.625811"
+     y="45.139713"
+     id="text1028-92-5-8-2"><tspan
+       id="tspan4"
+       x="26.625811"
+       y="45.139713"><tspan
+         id="tspan1026-3-7-7-3"
+         x="26.625811"
+         y="45.139713"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52777px;font-family:sans-serif;-inkscape-font-specification:sans-serif;fill:#000074;stroke-width:0.264583">Build</tspan></tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52777px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000074;stroke-width:0.264583"
+     x="97.313591"
+     y="38.115253"
+     id="text1028-92-5-8-2-0"><tspan
+       id="tspan4-8"
+       x="97.313591"
+       y="38.115253"><tspan
+         id="tspan1026-3-7-7-3-1"
+         x="97.313591"
+         y="38.115253"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52777px;font-family:sans-serif;-inkscape-font-specification:sans-serif;fill:#000074;stroke-width:0.264583">Build</tspan></tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52777px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000074;stroke-width:0.264583"
+     x="94.256073"
+     y="44.797791"
+     id="text1028-92"><tspan
+       id="tspan1026-3"
+       x="94.256073"
+       y="44.797791"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52777px;font-family:sans-serif;-inkscape-font-specification:sans-serif;fill:#000074;stroke-width:0.264583">Agnostic</tspan><tspan
+       x="94.256073"
+       y="49.207504"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52777px;font-family:sans-serif;-inkscape-font-specification:sans-serif;fill:#000074;stroke-width:0.264583"
+       id="tspan1072" /></text>
 </svg>
