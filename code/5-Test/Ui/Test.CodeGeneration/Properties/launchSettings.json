@@ -1,8 +1,0 @@
-{
-  "profiles": {
-    "Test.CodeGeneration": {
-      "commandName": "Project",
-      "commandLineArgs": "-filename:___auto-generated-code.cs -typeName:aaa.bbb"
-    }
-  }
-}
