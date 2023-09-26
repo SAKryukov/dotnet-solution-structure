@@ -17,8 +17,8 @@ namespace My {
 
     [ContentProperty(nameof(Description))]
     public class Main {
+        public Main() { Flag = new(); }
         public string Description { get; set; }
-        public Main() { Flag = new();  }
         public ColorList Flag { get; set; }
         public string Country { get; set; }
         public string Language { get; set; }

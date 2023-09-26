@@ -150,18 +150,25 @@ namespace My {
     using Color = System.Windows.Media.Color;
     using ColorList =
         System.Collections.Generic.List&lt;System.Windows.Media.Color&gt;
+    using ContentPropertyAttribute =
+        System.Windows.Markup.ContentPropertyAttribute;
 
+    public class DimensionalQuantity {
+        public double Value { get; set; }
+        public string Units { get; set; }
+    } //DimensionalQuantity
+
+    [ContentProperty(nameof(Description))]
     public class Main {
         public Main() { Flag = new();  }
+        public string Description { get; set; }
         public ColorList Flag { get; set; }
         public string Country { get; set; }
         public string Language { get; set; }
         public string Capital { get; set; }
-        public double Area { get; set; }
-        public double PopulationDensity { get; set; }
-        public string AreaUnits { get; set; }
-        public string PopulationDensityUnits { get; set; }
-        public override string ToString() {
+        public DimensionalQuantity PopulationDensity { get; set; }
+        public DimensionalQuantity Area { get; set; }
+        public override string ToString() 
             //... just for debugging and demo
         } //ToString
     } //class Main
@@ -173,7 +180,9 @@ namespace My {
 
 The properties should be `public` and read/write. The first reason for that is globalization: it should be the type known to the host assembly and its corresponding *satellite assemblies* used for potential localization. Therefore, we have to assume that the class `My.Main` is defined in some separate assembly referenced by the host assembly and any satellite assemblies. And it required public members.
 
-Let's take a step further. We can support not only strings and primitive data types, but many other complex types already supported by XAML. Let's see how we can use `Color` and lists:
+Let's take a step further. We have added two properties of the class `DimensionalQuantity`, to make our type compound, and also the property `Flag` of a list type, and the list types are already supported by XAML. To make it even more interesting, we applied the attribute `[ContentProperty]`, to support *direct content*:
+
+ Let's see how we can use `Color` and lists:
 
 ```{lang=XML}
 &lt;FrameworkContentElement x:Class="My.SingleObjectDataSource"
@@ -181,10 +190,17 @@ Let's take a step further. We can support not only strings and primitive data ty
         xmlns:my="clr-namespace:My;assembly=Test.Markup.DataTypes"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"&gt;
     &lt;FrameworkContentElement.Resources&gt;
-        &lt;my:Main x:Key="?"
-                 Country="Italy" Language="Italian" Capital="Rome"
-                 Area="301230.11" AreaUnits=" km²"
-                 PopulationDensity="201.3" PopulationDensityUnits="/km²" &gt;
+        &lt;my:Main x:Key=" "
+                 Country="Italy" Language="Italian" Capital="Rome"&gt;
+            Simple
+            demonstration
+            of compound types
+            &lt;my:Main.PopulationDensity&gt;
+                &lt;my:DimensionalQuantity Value="201.3" Units="/km²"/&gt;
+            &lt;/my:Main.PopulationDensity&gt;
+            &lt;my:Main.Area&gt;
+                &lt;my:DimensionalQuantity Value="301230.11" Units=" km²"/&gt;
+            &lt;/my:Main.Area&gt;
             &lt;my:Main.Flag&gt;
                 &lt;Color&gt;Green&lt;/Color&gt;
                 &lt;Color&gt;White&lt;/Color&gt;
@@ -195,8 +211,10 @@ Let's take a step further. We can support not only strings and primitive data ty
 &lt;/FrameworkContentElement&gt;
 ```
 
-There are pretty complicated options and rules for representing lists and arrays in XAML and also the rules for using *direct content*. It depends both on the collection/array types and the element types. In other cases, the *markup extension* `x:Array` is required, and we have such examples in our XAML samples. Please refer to Microsoft documentation for further details.
+There are pretty complicated options and rules for representing lists and arrays in XAML and also the rules for using *direct content*. It depends both on the collection/array types and the element types. In other cases, the *markup extension* `x:Array` is required, and we have such examples in our XAML samples.
 
+Besides, the property specified by the attribute `[ContentProperty]` makes the direct content of the type `Main` markup. So, our string "Simple demonstration of compound types" goes to the value of `Description`. Interestingly, before the property is assigned, XAML processing removes all the extra blank spaces. As we already have three child elements under the XAML `<my:Main>` element, our `Description` can go in any slot in between, but only once, otherwise XAML will fail to compile. Please refer to Microsoft documentation for further details.
+ 
 What is the major limitation of this example? Look at the dictionary key `"?"`. It should always be there and can be any non-empty string. Why? Because there is only one instance of the data class. Yes, we can add another instance of the same or different class, but how our code can find it? By the key? It would mean another magic string approach. No, there is a much smarter way. But to get to it, we need a custom XAML markup extension, in particular, based on `System.Windows.Markup.TypeExtension`.
 
 Before we get there, let's make one practical decision: let's keep the use of this simple approach simple, either using a single data type instance, or using just a few, and only of different types. In this case, the keys should be unique, but arbitrary. The instances can be found by their type using a simple method `ResourseDictionaryUtility.FindObject`:
