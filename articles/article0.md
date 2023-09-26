@@ -211,13 +211,13 @@ Let's take a step further. We have added two properties of the class `Dimensiona
 &lt;/FrameworkContentElement&gt;
 ```
 
-There are pretty complicated options and rules for representing lists and arrays in XAML and also the rules for using *direct content*. It depends both on the collection/array types and the element types. In other cases, the *markup extension* `x:Array` is required, and we have such examples in our XAML samples.
+There are pretty complicated options and rules for representing lists and arrays in XAML and also the rules for using *direct content*. It depends both on the collection/array types and the element types. In other cases, the *markup extension* `x:Array` is required, and we have such examples in our XAML samples. Please refer to Microsoft documentation for further details.
 
-Besides, the property specified by the attribute `[ContentProperty]` makes the direct content of the type `Main` markup. So, our string "Simple demonstration of compound types" goes to the value of `Description`. Interestingly, before the property is assigned, XAML processing removes all the extra blank spaces. As we already have three child elements under the XAML `<my:Main>` element, our `Description` can go in any slot in between, but only once, otherwise XAML will fail to compile. Please refer to Microsoft documentation for further details.
+Besides, the property specified by the attribute `[ContentProperty]` defines the direct content of the type `Main` markup. So, our string "Simple demonstration of compound types" goes to the value of `Description`. Interestingly, before the property is assigned, XAML processing removes all the extra *whitespace*, but this is a usual result of [XML normalization](https://www.w3.org/2008/xmlsec/Drafts/xml-norm/Overview.html). As we already have three child elements under the XAML `<my:Main>` element, our `Description` can go in any slot in between, but only once, otherwise XAML will fail to compile. 
  
 What is the major limitation of this example? Look at the dictionary key `"?"`. It should always be there and can be any non-empty string. Why? Because there is only one instance of the data class. Yes, we can add another instance of the same or different class, but how our code can find it? By the key? It would mean another magic string approach. No, there is a much smarter way. But to get to it, we need a custom XAML markup extension, in particular, based on `System.Windows.Markup.TypeExtension`.
 
-Before we get there, let's make one practical decision: let's keep the use of this simple approach simple, either using a single data type instance, or using just a few, and only of different types. In this case, the keys should be unique, but arbitrary. The instances can be found by their type using a simple method `ResourseDictionaryUtility.FindObject`:
+Before we get there, let's make one practical decision: let's keep the use of this simple approach simple, either using a single data type instance, or using just a few, and only the objects of different types. In this case, the keys should be unique, but arbitrary. The instances can be found by their type using a simple method `ResourseDictionaryUtility.FindObject`:
 
 ```{lang=C#}
 public static T_REQUIRED FindObject<T_REQUIRED>(ResourceDictionary dictionary)
