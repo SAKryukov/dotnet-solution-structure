@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\1-Agnostic\Core\Agnostic.Core.csproj" />
+    <ProjectReference Include="..\..\..\1-Agnostic\Ui\Agnostic.UI.csproj" />
   </ItemGroup>
 
 </Project>

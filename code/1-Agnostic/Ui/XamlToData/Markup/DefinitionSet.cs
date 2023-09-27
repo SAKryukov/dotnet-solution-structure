@@ -36,6 +36,16 @@ namespace SA.Agnostic.UI.Markup {
                 $"Field {memberName} is declared as instance in {dictionaryClassName}, but is a static field in {targeTypeName}";
         } //StaticMismatch
 
+        internal static class StringFormat {
+            internal const string invalidFormatString = "Null or empty format string";
+            internal const string invalidFormalArguments = "Null or empty formal argument list";
+            internal const string invalidActualArguments = "Null or empty actual argument list";
+            internal static string ArgumentNumberMismatch(int formalArguments, int actualArguments) =>
+                $"Argument number mismatch: formal arguments: {formalArguments}, actual arguments: {actualArguments}";
+            internal static string ArgumentTypeMismatch(int index, string formalArgumentTypeName, string actualArgumentTypeName) =>
+                $"Argument type mismatch or incompatibility at index {index}: formal argument type: {formalArgumentTypeName}, actual argument type: {actualArgumentTypeName}";
+        } //class StringFormat
+
     } //class DefinitionSet
 
 }

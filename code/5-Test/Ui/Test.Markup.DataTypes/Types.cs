@@ -9,6 +9,7 @@ namespace My {
     using Color = System.Windows.Media.Color;
     using ColorList = System.Collections.Generic.List<System.Windows.Media.Color>;
     using ContentPropertyAttribute = System.Windows.Markup.ContentPropertyAttribute;
+    using StringFormat = SA.Agnostic.UI.Markup.StringFormat;
 
     public class DimensionalQuantity {
         public double Value { get; set; }
@@ -18,6 +19,7 @@ namespace My {
     [ContentProperty(nameof(Description))]
     public class Main {
         public Main() { Flag = new(); }
+        public StringFormat FormatInstitution { get; set; }
         public string Description { get; set; }
         public ColorList Flag { get; set; }
         public string Country { get; set; }
