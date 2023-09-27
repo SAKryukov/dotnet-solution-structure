@@ -135,7 +135,7 @@ This is a very simple example:
         xmlns:my="clr-namespace:My;assembly=Test.Markup.DataTypes"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"&gt;
     &lt;FrameworkContentElement.Resources&gt;
-        &lt;my:Main x:Key="?"
+        &lt;my:Main x:Key="{x:Type my:Main}"
                  Country="Italy"
                  Language="Italian"
                  Capital="Rome"/&gt;
@@ -143,6 +143,10 @@ This is a very simple example:
 &lt;/FrameworkContentElement&gt;
 ```
 Can anything be simpler than that?
+
+SA???
+
+As we have only one `Main` object in the entire XAML, it does not matter what the key is. Nevertheless, I want to suggest a key of the type `System.Type`. We will consider the role of it [below](#heading-multiple-objects).
 
 Naturally, it is based on `My.Main`, a class with at least those three properties, `Country`, `Language`, and `Capital`. It can have any number of other members. We can add them to XAML any time later when we need them:
 
@@ -191,7 +195,7 @@ Let's take a step further. We have added two properties of the class `Dimensiona
         xmlns:my="clr-namespace:My;assembly=Test.Markup.DataTypes"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"&gt;
     &lt;FrameworkContentElement.Resources&gt;
-        &lt;my:Main x:Key=" "
+        &lt;my:Main x:Key="{x:Type my:Main}"
                  Country="Italy" Language="Italian" Capital="Rome"&gt;
             Simple
             demonstration
@@ -215,61 +219,25 @@ Let's take a step further. We have added two properties of the class `Dimensiona
 There are pretty complicated options and rules for representing lists and arrays in XAML and also the rules for using *direct content*. It depends both on the collection/array types and the element types. In other cases, the *markup extension* `x:Array` is required, and we have such examples in our XAML samples. Please refer to Microsoft documentation for further details.
 
 Besides, the property specified by the attribute `[ContentProperty]` defines the direct content of the type `Main` markup. So, our string "Simple demonstration of compound types" goes to the value of `Description`. Interestingly, before the property is assigned, XAML processing removes all the extra *whitespace*, but this is a usual result of [XML normalization](https://www.w3.org/2008/xmlsec/Drafts/xml-norm/Overview.html). As we already have three child elements under the XAML `<my:Main>` element, our `Description` can go in any slot in between, but only once, otherwise XAML will fail to compile. 
- 
-What is the major limitation of this example? Look at the dictionary key `"?"`. It should always be there and can be any non-empty string. Why? Because there is only one instance of the data class. Yes, we can add another instance of the same or different class, but how our code can find it? By the key? It would mean another magic string approach. No, there is a much smarter way. But to get to it, we need a custom XAML markup extension, in particular, based on `System.Windows.Markup.TypeExtension`.
 
-Before we get there, let's make one practical decision: let's keep the use of this simple approach simple, either using a single data type instance, or using just a few, and only the objects of different types. In this case, the keys should be unique, but arbitrary. The instances can be found by their type using a simple method `ResourseDictionaryUtility.FindObject`:
+Now, let's see what happens if we add more objects to the same XAML. 
 
-```{lang=C#}
-public static T_REQUIRED FindObject<T_REQUIRED>(ResourceDictionary dictionary)
-    where T_REQUIRED : new() {
-    //... it will find your data by your data type T_REQUIRED
-}
-```
-If you have too many instances, the performance may become a bit of a problem: search is search. This simplest approach is the best when you have only one data type instance.
+### Multiple Objects
 
- A search in a big dictionary would be pretty stupid because the dictionaries are designed for a very fast *bucket-based* search. Let's take the hash dictionary benefits then. To do so, let's get to the more efficient and advanced approach for having multiple data objects in a single XAML.
+The only issue with multiple objects is how to identify them. If could use any arbitrary string keys but that will raise a problem of magic strings again. The keys should be unique, and a key can be only of two types: a string or `System.Type`. Most keys are strings, but the `System.Type` are also widely used. We can simply use the type `System.Type` for a key. So, I would suggest limiting our dictionary to having only one object per data object type. This way, all the keys will by unique, and we can access required object very quicky, no matter how many object our XAML contains.
 
-### Approach #2: Multiple Objects
-
-Here is the idea: to have multiple data objects represented in a single XAML and to populate the instances of the objects very quickly, you need to access them in XAML using a key. But a key can be only of two types: a string or `System.Type`. Most keys are strings, but the `System.Type` are also widely used. One example is the *implicit key* for `Style.TargetType` used for dictionary `Style` elements.
-
-The only legitimate way to utilize `System.Type` keys is the development of a custom markup extension based on `System.Windows.Markup.TypeExtension`. Let's implement such a thing in a pretty simple way:
-
-```{lang=C#}{id=code-type-key}
-namespace SA.Agnostic.UI.Markup {
-    using System;
-    using TypeExtension = System.Windows.Markup.TypeExtension;
-
-    public class TypeKey : TypeExtension {
-        public TypeKey() { }
-        public TypeKey(Type targetType) { TargetType = targetType; }
-        public Type TargetType { get; set; }
-        public override object ProvideValue(IServiceProvider sp) {
-            return TargetType;
-        } //ProvideValue
-    } //class TypeKey
-
-    //...
-
-}
-```
-
-The code for [`GetObject`](#code-get-object) and [`TypeKey`](#code-type-key) is a bit simplified. In the source code, one can find a bit more complicated experimental code with additional data type and parameters, indicating what to use for the type identification.
-
-Let's see: this class transparently passes an instance of its property `TargetType`. It can be defined in XAML in one of two ways: as a property or a constructor parameter of the `TypeExtension` syntax, `<my:Detail x:Key="{e:TypeKey TargetType=my:Detail}"/>` or `<my:Detail x:Key="{e:TypeKey my:Detail}"/>`, correspondently. Here, `my:Detail` refers to a data class `My.Detail`. Let's look at the entire XAML sample:
+Let's look at the entire XAML sample:
 
 ```{lang=XML}
 &lt;FrameworkContentElement x:Class="My.MultiObjectDataSource"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:e="clr-namespace:SA.Agnostic.UI.Markup;assembly=Agnostic.UI"
         xmlns:my="clr-namespace:My;assembly=Test.Markup.DataTypes"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"&gt;
     &lt;FrameworkContentElement.Resources&gt;
-        &lt;my:Detail x:Key="{e:TypeKey my:Detail}"
+        &lt;my:Detail x:Key="{x:Type my:Detail}"
                 City="Milan" Provinces="107" MetropolitanCities="14"
                 Mountains="Alps" /&gt;
-        &lt;my:Fun x:Key="{e:TypeKey my:Fun}"
+        &lt;my:Fun x:Key="{x:Type my:Fun}"
                 Animal="Italiano Mediterranean buffalo" Dish="Lasagna"
                 RacingColorName="Red " RacingColor="Red"
                 Festival="Venice Film Festival"
@@ -279,20 +247,17 @@ Let's see: this class transparently passes an instance of its property `TargetTy
 &lt;/FrameworkContentElement&gt;
 ```
 
-Now all the data objects are uniquely identified with the corresponding `Key` values using the `TypeKey` extensions. If we use this approach, we need to have only one data type instance per type per XAML. Then the instances are uniquely identified, too.
-
 But what can happen if one messes up the one-to-one mapping between the keys and actual data element types? One can have an absurd markup like this:
 
 ```{lang=XML}
 &lt;FrameworkContentElement x:Class="My.MultiObjectDataSource"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:e="clr-namespace:SA.Agnostic.UI.Markup;assembly=Agnostic.UI"
         xmlns:my="clr-namespace:My;assembly=Test.Markup.DataTypes"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"&gt;
         ...
-        &lt;my:Detail x:Key="{e:TypeKey my:Fun}" .../&gt;
+        &lt;my:Detail x:Key="{x:Type my:Fun}" .../&gt;
         ...
-        &lt;my:Fun x:Key="{e:TypeKey my:Detail}" .../&gt;
+        &lt;my:Fun x:Key="{x:Type my:Detail}" .../&gt;
         ...
     &lt;/FrameworkContentElement.Resources&gt;
 &lt;/FrameworkContentElement&gt;
@@ -310,7 +275,7 @@ Of course, it works very quickly. But If the keys are messed up, you will get th
 
 Nevertheless, everything will still work. One can even use unrelated type names, such as `String`, provided the uniqueness of the keys is preserved. How? To achieve that, I developed  this `ResourseDictionaryUtility.NormalizeDictionary` method. Let's look at it closely.
 
-### Multiple Objects: Dictionary Normalization
+### Dictionary Normalization
 
 The situation described above is one of the possible developer's mistakes. Unfortunately, I cannot see a way to bind anything in a key value with anything at all --- binding does not work inside a key. So, I developed the normalization procedure:
 
@@ -338,7 +303,7 @@ public static void NormalizeDictionary(ResourceDictionary dictionary) {
 ```
 
 Here, `PatologicalList` is a list of *tuples* `((object, object, System.Windows.ResourceDictionary))`.
-It is used to collect all the pathological cases when an object type `valueType` and the type returned by the `TypeKey` extension don't match. Interestingly, the corrected keys cannot be replaced only in two passes showing at the end: all are removed first and only added at the second pass. An attempt to add a key immediately after removal may lead to an exception because this new key can match an existing key.
+It is used to collect all the pathological cases when an object type `valueType` and the type returned by the key of the type `System.Type` don't match. Interestingly, the corrected keys cannot be replaced only in two passes showing at the end: all are removed first and only added at the second pass. An attempt to add a key immediately after removal may lead to an exception because this new key can match an existing key.
 
 The the test application "Test.Markup" the normalization is performed as a part of *localization* even when the data is not actually localized.
 
@@ -346,7 +311,7 @@ Taking this precaution makes the reliability of the approach match the reliabili
 
 I would use `NormalizeDictionary` during certain development stages and remove it when the functionality is tested. Removing this call is a simple test that gives clear diagnostics on this problem and makes it clear how to fix it.
 
-### Approach #3: Duck Typing
+### Approach #2: Duck Typing
 
 And now, one more approach, [duck typing](https://en.wikipedia.org/wiki/Duck_typing) style. As everyone knows "If it walks like a duck and it quacks like a duck, then..." oh no, then it is not necessarily a duck, but there are cases when we don't care. We are going to develop the approach where some object is populated with XAML data when there is a match between the data members declared in XAML and the properties and fields of the object being populated.
 
@@ -443,33 +408,31 @@ Let's make our duck typing sample more complicated:
 &lt;/FrameworkContentElement&gt;
 ```
 
-This XAML provides the exact same structure [as before](code-duck-typed-data-source), but in some overly complicated form: the same set of members is split between two different `ResourceDictionary` instances. Anyway, it works, because the data from merged dictionaries is, well... merged. Unlimited nesting of merged dictionaries is supported. For more details, see [the explanation below](#paragraph-knowledge-resource-dictionary).
+This XAML provides the exact same structure [as before](#code-duck-typed-data-source), but in some overly complicated form: the same set of members is split between two different `ResourceDictionary` instances. Anyway, it works, because the data from merged dictionaries is, well... merged. Unlimited nesting of merged dictionaries is supported. For more details, see [the explanation below](#paragraph-knowledge-resource-dictionary).
 
 All the approaches described above can be combined in the same XAML in a pretty free matter. It makes little sense to describe all options, instead, a common logic should work. In particular, nothing prevents you from adding an additional `ResourceDictionary` under one or another `MergedDictionaries` container and using a different approach inside it.
 
-Another technique could be using dictionary keys based on the `TypeKey` extension even where it does not carry any semantics related to underlying data objects.
+Another technique could be using dictionary keys of the type `System.Type` even where it does not carry any semantics related to underlying data objects.
 
-Does it make any sense, to use multiple resource dictionaries in one XAML? It may. Some may want to visually segregate different parts of the resources. Actually, on the single-object [approach #1](#heading-approach-2313a-a-very-simple-one) it makes no sense at all, just because this approach is the best for a single data type instance.
+Does it make any sense, to use multiple resource dictionaries in one XAML? It may. Some may want to visually segregate different parts of the resources, if there are multiple objects in a XAML.
 
-For the multi-object [approach #2](#heading-approach-2323a-multiple-objects), it may make sense if there are many data object types and data objects. In this case, it is important not to use each type more than once: otherwise, it can create some confusion, because it will allow to have the same `TypeKey` in different dictionaries without key uniqueness conflict. As a result `ResourseDictionaryUtility.GetObject` can get an object of the right type, but the wrong instance. At the same time, as the instances are found by their type, having multiple dictionaries does not compromise performance.
+In this case, it is important not to use each key more than once. Unfortunately, it is possible because having identical keys in different dictionaries will not trigger key uniqueness conflict. As a result `ResourseDictionaryUtility.GetObject` can get an object of the right type, but the wrong instance. At the same time, as the instances are found by their type, having multiple dictionaries does not compromise performance.
 
-What about the duck-typed [approach #3](#heading-approach-2333a-duck-typing)? Having multiple resource dictionaries in one XAML may have some merits: one can support multiple target types under the same XAML. How? Again, in this approach XAML code is  agnostic to the target type, it does not "know" which members belong to which type. One can visually isolate them using different instances of `ResourceDictionary` or `DataSetter` as containers. However, in contrast to [approach #2](#heading-approach-2323a-multiple-objects), processing time directly depends on the total number of elements in a XAML, and not specifically on the number of dictionaries. It is slow simply because every time the target instance is populated, the system has to traverse the entire dictionary of a XAML and visit each and every `Member` element.
+What about the duck-typed [approach #2](#heading-approach-2323a-duck-typing)? Having multiple resource dictionaries in one XAML may have some merits: one can support multiple target types under the same XAML. How? Again, in this approach XAML code is  agnostic to the target type, it does not "know" which members belong to which type. One can visually isolate them using different instances of `ResourceDictionary` or `DataSetter` as containers. However, in contrast to [approach #1](#heading-approach-2313a-a-very-simple-one), processing time directly depends on the total number of elements in a XAML, and not specifically on the number of dictionaries. It is slow simply because every time the target instance is populated, the system has to traverse the entire dictionary of a XAML and visit each and every `Member` element.
 
 Why use the duck-typed approach anyway, if it is the slowest in performance? Well, it has its benefits. Besides, this topic is not the place where most developers would worry too much about performance because the total amount of XAML data is never too high. Anyway, let's summarize the pros and contras of all the approaches.
 
-### Three Approaches: Pro and Contra
+### Two Approaches: Pro and Contra
 
-1. [Very simple single-object approach](#heading-approach-2313a-a-very-simple-one)<br/>
+1. [Simple approach](#heading-approach-2313a-a-very-simple-one)<br/>
     It is so simple that it does not require a single line of code from my solution. Just the idea would be quite enough.<br/>
-    It makes sense only if there is only one data type instance to create per XAML. For many applications, this is perfectly fine.<br/>
-    If there are more than one instance, they should be of different types and the approach would work, but it makes no sense. It would cost next to nothing to use the next approach.
-
-1. [Multiple-object approach](#heading-approach-2323a-multiple-objects)
-    It is designed to have several data types and create only one instance per type per XAML. It does not seem to be a limitation, because the application of the feature does not imply several instances.<br/>
-    This approach uses just a few lines of code from my solution.<br/>
+    This approach also does not require a single line of code from my solution.
+    It is designed to have one or several data types and create only one instance per type per XAML. It does not seem to be a limitation, because the application of the feature does not imply several instances.<br/>
     Getting objects from XAML is the fastest, and it does not depend on the number of types and the total volume of a `ResourceDictionary`.
 
-1. [Duck-typed approach](#heading-approach-2333a-duck-typing)
+SA???
+
+1. [Duck-typed approach](#heading-approach-2323a-duck-typing)
     This approach is the slowest, it requires complicated processing code, but offers additional flexibility:
     It can work with both public and non-public members.<br/>
     It can work with both properties and fields.<br/>
