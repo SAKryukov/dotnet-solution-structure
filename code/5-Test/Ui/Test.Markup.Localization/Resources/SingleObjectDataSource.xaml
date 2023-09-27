@@ -10,7 +10,7 @@
         xmlns:my="clr-namespace:My;assembly=Test.Markup.DataTypes"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <FrameworkContentElement.Resources>
-        <my:Main x:Key="1"
+        <my:Main x:Key="?"
                  Country="Italia" Language="Italiano" Capital="Roma">
             <my:Main.PopulationDensity>
                 <my:DimensionalQuantity Value="201.3" Units="/km²"/>
@@ -19,14 +19,14 @@
                 <!-- Area.Units: Leading blank space in Value is important: -->
                 <my:DimensionalQuantity Value="301230.11" Units=" km²"/>
             </my:Main.Area>
+            Semplice
+            dimostrazione
+            di tipi composti
             <my:Main.Flag>
                 <Color>Green</Color>
                 <Color>White</Color>
                 <Color>Red</Color>
             </my:Main.Flag>
-            Semplice
-            dimostrazione
-            di tipi composti
         </my:Main>
     </FrameworkContentElement.Resources>
 </FrameworkContentElement>

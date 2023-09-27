@@ -29,9 +29,9 @@ namespace SA.Agnostic.UI.Markup {
             return default;
         } //FindObject
 
-        public static T_REQUIRED GetObject<T_REQUIRED>(ResourceDictionary dictionary, TypeKeyKind keyKind = default)
+        public static T_REQUIRED GetObject<T_REQUIRED>(ResourceDictionary dictionary)
             where T_REQUIRED : new() =>
-                (T_REQUIRED)dictionary?[TypeKey.UserKey(typeof(T_REQUIRED), keyKind)];
+                (T_REQUIRED)dictionary?[typeof(T_REQUIRED)];
 
         public static InstanceDictionary CollectDictionary(ResourceDictionary dictionary) {
             static void CollectDictionary(ResourceDictionary dictionary, InstanceDictionary instanceDictionary) {
