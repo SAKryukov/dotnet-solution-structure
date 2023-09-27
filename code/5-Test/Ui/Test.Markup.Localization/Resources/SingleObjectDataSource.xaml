@@ -30,9 +30,9 @@
                 <Color>Red</Color>
             </my:Main.Flag>
             <my:Main.FormatInstitution>
-                <e:StringFormat Format="Organization: {0} Number of members: {1}">
-                    <e:FormatArgument>name</e:FormatArgument>
-                    <e:FormatArgument Type="system:Int32">number</e:FormatArgument>
+                <e:StringFormat Format="Organizzazione: {0} Numero di membri: {1}">
+                    <e:FormalArgument>name</e:FormalArgument>
+                    <e:FormalArgument Type="system:Int32">number</e:FormalArgument>
                 </e:StringFormat>
             </my:Main.FormatInstitution>
         </my:Main>

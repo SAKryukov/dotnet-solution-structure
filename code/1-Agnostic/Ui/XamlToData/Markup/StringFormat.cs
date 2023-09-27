@@ -8,13 +8,14 @@
 namespace SA.Agnostic.UI.Markup {
     using Type = System.Type;
     using ContentPropertyAttribute = System.Windows.Markup.ContentPropertyAttribute;
-    using ArgumentList = System.Collections.Generic.List<FormatArgument>;
+    using ArgumentList = System.Collections.Generic.List<FormalArgument>;
 
     [ContentProperty(nameof(Name))]
-    public class FormatArgument {
+    public class FormalArgument {
+        public FormalArgument() { Type = typeof(string); }
         public string Name { get; set; }
         public Type Type { get; set; }
-    } //FormatArgument
+    } //FormalArgument
 
     [ContentProperty(nameof(Arguments))]
     public class StringFormat {
