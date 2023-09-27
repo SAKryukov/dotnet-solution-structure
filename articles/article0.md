@@ -66,6 +66,7 @@ var resource = new ResourceDictionary
                      UriKind.RelativeOrAbsolute)
 };
 ```
+
 Then, given a `ResourceDictionary`, how to get a required piece of data out out? [Microsoft documentation suggested way](https://learn.microsoft.com/en-us/dotnet/desktop/wpf/systems/xaml-resources-and-code?view=netdesktop-7.0#accessing-resources-from-code) is this:
 
 ```{lang=C#}{id=code-resource-lookup}
@@ -77,7 +78,7 @@ Really?!
 
 Needless to say, both techniques demonstrate the well-known [magic string](https://en.wikipedia.org/wiki/Magic_string) anti-pattern. Not only in the above code samples an innocent typo won't be detected by the build process, but the code will be broken if the developer moves some files around.
 
-Fortunately, I have a simple workaround for the first problem ...
+Fortunately, we can do a lot better than that.
 
 But first, let's think about the basics. Why do we need the data in code?
 
@@ -336,7 +337,7 @@ public static void NormalizeDictionary(ResourceDictionary dictionary) {
 }
 ```
 
-Here, `PatologicalList` is a list of *tuples* ((object, object, System.Windows.ResourceDictionary)).
+Here, `PatologicalList` is a list of *tuples* `((object, object, System.Windows.ResourceDictionary))`.
 It is used to collect all the pathological cases when an object type `valueType` and the type returned by the `TypeKey` extension don't match. Interestingly, the corrected keys cannot be replaced only in two passes showing at the end: all are removed first and only added at the second pass. An attempt to add a key immediately after removal may lead to an exception because this new key can match an existing key.
 
 The the test application "Test.Markup" the normalization is performed as a part of *localization* even when the data is not actually localized.
@@ -348,9 +349,6 @@ I would use `NormalizeDictionary` during certain development stages and remove i
 ### Approach #3: Duck Typing
 
 And now, one more approach, [duck typing](https://en.wikipedia.org/wiki/Duck_typing) style. As everyone knows "If it walks like a duck and it quacks like a duck, then..." oh no, then it is not necessarily a duck, but there are cases when we don't care. We are going to develop the approach where some object is populated with XAML data when there is a match between the data members declared in XAML and the properties and fields of the object being populated.
-
-[dynamic](https://en.wikipedia.org/wiki/Type_system#DYNAMIC)
-[weak](https://en.wikipedia.org/wiki/Strong_and_weak_typing)
 
 This approach is the most sophisticated, the most powerful but not as reliable as the approaches described above. It has one powerful benefit though: it can work with the localization satellite assemblies having no access to the data types of the host. As we don't use any type identity, we don't need shared data types.
 
@@ -510,7 +508,25 @@ This is already beyond the expectations of those who asked those questions about
 
 ## Code Generation
 
-Code generation itself is fairly simple. Please see the class `DictionaryCodeGenerator` in a source file "DictionaryCodeGenerator.cs". There a just a few delicate details though.
+Code generation itself is fairly simple. Please see the class `DictionaryCodeGenerator` in a source file "DictionaryCodeGenerator.cs".
+
+This is all what it does:
+
+```{lang=C#}
+public class DictionaryCodeGenerator {
+
+    public void Generate(
+        ResourceDictionary dictionary,
+        string filename,
+        string namespaceName,
+        string typeName) {
+        //...
+    }
+
+}
+```
+
+There a just a few delicate details though.
 
 ### Implementation
 
