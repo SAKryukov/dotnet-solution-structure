@@ -16,19 +16,6 @@ namespace SA.Agnostic.UI.Markup {
 
     public static class ResourseDictionaryUtility {
 
-        public static T_REQUIRED FindObject<T_REQUIRED>(ResourceDictionary dictionary) where T_REQUIRED : new() {
-            if (dictionary == null) return default;
-            foreach (object key in dictionary.Keys)
-                if (dictionary[key] is T_REQUIRED required)
-                    return required;
-            foreach (ResourceDictionary child in dictionary.MergedDictionaries) {
-                var found = FindObject<T_REQUIRED>(child);
-                if (found != null)
-                    return found;
-            } //loop
-            return default;
-        } //FindObject
-
         public static T_REQUIRED GetObject<T_REQUIRED>(ResourceDictionary dictionary)
             where T_REQUIRED : new() =>
                 (T_REQUIRED)dictionary?[typeof(T_REQUIRED)];

@@ -10,7 +10,7 @@
         xmlns:my="clr-namespace:My;assembly=Test.Markup.DataTypes"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <FrameworkContentElement.Resources>
-        <my:Main x:Key="?"
+        <my:Main x:Key="{x:Type my:Main}"
                  Country="Italia" Language="Italiano" Capital="Roma">
             <my:Main.PopulationDensity>
                 <my:DimensionalQuantity Value="201.3" Units="/km²"/>

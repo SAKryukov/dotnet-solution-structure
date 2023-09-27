@@ -18,9 +18,9 @@ namespace SA.Test.Markup {
             My.SingleObjectDataSource singleObjectDataSource = new();
             My.MultiObjectDataSource multiObjectDataSource = new();
             TestLocalization.Localize(singleObjectDataSource, multiObjectDataSource, duckTypedDataSource, localize == true);
-            var main = ResourseDictionaryUtility.FindObject<My.Main>(singleObjectDataSource.Resources);
-            var detail = ResourseDictionaryUtility.GetObject<My.Detail>(multiObjectDataSource.Resources);
-            var funObject = ResourseDictionaryUtility.GetObject<My.Fun>(multiObjectDataSource.Resources);
+            My.Main main = ResourseDictionaryUtility.GetObject<My.Main>(singleObjectDataSource.Resources);
+            My.Detail detail = ResourseDictionaryUtility.GetObject<My.Detail>(multiObjectDataSource.Resources);
+            My.Fun funObject = ResourseDictionaryUtility.GetObject<My.Fun>(multiObjectDataSource.Resources);
             var duck = new My.DuckTypedSample();
             ResourseDictionaryUtility.CollectForDuckTypedInstance(duckTypedDataSource.Resources, duck, ignoreMissingMembers: false);
             Console.WriteLine(main);
