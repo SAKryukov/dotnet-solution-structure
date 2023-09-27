@@ -7,7 +7,8 @@
 
 namespace SA.Agnostic.UI.Markup {
     using Type = System.Type;
-    using ContentPropertyAttribute = System.Windows.Markup.ContentPropertyAttribute;
+    using ContentPropertyAttribute =
+        System.Windows.Markup.ContentPropertyAttribute;
     using ArgumentList = System.Collections.Generic.List<FormalArgument>;
 
     [ContentProperty(nameof(Name))]
@@ -27,19 +28,26 @@ namespace SA.Agnostic.UI.Markup {
 
         public string SubstituteValidated(params object[] arguments) {
             if (string.IsNullOrWhiteSpace(Format))
-                throw new StringFormatException(DefinitionSet.StringFormat.invalidFormatString);
+                throw new StringFormatException(
+                    DefinitionSet.StringFormat.invalidFormatString);
             if (Arguments == null || Arguments.Count < 1)
-                throw new StringFormatException(DefinitionSet.StringFormat.invalidFormalArguments);
+                throw new StringFormatException(
+                    DefinitionSet.StringFormat.invalidFormalArguments);
             if (arguments == null || arguments.Length < 1)
-                throw new StringFormatException(DefinitionSet.StringFormat.invalidActualArguments);
+                throw new StringFormatException(
+                    DefinitionSet.StringFormat.invalidActualArguments);
             if (Arguments.Count != arguments.Length)
                 throw new StringFormatException(
-                    DefinitionSet.StringFormat.ArgumentNumberMismatch(Arguments.Count, arguments.Length));
+                    DefinitionSet.StringFormat.ArgumentNumberMismatch(
+                        Arguments.Count, arguments.Length));
             for (int index = 0; index < arguments.Length; ++index)
-                if (!Arguments[index].Type.IsAssignableFrom(arguments[index].GetType()))
-                    throw new StringFormatException(
-                        DefinitionSet.StringFormat.ArgumentTypeMismatch(
-                            index, Arguments[index].Type.FullName, arguments[index].GetType().FullName));
+                if (!Arguments[index].Type.IsAssignableFrom(
+                    arguments[index].GetType()))
+                        throw new StringFormatException(
+                            DefinitionSet.StringFormat.ArgumentTypeMismatch(
+                                index,
+                                Arguments[index].Type.FullName,
+                                arguments[index].GetType().FullName));
             return string.Format(Format, arguments);
         } //SubstituteValidated
 
@@ -51,6 +59,6 @@ namespace SA.Agnostic.UI.Markup {
             internal StringFormatException(string message) : base(message) { }
         } //class StringFormatException
 
-    } //class StringFormat
+    } //class StringFormatsystem:UInt64system:UInt64
 
 }
