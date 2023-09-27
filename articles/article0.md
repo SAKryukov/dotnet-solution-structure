@@ -12,14 +12,6 @@ Many people asked this question about the generation of code out of XAML. And th
 
 <!-- https://www.codeproject.com/Articles/5368892/XAML-Data-to-Code -->
 
-<!-- <h2>Contents</h2> is not Markdown element, just to avoid adding it to TOC -->
-<!-- change style in next line <ul> to <ul style="list-style-type: none"> -->
-<!--
-For CodeProject, makes sure there are no HTML comments in the area to past!
-
-
---> 
----
 <!-- copy to CodeProject from here ------------------------------------------->
 
 {id=image-title}
@@ -144,8 +136,6 @@ This is a very simple example:
 ```
 Can anything be simpler than that?
 
-SA???
-
 As we have only one `Main` object in the entire XAML, it does not matter what the key is. Nevertheless, I want to suggest a key of the type `System.Type`. We will consider the role of it [below](#heading-multiple-objects).
 
 Naturally, it is based on `My.Main`, a class with at least those three properties, `Country`, `Language`, and `Capital`. It can have any number of other members. We can add them to XAML any time later when we need them:
@@ -185,9 +175,8 @@ namespace My {
 
 The properties should be `public` and read/write. The first reason for that is globalization: it should be the type known to the host assembly and its corresponding *satellite assemblies* used for potential localization. Therefore, we have to assume that the class `My.Main` is defined in some separate assembly referenced by the host assembly and any satellite assemblies. And it required public members.
 
-Let's take a step further. We have added two properties of the class `DimensionalQuantity`, to make our type compound, and also the property `Flag` of a list type, and the list types are already supported by XAML. To make it even more interesting, we applied the attribute `[ContentProperty]`, to support *direct content*:
-
- Let's see how we can use `Color` and lists:
+Let's take a step further. We have added two properties of the class `DimensionalQuantity`, to make our type compound, and also the property `Flag` of a list type, and the list types are already supported by XAML. To make it even more interesting, we applied the attribute `[ContentProperty]`, to support *direct content*.
+ Let's see how we can use `Color`, `DimensionalQuantity`, and list:
 
 ```{lang=XML}
 &lt;FrameworkContentElement x:Class="My.SingleObjectDataSource"
@@ -271,7 +260,7 @@ public static T_REQUIRED GetObject&lt;T_REQUIRED&gt;(ResourceDictionary dictiona
         (T_REQUIRED)dictionary?[typeof(T_REQUIRED)];
 ```
 
-Of course, it works very quickly. But If the keys are messed up, you will get the instance of one data type and will try to type-cast it to the wrong type. Isn't that bad?
+Of course, it works very quickly. But if the keys are messed up, you will get the instance of one data type and will try to type-cast it to the wrong type. Isn't that bad?
 
 Nevertheless, everything will still work. One can even use unrelated type names, such as `String`, provided the uniqueness of the keys is preserved. How? To achieve that, I developed  this `ResourseDictionaryUtility.NormalizeDictionary` method. Let's look at it closely.
 
@@ -313,7 +302,7 @@ I would use `NormalizeDictionary` during certain development stages and remove i
 
 ### Approach #2: Duck Typing
 
-And now, one more approach, [duck typing](https://en.wikipedia.org/wiki/Duck_typing) style. As everyone knows "If it walks like a duck and it quacks like a duck, then..." oh no, then it is not necessarily a duck, but there are cases when we don't care. We are going to develop the approach where some object is populated with XAML data when there is a match between the data members declared in XAML and the properties and fields of the object being populated.
+And now, one more approach, [duck typing](https://en.wikipedia.org/wiki/Duck_typing) style. As everyone knows, "If it walks like a duck and it quacks like a duck, then..." oh no, then it is not necessarily a duck, but there are cases when we don't care. We are going to develop the approach where some object is populated with XAML data when there is a match between the data members declared in XAML and the properties and fields of the object being populated.
 
 This approach is the most sophisticated, the most powerful but not as reliable as the approaches described above. It has one powerful benefit though: it can work with the localization satellite assemblies having no access to the data types of the host. As we don't use any type identity, we don't need shared data types.
 
@@ -348,7 +337,7 @@ Let's look at a complete XAML sample:
                     &lt;System:String&gt;Alfa Romeo&lt;/System:String&gt;
                     &lt;System:String&gt;Ferrari&lt;/System:String&gt;
                     &lt;System:String&gt;Fiat&lt;/System:String&gt;
-                    &lt;System:String&gt;Lamborghini&lt;/System:String&gt;
+                    
                     &lt;System:String&gt;Lancia&lt;/System:String&gt;
                     &lt;System:String&gt;Maserati&lt;/System:String&gt;
                 &lt;/x:Array&gt;
@@ -358,11 +347,24 @@ Let's look at a complete XAML sample:
 &lt;/FrameworkContentElement&gt;
 ```
 
-Isn't that clear? Instead of specifying the attributes corresponding to the data type's properties, we specify each property in a separate element, and it may or may not match a specific property or a field. The corresponding utility method `ResourseDictionaryUtility.CollectForDuckTypedInstance` tried to find a match between the declared XAML `Member` elements and the actual object member and use `System.Reflection` to populate the members with XAML-provided data.
+Isn't that clear? Instead of specifying the attributes corresponding to the data type's properties, we specify each property in a separate element, and it may or may not match a specific property or a field. The corresponding utility method `ResourseDictionaryUtility.CollectForDuckTypedInstance` tried to find a match between the declared XAML `Member` elements and the actual object member and use `System.Reflection` to populate the members with XAML-provided data:
 
-That's why we can separately specify if we're looking for a static member using the `Static` Boolean attribute (default: `False`, that is, a member is a property by default) and if we are looking for a property (default) or a field using the `MemberKind` attribute.
+```{lang=C#}
+public static void CollectForDuckTypedInstance(
+    ResourceDictionary dictionary,
+    object instance,
+    bool ignoreMissingMembers = false) {
+// ...
+}
+```
 
-We also need to specify the member type with the attribute `Type`. The type `System.String` is the default, but it should be specified in other cases. The type doesn't need to be specified for arrays and collections, because these types are not converted from string, but XAML has special markup for these cases. To store some custom structural types in XAML, the user needs to provide string converters for them, using the attribute `[System.ComponentModel.TypeConverter]`. The code of `ResourseDictionaryUtility` automatically finds those attributes and does the proper conversion.
+Importantly, there two modes of assignment data to an instance of some object. The parameter `ignoreMissingMembers` means that if a member corresponding to them `Member` element found in XAML, is not found in the type of `instance`, it is ignored, and population of `instance` continues. It can be used for population of different `instance` from the data found in the same dictionary: an instace simply picks up "its own" members, and another instance will pick up other members. A duck typing in all its strength.
+
+If `ignoreMissingMembers` is `false`, a default case. such a mismatch will though an exception.
+
+For each member, we can specify if we're looking for a static member using the `Static` Boolean attribute (default: `False`). Also, we can speficy that a property is a field using the `MemberKind` attribute --- by default, a member is a property.
+
+We also need to specify the member type with the attribute `Type`. The type `System.String` is the default, but it should be specified in other cases. The type doesn't need to be specified for arrays, collections, and custom compound types, because these types are not converted from string, but XAML has special markup for these cases. To store some custom structural types in XAML, the user needs to provide string converters for them, using the attribute `[System.ComponentModel.TypeConverter]`. The code of `ResourseDictionaryUtility` automatically finds those attributes and does the proper conversion.
 
 ### MergedDictionaries and Combination of Approaches
 
@@ -430,8 +432,6 @@ Why use the duck-typed approach anyway, if it is the slowest in performance? Wel
     It is designed to have one or several data types and create only one instance per type per XAML. It does not seem to be a limitation, because the application of the feature does not imply several instances.<br/>
     Getting objects from XAML is the fastest, and it does not depend on the number of types and the total volume of a `ResourceDictionary`.
 
-SA???
-
 1. [Duck-typed approach](#heading-approach-2323a-duck-typing)
     This approach is the slowest, it requires complicated processing code, but offers additional flexibility:
     It can work with both public and non-public members.<br/>
@@ -441,7 +441,7 @@ SA???
     It is totally type-agnostic. It can process multiple objects of multiple types simply because it does not "know" what members belong to what data type.<br/>
     It does not require using data types accessible by both satellite and host assemblies.
 
-    All three approaches can work with the same set of data member types, not only with strings and primitive types but with a wide range of structured types. In the case of custom data types, some of them require custom type converters, while others are based on already existing types, such as generic containers and collections, already correctly represented in XAML.
+    Both approaches can work with the same set of data member types, not only with strings and primitive types but with a wide range of structured types. In the case of custom data types, some of them require custom type converters, but in many cases there are no conversion from string, and markup for these cases is  already correctly represented in XAML.
 
 ### Globalization
 

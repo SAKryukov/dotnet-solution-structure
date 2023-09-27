@@ -1,0 +1,13 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "pwa-chrome",
+            "request": "launch",
+            "name": "Launch Chrome",
+            "runtimeArgs": ["--incognito", "--enable-precise-memory-info"],
+            "file": "${workspaceFolder}/article0.html",
+            "webRoot": "${workspaceFolder}"
+        }
+    ]
+}
