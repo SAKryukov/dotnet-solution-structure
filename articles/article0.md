@@ -8,7 +8,7 @@
 
 How to generate C# code from XAML? But why? Anyway, this question is answered, but this is not the main part&hellip;
 
-Many people asked this question about the generation of code out of XAML. And there are many unsatisfactory answers. At the same time, the problem is pretty easy to solve. And code generation is not the only approach. Another approach would be XAML markup created specially for the population of predefined data objects from XAML. Both approaches have their benefits, are easy to use, and are covered in detail in the present article, as well as XAML-based Globalization and Localization of arbitrary data, not necessarily related to UI.
+Many people asked this question about the generation of code out of XAML. And there are many unsatisfactory answers. At the same time, the problem is pretty easy to solve. And code generation is not the only approach. Another approach would be a data type designed to be presented via XAML markup, so its instance could be populated from the XAML data. Both approaches have their benefits, are easy to use, and are covered in detail in the present article, as well as XAML-based Globalization and Localization of arbitrary data, not necessarily related to UI.
 
 <!-- https://www.codeproject.com/Articles/5368892/XAML-Data-to-Code -->
 
@@ -28,13 +28,13 @@ Many people asked this question about the generation of code out of XAML. And th
 
 ## Introduction
 
-XAML is a pretty sophisticated technology designed to provide data of virtually any nature and structure. (Some may say — bloated :-) In common practice, it is used to provide data defining the look and behavior of some UI, and, more rarely, vector graphics roughly equivalent to 2D SVG or 3D OpenGL or WebGL. It does not mean that XAML is designed just for that. If we already use XAML, why not use it as a data source for arbitrary data? There are many [good reasons for that](#heading-why3f).
+XAML is a pretty sophisticated technology designed to provide data of virtually any nature and structure. (Some may say — bloated :-) In common practice, it is used to provide data defining the look and behavior of some UI, and, more rarely, vector graphics roughly equivalent to 2D SVG or 3D OpenGL, or WebGL. It does not mean that XAML is designed just for that. If we already use XAML, why not use it as a data source for arbitrary data? There are many [good reasons for that](#heading-why3f).
 
 So, the questions about the generation of some code are quite understandable. It was my idea, too. However, after some thinking, it becomes clear that this is not necessarily the best approach. It depends on the purpose and requirements.
 
 The goal of code generation is not having the code. The goal is to use what code gives us. It is used for some action. For example, we need a place to define some default options and some data that may change from time to time, and so on.
 
-The answers to those questions I found so far were [really frustrating](#heading-how-to-obtain-resource-dictionary3f). I don't quite understand why. The problem is important enough and not so hard to solve with a good quality. It did not take me too much time to figure out the approaches I'm offering in this article. The major thing here is to understand the real purpose of all this activity.
+The answers to those questions I found so far were [really frustrating](#heading-how-to-obtain-resource-dictionary3f). I don't quite understand why. The problem is important enough and is not so hard to solve with a good quality. It did not take me too much time to figure out the approaches I'm offering in this article. The major thing here is to understand the real purpose of all this activity.
 
 ### What do they Advise?
 
@@ -91,11 +91,11 @@ We just need the usable code, access to it in the code text, Intellisence suppor
 
 ## How to Obtain Resource Dictionary?
 
-If we are developing a UI application, we already have immediate access to resource dictionaries related to the application. For example, we have the access to instance members `System.Windows.Application.Resources` and `Window.Resources` for every loaded window. The same goes for `Page`, all types of `Control`, and many more classes. We can read data from these resources immediately, without loading any files.
+If we are developing a UI application, we already have immediate access to resource dictionaries related to the application. For example, we have the access to instance members `System.Windows.Application.Resources` and `Window.Resources` for every loaded window. The same goes for `Page`, all types of `Control`, and many more classes. We can access data from these resources immediately, without loading any files.
 
-But when do we really need an independent way to put data in a `ResourceDictionary` and access this data in code at any time? In such cases, we may not even have an application. Moreover, we can even develop a WPF application without any UI; it could take data from the command line and produce some results, put data in files or databases without user interaction, and it still can use XAML data as resources.
+But what about the cases when we really need an independent way to put data in a `ResourceDictionary` and access this data in code at any time? In such cases, we may not even have an application. Moreover, we can even develop a WPF application without any UI; it could take data from the command line and produce some results, put data in files or databases without user interaction, and it still can use XAML data as resources.
 
-No, loading a file via `Uri` is not an acceptable option. We should not use any *magic strings*, ever. Instead, we can embed a resource dictionary in some framework element with the `Resources` property. If we do so, we can use the luxury of the XAML editor. To see how to do it, let's start with the example below.
+No, loading a file via `Uri` is not an acceptable option. We should not use any *magic strings*, ever. Instead, we can embed a resource dictionary in some framework element with the `Resources` property. If we do so, we can use the luxury of the XAML editor. To see how to do it, let's start with the example below. The steps are [described in more detail below](#paragraph-create-resources).
 
 That was the common part. And now when we have access to a `ResourceDictionary`, the approaches can be different.
 
@@ -115,7 +115,7 @@ Basically, we need to support the usual data types defined by the developer usin
 
 ### Approach #1: A Very Simple One
 
-So, let's start with the simplest approach: write a simple data class to be represented in XAML. To start with, we need some project node to embed a `ResourceDictionary` in an editable way. For example, we can add a `Window` and rename the class name and a top XAML element. The simplest element would probably be a `FrameworkContentElement`, but it can be anything else known to the XAML editor and having a `ResourceDictionary` property.
+{id=paragraph-create-resources}So, let's start with the simplest approach: write a simple data class to be represented in XAML. To start with, we need some project node to embed a `ResourceDictionary` in an editable way. For example, we can add a `Window` and rename the class name and a top XAML element. The simplest element would probably be a `FrameworkContentElement`, but it can be anything else known to the XAML editor and having a `ResourceDictionary` property.
 
 The element containing a `ResourceDictionary` doesn't have to take up memory though. After it is loaded, we only need an instance of `ResourceDictonary`. Then we pass this instance for further processing and exit the stack frame where the element was constructed. Then the garbage collector will dispose this inaccessible object, leaving the instance of `ResourceDictonary` to the developer.
 
@@ -213,7 +213,7 @@ Now, let's see what happens if we add more objects to the same XAML.
 
 ### Multiple Objects
 
-The only issue with multiple objects is how to identify them. If could use any arbitrary string keys but that will raise a problem of magic strings again. The keys should be unique, and a key can be only of two types: a string or `System.Type`. Most keys are strings, but the `System.Type` are also widely used. We can simply use the type `System.Type` for a key. So, I would suggest limiting our dictionary to having only one object per data object type. This way, all the keys will by unique, and we can access required object very quicky, no matter how many object our XAML contains.
+The only issue with multiple objects is how to identify them. We could use any arbitrary string keys but that will raise a problem of magic strings again. The keys should be unique, and a key can be only of two types: a string or `System.Type`. Most keys are strings, but the `System.Type` are also widely used. We can simply use the type `System.Type` for a key. So, I would suggest limiting our dictionary to having only one object per data object type. This way, all the keys will be unique, and we can access the required object very quickly, no matter how many objects our XAML contains.
 
 Let's look at the entire XAML sample:
 
@@ -317,7 +317,7 @@ Duck typing overcomes several limitations of the approaches described above:
 
 Let's look at a complete XAML sample:
 
-```{lang=XML}{id=code-duck-typed-data-source}
+```{lang=XML}{id=code-duck-typing-data-source}
 &lt;FrameworkContentElement x:Class="My.DuckTypedDataSource"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:e="clr-namespace:SA.Agnostic.UI.Markup;assembly=Agnostic.UI"
@@ -358,11 +358,11 @@ public static void CollectForDuckTypedInstance(
 }
 ```
 
-Importantly, there two modes of assignment data to an instance of some object. The parameter `ignoreMissingMembers` means that if a member corresponding to them `Member` element found in XAML, is not found in the type of `instance`, it is ignored, and population of `instance` continues. It can be used for population of different `instance` from the data found in the same dictionary: an instace simply picks up "its own" members, and another instance will pick up other members. A duck typing in all its strength.
+Importantly, there are two modes of assigning data to an instance of some object. The following situation is possible: an instance of `Member` is found in a dictionary, but the type of `instance` does not have a property or a field of the name corresponding to a member key. If the parameter `ignoreMissingMembers` is `true` it means ignoring the situation: a property or a field is not assigned, and the population of data continues. If `ignoreMissingMembers` is `false`, a default case. such a mismatch will though an exception. At the same time, if `ignoreMissingMembers` is `true` but there is any mismatch in profile between the member described by the `Member` instance and a field or property of the `instance` type, an appropriate exception is thrown.
 
-If `ignoreMissingMembers` is `false`, a default case. such a mismatch will though an exception.
+It can be used to populate different instances from the data found in the same dictionary: an instance simply picks up "its own" members, and another instance will pick up other members. A duck typing in all its strength.
 
-For each member, we can specify if we're looking for a static member using the `Static` Boolean attribute (default: `False`). Also, we can speficy that a property is a field using the `MemberKind` attribute --- by default, a member is a property.
+For each member, we can specify if we're looking for a static member using the `Static` Boolean attribute (default: `False`). Also, we can specify that a property is a field using the `MemberKind` attribute --- by default, a member is a property.
 
 We also need to specify the member type with the attribute `Type`. The type `System.String` is the default, but it should be specified in other cases. The type doesn't need to be specified for arrays, collections, and custom compound types, because these types are not converted from string, but XAML has special markup for these cases. To store some custom structural types in XAML, the user needs to provide string converters for them, using the attribute `[System.ComponentModel.TypeConverter]`. The code of `ResourseDictionaryUtility` automatically finds those attributes and does the proper conversion.
 
@@ -410,19 +410,19 @@ Let's make our duck typing sample more complicated:
 &lt;/FrameworkContentElement&gt;
 ```
 
-This XAML provides the exact same structure [as before](#code-duck-typed-data-source), but in some overly complicated form: the same set of members is split between two different `ResourceDictionary` instances. Anyway, it works, because the data from merged dictionaries is, well... merged. Unlimited nesting of merged dictionaries is supported. For more details, see [the explanation below](#paragraph-knowledge-resource-dictionary).
+This XAML provides the exact same structure [as before](#code-duck-typing-data-source), but in some overly complicated form: the same set of members is split between two different `ResourceDictionary` instances. Anyway, it works, because the data from merged dictionaries is, well... merged. Unlimited nesting of merged dictionaries is supported. For more details, see [the explanation below](#paragraph-knowledge-resource-dictionary).
 
 All the approaches described above can be combined in the same XAML in a pretty free matter. It makes little sense to describe all options, instead, a common logic should work. In particular, nothing prevents you from adding an additional `ResourceDictionary` under one or another `MergedDictionaries` container and using a different approach inside it.
 
 Another technique could be using dictionary keys of the type `System.Type` even where it does not carry any semantics related to underlying data objects.
 
-Does it make any sense, to use multiple resource dictionaries in one XAML? It may. Some may want to visually segregate different parts of the resources, if there are multiple objects in a XAML.
+Does it make any sense, to use multiple resource dictionaries in one XAML? It may. Some may want to visually segregate different parts of the resources if there are multiple objects in a XAML.
 
 In this case, it is important not to use each key more than once. Unfortunately, it is possible because having identical keys in different dictionaries will not trigger key uniqueness conflict. As a result `ResourseDictionaryUtility.GetObject` can get an object of the right type, but the wrong instance. At the same time, as the instances are found by their type, having multiple dictionaries does not compromise performance.
 
-What about the duck-typed [approach #2](#heading-approach-2323a-duck-typing)? Having multiple resource dictionaries in one XAML may have some merits: one can support multiple target types under the same XAML. How? Again, in this approach XAML code is  agnostic to the target type, it does not "know" which members belong to which type. One can visually isolate them using different instances of `ResourceDictionary` or `DataSetter` as containers. However, in contrast to [approach #1](#heading-approach-2313a-a-very-simple-one), processing time directly depends on the total number of elements in a XAML, and not specifically on the number of dictionaries. It is slow simply because every time the target instance is populated, the system has to traverse the entire dictionary of a XAML and visit each and every `Member` element.
+What about the duck-typing [approach #2](#heading-approach-2323a-duck-typing)? Having multiple resource dictionaries in one XAML may have some merits: one can support multiple target types under the same XAML. How? Again, in this approach XAML code is  agnostic to the target type, it does not "know" which members belong to which type. One can visually isolate them using different instances of `ResourceDictionary` or `DataSetter` as containers. However, in contrast to [approach #1](#heading-approach-2313a-a-very-simple-one), processing time directly depends on the total number of elements in a XAML, and not specifically on the number of dictionaries. It is slow simply because every time the target instance is populated, the system has to traverse the entire dictionary of a XAML and visit each and every `Member` element.
 
-Why use the duck-typed approach anyway, if it is the slowest in performance? Well, it has its benefits. Besides, this topic is not the place where most developers would worry too much about performance because the total amount of XAML data is never too high. Anyway, let's summarize the pros and contras of all the approaches.
+Why use the duck-typing approach anyway, if it is the slowest in performance? Well, it has its benefits. Besides, this topic is not the place where most developers would worry too much about performance because the total amount of XAML data is never too high. Anyway, let's summarize the pros and contras of all the approaches.
 
 ### Two Approaches: Pro and Contra
 
@@ -432,7 +432,7 @@ Why use the duck-typed approach anyway, if it is the slowest in performance? Wel
     It is designed to have one or several data types and create only one instance per type per XAML. It does not seem to be a limitation, because the application of the feature does not imply several instances.<br/>
     Getting objects from XAML is the fastest, and it does not depend on the number of types and the total volume of a `ResourceDictionary`.
 
-1. [Duck-typed approach](#heading-approach-2323a-duck-typing)
+1. [Duck-typing approach](#heading-approach-2323a-duck-typing)
     This approach is the slowest, it requires complicated processing code, but offers additional flexibility:
     It can work with both public and non-public members.<br/>
     It can work with both properties and fields.<br/>
@@ -441,7 +441,7 @@ Why use the duck-typed approach anyway, if it is the slowest in performance? Wel
     It is totally type-agnostic. It can process multiple objects of multiple types simply because it does not "know" what members belong to what data type.<br/>
     It does not require using data types accessible by both satellite and host assemblies.
 
-    Both approaches can work with the same set of data member types, not only with strings and primitive types but with a wide range of structured types. In the case of custom data types, some of them require custom type converters, but in many cases there are no conversion from string, and markup for these cases is  already correctly represented in XAML.
+    Both approaches can work with the same set of data member types, not only with strings and primitive types but with a wide range of structured types. In the case of custom data types, some of them require custom type converters, but in many cases, there are no conversions from string, and markup for these cases is  already correctly represented in XAML.
 
 ### Globalization
 
@@ -630,7 +630,7 @@ The solution requires .NET version 5 or later. The build is based on .NET and ba
 
 Tested on .NET 5 and 7.
 
-To change a target framework, edit the file "Directory.Build.props", and modify the property `<TargetFramework>`. It will change target frameworks in all projects automatically, including those requiring "-windows".
+To change a target framework, edit the file "Directory.Build.props", and modify the property `<TargetFramework>`. It will change target frameworks in all projects automatically, taking into account the suffix "-windows" where it is required.
 
 ## Conclusions
 
