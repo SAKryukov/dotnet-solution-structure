@@ -337,7 +337,6 @@ Let's look at a complete XAML sample:
                     &lt;System:String&gt;Alfa Romeo&lt;/System:String&gt;
                     &lt;System:String&gt;Ferrari&lt;/System:String&gt;
                     &lt;System:String&gt;Fiat&lt;/System:String&gt;
-                    
                     &lt;System:String&gt;Lancia&lt;/System:String&gt;
                     &lt;System:String&gt;Maserati&lt;/System:String&gt;
                 &lt;/x:Array&gt;
