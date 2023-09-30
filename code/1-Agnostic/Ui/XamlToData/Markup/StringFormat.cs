@@ -27,6 +27,7 @@ namespace SA.Agnostic.UI.Markup {
         public ArgumentList Arguments { get; set; }
 
         public string SubstituteValidated(params object[] arguments) {
+            Type stringType = typeof(string);
             if (string.IsNullOrWhiteSpace(Format))
                 throw new StringFormatException(
                     DefinitionSet.StringFormat.invalidFormatString);
@@ -40,14 +41,16 @@ namespace SA.Agnostic.UI.Markup {
                 throw new StringFormatException(
                     DefinitionSet.StringFormat.ArgumentNumberMismatch(
                         Arguments.Count, arguments.Length));
-            for (int index = 0; index < arguments.Length; ++index)
+            for (int index = 0; index < arguments.Length; ++index) {
+                if (Arguments[index].Type == stringType) continue;
                 if (!Arguments[index].Type.IsAssignableFrom(
                     arguments[index].GetType()))
-                        throw new StringFormatException(
-                            DefinitionSet.StringFormat.ArgumentTypeMismatch(
-                                index,
-                                Arguments[index].Type.FullName,
-                                arguments[index].GetType().FullName));
+                    throw new StringFormatException(
+                        DefinitionSet.StringFormat.ArgumentTypeMismatch(
+                            index,
+                            Arguments[index].Type.FullName,
+                            arguments[index].GetType().FullName));
+            } //loop
             return string.Format(Format, arguments);
         } //SubstituteValidated
 
