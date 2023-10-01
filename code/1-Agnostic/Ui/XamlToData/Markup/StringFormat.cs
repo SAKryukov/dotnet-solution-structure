@@ -6,57 +6,66 @@
 */
 
 namespace SA.Agnostic.UI.Markup {
-    using Type = System.Type;
     using ContentPropertyAttribute =
         System.Windows.Markup.ContentPropertyAttribute;
-    using ArgumentList = System.Collections.Generic.List<FormalArgument>;
+    using Regex = System.Text.RegularExpressions.Regex;
+    using Match = System.Text.RegularExpressions.Match;
+    using StringDictionary = System.Collections.Generic.Dictionary<string, int>;
 
-    [ContentProperty(nameof(Name))]
-    public class FormalArgument {
-        public FormalArgument() { Type = typeof(string); }
-        public string Name { get; set; }
-        public Type Type { get; set; }
-    } //FormalArgument
-
-    [ContentProperty(nameof(Arguments))]
+    [ContentProperty(nameof(Format))]
     public class StringFormat {
 
-        public StringFormat() { Arguments = new(); }
+        public StringFormat() { }
+        public StringFormat(string format) { stringFormat = format; }
 
-        public string Format { get; set; }
-        public ArgumentList Arguments { get; set; }
+        public string Format {
+            get => stringFormat;
+            set {
+                ParseXamlFormat(value);
+                stringFormat = value;
+            } //set Format
+        } //Format
 
-        public string SubstituteValidated(params object[] arguments) {
-            Type stringType = typeof(string);
-            if (string.IsNullOrWhiteSpace(Format))
-                throw new StringFormatException(
-                    DefinitionSet.StringFormat.invalidFormatString);
-            if (Arguments == null || Arguments.Count < 1)
-                throw new StringFormatException(
-                    DefinitionSet.StringFormat.invalidFormalArguments);
-            if (arguments == null || arguments.Length < 1)
-                throw new StringFormatException(
-                    DefinitionSet.StringFormat.invalidActualArguments);
-            if (Arguments.Count != arguments.Length)
-                throw new StringFormatException(
-                    DefinitionSet.StringFormat.ArgumentNumberMismatch(
-                        Arguments.Count, arguments.Length));
-            for (int index = 0; index < arguments.Length; ++index) {
-                if (Arguments[index].Type == stringType) continue;
-                if (!Arguments[index].Type.IsAssignableFrom(
-                    arguments[index].GetType()))
-                    throw new StringFormatException(
-                        DefinitionSet.StringFormat.ArgumentTypeMismatch(
-                            index,
-                            Arguments[index].Type.FullName,
-                            arguments[index].GetType().FullName));
-            } //loop
-            return string.Format(Format, arguments);
-        } //SubstituteValidated
+        public object[] ActualParameters { set => actualParameters = value; }
 
-        public string Substitute(params object[] arguments) {
-            return string.Format(Format, arguments);
+        // shortcut:
+        public string Substitute(object[] actualParameters) {
+            ActualParameters = actualParameters;
+            return ToString();
         } //Substitute
+
+        public override string ToString() {
+            return actualParameters == null
+                ? DefinitionSet.StringFormat.FormalParameterDeclaration(string.Join(DefinitionSet.StringFormat.toStringSeparator, formalParameters))
+                : string.Format(numberedStringFormat, actualParameters);
+        } //ToString()
+
+        string[] formalParameters;
+        object[] actualParameters;
+        string stringFormat;
+        string numberedStringFormat;
+        readonly StringDictionary dictionary = new();
+
+        void ParseXamlFormat(string value) {
+            Regex regex = new(DefinitionSet.StringFormat.regularExpression);
+            var matches = regex.Matches(value);
+            dictionary.Clear();
+            int dictionaryIndex = 0;
+            for (int index = 0; index < matches.Count; ++index) {
+                string key = matches[index].Groups[1].Value;
+                if (!dictionary.ContainsKey(key))
+                    dictionary[key] = dictionaryIndex++;
+            } //loop
+            formalParameters = new string[dictionary.Count];
+            foreach (var pair in dictionary)
+                formalParameters[pair.Value] = pair.Key;
+            numberedStringFormat = value;
+            foreach (Match match in matches) {
+                string key = match.Value;
+                string dictionaryKey = match.Groups[1].Value;
+                numberedStringFormat = numberedStringFormat.Replace(key, DefinitionSet.StringFormat.BracketParameter(dictionary[dictionaryKey].ToString()));
+            } //loop
+        } //ParseXamlFormat
 
         class StringFormatException : System.ApplicationException {
             internal StringFormatException(string message) : base(message) { }
