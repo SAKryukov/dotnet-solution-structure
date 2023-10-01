@@ -7,7 +7,6 @@
 
 <FrameworkContentElement x:Class="My.SingleObjectDataSource"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:system="clr-namespace:System;assembly=netstandard"
         xmlns:my="clr-namespace:My;assembly=Test.Markup.DataTypes"
         xmlns:e="clr-namespace:SA.Agnostic.UI.Markup;assembly=Agnostic.UI"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
@@ -30,7 +29,7 @@
                 <Color>Red</Color>
             </my:Main.Flag>
             <my:Main.FormatInstitution>
-                <e:StringFormat>Organizzazione: {name}, Numero di membri: {number of members}</e:StringFormat>
+                <e:StringFormat>Organizzazione: {name}, numero di membri al {date}: {number of members}</e:StringFormat>
             </my:Main.FormatInstitution>
         </my:Main>
     </FrameworkContentElement.Resources>

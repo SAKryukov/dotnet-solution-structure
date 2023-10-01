@@ -35,6 +35,12 @@ namespace SA.Test.Markup {
             dictionary = ResourseDictionaryUtility.CollectDictionary(multiObjectDataSource.Resources);
             foreach (var pair in dictionary)
                 Console.WriteLine(pair.Value);
+            Console.WriteLine();
+            Console.WriteLine(DefinitionSet.StringInterpolation.title);
+            Console.WriteLine(main.FormatInstitution.Substitute(
+                DefinitionSet.StringInterpolation.organization,
+                DefinitionSet.StringInterpolation.numberOfMembersOnTheDay,
+                DefinitionSet.StringInterpolation.numberOfMembers));
             Agnostic.UI.ConsoleHelperUtility.ShowExit(showUnderDebugger: false);
         } //Execute
 

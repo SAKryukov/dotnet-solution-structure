@@ -43,6 +43,8 @@ namespace SA.Agnostic.UI.Markup {
                 $"Formal parameters: {parameters}";
             internal static string BracketParameter(string parameter) =>
                 $"{{{parameter}}}";
+            internal static string InvalidParameterNumber(int formalParameters, int actualParameters) =>
+                $"Invalid parameter number: required {formalParameters}, provided {actualParameters}";
         } //class StringFormat
 
     } //class DefinitionSet

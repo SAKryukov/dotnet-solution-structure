@@ -26,16 +26,19 @@ namespace SA.Agnostic.UI.Markup {
             } //set Format
         } //Format
 
-        public object[] ActualParameters { set => actualParameters = value; }
-
-        // shortcut:
-        public string Substitute(object[] actualParameters) {
-            ActualParameters = actualParameters;
+        public string Substitute(params object[] actualParameters) {
+            this.actualParameters = actualParameters;
+            if (actualParameters == null) { // reset
+                numberedStringFormat = null;
+                return null;
+            } //if
+            if (formalParameters.Length != actualParameters.Length)
+                throw new StringFormatException(DefinitionSet.StringFormat.InvalidParameterNumber(formalParameters.Length, actualParameters.Length));
             return ToString();
         } //Substitute
 
         public override string ToString() {
-            return actualParameters == null
+            return actualParameters == null || string.IsNullOrWhiteSpace(numberedStringFormat) || actualParameters.Length < 1
                 ? DefinitionSet.StringFormat.FormalParameterDeclaration(string.Join(DefinitionSet.StringFormat.toStringSeparator, formalParameters))
                 : string.Format(numberedStringFormat, actualParameters);
         } //ToString()
