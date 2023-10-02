@@ -6,7 +6,7 @@
 
 [*Sergey A Kryukov*](https://www.SAKryukov.org)
 
-How to generate C# code from XAML? But why? Anyway, this question is answered, but this is not the main part&hellip; Now with localizable string interpolation! SA???
+How to generate C# code from XAML? But why? Anyway, this question is answered, but this is not the main part&hellip; Now the solution comes with localizable string interpolation!
 
 Many people asked this question about the generation of code out of XAML. And there are many unsatisfactory answers. At the same time, the problem is pretty easy to solve. And code generation is not the only approach. Another approach would be a data type designed to be presented via XAML markup, so its instance could be populated from the XAML data. Both approaches have their benefits, are easy to use, and are covered in detail in the present article, as well as XAML-based Globalization and Localization of arbitrary data, not necessarily related to UI.
 
@@ -784,18 +784,20 @@ Now, let's see how it translates into the application development process.
 
 ### Substitution
 
-Here is the workflow. I have the object of the type `My.Main`, and its instance is represented in
+Here is the workflow by example:
+
+I have the object of the type `My.Main`, and its instance is represented in XAML.
 From this XAML, I obtain the object `main` and look at `main.FormatInstitution`. The debugger shows the string value "Formal parameters: name, date, number of members". The is the list of names provided as `main.ToString()`.
 
-This string shows the number and the order of required parameters to be used for substitution.
+This string shows the number and the order of required parameters to be used for substitution, and I can see it under the debugger. Then I calculate required parameter objects and add a call `member.FormatInstitution.Substitute`. If I run the application under the debugger past this line of code, I can see the result of the substitution on the string representation of the `member.FormatInstitution` instance.
 
-SA???
+At this point, I can assign `member.FormatInstitution.ToString()` to some string object and preserve the result, and then reset `member.FormatInstitution` by calling `member.FormatInstitution.Substitute(null)`. It can only be helpful if I need to reuse the object `member.FormatInstitution` later in the same process with different set of parameters, and if I still need a reminder of the required set of parameters for a later development step.
 
 ### Limitations
 
 The first limitation is this: in the current implementation, we cannot supply format string [specific for each separate parameter](https://learn.microsoft.com/en-us/dotnet/csharp/tutorials/string-interpolation#how-to-specify-a-format-string-for-an-interpolation-expression). This limiration is the easiest to work around. If a parameter requires a separate format string, it could be obtained in the string form before the substitution, using its method `ToString(string parameterSpecificFormat)`. On the other hand, the class `StringFormat` could be further refined to handle those format string per parameter, then they can be culture-specific, different for different localizations.
 
-Another limitation so more serious. What is the order of parameters in the string should be different in different cultures? With the the current `StringFormat` desing, it is impossible, so every translation of the originally developed format string should follow the original order of the parameters. If someone has a better idea and can share it, I would greatly appreciate it.
+Another limitation so more serious. What if the order of parameters in the string should be different in different cultures? With the the current `StringFormat` desing, it is impossible, so every translation of the originally developed format string should somehow follow the original order of the parameters. My experince dealing with typologically extremely different languages shows that it is always possible, albeit not always easy. If someone has a better idea and can share it, I would greatly appreciate it.
 
 ## Solution Structure Preview
 
