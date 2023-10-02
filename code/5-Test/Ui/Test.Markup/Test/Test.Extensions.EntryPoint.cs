@@ -39,8 +39,8 @@ namespace SA.Test.Markup {
             Console.WriteLine(DefinitionSet.StringInterpolation.title);
             Console.WriteLine(main.FormatInstitution.Substitute(
                 DefinitionSet.StringInterpolation.organization,
-                DefinitionSet.StringInterpolation.numberOfMembersOnTheDay,
-                DefinitionSet.StringInterpolation.numberOfMembers));
+                DefinitionSet.StringInterpolation.numberOfMembersOnTheDay.ToString(DefinitionSet.StringInterpolation.standardLongDateSpecifier),
+                DefinitionSet.StringInterpolation.numberOfMembers.ToString(DefinitionSet.StringInterpolation.standardCardinalSpecifierWithGroupDelimiters)));
             Agnostic.UI.ConsoleHelperUtility.ShowExit(showUnderDebugger: false);
         } //Execute
 
