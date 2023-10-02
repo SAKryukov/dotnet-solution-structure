@@ -16,8 +16,6 @@ namespace SA.Test.Markup {
             internal const string organization = "Code Project";
             internal const ulong numberOfMembers = 15747139;
             internal static System.DateTime numberOfMembersOnTheDay = new(2023, 10, 1);
-            internal const string standardLongDateSpecifier = "D";
-            internal const string standardCardinalSpecifierWithGroupDelimiters = "N0";
         } //class StringInterpolation
 
     } //class DefinitionSet

@@ -31,7 +31,7 @@
             <my:Main.FormatInstitution>
                 <e:StringFormat>
                     Organizzazione: {name},
-                    numero di membri al {date}: {number of members}
+                    numero di membri al {date:D}: {number of members:N0}
                 </e:StringFormat>
             </my:Main.FormatInstitution>
         </my:Main>
