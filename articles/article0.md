@@ -6,7 +6,7 @@
 
 [*Sergey A Kryukov*](https://www.SAKryukov.org)
 
-How to generate C# code from XAML? But why? Anyway, this question is answered, but this is not the main part&hellip;
+How to generate C# code from XAML? But why? Anyway, this question is answered, but this is not the main part&hellip; Now with localizable string interpolation! SA???
 
 Many people asked this question about the generation of code out of XAML. And there are many unsatisfactory answers. At the same time, the problem is pretty easy to solve. And code generation is not the only approach. Another approach would be a data type designed to be presented via XAML markup, so its instance could be populated from the XAML data. Both approaches have their benefits, are easy to use, and are covered in detail in the present article, as well as XAML-based Globalization and Localization of arbitrary data, not necessarily related to UI.
 
@@ -618,6 +618,153 @@ custom structural data types may require custom type converters, to parse data f
 
 * It is possible to mess up things, but no more than with any other XAML technique.
 * Some of the approaches can take some performance toll, but this is not at all critical to the applications using resources reasonably.
+
+## String Interpolation
+
+Now, we're approaching the newest and trickiest part of the entire topic.
+
+Can [string interpolation] be globalized 
+
+SA???
+
+### Presentation in XAML
+
+The formatting rules for string interpolation should be presented in XAML in the same way as with $-notation for C# string interpolation, using a single string that carries all required information. Here is how it looks in XAML:
+
+{id=code-string-format}"SingleObjectDataSource.xaml":
+
+```{lang=XML}
+&lt;!-- ... --&gt;
+&lt;my:Main.FormatInstitution&gt;
+   &lt;e:StringFormat&gt;
+       Organization: {name},
+       number of members on {date}: {number of members}&lt;/e:StringFormat&gt;
+&lt;/my:Main.FormatInstitution&gt;
+&lt;!-- ... --&gt;
+```
+The major difference with $-notation is: the variable names don't have to be valid identifiers, they can come with whitespace characters.
+
+After I substitute the actual data on Code Project on the date of writing, I obtained:
+"Organization: Code Project, number of members on October 1, 2023: 15,747,139"
+Note that many of my system settings correspond to US culture, but not all ot them.
+If I ran through localization, the only implemented culture for this test application is "it", so I get
+"Organizzazione: Code Project, numero di membri al domenica 1 ottobre 2023: 15.747.139".
+(Those who know Italia better pleas correct me if I made a mistake somewere.)
+
+The format string can be entered in two different ways. The XAML sample shown above demonstrates *direct content*. 
+
+Alternatively, the same string could be entered as the attribute `Format`. However, I would recomment using only the direct content form, and here is why: you can face a ridiculous limitation with the attribute `Format`: you won't be able to enter "{" as a first character. It happens because if an attribute string values begins with "{", it is interpreted as a XAML [markup extension](https://learn.microsoft.com/en-us/dotnet/desktop/xaml-services/markup-extensions-overview), but that extension does not exist.
+
+### Implementation
+
+Lets' look at the implementation. Note that the application of the attribute `[ContentProperty(nameof(Format))]` defines that `Format` can be entered as direct content of the element `e:StringFormat`.
+
+This is the entire implementation:
+
+```{lang=C#}
+namespace SA.Agnostic.UI.Markup {
+    using ContentPropertyAttribute =
+        System.Windows.Markup.ContentPropertyAttribute;
+    using Regex = System.Text.RegularExpressions.Regex;
+    using Match = System.Text.RegularExpressions.Match;
+    using StringDictionary =
+        System.Collections.Generic.Dictionary&lt;string, int&gt;;
+
+    [ContentProperty(nameof(Format))]
+    public class StringFormat {
+
+        public StringFormat() { }
+        public StringFormat(string format) { stringFormat = format; }
+
+        public string Format {
+            get =&gt; stringFormat;
+            set {
+                ParseXamlFormat(value);
+                stringFormat = value;
+            } //set Format
+        } //Format
+
+        public string Substitute(params object[] actualParameters) {
+            this.actualParameters = actualParameters;
+            if (actualParameters == null) { // reset
+                numberedStringFormat = null;
+                return null;
+            } //if
+            if (formalParameters.Length != actualParameters.Length)
+                throw new StringFormatException(
+                    DefinitionSet.StringFormat.InvalidParameterNumber(
+                        formalParameters.Length, actualParameters.Length));
+            return ToString();
+        } //Substitute
+
+        public override string ToString() {
+            return actualParameters == null
+            || string.IsNullOrWhiteSpace(numberedStringFormat)
+            || actualParameters.Length &lt; 1
+                ? DefinitionSet.StringFormat.FormalParameterDeclaration(
+                    string.Join(
+                        DefinitionSet.StringFormat.toStringSeparator,
+                        formalParameters))
+                : string.Format(numberedStringFormat, actualParameters);
+        } //ToString()
+
+        string[] formalParameters;
+        object[] actualParameters;
+        string stringFormat;
+        string numberedStringFormat;
+        readonly StringDictionary dictionary = new();
+
+        void ParseXamlFormat(string value) {
+            Regex regex = new(DefinitionSet.StringFormat.regularExpression);
+            var matches = regex.Matches(value);
+            dictionary.Clear();
+            int dictionaryIndex = 0;
+            for (int index = 0; index &lt; matches.Count; ++index) {
+                string key = matches[index].Groups[1].Value;
+                if (!dictionary.ContainsKey(key))
+                    dictionary[key] = dictionaryIndex++;
+            } //loop
+            formalParameters = new string[dictionary.Count];
+            foreach (var pair in dictionary)
+                formalParameters[pair.Value] = pair.Key;
+            numberedStringFormat = value;
+            foreach (Match match in matches) {
+                string key = match.Value;
+                string dictionaryKey = match.Groups[1].Value;
+                numberedStringFormat = numberedStringFormat.
+                    Replace(key,
+                    DefinitionSet.StringFormat.BracketParameter(
+                        dictionary[dictionaryKey].ToString()));
+            } //loop
+        } //ParseXamlFormat
+
+        class StringFormatException : System.ApplicationException {
+            internal StringFormatException(string message) : base(message) { }
+        } //class StringFormatException
+
+    } //class StringFormat
+
+}
+```
+
+Let's see what's going on here. The instance of `StringFormat` can be in two states: when substitution is not done, `actualParameters` and `numberedStringFormat` are `null` objects. After the substitution of actual parameters, these two objects are defined. In first state the instance's `ToString()` value can be used as an instruction on what parameters are required and in what order they should come. In the second state, the instance's `ToString()` value is the interpolated string.
+
+Normally, the string property `Format` comes from XAML. It is parsed in a pretty interesting way using the method `ParseXamlFormat`. It creates the array `formalParameters` uses as a notation for a developer. Importantly, it also creates a format string `numberedStringFormat` for `string.Format` using old good "{0}{1}...{2}" numeric notation.
+
+Why `StringDictionary` is used here? It is very important, because the same parameter name can come in the XAML-provided format string not once. For example, if this string is simply "... {name},... {date},... {value}...", our string `numberedStringFormat` should become "... {0},... {1},... {2}...".
+
+But what if it is "... {name},... {date},..., {name}, ... {value},... {name}..."? This is a more general case. Our `numberedStringFormat` should become "... {0},... {1},..., {0}, ... {2},... {0}...". Our `StringDictionary` tracks the indices of the elements of the array `actualParameters` to be substituted.
+
+Note that there is a way to reset `StringFormat` instance to its state before substitution. To do so, the developer can call `Substitute(null)`. It can be useful if the same `StringFormat` instances should be used more than once during development.
+
+Now, let's see how it translates into the application development process.
+
+### Substitution
+
+Here is the workflow. I have the object of the type `My.Main`, and its instance is represented in
+From this XAML, I obtain the object `main` and look at `main.FormatInstitution`. The debugger shows the string value "Formal parameters: name, date, number of members". The is the list of names provided as `main.ToString()`.
+
+This string shows the number and the order of required parameters to be used for substitution.
 
 ## Solution Structure Preview
 
