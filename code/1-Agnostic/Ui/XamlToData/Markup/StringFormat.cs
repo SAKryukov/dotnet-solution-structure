@@ -74,10 +74,8 @@ namespace SA.Agnostic.UI.Markup {
                     subformat = match.Groups[2].Value;
                 } else
                     key = match.Groups[2].Value;
-                if (subformat == null)
-                    numberedStringFormat = numberedStringFormat.Replace(toReplace, DefinitionSet.StringFormat.BracketParameter(dictionary[key].ToString()));
-                else
-                    numberedStringFormat = numberedStringFormat.Replace(toReplace, DefinitionSet.StringFormat.BracketParameter(dictionary[key].ToString(), subformat));
+                numberedStringFormat = 
+                    numberedStringFormat.Replace(toReplace, DefinitionSet.StringFormat.BracketParameter(dictionary[key], subformat));
             } //loop
         } //ParseXamlFormat
 

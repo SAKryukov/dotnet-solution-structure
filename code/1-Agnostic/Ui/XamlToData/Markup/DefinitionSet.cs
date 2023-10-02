@@ -41,10 +41,10 @@ namespace SA.Agnostic.UI.Markup {
             internal const string toStringSeparator = ", ";
             internal static string FormalParameterDeclaration(string parameters) =>
                 $"Formal parameters: {parameters}";
-            internal static string BracketParameter(string parameter) =>
-                $"{{{parameter}}}";
-            internal static string BracketParameter(string parameter, string subformat) =>
-                $"{{{parameter}:{subformat}}}";
+            internal static string BracketParameter(int parameterIndex, string subformat = null) =>
+                subformat == null 
+                  ? $"{{{parameterIndex}}}"
+                    : $"{{{parameterIndex}:{subformat}}}";
             internal static string InvalidParameterNumber(int formalParameters, int actualParameters) =>
                 $"Invalid parameter number: required {formalParameters}, provided {actualParameters}";
         } //class StringFormat
