@@ -6,7 +6,7 @@
 
 [*Sergey A Kryukov*](https://www.SAKryukov.org)
 
-How to generate C# code from XAML? But why? Anyway, this question is answered, but this is not the main part&hellip; Now the solution comes with localizable string interpolation!
+How to generate C# code from XAML? But why? Anyway, this question is answered, but this is not the main part&hellip; Now the solution comes with localizable dynamic string interpolation!
 
 Many people asked this question about the generation of code out of XAML. And there are many unsatisfactory answers. At the same time, the problem is pretty easy to solve. And code generation is not the only approach. Another approach would be a data type designed to be presented via XAML markup, so its instance could be populated from the XAML data. Both approaches have their benefits, are easy to use, and are covered in detail in the present article, as well as XAML-based Globalization and Localization of arbitrary data, not necessarily related to UI.
 
@@ -115,7 +115,7 @@ Basically, we need to support the usual data types defined by the developer usin
 
 ### Approach #1: A Very Simple One
 
-{id=paragraph-create-resources}So, let's start with the simplest approach: write a simple data class to be represented in XAML. To start with, we need some project node to embed a `ResourceDictionary` in an editable way. For example, we can add a `Window` and rename the class name and a top XAML element. The simplest element would probably be a `FrameworkContentElement`, but it can be anything else known to the XAML editor and having a `ResourceDictionary` property.
+{id=paragraph-create-resources}So, let's start with the simplest approach: write a simple data class to be represented in XAML. To start with, we need a project node to embed a `ResourceDictionary` in an editable way. For example, we can add a `Window` and rename the class name and a top XAML element. The simplest element would probably be a `FrameworkContentElement`, but it can be anything else known to the XAML editor and having a `ResourceDictionary` property.
 
 The element containing a `ResourceDictionary` doesn't have to take up memory though. After it is loaded, we only need an instance of `ResourceDictonary`. Then we pass this instance for further processing and exit the stack frame where the element was constructed. Then the garbage collector will dispose this inaccessible object, leaving the instance of `ResourceDictonary` to the developer.
 
@@ -173,7 +173,7 @@ namespace My {
 }
 ```
 
-The properties should be `public` and read/write. The first reason for that is globalization: it should be the type known to the host assembly and its corresponding *satellite assemblies* used for potential localization. Therefore, we have to assume that the class `My.Main` is defined in some separate assembly referenced by the host assembly and any satellite assemblies. And it required public members.
+The properties should be `public` and read/write. The first reason for that is globalization: it should be the type known to the host assembly and its corresponding *satellite assemblies* used for potential localization. Therefore, we have to assume that the class `My.Main` is defined in a separate assembly referenced by the host assembly and any satellite assemblies. And it required public members.
 
 Let's take a step further. We have added two properties of the class `DimensionalQuantity`, to make our type compound, and also the property `Flag` of a list type, and the list types are already supported by XAML. To make it even more interesting, we applied the attribute `[ContentProperty]`, to support *direct content*.
  Let's see how we can use `Color`, `DimensionalQuantity`, and list:
@@ -205,7 +205,7 @@ Let's take a step further. We have added two properties of the class `Dimensiona
 &lt;/FrameworkContentElement&gt;
 ```
 
-There are pretty complicated options and rules for representing lists and arrays in XAML and also the rules for using *direct content*. It depends both on the collection/array types and the element types. In other cases, the *markup extension* `x:Array` is required, and we have such examples in our XAML samples. Please refer to Microsoft documentation for further details.
+There are pretty complicated options and rules for representing lists and arrays in XAML and the rules for using *direct content*. It depends both on the collection/array types and the element types. In other cases, the *markup extension* `x:Array` is required, and we have such examples in our XAML samples. Please refer to Microsoft documentation for further details.
 
 Besides, the property specified by the attribute `[ContentProperty]` defines the direct content of the type `Main` markup. So, our string "Simple demonstration of compound types" goes to the value of `Description`. Interestingly, before the property is assigned, XAML processing removes all the extra *whitespace*, but this is a usual result of [XML normalization](https://www.w3.org/2008/xmlsec/Drafts/xml-norm/Overview.html). As we already have three child elements under the XAML `<my:Main>` element, our `Description` can go in any slot in between, but only once, otherwise XAML will fail to compile. 
 
@@ -294,7 +294,7 @@ public static void NormalizeDictionary(ResourceDictionary dictionary) {
 Here, `PatologicalList` is a list of *tuples* `((object, object, System.Windows.ResourceDictionary))`.
 It is used to collect all the pathological cases when an object type `valueType` and the type returned by the key of the type `System.Type` don't match. Interestingly, the corrected keys cannot be replaced only in two passes showing at the end: all are removed first and only added at the second pass. An attempt to add a key immediately after removal may lead to an exception because this new key can match an existing key.
 
-The the test application "Test.Markup" the normalization is performed as a part of *localization* even when the data is not actually localized.
+In the test application "Test.Markup" the normalization is performed as a part of *localization* even when the data is not actually localized.
 
 Taking this precaution makes the reliability of the approach match the reliability of usual XAML content: not all the mistakes are revealed at the build time, but loading the data using XAML at runtime is the first guard revealing all remaining problems.
 
@@ -308,7 +308,7 @@ This approach is the most sophisticated, the most powerful but not as reliable a
 
 Duck typing overcomes several limitations of the approaches described above:
 
-* The data is collected using type-agnostic approach, based on `System.Reflection`.
+* The data is collected using a type-agnostic approach, based on `System.Reflection`.
 * Therefore, data types defined in a separate assembly are not required.
 * Therefore, satellite applications don't need access to any semantic types, so their development is the most independent of their applications' specifics.
 * Therefore, non-public members are also supported.
@@ -444,15 +444,15 @@ Why use the duck-typing approach anyway, if it is the slowest in performance? We
 
 ### Globalization
 
-One main reason for keeping arbitrary data in a resource dictionary is *globalization*. The demo project "Test.Markup.csproj" demonstrates localization of the data in "DocumentaionSamples" directory of this project.
+One main reason for keeping arbitrary data in a resource dictionary is *globalization*. The demo project "Test.Markup.csproj" demonstrates localization of the data in the "DocumentaionSamples" directory of this project.
 
 This kind of localization has little to do with standard localization based on satellite assemblies, but it is compatible with it and can be embedded in standard satellite assemblies. The source code provided with the present article is part of a [bigger solution "dotnet-solution-structure"](#heading-solution-structure-preview). This repository provides a comprehensive XAML-based localization with satellite assemblies, and that deserves a separate article.
 
-For further details, please see the projects "Test.Markup.csproj" and "Test.Markup.Localization". The second project implements a localized version of data and makes an assembly located and named according to the the general rules for the localization satellite assemblies. It implements the interface `IApplicationSatelliteAssembly` and applies the assembly-level attribute `[PluginManifest]` used by the agnostic localization facility to locate and load satellite assembly. The properties of `IApplicationSatelliteAssembly` provide access to localized versions of all resource dictionaries found by the full names of the container classes of these resources.
+For further details, please see the projects "Test.Markup.csproj" and "Test.Markup.Localization". The second project implements a localized version of data and makes an assembly located and named according to the general rules for the localization satellite assemblies. It implements the interface `IApplicationSatelliteAssembly` and applies the assembly-level attribute `[PluginManifest]` used by the agnostic localization facility to locate and load satellite assembly. The properties of `IApplicationSatelliteAssembly` provide access to localized versions of all resource dictionaries found by the full names of the container classes of these resources.
 
 The localization of the arbitrary data on the host application side is reduced to the direct assignment of the `Resources` properties for each container to the `ResourceDictionary` objects automatically obtained from a satellite assembly chosen based on the required culture, including possible fallback cultures.
 
-These "Test.Markup.*.csproj" projects make just the basic demonstration of a globalized applicaton with localization. Anyone can take this code and embed it into a fully-fledged system with the localization of all resources. The present demonstration shows how to localize arbitrary data types, not necessarily related to UI.
+These "Test.Markup.*.csproj" projects are just the basic demonstration of a globalized application with localization. Anyone can take this code and embed it into a fully-fledged system with the localization of all resources. The present demonstration shows how to localize arbitrary data types, not necessarily related to UI.
 
 ### Limitations
 
@@ -539,7 +539,7 @@ Note that all keys in the entire dictionary hierarchy are presented in flat cont
 
 For the demonstration of code generation, please see the project "Test.CodeGeneration.csproj". It makes just a console application (yes, a WPF project can make a console application) producing an output C# file, and its command-line parameters specify the name and location of an output file and some naming options. To see the output with command-line documentation, please remove the last command-line parameter "-Q" (quiet) in the element "Test.CodeGeneration.csproj" `<Exec Command="...">`.
 
-There is nothing fancy here. However, the command-line facility and its use is pretty interesting. Basically, it is explained in my article *[Enumeration-based Command Line Utility](https://www.codeproject.com/Articles/144349/Enumeration-based-Command-Line-Utility)*. In turn, this article is a part of a series of articles on enumerations. However, the code for the enumeration facility and command line is now seriously improved, so it deserves a separate article. A complete code with new demo applications can be found in a separate GitHub repository [dotnet-enumerations-command-line](https://github.com/SAKryukov/dotnet-enumerations-command-line). It also contains fully-fledged XAML-based XAML-based localization with satellite assemblies, and the localization also comes with a demo application.
+There is nothing fancy here. However, the command-line facility and its use are pretty interesting. Basically, it is explained in my article *[Enumeration-based Command Line Utility](https://www.codeproject.com/Articles/144349/Enumeration-based-Command-Line-Utility)*. In turn, this article is a part of a series of articles on enumerations. However, the code for the enumeration facility and command line is now seriously improved, so it deserves a separate article. A complete code with new demo applications can be found in a separate GitHub repository [dotnet-enumerations-command-line](https://github.com/SAKryukov/dotnet-enumerations-command-line). It also contains fully-fledged XAML-based XAML-based localization with satellite assemblies, and the localization also comes with a demo application.
 
 The article format does not allow for convenient presentation of those long lines of project files, so please look at the element `Target` named `GenerateCode` in the same file "Test.CodeGeneration.csproj". It creates a directory, calculates its relative path, and executes this console application when it is fully built. I tested that the generated file can compile in any WPF project content, even if placed as a source file in the same project, if the naming is chosen correctly, to avoid naming conflicts.
 
@@ -619,13 +619,13 @@ custom structural data types may require custom type converters, to parse data f
 * It is possible to mess up things, but no more than with any other XAML technique.
 * Some of the approaches can take some performance toll, but this is not at all critical to the applications using resources reasonably.
 
-## String Interpolation
+## Dynamic String Interpolation
 
-Now, we're approaching and the trickiest part of the entire topic. It is relevant to the use of XAML data in general, no matter how exactly we obtain this data from XAML. For this reason, this new section is placed after the sections on XAML markup and code generation.
+Now, we're approaching the trickiest part of the entire topic. It is relevant to the use of XAML data in general, no matter how exactly we obtain this data from XAML. For this reason, this new section is placed after the sections on XAML markup and code generation.
 
 Can [string interpolation](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/tokens/interpolated) be globalized?
 
-The first conclusion from analisys of this topic is this: not using the way it is implemented in C#. We can only think about mimicing this behavior during runtime. String interpolation is a language feature, and the mechanism of interpolation is statically known, it is a compile-time action. It does not mean that we cannot use it dynamically, because we can create a static function and call it with different parameters, for example:
+The first conclusion from the analysis of this topic is this: not using the way it is implemented in C#. We can only think about mimicking this behavior during runtime. String interpolation is a language feature, and the mechanism of interpolation is statically known, it is a compile-time action. In other terms, the names of the variables for substitution are local to the piece of code where the format string is defined. We cannot pass the format string to another stack frame and then dynamically add "$" to it. It does not mean that we cannot use it dynamically, because we can create a static function and call it with different parameters, for example:
 
 ```{lang=C#}
 static class DefinitionSet {
@@ -638,13 +638,13 @@ static class DefinitionSet {
 }
 ```
 
-However, this technique cannot help us at all, because it has an apparent *ad hoc* use. In every case, it works on a concreat set of arguments with concrete names. We need a mechanism to abstract out both set of arguments and the format string, so the format string could be different in different localizations, but applicable to the same set of arguments.
+However, this technique cannot help us at all, because it has an apparent *ad hoc* use. In every case, it works on a concrete set of arguments with concrete names. We need a mechanism to abstract out both set of arguments and the format string, so the format string could be different in different localizations, but applicable to the same set of arguments.
 
-Such mechanism does exist, and this is the mechanism of `string.Format`. It uses numeric format notation "...{0}, {1}, {2}...". Can it be used? Certainly, and we don't need to invent anything specific to XAML. We would just define the format string in XAML and use it in the way people used it before.
+Such a mechanism does exist, and this is the mechanism of `string.Format`. It uses numeric format notation "...{0}, {1}, {2}...". Can it be used? Certainly, and we don't need to invent anything specific to XAML. We would just define the format string in XAML and use it in the way people used it before.
 
-But is it convenient enough? No, it is not, and it is even a usual subject of human mistakes.In contrast to string interpolation, the compiler doesn not give us any clue of possible developer's mistakes, and only the look at the output during runtime can reveal those mistakes. Moreover, is it not so easy to see immediately what parameter should go where, because the place in code where the parameters are substituted and the format string are often different, especially with XAML, where the format string would be in XAML, and the place when the parameters are substituted is in some C# code.
+But is it convenient enough? No, it is not, and it is even a usual subject of human mistakes. In contrast to string interpolation, the compiler does not give us any clue of possible developer's mistakes, and only a look at the output during runtime can reveal those mistakes. Moreover, is it not so easy to see immediately what parameter should go where, because the places in code where the parameters are substituted and the format string are often different, especially with XAML, where the format string would be in XAML, and the place when the parameters are substituted is in some C# code.
 
-Can we do better than that? I think we can, and I examimed several ideas and even tried out some of them to feel the development process better. Here is the idea: we can mimic the form of the format string placed in XAML; it should resemble the format string in the $-notation. But we cannot use C# string interpolation for processing this string, so we need to develop the processing from scratch, and the processing can happen only during runtime.
+Can we do better than that? I think we can, and I examined several ideas and even tried out some of them to feel the development process better. Here is the idea: we can mimic the form of the format string placed in XAML; it should resemble the format string in the $-notation. However we cannot use C# string interpolation for processing this string, so we need to develop the processing from scratch, and the processing can happen only during runtime.
 
 First, we need to understand how the object, representing our new string interpolating mechanism should look in XAML.
 
@@ -670,22 +670,22 @@ These names play two roles: they should serve as unique keys used to identify pl
 
 Note that we can also supply format strings [specific for each separate parameter](https://learn.microsoft.com/en-us/dotnet/csharp/tutorials/string-interpolation#how-to-specify-a-format-string-for-an-interpolation-expression). In our example, these format strings are "D" and "N0".
 
-After I substitute the actual data on Code Project on the date of writing, I obtained:
+After I substituted the actual data on Code Project on the date of writing, I obtained:
 "Organization: Code Project, number of members on October 1, 2023: 15,747,139"
-Note that many of my system settings correspond to US culture, but not all ot them.
+Note that many of my system settings correspond to US culture, but not all of them.
 If I ran through localization, the only implemented culture for this test application is "it", so I get
 "Organizzazione: Code Project, numero di membri al domenica 1 ottobre 2023: 15.747.139".
-(Those who know Italia better pleas correct me if I made a mistake somewere.)
+(Those who know Italia better please correct me if I made a mistake somewhere.)
 
 The format string can be entered in two different ways. The XAML sample shown above demonstrates *direct content*. 
 
-Alternatively, the same string could be entered as the attribute `Format`. However, I would recomment using only the direct content form, and here is why: you can face a ridiculous limitation with the attribute `Format`: you won't be able to enter "{" as a first character. It happens because if an attribute string values begins with "{", it is interpreted as a XAML [markup extension](https://learn.microsoft.com/en-us/dotnet/desktop/xaml-services/markup-extensions-overview), but that extension does not exist.
+Alternatively, the same string could be entered as the attribute `Format`. However, I would recommend using only the direct content form, and here is why: you can face a ridiculous limitation with the attribute `Format`: you won't be able to enter "{" as a first character. It happens because if an attribute string value begins with "{", it is interpreted as a XAML [markup extension](https://learn.microsoft.com/en-us/dotnet/desktop/xaml-services/markup-extensions-overview), but that extension does not exist.
 
 Now we need to understand how to implement the mechanism used to take the format string prescribed in XAML and perform the substitution of the parameters during runtime, that is, the string interpolation itself.
 
 ### Implementation
 
-Lets' look at the implementation. Note that the application of the attribute `[ContentProperty(nameof(Format))]` defines that `Format` can be entered as direct content of the element `e:StringFormat`.
+Let's look at the implementation. Note that the application of the attribute `[ContentProperty(nameof(Format))]` defines that `Format` can be entered as direct content of the element `e:StringFormat`.
 
 This is the entire implementation:
 
@@ -779,11 +779,11 @@ namespace SA.Agnostic.UI.Markup {
 }
 ```
 
-Let's see what's going on here. The instance of `StringFormat` can be in two states: when substitution is not done, `actualParameters` and `numberedStringFormat` are `null` objects. After the substitution of actual parameters, these two objects are defined. In first state the instance's `ToString()` value can be used as an instruction on what parameters are required and in what order they should come. In the second state, the instance's `ToString()` value is the interpolated string.
+Let's see what's going on here. The instance of `StringFormat` can be in two states: when substitution is not done, `actualParameters` and `numberedStringFormat` are `null` objects. After the substitution of actual parameters, these two objects are defined. In the first state, the instance's `ToString()` value can be used as an instruction on what parameters are required and in what order they should come. In the second state, the instance's `ToString()` value is the interpolated string.
 
-Normally, the string property `Format` comes from XAML. It is parsed in a pretty interesting way using the method `ParseXamlFormat`. It creates the array `formalParameters` uses as a notation for a developer. Importantly, it also creates a format string `numberedStringFormat` for `string.Format` using old good "{0}{1}...{2}" numeric notation.
+Normally, the string property `Format` comes from XAML. It is parsed in a pretty interesting way using the method `ParseXamlFormat`. It creates the array `formalParameters` used as a notation for a developer. Importantly, it also creates a format string `numberedStringFormat` for `string.Format` using old good "{0}{1}...{2}" numeric notation.
 
-Why `StringDictionary` is used here? It is very important, because the same parameter name can come in the XAML-provided format string not once. For example, if this string is simply "... {name},... {date},... {value}...", our string `numberedStringFormat` should become "... {0},... {1},... {2}...".
+Why `StringDictionary` is used here? It is very important because the same parameter name can come in the XAML-provided format string not once. For example, if this string is simply "... {name},... {date},... {value}...", our string `numberedStringFormat` should become "... {0},... {1},... {2}...".
 
 But what if it is "... {name},... {date},..., {name}, ... {value},... {name}..."? This is a more general case. Our `numberedStringFormat` should become "... {0},... {1},..., {0}, ... {2},... {0}...". Our `StringDictionary` tracks the indices of the elements of the array `actualParameters` to be substituted.
 
@@ -798,13 +798,13 @@ Here is the workflow by example:
 I have the object of the type `My.Main`, and its instance is represented in XAML.
 From this XAML, I obtain the object `main` and look at `main.FormatInstitution`. The debugger shows the string value "Formal parameters: string name, System.DateTime date, ulong number of members". The is the list of names provided as `main.ToString()`.
 
-This string shows the number and the order of required parameters to be used for substitution, suggests what the parameters are used for, and I can see it under the debugger. Then I calculate required parameter objects and add a call `member.FormatInstitution.Substitute`. If I run the application under the debugger past this line of code, I can see the result of the substitution on the string representation of the `member.FormatInstitution` instance.
+This string shows the number and the order of required parameters to be used for substitution and suggests what the parameters are used for, and I can see it under the debugger. Then I calculate the required parameter objects and add a call `member.FormatInstitution.Substitute`. If I run the application under the debugger past this line of code, I can see the result of the substitution on the string representation of the `member.FormatInstitution` instance.
 
-At this point, I can assign `member.FormatInstitution.ToString()` to some string object and preserve the result, and then reset `member.FormatInstitution` by calling `member.FormatInstitution.Substitute(null)`. It can only be helpful if I need to reuse the object `member.FormatInstitution` later in the same process with different set of parameters, and if I still need a reminder of the required set of parameters for a later development step.
+At this point, I can assign `member.FormatInstitution.ToString()` to some string object and hence preserve the result, and then reset `member.FormatInstitution` by calling `member.FormatInstitution.Substitute(null)`. It can only be helpful if I need to reuse the object `member.FormatInstitution` later in the same process with a different set of parameters, and if I still need a reminder of the required set of parameters for a later development step.
 
 ### Limitations
 
-At this moment, I can see only one limitation. What if the order of parameters in the string should be different in different cultures? With the the current `StringFormat` desing, it is impossible, so every translation of the originally developed format string should somehow follow the original order of the parameters. My experince dealing with typologically extremely different languages shows that it is always possible, albeit not always easy. If someone has a better idea and can share it, I would greatly appreciate it.
+At this moment, I can see only one limitation. What if the order of parameters in the string should be different in different cultures? With the current `StringFormat` design, it is impossible, so every translation of the originally developed format string should somehow follow the original order of the parameters. My experience dealing with typologically extremely different languages shows that it is always possible, albeit not always easy. If someone has a better idea and can share it, I would greatly appreciate it.
 
 ## Solution Structure Preview
 
