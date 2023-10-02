@@ -655,15 +655,20 @@ The formatting rules for string interpolation should be presented in XAML in the
 {id=code-string-format}"SingleObjectDataSource.xaml":
 
 ```{lang=XML}
-&lt;!-- ... --&gt;
 &lt;my:Main.FormatInstitution&gt;
-   &lt;e:StringFormat&gt;
-       Organization: {name},
-       number of members on {date}: {number of members}&lt;/e:StringFormat&gt;
+    &lt;e:StringFormat&gt;
+        Organization: {string name},
+        number of members on {System.DateTime date:D}:
+        {ulong number of members:N0}
+    &lt;/e:StringFormat&gt;
 &lt;/my:Main.FormatInstitution&gt;
-&lt;!-- ... --&gt;
 ```
-The major difference with $-notation is: the variable names don't have to be valid identifiers, they can come with whitespace characters.
+
+In this example, the strings "string name", "System.DateTime date", and "ulong number of members" are variable names. 
+The major difference with $-notation is: the variable names don't have to be valid identifiers, they can come with whitespace characters. They can contain any characters except ":", "{", and "}".
+These names play two roles: they should serve as unique keys used to identify placeholders for actual parameter substitutions, and they remind the developer of the meanings and order of the parameters.
+
+Note that we can also supply format strings [specific for each separate parameter](https://learn.microsoft.com/en-us/dotnet/csharp/tutorials/string-interpolation#how-to-specify-a-format-string-for-an-interpolation-expression). In our example, these format strings are "D" and "N0".
 
 After I substitute the actual data on Code Project on the date of writing, I obtained:
 "Organization: Code Project, number of members on October 1, 2023: 15,747,139"
@@ -716,14 +721,15 @@ namespace SA.Agnostic.UI.Markup {
             if (formalParameters.Length != actualParameters.Length)
                 throw new StringFormatException(
                     DefinitionSet.StringFormat.InvalidParameterNumber(
-                        formalParameters.Length, actualParameters.Length));
+                        formalParameters.Length,
+                        actualParameters.Length));
             return ToString();
         } //Substitute
 
         public override string ToString() {
             return actualParameters == null
-            || string.IsNullOrWhiteSpace(numberedStringFormat)
-            || actualParameters.Length &lt; 1
+                || string.IsNullOrWhiteSpace(numberedStringFormat)
+                || actualParameters.Length &lt; 1
                 ? DefinitionSet.StringFormat.FormalParameterDeclaration(
                     string.Join(
                         DefinitionSet.StringFormat.toStringSeparator,
@@ -752,12 +758,15 @@ namespace SA.Agnostic.UI.Markup {
                 formalParameters[pair.Value] = pair.Key;
             numberedStringFormat = value;
             foreach (Match match in matches) {
-                string key = match.Value;
-                string dictionaryKey = match.Groups[1].Value;
-                numberedStringFormat = numberedStringFormat.
-                    Replace(key,
-                    DefinitionSet.StringFormat.BracketParameter(
-                        dictionary[dictionaryKey].ToString()));
+                string toReplace = match.Groups[0].Value;
+                string key = match.Groups[1].Value;
+                string subformat = match.Groups[2].Value;
+                numberedStringFormat = 
+                    numberedStringFormat.Replace(
+                        toReplace,
+                        DefinitionSet.StringFormat.BracketParameter(
+                            dictionary[key],
+                            subformat));
             } //loop
         } //ParseXamlFormat
 
@@ -787,17 +796,15 @@ Now, let's see how it translates into the application development process.
 Here is the workflow by example:
 
 I have the object of the type `My.Main`, and its instance is represented in XAML.
-From this XAML, I obtain the object `main` and look at `main.FormatInstitution`. The debugger shows the string value "Formal parameters: name, date, number of members". The is the list of names provided as `main.ToString()`.
+From this XAML, I obtain the object `main` and look at `main.FormatInstitution`. The debugger shows the string value "Formal parameters: string name, System.DateTime date, ulong number of members". The is the list of names provided as `main.ToString()`.
 
-This string shows the number and the order of required parameters to be used for substitution, and I can see it under the debugger. Then I calculate required parameter objects and add a call `member.FormatInstitution.Substitute`. If I run the application under the debugger past this line of code, I can see the result of the substitution on the string representation of the `member.FormatInstitution` instance.
+This string shows the number and the order of required parameters to be used for substitution, suggests what the parameters are used for, and I can see it under the debugger. Then I calculate required parameter objects and add a call `member.FormatInstitution.Substitute`. If I run the application under the debugger past this line of code, I can see the result of the substitution on the string representation of the `member.FormatInstitution` instance.
 
 At this point, I can assign `member.FormatInstitution.ToString()` to some string object and preserve the result, and then reset `member.FormatInstitution` by calling `member.FormatInstitution.Substitute(null)`. It can only be helpful if I need to reuse the object `member.FormatInstitution` later in the same process with different set of parameters, and if I still need a reminder of the required set of parameters for a later development step.
 
 ### Limitations
 
-The first limitation is this: in the current implementation, we cannot supply format string [specific for each separate parameter](https://learn.microsoft.com/en-us/dotnet/csharp/tutorials/string-interpolation#how-to-specify-a-format-string-for-an-interpolation-expression). This limiration is the easiest to work around. If a parameter requires a separate format string, it could be obtained in the string form before the substitution, using its method `ToString(string parameterSpecificFormat)`. On the other hand, the class `StringFormat` could be further refined to handle those format string per parameter, then they can be culture-specific, different for different localizations.
-
-Another limitation so more serious. What if the order of parameters in the string should be different in different cultures? With the the current `StringFormat` desing, it is impossible, so every translation of the originally developed format string should somehow follow the original order of the parameters. My experince dealing with typologically extremely different languages shows that it is always possible, albeit not always easy. If someone has a better idea and can share it, I would greatly appreciate it.
+At this moment, I can see only one limitation. What if the order of parameters in the string should be different in different cultures? With the the current `StringFormat` desing, it is impossible, so every translation of the originally developed format string should somehow follow the original order of the parameters. My experince dealing with typologically extremely different languages shows that it is always possible, albeit not always easy. If someone has a better idea and can share it, I would greatly appreciate it.
 
 ## Solution Structure Preview
 
