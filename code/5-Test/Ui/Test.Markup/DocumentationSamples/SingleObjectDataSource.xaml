@@ -29,7 +29,10 @@
                 <Color>Red</Color>
             </my:Main.Flag>
             <my:Main.FormatInstitution>
-                <e:StringFormat>Organization: {name}, number of members on {date}: {number of members}</e:StringFormat>
+                <e:StringFormat>
+                    Organization: {name},
+                    number of members on {date}: {number of members}
+                </e:StringFormat>
             </my:Main.FormatInstitution>
         </my:Main>
     </FrameworkContentElement.Resources>

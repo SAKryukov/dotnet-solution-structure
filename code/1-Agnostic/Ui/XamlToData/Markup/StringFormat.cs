@@ -74,6 +74,6 @@ namespace SA.Agnostic.UI.Markup {
             internal StringFormatException(string message) : base(message) { }
         } //class StringFormatException
 
-    } //class StringFormatsystem:UInt64system:UInt64
+    } //class StringFormat
 
 }
