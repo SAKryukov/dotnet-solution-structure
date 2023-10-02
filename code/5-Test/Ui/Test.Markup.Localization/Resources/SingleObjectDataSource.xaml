@@ -31,7 +31,8 @@
             <my:Main.FormatInstitution>
                 <e:StringFormat>
                     Organizzazione: {string name},
-                    numero di membri al {System.DateTime date:D}: {ulong number of members:N0}
+                    numero di membri al {System.DateTime date:D}:
+                    {ulong number of members:N0}
                 </e:StringFormat>
             </my:Main.FormatInstitution>
         </my:Main>
