@@ -621,11 +621,32 @@ custom structural data types may require custom type converters, to parse data f
 
 ## String Interpolation
 
-Now, we're approaching the newest and trickiest part of the entire topic.
+Now, we're approaching and the trickiest part of the entire topic. It is relevant to the use of XAML data in general, no matter how exactly we obtain this data from XAML. For this reason, this new section is placed after the sections on XAML markup and code generation.
 
-Can [string interpolation] be globalized 
+Can [string interpolation](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/tokens/interpolated) be globalized?
 
-SA???
+The first conclusion from analisys of this topic is this: not using the way it is implemented in C#. We can only think about mimicing this behavior during runtime. String interpolation is a language feature, and the mechanism of interpolation is statically known, it is a compile-time action. It does not mean that we cannot use it dynamically, because we can create a static function and call it with different parameters, for example:
+
+```{lang=C#}
+static class DefinitionSet {
+    //...
+    internal static string FormatCulture(
+        string name,
+        string EnglishName,
+        string nativeName) =>
+            $"{name}: {EnglishName}, {nativeName}";
+}
+```
+
+However, this technique cannot help us at all, because it has an apparent *ad hoc* use. In every case, it works on a concreat set of arguments with concrete names. We need a mechanism to abstract out both set of arguments and the format string, so the format string could be different in different localizations, but applicable to the same set of arguments.
+
+Such mechanism does exist, and this is the mechanism of `string.Format`. It uses numeric format notation "...{0}, {1}, {2}...". Can it be used? Certainly, and we don't need to invent anything specific to XAML. We would just define the format string in XAML and use it in the way people used it before.
+
+But is it convenient enough? No, it is not, and it is even a usual subject of human mistakes.In contrast to string interpolation, the compiler doesn not give us any clue of possible developer's mistakes, and only the look at the output during runtime can reveal those mistakes. Moreover, is it not so easy to see immediately what parameter should go where, because the place in code where the parameters are substituted and the format string are often different, especially with XAML, where the format string would be in XAML, and the place when the parameters are substituted is in some C# code.
+
+Can we do better than that? I think we can, and I examimed several ideas and even tried out some of them to feel the development process better. Here is the idea: we can mimic the form of the format string placed in XAML; it should resemble the format string in the $-notation. But we cannot use C# string interpolation for processing this string, so we need to develop the processing from scratch, and the processing can happen only during runtime.
+
+First, we need to understand how the object, representing our new string interpolating mechanism should look in XAML.
 
 ### Presentation in XAML
 
@@ -654,6 +675,8 @@ If I ran through localization, the only implemented culture for this test applic
 The format string can be entered in two different ways. The XAML sample shown above demonstrates *direct content*. 
 
 Alternatively, the same string could be entered as the attribute `Format`. However, I would recomment using only the direct content form, and here is why: you can face a ridiculous limitation with the attribute `Format`: you won't be able to enter "{" as a first character. It happens because if an attribute string values begins with "{", it is interpreted as a XAML [markup extension](https://learn.microsoft.com/en-us/dotnet/desktop/xaml-services/markup-extensions-overview), but that extension does not exist.
+
+Now we need to understand how to implement the mechanism used to take the format string prescribed in XAML and perform the substitution of the parameters during runtime, that is, the string interpolation itself.
 
 ### Implementation
 
@@ -765,6 +788,14 @@ Here is the workflow. I have the object of the type `My.Main`, and its instance 
 From this XAML, I obtain the object `main` and look at `main.FormatInstitution`. The debugger shows the string value "Formal parameters: name, date, number of members". The is the list of names provided as `main.ToString()`.
 
 This string shows the number and the order of required parameters to be used for substitution.
+
+SA???
+
+### Limitations
+
+The first limitation is this: in the current implementation, we cannot supply format string [specific for each separate parameter](https://learn.microsoft.com/en-us/dotnet/csharp/tutorials/string-interpolation#how-to-specify-a-format-string-for-an-interpolation-expression). This limiration is the easiest to work around. If a parameter requires a separate format string, it could be obtained in the string form before the substitution, using its method `ToString(string parameterSpecificFormat)`. On the other hand, the class `StringFormat` could be further refined to handle those format string per parameter, then they can be culture-specific, different for different localizations.
+
+Another limitation so more serious. What is the order of parameters in the string should be different in different cultures? With the the current `StringFormat` desing, it is impossible, so every translation of the originally developed format string should follow the original order of the parameters. If someone has a better idea and can share it, I would greatly appreciate it.
 
 ## Solution Structure Preview
 
