@@ -30,8 +30,8 @@
             </my:Main.Flag>
             <my:Main.FormatInstitution>
                 <e:StringFormat>
-                    Organization: {name},
-                    number of members on {date:D}: {number of members:N0}
+                    Organization: {string name},
+                    number of members on {System.DateTime date:D}: {ulong number of members:N0}
                 </e:StringFormat>
             </my:Main.FormatInstitution>
         </my:Main>

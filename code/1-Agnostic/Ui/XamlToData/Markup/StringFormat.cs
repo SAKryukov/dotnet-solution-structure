@@ -56,8 +56,6 @@ namespace SA.Agnostic.UI.Markup {
             int dictionaryIndex = 0;
             for (int index = 0; index < matches.Count; ++index) {
                 string key = matches[index].Groups[1].Value;
-                if (string.IsNullOrEmpty(key))
-                    key = matches[index].Groups[2].Value;
                 if (!dictionary.ContainsKey(key))
                     dictionary[key] = dictionaryIndex++;
             } //loop
@@ -67,13 +65,8 @@ namespace SA.Agnostic.UI.Markup {
             numberedStringFormat = value;
             foreach (Match match in matches) {
                 string toReplace = match.Groups[0].Value;
-                string key;
-                string subformat = null;
-                if (!string.IsNullOrEmpty(match.Groups[1].Value)) {
-                    key = match.Groups[1].Value;
-                    subformat = match.Groups[2].Value;
-                } else
-                    key = match.Groups[2].Value;
+                string key = match.Groups[1].Value;
+                string subformat = match.Groups[2].Value;
                 numberedStringFormat = 
                     numberedStringFormat.Replace(toReplace, DefinitionSet.StringFormat.BracketParameter(dictionary[key], subformat));
             } //loop

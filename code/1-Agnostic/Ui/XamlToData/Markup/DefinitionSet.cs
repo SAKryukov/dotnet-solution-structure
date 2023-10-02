@@ -37,14 +37,12 @@ namespace SA.Agnostic.UI.Markup {
         } //StaticMismatch
 
         internal static class StringFormat {
-            internal const string regularExpression = @"{([^:]*?):?([^:]*?)}";
+            internal const string regularExpression = @"{([^:}]*)(:?[^:}]*)}";
             internal const string toStringSeparator = ", ";
             internal static string FormalParameterDeclaration(string parameters) =>
                 $"Formal parameters: {parameters}";
-            internal static string BracketParameter(int parameterIndex, string subformat = null) =>
-                subformat == null 
-                  ? $"{{{parameterIndex}}}"
-                    : $"{{{parameterIndex}:{subformat}}}";
+            internal static string BracketParameter(int parameterIndex, string subformat) =>
+                $"{{{parameterIndex}{subformat}}}";
             internal static string InvalidParameterNumber(int formalParameters, int actualParameters) =>
                 $"Invalid parameter number: required {formalParameters}, provided {actualParameters}";
         } //class StringFormat
