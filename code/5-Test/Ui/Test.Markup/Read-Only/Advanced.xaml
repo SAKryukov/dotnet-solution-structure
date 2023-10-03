@@ -8,16 +8,26 @@
 <FrameworkContentElement x:Class="My.Advanced"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:my="clr-namespace:My"
+        xmlns:e="clr-namespace:SA.Agnostic.UI.Markup;assembly=Agnostic.UI"
         xmlns:System="clr-namespace:System;assembly=netstandard"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <FrameworkContentElement.Resources>
         <ObjectDataProvider x:Key="{x:Type my:ReadonlyDataSet}"
-            ObjectType="{x:Type my:ReadonlyDataSet}">
+                            ObjectType="{x:Type my:ReadonlyDataSet}">
             <ObjectDataProvider.ConstructorParameters>
                 <System:String>aa</System:String>
                 <System:String>bb</System:String>
             </ObjectDataProvider.ConstructorParameters>
         </ObjectDataProvider>
-        <my:PseudoReadonlyDataSet x:Key="{x:Type my:PseudoReadonlyDataSet}" A="aaa" B="bbb"/>
+        <my:PseudoReadonlyDataSet
+                        x:Key="{x:Type my:PseudoReadonlyDataSet}"
+                        C="ccc" D="ddd"/>
+        <!-- Duck typing: -->
+        <e:Member x:Key="A"
+            Value="String value for init-only property A"/>
+        <e:Member x:Key="B"
+            Value="String value for init-only property B"/>
+        <e:Member x:Key="DuckTyped"
+            Value="Yes, this is an example of duck typing"/>
     </FrameworkContentElement.Resources>
 </FrameworkContentElement>

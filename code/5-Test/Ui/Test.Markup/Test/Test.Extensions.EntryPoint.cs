@@ -12,15 +12,21 @@ namespace SA.Test.Markup {
     static class Test {
 
         static void TestReadonly() {
+            Console.WriteLine(DefinitionSet.ReadonlyAccess.title);
             My.Advanced adv = new();
             My.ReadonlyDataSet dataSet = ResourseDictionaryUtility.GetWrappedObject<My.ReadonlyDataSet>(adv.Resources);
             My.PseudoReadonlyDataSet anotherSet = ResourseDictionaryUtility.GetObject<My.PseudoReadonlyDataSet>(adv.Resources);
-            anotherSet.A = "new value";
+            anotherSet.C = "new value";
             try {
-                anotherSet.B = "another new value";
+                anotherSet.D = "another new value";
             } catch (System.Exception e) {
                 Console.WriteLine(e.ToString());
-            }
+            } //exception
+            My.ReadonlyDataSet duckTypedDataSet = new();
+            ResourseDictionaryUtility.CollectForDuckTypedInstance(adv.Resources, duckTypedDataSet);
+            Console.WriteLine(dataSet);
+            Console.WriteLine(anotherSet);
+            Console.WriteLine(duckTypedDataSet);
         } //TestReadonly
 
         static void Execute() {

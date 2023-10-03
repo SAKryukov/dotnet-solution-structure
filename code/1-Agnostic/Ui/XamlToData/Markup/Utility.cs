@@ -72,9 +72,12 @@ namespace SA.Agnostic.UI.Markup {
             Type instanceType = instance.GetType();
             foreach (var key in dictionary.Keys) {
                 if (key is not string memberName)
+                    continue;
+                    /*
                     throw new DataTypeProviderException(DefinitionSet.NonStringKeyMemberName(
                         key.GetType().FullName,
                         typeof(Member).Name));
+                    */
                 object value = dictionary[key];
                 if (value is Member memberDeclaration)
                     AssignMember(memberDeclaration, memberName, instance, instanceType, ignoreMissingMembers);

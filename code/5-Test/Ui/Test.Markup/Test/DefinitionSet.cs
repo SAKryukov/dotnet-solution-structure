@@ -18,6 +18,10 @@ namespace SA.Test.Markup {
             internal static System.DateTime numberOfMembersOnTheDay = new(2023, 10, 1);
         } //class StringInterpolation
 
+        internal static class ReadonlyAccess {
+            internal const string title = "Demonstration of read-only and pseudo-read-only properties:";
+        } //class ReadonlyAccess
+
     } //class DefinitionSet
 
 }
