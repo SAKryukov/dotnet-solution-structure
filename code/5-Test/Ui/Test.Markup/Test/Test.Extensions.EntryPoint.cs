@@ -18,13 +18,13 @@ namespace SA.Test.Markup {
             My.PseudoReadonlyDataSet anotherSet = ResourseDictionaryUtility.GetObject<My.PseudoReadonlyDataSet>(adv.Resources);
             anotherSet.C = DefinitionSet.ReadonlyAccess.attemptedNewValueAssignmentC;
             try {
-                anotherSet.D = DefinitionSet.ReadonlyAccess.attemptedNewValueAssignmentF;
+                anotherSet.D = DefinitionSet.ReadonlyAccess.attemptedNewValueAssignmentD;
             } catch (System.Exception e) {
                 Console.WriteLine(e.ToString());
             } //exception
             My.PseudoReadonlyDataSetXamlOnly stackSample = ResourseDictionaryUtility.GetObject<My.PseudoReadonlyDataSetXamlOnly>(adv.Resources);
             try {
-                stackSample.F = "dddd";
+                stackSample.F = DefinitionSet.ReadonlyAccess.attemptedNewValueAssignmentF;
             } catch (System.Exception e) {
                 Console.WriteLine(e.ToString());
             } //exception

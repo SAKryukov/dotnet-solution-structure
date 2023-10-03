@@ -65,8 +65,7 @@ namespace My {
                 MethodBase method = frame.GetMethod();
                 System.Type declaringType = method.DeclaringType;
                 if (!declaringType.IsAssignableTo(typeof(StackTraceValidator))) {
-                    var asm = declaringType.Assembly;
-                    if (asm != typeof(string).Assembly)
+                        if (declaringType.Assembly != typeof(System.IntPtr).Assembly)
                         throw new ReadonlyViolationException(GetType(), propertyName, newValue);
                     break;
                 }
