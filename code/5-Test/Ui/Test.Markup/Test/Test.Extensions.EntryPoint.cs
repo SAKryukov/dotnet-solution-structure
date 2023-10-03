@@ -16,9 +16,9 @@ namespace SA.Test.Markup {
             My.Advanced adv = new();
             My.ReadonlyDataSet dataSet = ResourseDictionaryUtility.GetWrappedObject<My.ReadonlyDataSet>(adv.Resources);
             My.PseudoReadonlyDataSet anotherSet = ResourseDictionaryUtility.GetObject<My.PseudoReadonlyDataSet>(adv.Resources);
-            anotherSet.C = "new value";
+            anotherSet.C = DefinitionSet.ReadonlyAccess.attemptedNewValueAssignmentC;
             try {
-                anotherSet.D = "another new value";
+                anotherSet.D = DefinitionSet.ReadonlyAccess.attemptedNewValueAssignmentC;
             } catch (System.Exception e) {
                 Console.WriteLine(e.ToString());
             } //exception

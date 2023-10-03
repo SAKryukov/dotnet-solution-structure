@@ -20,6 +20,8 @@ namespace SA.Test.Markup {
 
         internal static class ReadonlyAccess {
             internal const string title = "Demonstration of read-only and pseudo-read-only properties:";
+            internal const string attemptedNewValueAssignmentC = "new value";
+            internal const string attemptedNewValueAssignmentD = "another new value";
         } //class ReadonlyAccess
 
     } //class DefinitionSet

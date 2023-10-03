@@ -23,6 +23,13 @@ namespace My {
         } //ToString
     } //class ReadonlyDataSet
 
+    class SimplerReadonlyDataSet {
+        internal SimplerReadonlyDataSet() { }
+        internal string A { get; private set; }
+        internal string B { get; private set; }
+        // unused, for the article only
+    } //class SimplerReadonlyDataSet
+
     class PseudoReadonlyDataSet {
         public PseudoReadonlyDataSet() { }
         public string C {
