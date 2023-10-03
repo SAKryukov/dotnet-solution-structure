@@ -15,7 +15,7 @@ Many people asked this question about the generation of code out of XAML. And th
 <!-- copy to CodeProject from here ------------------------------------------->
 
 {id=image-title}
-![Gantry](title-gantry.png)
+![Read-only, substitute](one-way.png)
 
 <blockquote id="epigraph" class="FQ"><div class="FQA">Epigraphs:</div>
 <dt><i>A writer only begins a book. A reader finishes it.</i></dt>
