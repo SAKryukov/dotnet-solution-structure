@@ -11,6 +11,18 @@ namespace SA.Test.Markup {
 
     static class Test {
 
+        static void TestReadonly() {
+            My.Advanced adv = new();
+            My.ReadonlyDataSet dataSet = ResourseDictionaryUtility.GetWrappedObject<My.ReadonlyDataSet>(adv.Resources);
+            My.PseudoReadonlyDataSet anotherSet = ResourseDictionaryUtility.GetObject<My.PseudoReadonlyDataSet>(adv.Resources);
+            anotherSet.A = "new value";
+            try {
+                anotherSet.B = "another new value";
+            } catch (System.Exception e) {
+                Console.WriteLine(e.ToString());
+            }
+        } //TestReadonly
+
         static void Execute() {
             bool? localize = Agnostic.UI.ConsoleHelperUtility.RequestYesNoCancel(DefinitionSet.localizationRequest);
             if (localize == null) return;
@@ -41,6 +53,8 @@ namespace SA.Test.Markup {
                 DefinitionSet.StringInterpolation.organization,
                 DefinitionSet.StringInterpolation.numberOfMembersOnTheDay,
                 DefinitionSet.StringInterpolation.numberOfMembers));
+            Console.WriteLine();
+            TestReadonly();
             Agnostic.UI.ConsoleHelperUtility.ShowExit(showUnderDebugger: false);
         } //Execute
 

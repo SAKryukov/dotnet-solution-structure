@@ -1,0 +1,23 @@
+﻿<!--
+    Copyright (C) 2023 by Sergey A Kryukov
+    https://www.SAKryukov.org
+    https://github.com/SAKryukov
+    https://www.codeproject.com/Members/SAKryukov
+-->
+
+<FrameworkContentElement x:Class="My.Advanced"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:my="clr-namespace:My"
+        xmlns:System="clr-namespace:System;assembly=netstandard"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <FrameworkContentElement.Resources>
+        <ObjectDataProvider x:Key="{x:Type my:ReadonlyDataSet}"
+            ObjectType="{x:Type my:ReadonlyDataSet}">
+            <ObjectDataProvider.ConstructorParameters>
+                <System:String>aa</System:String>
+                <System:String>bb</System:String>
+            </ObjectDataProvider.ConstructorParameters>
+        </ObjectDataProvider>
+        <my:PseudoReadonlyDataSet x:Key="{x:Type my:PseudoReadonlyDataSet}" A="aaa" B="bbb"/>
+    </FrameworkContentElement.Resources>
+</FrameworkContentElement>

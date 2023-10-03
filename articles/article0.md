@@ -638,7 +638,7 @@ static class DefinitionSet {
 }
 ```
 
-However, this technique cannot help us at all, because it has an apparent *ad hoc* use. In every case, it works on a concrete set of arguments with concrete names. We need a mechanism to abstract out both set of arguments and the format string, so the format string could be different in different localizations, but applicable to the same set of arguments.
+This technique is very useful, because it helps to isolate string resources from the code using them. However, when we need to globalize resources, it cannot help us at all, because it has an apparent *ad hoc* use. In every case, it works on a concrete set of arguments with concrete names. We need a mechanism to abstract out both set of arguments and the format string, so the format string could be different in different localizations, but applicable to the same set of arguments.
 
 Such a mechanism does exist, and this is the mechanism of `string.Format`. It uses numeric format notation "...{0}, {1}, {2}...". Can it be used? Certainly, and we don't need to invent anything specific to XAML. We would just define the format string in XAML and use it in the way people used it before.
 
@@ -664,8 +664,8 @@ The formatting rules for string interpolation should be presented in XAML in the
 &lt;/my:Main.FormatInstitution&gt;
 ```
 
-In this example, the strings "string name", "System.DateTime date", and "ulong number of members" are variable names. 
-The major difference with $-notation is: the variable names don't have to be valid identifiers, they can come with whitespace characters. They can contain any characters except ":", "{", and "}".
+In this example, the strings "string name", "System.DateTime date", and "ulong number of members" are parameter names.
+The major difference with $-notation is: the parameter names don't have to be valid identifiers, they can come with whitespace characters. They can contain any characters except ":", "{", and "}".
 These names play two roles: they should serve as unique keys used to identify placeholders for actual parameter substitutions, and they remind the developer of the meanings and order of the parameters.
 
 Note that we can also supply format strings [specific for each separate parameter](https://learn.microsoft.com/en-us/dotnet/csharp/tutorials/string-interpolation#how-to-specify-a-format-string-for-an-interpolation-expression). In our example, these format strings are "D" and "N0".
@@ -675,7 +675,7 @@ After I substituted the actual data on Code Project on the date of writing, I ob
 Note that many of my system settings correspond to US culture, but not all of them.
 If I ran through localization, the only implemented culture for this test application is "it", so I get
 "Organizzazione: Code Project, numero di membri al domenica 1 ottobre 2023: 15.747.139".
-(Those who know Italia better please correct me if I made a mistake somewhere.)
+(Those who know Italian better please correct me if I made a mistake somewhere.)
 
 The format string can be entered in two different ways. The XAML sample shown above demonstrates *direct content*. 
 
@@ -789,6 +789,8 @@ But what if it is "... {name},... {date},..., {name}, ... {value},... {name}..."
 
 Note that there is a way to reset `StringFormat` instance to its state before substitution. To do so, the developer can call `Substitute(null)`. It can be useful if the same `StringFormat` instances should be used more than once during development.
 
+Note that the method `Substitute` throws an exception when the number of actual parameters does not match the number of formal parameters, in contrast to `string.Format`. It makes the detection of problems earlier and the problem is clearly presented to the developer.
+
 Now, let's see how it translates into the application development process.
 
 ### Substitution
@@ -805,6 +807,12 @@ At this point, I can assign `member.FormatInstitution.ToString()` to some string
 ### Limitations
 
 At this moment, I can see only one limitation. What if the order of parameters in the string should be different in different cultures? With the current `StringFormat` design, it is impossible, so every translation of the originally developed format string should somehow follow the original order of the parameters. My experience dealing with typologically extremely different languages shows that it is always possible, albeit not always easy. If someone has a better idea and can share it, I would greatly appreciate it.
+
+### Summary on String Interpolation
+
+Essentially, dynamic string interpolation is just a usage sugar over old good `string.Format`. With `StringFormat`, the substitution of parameters remains positional, but it is closer to the positional arguments of a function.
+
+Nevertheless, when the globalization requirements present additional hassles of dealing with XAML, the sugar feels sweet enough. In contrast to `string.Format`, we still can see the formal parameter names and use the hints shown by the debugger. The notation used in the format string entered in XAML is the same as $-notation, and is even better, because the parameter names don't need to be valid identifiers and can contain detailed descriptions of each parameter, including its type.
 
 ## Solution Structure Preview
 

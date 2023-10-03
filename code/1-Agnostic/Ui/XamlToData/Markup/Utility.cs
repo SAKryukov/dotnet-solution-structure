@@ -13,12 +13,18 @@ namespace SA.Agnostic.UI.Markup {
     using TypeConverter = System.ComponentModel.TypeConverter;
     using TypeConverterAttribute = System.ComponentModel.TypeConverterAttribute;
     using PatologicalList  = System.Collections.Generic.List<(object, object, System.Windows.ResourceDictionary)>;
+    using ObjectDataProvider = System.Windows.Data.ObjectDataProvider;
 
     public static class ResourseDictionaryUtility {
 
         public static T_REQUIRED GetObject<T_REQUIRED>(ResourceDictionary dictionary)
             where T_REQUIRED : new() =>
                 (T_REQUIRED)dictionary?[typeof(T_REQUIRED)];
+
+        public static T_REQUIRED GetWrappedObject<T_REQUIRED>(ResourceDictionary dictionary) {
+            ObjectDataProvider provider = (ObjectDataProvider)dictionary[typeof(T_REQUIRED)];
+            return (T_REQUIRED)provider?.ObjectInstance;
+        } //GetWrappedObject
 
         public static InstanceDictionary CollectDictionary(ResourceDictionary dictionary) {
             static void CollectDictionary(ResourceDictionary dictionary, InstanceDictionary instanceDictionary) {
