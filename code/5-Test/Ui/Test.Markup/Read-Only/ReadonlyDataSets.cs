@@ -6,6 +6,8 @@
 */
 
 namespace My {
+    using System.Diagnostics;
+    using System.Reflection;
 
     class ReadonlyDataSet {
         internal ReadonlyDataSet() { }
@@ -31,7 +33,6 @@ namespace My {
     } //class SimplerReadonlyDataSet
 
     class PseudoReadonlyDataSet {
-        public PseudoReadonlyDataSet() { }
         public string C {
             get => c;
             set {
@@ -54,6 +55,47 @@ namespace My {
             return DefinitionSet.Dump(GetType().Name, c, d);
         } //ToString
     } //class PseudoReadonlyDataSet
+
+    abstract class StackTraceValidator {
+        private protected void Validate(string propertyName, object newValue) {
+            StackTrace stackTrace = new();
+            int count = stackTrace.FrameCount;
+            for (int level = 0; level < count; level++) {
+                StackFrame frame = stackTrace.GetFrame(level);
+                MethodBase method = frame.GetMethod();
+                System.Type declaringType = method.DeclaringType;
+                if (!declaringType.IsAssignableTo(typeof(StackTraceValidator))) {
+                    var asm = declaringType.Assembly;
+                    if (asm != typeof(string).Assembly)
+                        throw new ReadonlyViolationException(GetType(), propertyName, newValue);
+                    break;
+                }
+            } //loop
+        } //Validate
+    } //class StackTraceValidator
+
+    class PseudoReadonlyDataSetXamlOnly : StackTraceValidator {
+        public string E {
+            get => e;
+            set {
+                if (e == null) e = value;
+            }
+        } //A
+        public string F {
+            get => f;
+            set {
+                Validate(nameof(F), value);
+                f = value;
+            }
+        } //B
+        string e, f;
+        public override string ToString() {
+            (string name, string value) e = (nameof(E), E);
+            (string name, string value) d = (nameof(F), F);
+            return DefinitionSet.Dump(GetType().Name, e, d);
+        } //ToString
+
+    } //class PseudoReadonlyDataSetXamlOnly
 
     class ReadonlyViolationException : System.ApplicationException {
         internal ReadonlyViolationException(System.Type type, string propertyName, object newValue) :

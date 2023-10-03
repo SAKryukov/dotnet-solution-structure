@@ -18,7 +18,13 @@ namespace SA.Test.Markup {
             My.PseudoReadonlyDataSet anotherSet = ResourseDictionaryUtility.GetObject<My.PseudoReadonlyDataSet>(adv.Resources);
             anotherSet.C = DefinitionSet.ReadonlyAccess.attemptedNewValueAssignmentC;
             try {
-                anotherSet.D = DefinitionSet.ReadonlyAccess.attemptedNewValueAssignmentC;
+                anotherSet.D = DefinitionSet.ReadonlyAccess.attemptedNewValueAssignmentF;
+            } catch (System.Exception e) {
+                Console.WriteLine(e.ToString());
+            } //exception
+            My.PseudoReadonlyDataSetXamlOnly stackSample = ResourseDictionaryUtility.GetObject<My.PseudoReadonlyDataSetXamlOnly>(adv.Resources);
+            try {
+                stackSample.F = "dddd";
             } catch (System.Exception e) {
                 Console.WriteLine(e.ToString());
             } //exception
@@ -26,6 +32,7 @@ namespace SA.Test.Markup {
             ResourseDictionaryUtility.CollectForDuckTypedInstance(adv.Resources, duckTypedDataSet);
             Console.WriteLine(dataSet);
             Console.WriteLine(anotherSet);
+            Console.WriteLine(stackSample);
             Console.WriteLine(duckTypedDataSet);
         } //TestReadonly
 
@@ -73,4 +80,3 @@ namespace SA.Test.Markup {
     } //class Test
 
 }
-

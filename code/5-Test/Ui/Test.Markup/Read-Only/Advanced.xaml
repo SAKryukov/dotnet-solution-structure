@@ -22,6 +22,9 @@
         <my:PseudoReadonlyDataSet
                         x:Key="{x:Type my:PseudoReadonlyDataSet}"
                         C="ccc" D="ddd"/>
+        <my:PseudoReadonlyDataSetXamlOnly
+                        x:Key="{x:Type my:PseudoReadonlyDataSetXamlOnly}"
+                        E="eeee" F="ffff"/>
         <!-- Duck typing: -->
         <e:Member x:Key="A"
             Value="String value for init-only property A"/>

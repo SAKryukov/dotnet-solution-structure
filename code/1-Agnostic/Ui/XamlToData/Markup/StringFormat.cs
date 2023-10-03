@@ -50,6 +50,8 @@ namespace SA.Agnostic.UI.Markup {
         readonly StringDictionary dictionary = new();
 
         void ParseXamlFormat(string value) {
+            if (formalParameters != null && formalParameters.Length > 0)
+                throw new StringFormatException(DefinitionSet.StringFormat.InvalidFormatStringAssignment(formalParameters.Length));
             Regex regex = new(DefinitionSet.StringFormat.regularExpression);
             var matches = regex.Matches(value);
             dictionary.Clear();

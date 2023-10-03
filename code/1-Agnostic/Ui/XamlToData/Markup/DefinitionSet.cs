@@ -42,6 +42,8 @@ namespace SA.Agnostic.UI.Markup {
                 $"{{{parameterIndex}{subformat}}}";
             internal static string InvalidParameterNumber(int formalParameters, int actualParameters) =>
                 $"Invalid parameter number: required {formalParameters}, provided {actualParameters}";
+            internal static string InvalidFormatStringAssignment(int formalParameters) =>
+                $"Format string cannot be modified when formal parameters are already defined, number of formal parameters: {formalParameters}";
         } //class StringFormat
 
     } //class DefinitionSet
