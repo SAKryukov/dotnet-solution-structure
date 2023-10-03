@@ -93,7 +93,6 @@ namespace My {
             (string name, string value) d = (nameof(F), F);
             return DefinitionSet.Dump(GetType().Name, e, d);
         } //ToString
-
     } //class PseudoReadonlyDataSetXamlOnly
 
     class ReadonlyViolationException : System.ApplicationException {

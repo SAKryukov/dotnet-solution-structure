@@ -101,7 +101,7 @@ Now we need to understand how to implement the mechanism used to take the format
 
 Let's look at the implementation. Note that the application of the attribute `[ContentProperty(nameof(Format))]` defines that `Format` can be entered as direct content of the element `e:StringFormat`.
 
-This is the entire implementation:
+{id=code-class-string-format}This is the entire implementation:
 
 ```{lang=C#}
 namespace SA.Agnostic.UI.Markup {
@@ -158,6 +158,10 @@ namespace SA.Agnostic.UI.Markup {
         readonly StringDictionary dictionary = new();
 
         void ParseXamlFormat(string value) {
+            if (formalParameters != null || formalParameters.Length > 0)
+                throw new StringFormatException(
+                    DefinitionSet.StringFormat.InvalidFormatStringAssignment(
+                        formalParameters.Length));
             Regex regex = new(DefinitionSet.StringFormat.regularExpression);
             var matches = regex.Matches(value);
             dictionary.Clear();
@@ -246,7 +250,7 @@ class PseudoReadonlyDataSet {
         set {
             if (c == null) c = value;
         }
-    } //A
+    } //C
     public string D {
         get =&gt; d;
         set {
@@ -258,11 +262,13 @@ class PseudoReadonlyDataSet {
                     nameof(D),
                     value);
         }
-    } //B
+    } //D
     string c, d;
     //...
 }
 ```
+
+A specialized case of such a pseudo-read-only property is implemented for [`StringFormat.Format`](#code-class-string-format). Generally, a value can be assigned to this property at arbitrary moment of time, but its modification fails if `formalParameters` are defined, and their number is greater then zero. This is natural: it means the format string is already defined correctly and can be used with read-only access. If this is not the case, something went wrong, and the developer is given the change to play with this value in ad-hoc manner, to figure out what's wrong.
 
 ### Using ObjectDataProvider
 
@@ -296,6 +302,64 @@ public static T_REQUIRED GetWrappedObject&lt;T_REQUIRED&gt;(
 
 Note that this method assumes that each instance of `ObjectDataProvider` is marked in a resource dictionary not by its one type, but by the type of wrapped object. To see how it works, look at [the XAML code sample where all three methods are combined](#heading-xaml-sample).
 
+### Stack Frame Test
+
+Stack Frame Test is a different soft of a pseudo-read-only property mechanism. Can we see if the attempt to assign a value to a property comes from XAML or not? We can find out how the property setter is called from the stack trace in the setter implementation. Let's try:
+
+```{lang=C#}
+abstract class StackTraceValidator {
+    private protected void Validate(string propertyName, object newValue) {
+        StackTrace stackTrace = new();
+        int count = stackTrace.FrameCount;
+        for (int level = 0; level < count; level++) {
+            StackFrame frame = stackTrace.GetFrame(level);
+            MethodBase method = frame.GetMethod();
+            System.Type declaringType = method.DeclaringType;
+            if (!declaringType.IsAssignableTo(
+                typeof(StackTraceValidator))) {
+                    if (declaringType.Assembly !=
+                        typeof(System.IntPtr).Assembly)
+                            throw new ReadonlyViolationException(
+                                GetType(),
+                                propertyName,
+                                newValue);
+                    break;
+            }
+        } //loop
+    } //Validate
+}
+```
+
+Here is the idea: we start from the deepest stack frame and iterate state frames until we go out of the declaring types of the method described above, or the derived types. We use the fact that any derived type is `IsAssignableTo` the class described above. If declaring type is a type outside of this inheritance chain, we can check it up and then break out of the stack frames loop.
+
+How we can check up what this call comes from? We test the code above under the debugger, and then we can see, that if the call comes from XAML, it happens in the assembly `System.Private.CoreLib`. This name does not matter. What does matter is that this is the same core assembly where the primitive types are defined, for example, the type `System.IntPtr`.
+
+From this check, we can see that this approach is not entirely reliable. Most likely, it will work in future, but who knows what can happen to future .NET implementations? What if Microsoft people deside to radically restructure the .NET solution?
+
+So, I suggest to think of this method as of food for thought and a kind of fun.
+
+Nevertheless, let's see how it can be used for a property:
+
+```{lang=C#}
+class PseudoReadonlyDataSetXamlOnly : StackTraceValidator {
+    public string E {
+        get =&gt; e;
+        set {
+            if (e == null) e = value;
+        }
+    } //E
+    public string F {
+        get =&gt; f;
+        set {
+            Validate(nameof(F), value); //StackTraceValidator.Validate
+            f = value;
+        }
+    } //F
+    string e, f;
+    //...
+}
+```
+
 ### Duck-Typing Approach
 
 The data type [`ReadonlyDataSet` shown above](#code-readonly-data-det) is quite suitable for for the duck-typing approach.
@@ -313,11 +377,11 @@ class SimplerReadonlyDataSet {
 
 Duck typing approach is discussed in detail in the [previous article](https://www.codeproject.com/Articles/5368892/XAML-Data-to-Code#heading-approach-2323a-duck-typing). It is explaned that this approach can work with both properties and fields, public or non-public, becasue it uses reflection. Therefore, we can populate an instance of the data type, even if its read-only properties. The member information is taken from XAML my scanning it for all the `Member` elements.
 
-Now, we can see how all three approaches are represented in a single XAML sample.
+Now, we can see how all four approaches are represented in a single XAML sample.
 
 ### XAML Sample
 
-Finally, this is the XAML sample where all three approaches are combined:
+Finally, this is the XAML sample where all four approaches are combined:
 
 ```{lang=XML}
 &lt;FrameworkContentElement x:Class="My.Advanced"
@@ -337,6 +401,9 @@ Finally, this is the XAML sample where all three approaches are combined:
         &lt;my:PseudoReadonlyDataSet
                         x:Key="{x:Type my:PseudoReadonlyDataSet}"
                         C="ccc" D="ddd"/&gt;
+        &lt;my:PseudoReadonlyDataSetXamlOnly
+                        x:Key="{x:Type my:PseudoReadonlyDataSetXamlOnly}"
+                        E="eeee" F="ffff"/&gt;
         &lt;!-- Duck typing: --&gt;
         &lt;e:Member x:Key="A"
             Value="String value for init-only property A"/&gt;
@@ -356,16 +423,23 @@ This is how the relevant part of the test looks like:
 static void TestReadonly() {
     Console.WriteLine(DefinitionSet.ReadonlyAccess.title);
     My.Advanced adv = new();
-    My.ReadonlyDataSet dataSet =
-        ResourseDictionaryUtility.GetWrappedObject<My.ReadonlyDataSet>
-            (adv.Resources);
-    My.PseudoReadonlyDataSet anotherSet =
-        ResourseDictionaryUtility.GetObject<My.PseudoReadonlyDataSet>
-            (adv.Resources);
+    My.ReadonlyDataSet dataSet = ResourseDictionaryUtility.
+        GetWrappedObject&lt;My.ReadonlyDataSet&gt;(adv.Resources);
+    My.PseudoReadonlyDataSet anotherSet = ResourseDictionaryUtility.
+        GetObject&lt;My.PseudoReadonlyDataSet&gt;(adv.Resources);
     anotherSet.C = DefinitionSet.ReadonlyAccess.attemptedNewValueAssignmentC;
     try {
         anotherSet.D =
-            DefinitionSet.ReadonlyAccess.attemptedNewValueAssignmentC;
+            DefinitionSet.ReadonlyAccess.attemptedNewValueAssignmentD;
+    } catch (System.Exception e) {
+        Console.WriteLine(e.ToString());
+    } //exception
+    My.PseudoReadonlyDataSetXamlOnly stackSample =
+        ResourseDictionaryUtility.GetObject&lt;My.PseudoReadonlyDataSetXamlOnly&gt;
+            (adv.Resources);
+    try {
+        stackSample.F =
+            DefinitionSet.ReadonlyAccess.attemptedNewValueAssignmentF;
     } catch (System.Exception e) {
         Console.WriteLine(e.ToString());
     } //exception
@@ -375,22 +449,28 @@ static void TestReadonly() {
         duckTypedDataSet);
     Console.WriteLine(dataSet);
     Console.WriteLine(anotherSet);
+    Console.WriteLine(stackSample);
     Console.WriteLine(duckTypedDataSet);
-} //TestReadonly
-```
+}```
 
 Output:
 
 ```{lang=text}
 Demonstration of read-only and pseudo-read-only properties:
-My.ReadonlyViolationException:
-   Attempt to assing a new value "new value"
-   to read-only property My.PseudoReadonlyDataSet.D
+My.ReadonlyViolationException: Attempt to
+    assing a new value "another new value"
+    to read-only property My.PseudoReadonlyDataSet.D
+   at ...
+My.ReadonlyViolationException: Attempt to
+    assing a new value "new value, stack validation"
+    to read-only property My.PseudoReadonlyDataSetXamlOnly.F
    at ...
 ReadonlyDataSet:
   A: aa, B: bb
 PseudoReadonlyDataSet:
   C: ccc, D: ddd
+PseudoReadonlyDataSetXamlOnly:
+  E: eeee, F: ffff
 ReadonlyDataSet:
   DuckTyped: Yes, this is an example of duck typing,
   A: String value for init-only property A,
