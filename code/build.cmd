@@ -1,6 +1,4 @@
 @echo off
 
-set solution=SolutionStructure.sln
-
-dotnet build %solution% -c Debug
-dotnet build %solution% -c Release
+dotnet build -c Debug
+dotnet build -c Release

@@ -4,7 +4,8 @@
 		{
 			"label": "incrementalBuild",
 			"type": "shell",
-			"command": "dotnet build SolutionStructure.sln",
+			"group": "build",
+			"command": "dotnet build",
 			"presentation": {
 			  "reveal": "always",
 			  "panel": "shared"
@@ -12,12 +13,13 @@
 		},
 		{
 			"label": "Clean All",
-			"type": "shell",
+			"type": "process",
 			"command": "${workspaceFolder}/clear.cmd",
+			"problemMatcher": [],
 			"presentation": {
-			  "reveal": "always",
-			  "panel": "shared"
-			}
+				"reveal": "always",
+				"panel": "shared"
+			  }
 		},
 	]
 }
