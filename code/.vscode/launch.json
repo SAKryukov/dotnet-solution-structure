@@ -1,0 +1,27 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Demo.Localization.exe",
+            "type": "coreclr",
+            "request": "launch",
+            "program": "${workspaceFolder}/output.Debug.AnyCPU/Demo.Localization.exe",
+            "args": [],
+            "preLaunchTask": "incrementalBuild",
+            "cwd": "${workspaceFolder}",
+            "stopAtEntry": false,
+            "console": "internalConsole"
+        },       
+        {
+            "name": "Demo.Structure.exe",
+            "type": "coreclr",
+            "request": "launch",
+            "program": "${workspaceFolder}/output.Debug.AnyCPU/Demo.Structure.exe",
+            "args": [],
+            "preLaunchTask": "incrementalBuild",
+            "cwd": "${workspaceFolder}",
+            "stopAtEntry": false,
+            "console": "internalConsole"
+        },
+    ]
+}
