@@ -3,13 +3,10 @@
 	"tasks": [
 		{
 			"label": "incrementalBuild",
-			"type": "shell",
+			"type": "dotnet",
+			"task": "build",
 			"group": "build",
-			"command": "dotnet build",
-			"presentation": {
-			  "reveal": "always",
-			  "panel": "shared"
-			}
+			"problemMatcher": []
 		},
 		{
 			"label": "Clean All",
