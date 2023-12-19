@@ -2,7 +2,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Demo.Localization.exe",
+            "name": "Demo Localization",
             "type": "coreclr",
             "request": "launch",
             "program": "${workspaceFolder}/output.Debug.AnyCPU/Demo.Localization.exe",
@@ -13,7 +13,7 @@
             "console": "internalConsole"
         },       
         {
-            "name": "Demo.Structure.exe",
+            "name": "Demo Structure",
             "type": "coreclr",
             "request": "launch",
             "program": "${workspaceFolder}/output.Debug.AnyCPU/Demo.Structure.exe",
