@@ -46,13 +46,13 @@ namespace SA.Agnostic.Enumerations {
     /// <typeparam name="ENUM">There is no constraint on this type; for most typical application this is an enumeration type</typeparam>
     public class Enumeration<ENUM> : IEnumerable<EnumerationItem<ENUM>> {
 
-        public Enumeration(bool dynamic = false) {
-            BuildEnumerationCollection(dynamic: dynamic);
+        public Enumeration(bool isDynamic = false) {
+            BuildEnumerationCollection(isDynamic: isDynamic);
             enumeratorInstance = new Enumerator(this);
         } //Enumeration
 
         public Enumeration() {
-            BuildEnumerationCollection(dynamic: false);
+            BuildEnumerationCollection(isDynamic: false);
             enumeratorInstance = new Enumerator(this);
         } //Enumeration
 
@@ -145,8 +145,8 @@ namespace SA.Agnostic.Enumerations {
 
         delegate void BuildAction();
 
-        static void BuildEnumerationCollection(bool dynamic = false) {
-            if (!dynamic && enumerationCollection != null) return;
+        static void BuildEnumerationCollection(bool isDynamic = false) {
+            if (!isDynamic && enumerationCollection != null) return;
             BuildEnumerationCollectionCore();
         } //BuildEnumerationCollection
 
@@ -166,7 +166,7 @@ namespace SA.Agnostic.Enumerations {
                 if (isEnum)
                     enumValue = (ENUM)objValue;
                 else {
-                    if (objValue is ENUM eNUM) //this object-oriented dynamic check always works event of ENUM is primitive type because objValue is boxed object
+                    if (objValue is ENUM eNUM) //this object-oriented dynamic check always works even if ENUM is primitive type because objValue is boxed object
                         enumValue = eNUM;
                 } //if not enum
                 string name = field.Name;
