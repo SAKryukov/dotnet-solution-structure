@@ -3,10 +3,21 @@
 	"tasks": [
 		{
 			"label": "incrementalBuild",
-			"type": "dotnet",
-			"task": "build",
-			"group": "build",
-			"problemMatcher": []
+            "command": "dotnet",
+            "type": "shell",
+            "args": [
+                "build",
+                // Ask dotnet build to generate full paths for file names.
+                "/property:GenerateFullPaths=true",
+                // Do not generate summary otherwise it leads to duplicate errors in Problems panel
+                "/consoleloggerparameters:NoSummary",
+                "-c", "Debug",
+            ],
+            "group": "build",
+            "presentation": {
+                "reveal": "always"
+            },
+            "problemMatcher": "$msCompile"
 		},
 		{
 			"label": "Clean All",
