@@ -5,7 +5,7 @@
 -->
 
 <Project>
-    <Import Project="$(SolutionDir)/Directory.Build.props"/>
+    <Import Project="$(SolutionDir)Directory.Build.props"/>
     <PropertyGroup>
       <TargetFramework>$(TargetFramework)-windows</TargetFramework>
       <UseWPF>true</UseWPF>
