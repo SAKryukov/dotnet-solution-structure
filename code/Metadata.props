@@ -7,14 +7,20 @@
 <Project>
  
   <PropertyGroup> <!-- customize:  -->
+
+    <TargetFramework>net5.0</TargetFramework>
     <CustomUnifiedVersion>1.1.0.0</CustomUnifiedVersion>
     <!-- can be alpha, beta, RC1, RC2, etc.: -->
     <CustomInformationalVersionSuffix></CustomInformationalVersionSuffix>
+
     <Copyright>Copyright © 2023 Sergey A Kryukov</Copyright>
     <Product>Improved .NET Solution Structure</Product>
     <Description>Bunch of ideas on how to improve .NET solution structure</Description>
     <Company>SA</Company>
     <AssemblyTitle>$(Product) Demo</AssemblyTitle>
+
+    <RootNamespace>SA</RootNamespace>
+
   </PropertyGroup>
 
   <ItemGroup> <!-- custom attributes, can be multiple: -->
