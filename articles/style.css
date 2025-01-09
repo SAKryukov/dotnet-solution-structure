@@ -1,9 +1,4 @@
-	body > p:first-child { font-size: 240%; text-align: center; }
-	body > p:nth-child(2) { text-align: right; }
-	code { font-size: 130%; }
-	pre, code { color: darkGreen; padding:0; font-family: 'Consolas', sans-serif }
-	pre { background-color: antiqueWhite; }	
-	html, body, p { font-family: 'Verdana', 'Ububtu', serif; }
+        @import url(https://SAKryukov.github.io/publications/code/documentation.css);
 	blockquote { margin-left: 2em; }
 	th, td { border: thin solid black; padding-left: 1em; padding-right: 1em; }
 	th { border-bottom: solid black 2px; }
