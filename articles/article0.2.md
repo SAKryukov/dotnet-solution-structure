@@ -6,9 +6,9 @@
 
 [*Sergey A Kryukov*](https://www.SAKryukov.org)
 
-Another article related to XML Data to Code covers more advanced topics: localizable dynamic string interpolation and XML-defined read-only data
+Another article related to XML Data to Code covers more advanced topics: localizable dynamic string interpolation and XML-defined read-only data.
 
-Many people asked this question about the generation of code out of XAML. And there are many unsatisfactory answers. At the same time, the problem is pretty easy to solve. And code generation is not the only approach. Another approach would be a data type designed to be presented via XAML markup, so its instance could be populated from the XAML data. Both approaches have their benefits, are easy to use, and are covered in detail in the present article, as well as XAML-based Globalization and Localization of arbitrary data, not necessarily related to UI.
+Many people asked this question about the generation of code from XAML. And there are many unsatisfactory answers. At the same time, the problem is pretty easy to solve. And code generation is not the only approach. Another approach would be a data type designed to be presented via XAML markup, so its instance could be populated from the XAML data. Both approaches have their benefits, are easy to use, and are covered in detail in the present article, as well as XAML-based Globalization and Localization of arbitrary data, not necessarily related to UI.
 
 <!-- https://www.codeproject.com/Articles/5368892/XAML-Data-to-Code -->
 
@@ -31,7 +31,7 @@ Many people asked this question about the generation of code out of XAML. And th
 
 ## Introduction
 
-This article is the continuation of the article [XAML-Data-to-Code](https://www.codeproject.com/Articles/5368892/XAML-Data-to-Code). It suggests more advanced XAML techniques used for definition of any arbitrary data, not necessarily related to UI or graphics.
+This article is the continuation of the article [XAML Data to Code](https://www.codeproject.com/Articles/5368892/XAML-Data-to-Code). It suggests more advanced XAML techniques used for definition of any arbitrary data, not necessarily related to UI or graphics.
 
 ## Dynamic String Interpolation
 
@@ -52,7 +52,7 @@ static class DefinitionSet {
 }
 ```
 
-This technique is very useful, because it helps to isolate string resources from the code using them. However, when we need to globalize resources, it cannot help us at all, because it has an apparent *ad hoc* use. In every case, it works on a concrete set of arguments with concrete names. We need a mechanism to abstract out both set of arguments and the format string, so the format string could be different in different localizations, but applicable to the same set of arguments.
+This technique is very useful because it helps to isolate string resources from the code using them. However, when we need to globalize resources, it cannot help us at all, because it has an apparent *ad hoc* use. In every case, it works on a concrete set of arguments with concrete names. We need a mechanism to abstract out both set of arguments and the format string, so the format string could be different in different localizations, but applicable to the same set of arguments.
 
 Such a mechanism does exist, and this is the mechanism of `string.Format`. It uses numeric format notation "...{0}, {1}, {2}...". Can it be used? Certainly, and we don't need to invent anything specific to XAML. We would just define the format string in XAML and use it in the way people used it before.
 
@@ -79,7 +79,7 @@ The formatting rules for string interpolation should be presented in XAML in the
 ```
 
 In this example, the strings "string name", "System.DateTime date", and "ulong number of members" are parameter names.
-The major difference with $-notation is: the parameter names don't have to be valid identifiers, they can come with whitespace characters. They can contain any characters except ":", "{", and "}".
+The major difference with $-notation is that the parameter names don't have to be valid identifiers, they can come with whitespace characters. They can contain any characters except ":", "{", and "}".
 These names play two roles: they should serve as unique keys used to identify placeholders for actual parameter substitutions, and they remind the developer of the meanings and order of the parameters.
 
 Note that we can also supply format strings [specific for each separate parameter](https://learn.microsoft.com/en-us/dotnet/csharp/tutorials/string-interpolation#how-to-specify-a-format-string-for-an-interpolation-expression). In our example, these format strings are "D" and "N0".
@@ -226,21 +226,21 @@ At this point, I can assign `member.FormatInstitution.ToString()` to some string
 
 At this moment, I can see only one limitation. What if the order of parameters in the string should be different in different cultures? With the current `StringFormat` design, it is impossible, so every translation of the originally developed format string should somehow follow the original order of the parameters. My experience dealing with typologically extremely different languages shows that it is always possible, albeit not always easy. If someone has a better idea and can share it, I would greatly appreciate it.
 
-### Summary on String Interpolation
+### String Interpolation: Summary
 
-Essentially, dynamic string interpolation is just a usage sugar over old good `string.Format`. With `StringFormat`, the substitution of parameters remains positional, but it is closer to the positional arguments of a function.
+Essentially, dynamic string interpolation is just a usage sugar over the old good `string.Format`. With `StringFormat`, the substitution of parameters remains positional, but it is closer to the positional arguments of a function.
 
 Nevertheless, when the globalization requirements present additional hassles of dealing with XAML, the sugar feels sweet enough. In contrast to `string.Format`, we still can see the formal parameter names and use the hints shown by the debugger. The notation used in the format string entered in XAML is the same as $-notation, and is even better, because the parameter names don't need to be valid identifiers and can contain detailed descriptions of each parameter, including its type.
 
 ## Read-Only Access
 
-The usual purposes of having data stored in resources very typically imply that we are supposed to have read-only access to the the data. At the same time, XAML is supposed to write data into the instances of data types, and XAML access is no different from any other access. It seems to be a contradiction, but it is not, it only seems to be so. This is issue can be resolved.
+The usual purposes of data stored in resources typically imply that we are supposed to have read-only access to the data. At the same time, XAML is supposed to write data into the instances of data types, and XAML access is no different from any other access. It seems to be a contradiction, but it is not, it only seems to be so. This issue can be resolved.
 
-[So far](https://www.codeproject.com/Articles/5368892/XAML-Data-to-Code), we only considered the examples of read-write access to properties of fields defined in XAML. Now let's consider the examples where XAML can create any arbitrary data, but only read-only access to this data is provided thereafter.
+[So far](https://www.codeproject.com/Articles/5368892/XAML-Data-to-Code), we considered only the examples of read-write access to properties of fields defined in XAML. Now let's consider the examples where XAML can create any arbitrary data, but only read-only access to this data is provided thereafter.
 
 ### Pseudo-Read-Only Properties
 
-One solution is pretty obvious: we can use properties that are formally read-write, but the write accessor allows to write data only once, presumably by the code loading a XAML. When the value is already assigned to the property, the accessor code can detect it by one or another criterion. When it happens, we have a choice: the assignment via the accessor may cause no effect, or the assignment attempt can throw an exception. Here is the example:
+One solution is pretty obvious: we can use properties that are formally read-write, but the write accessor allows to write data only once, presumably by the code loading a XAML. When the value is already assigned to the property, the accessor code can detect it by one or another criterion. When it happens, we have a choice: the assignment via the accessor may cause no effect, or the assignment attempt can throw an exception. Here is an example:
 
 ```{lang=C#}{id=code-pseudo-readonly-data-det}
 class PseudoReadonlyDataSet {
@@ -268,7 +268,7 @@ class PseudoReadonlyDataSet {
 }
 ```
 
-A specialized case of such a pseudo-read-only property is implemented for [`StringFormat.Format`](#code-class-string-format). Generally, a value can be assigned to this property at arbitrary moment of time, but its modification fails if `formalParameters` are defined, and their number is greater then zero. This is natural: it means the format string is already defined correctly and can be used with read-only access. If this is not the case, something went wrong, and the developer is given the change to play with this value in ad-hoc manner, to figure out what's wrong.
+A specialized case of such a pseudo-read-only property is implemented for [`StringFormat.Format`](#code-class-string-format). Generally, a value can be assigned to this property at an arbitrary moment of time, but its modification fails if `formalParameters` are defined, and their number is greater than zero. This is natural: it means the format string is already defined correctly and can be used with read-only access. If this is not the case, something went wrong, and the developer is given the chance to play with this value in an ad-hoc manner, to figure out what's wrong.
 
 ### Using ObjectDataProvider
 
@@ -285,7 +285,7 @@ class ReadonlyDataSet { internal ReadonlyDataSet() { }
 
 The only tricky problem is this: how to call the constructor in XAML?
 
-Fortunately, .NET already has a predefined facility for doing such things: `System.Windows.Data.ObjectDataProvider`. This is a wrapper for arbitrary objects. It can be used to call a constuctor indirectly, through reflection. It has the `IList` property `ConstructorParameters`. And the collection properties are quite accessible through XAML. We can add all the objects to pass to the constructor one by one, and a `ObjectDataProvider` instance will use them the call the constructor.
+Fortunately, .NET already has a predefined facility for doing such things: `System.Windows.Data.ObjectDataProvider`. This is a wrapper for arbitrary objects. It can be used to call a constructor indirectly, through reflection. It has the `IList` property `ConstructorParameters`. And the collection properties are quite accessible through XAML. We can add all the objects to pass to the constructor one by one, and a `ObjectDataProvider` instance will use them the call the constructor.
 
 Let's design the method used to obtain the instance of the data class wrapped by `ObjectDataProvider`.
 
@@ -304,7 +304,7 @@ Note that this method assumes that each instance of `ObjectDataProvider` is mark
 
 ### Stack Frame Test
 
-Stack Frame Test is a different soft of a pseudo-read-only property mechanism. Can we see if the attempt to assign a value to a property comes from XAML or not? We can find out how the property setter is called from the stack trace in the setter implementation. Let's try:
+Stack Frame Test is a different sort of pseudo-read-only property mechanism. Can we see if the attempt to assign a value to a property comes from XAML or not? We can find out how the property setter is called from the stack trace in the setter implementation. Let's try:
 
 ```{lang=C#}
 abstract class StackTraceValidator {
@@ -330,13 +330,13 @@ abstract class StackTraceValidator {
 }
 ```
 
-Here is the idea: we start from the deepest stack frame and iterate state frames until we go out of the declaring types of the method described above, or the derived types. We use the fact that any derived type is `IsAssignableTo` the class described above. If declaring type is a type outside of this inheritance chain, we can check it up and then break out of the stack frames loop.
+Here is the idea: we start from the deepest stack frame and iterate state frames until we go out of the declaring types of the method described above, or the derived types. We use the fact that any derived type is `IsAssignableTo` the class described above. If the declaring type is a type outside of this inheritance chain, we can check it up and then break out of the stack frames loop.
 
-How we can check up what this call comes from? We test the code above under the debugger, and then we can see, that if the call comes from XAML, it happens in the assembly `System.Private.CoreLib`. This name does not matter. What does matter is that this is the same core assembly where the primitive types are defined, for example, the type `System.IntPtr`.
+How we can check where this call comes from? We test the code above under the debugger, and then we can see, that if the call comes from XAML, it happens in the assembly `System.Private.CoreLib`. This name does not matter. What does matter is that this is the same core assembly where the primitive types are defined, for example, the type `System.IntPtr`.
 
-From this check, we can see that this approach is not entirely reliable. Most likely, it will work in future, but who knows what can happen to future .NET implementations? What if Microsoft people deside to radically restructure the .NET solution?
+From this check, we can see that this approach is not entirely reliable. Most likely, it will work in the future, but who knows what can happen to future .NET implementations? What if Microsoft people decide to radically restructure the .NET solution?
 
-So, I suggest to think of this method as of food for thought and a kind of fun.
+So, I suggest thinking of this method as food for thought and a kind of fun.
 
 Nevertheless, let's see how it can be used for a property:
 
@@ -362,9 +362,9 @@ class PseudoReadonlyDataSetXamlOnly : StackTraceValidator {
 
 ### Duck-Typing Approach
 
-The data type [`ReadonlyDataSet` shown above](#code-readonly-data-det) is quite suitable for for the duck-typing approach.
+The data type [`ReadonlyDataSet` shown above](#code-readonly-data-det) is quite suitable for the duck-typing approach.
 
-However, if we wanted to use duck-typing approach only, it could be simplified:
+However, if we wanted to the use duck-typing approach only, it could be simplified:
 
 ```{lang=C#}
 class SimplerReadonlyDataSet {
@@ -375,7 +375,7 @@ class SimplerReadonlyDataSet {
 }
 ```
 
-Duck typing approach is discussed in detail in the [previous article](https://www.codeproject.com/Articles/5368892/XAML-Data-to-Code#heading-approach-2323a-duck-typing). It is explaned that this approach can work with both properties and fields, public or non-public, becasue it uses reflection. Therefore, we can populate an instance of the data type, even if its read-only properties. The member information is taken from XAML my scanning it for all the `Member` elements.
+The duck-typing approach is discussed in detail in the [previous article](https://www.codeproject.com/Articles/5368892/XAML-Data-to-Code#heading-approach-2323a-duck-typing). It is explaned that this approach can work with both properties and fields, public or non-public, because it uses reflection. Therefore, we can populate an instance of the data type, even its read-only properties. The member information is taken from XAML by scanning it for all the `Member` elements.
 
 Now, we can see how all four approaches are represented in a single XAML sample.
 
@@ -477,13 +477,13 @@ ReadonlyDataSet:
   B: String value for init-only property B
 ```
 
-### Summary on Read-Only Access
+### Read-Only Access: Summary
 
-I would recommend taking a little more effort and using `ObjectDataProvider`, not pseudo-read-only approach.
+I would recommend taking a little more effort and using `ObjectDataProvider`, not a pseudo-read-only approach.
 
-As to the duck-typing approach... well, it depends. It is very universal and is pretty nice if you don't care of performance of the process of scanning the data dictionary. I would say, for most applications the dictionary would be too small to care too much about it, but again, it depends.
+As to the duck-typing approach... well, it depends. It is very universal and is pretty nice if you don't care about the performance of the process of scanning the data dictionary. I would say, for most applications the dictionary would be too small to care too much about it, but again, it depends.
 
-See also the [detailed description of the duck-typing approach](https://www.codeproject.com/Articles/5368892/XAML-Data-to-Code#heading-approach-2323a-duck-typing), expecially its [pro and contra](https://www.codeproject.com/Articles/5368892/XAML-Data-to-Code#heading-two-approaches3a-pro-and-contra).
+See also the [detailed description of the duck-typing approach](https://www.codeproject.com/Articles/5368892/XAML-Data-to-Code#heading-approach-2323a-duck-typing), especially its [pro and contra](https://www.codeproject.com/Articles/5368892/XAML-Data-to-Code#heading-two-approaches3a-pro-and-contra).
 
 ## Solution Structure Preview
 

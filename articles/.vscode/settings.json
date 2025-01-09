@@ -11,7 +11,7 @@
         "normal",
         "on",
         "wait"
-    ]
+    ],
     "markdown.extension.convertToHtml.reportSuccess": true, // default
     "markdown.extension.convertToHtml.showHtmlInBrowser": false, // default
     "markdown.extension.convertToHtml.embedCss": true, // default
@@ -76,14 +76,13 @@
     },
     "markdown.styles": [
         // same styles used for preview are used in converted HTML files:
-        "style.css", 
-        "moreStyles.css"
+        "style.css"
     ],
     "markdown.preview.fontSize": 12,
     // Controls the line height used in the markdown preview. This number is relative to the font size.
     "markdown.preview.lineHeight": 1.4,
     // Very important: remove entred words from suggestions, leave only markdown syntax:
-    "editor.wordBasedSuggestions": false,
+    "editor.wordBasedSuggestions": "off",
     "[markdown]": { // for Markdown language id only:
         "editor.codeLens": true,
         "editor.lineNumbers": "off",
