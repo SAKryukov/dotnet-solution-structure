@@ -30,6 +30,10 @@ dotnet_diagnostic.IDE0041.severity = warning
 dotnet_diagnostic.IDE0047.severity = warning
 dotnet_diagnostic.IDE0048.severity = none
 
+# Disable rule: Namespace does not match folder structure
+dotnet_diagnostic.IDE0130.severity = none
+
+
 
 
 

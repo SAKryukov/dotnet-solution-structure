@@ -55,3 +55,17 @@ https://www.google.com/imgres?imgurl=https%3A%2F%2Fi.stack.imgur.com%2FE2VBv.png
 
 !!!!
 https://subscription.packtpub.com/book/web-development/9781849686228/1/ch01lvl1sec14/creating-a-custom-markup-extension
+
+=======================================================================================
+
+https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis
+
+https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/suppress-warnings
+https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/configuration-options
+
+https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/style-rules
+
+Language and unnecessary rules
+https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/style-rules/language-rules
+
+https://github.com/dotnet/roslyn-analyzers/blob/main/src/NetAnalyzers/Core/AnalyzerReleases.Shipped.md
