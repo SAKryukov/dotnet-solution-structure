@@ -5,7 +5,7 @@
 -->
 
 <Project>
-    <Import Project="$(SolutionDir)/Directory.Build.props"/>
+    <Import Project="$(MSBuildThisFileDirectory)../../../Directory.Build.props"/>
 
   <PropertyGroup>
     <AssemblyName>Demo.Localization.resources</AssemblyName>

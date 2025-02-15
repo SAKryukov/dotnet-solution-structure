@@ -7,8 +7,13 @@
 <Project>
     <Import Project="$(MSBuildThisFileDirectory)Metadata.props"/>
  
+  <PropertyGroup> <!-- explicitely named -->
+    <SolutionDirectory>$(MSBuildThisFileDirectory)</SolutionDirectory>
+    <RootNamespace>$(RootNamespace)</RootNamespace>
+  </PropertyGroup>
+
   <PropertyGroup> <!-- change value, don't change property name: -->
-    <_intermediateOutputPathRoot>$(MSBuildThisFileDirectory).intermediateOutput</_intermediateOutputPathRoot>
+    <_intermediateOutputPathRoot>$(SolutionDirectory).intermediateOutput</_intermediateOutputPathRoot>
     <RootNamespace>$(RootNamespace)</RootNamespace>
   </PropertyGroup>
 
@@ -34,8 +39,7 @@
         $(MSBuildProjectName),
         $(Platform).$(Configuration)))</BaseIntermediateOutputPath>
     <OutputPath>$([System.IO.Path]::Combine(
-        $(MSBuildThisFileDirectory),
-        $(MSBuildThisFileDirectory),
+        $(SolutionDirectory),
         output.$(Platform).$(Configuration)))</OutputPath>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <ProduceReferenceAssembly>false</ProduceReferenceAssembly>
