@@ -1,0 +1,13 @@
+﻿<!--
+    Copyright (C) 2023-2024 by Sergey A Kryukov
+    https://www.SAKryukov.org
+    https://github.com/SAKryukov
+-->
+
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+  </PropertyGroup>
+
+</Project>
