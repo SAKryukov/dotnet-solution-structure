@@ -8,15 +8,16 @@
     <Import Project="$(MSBuildThisFileDirectory)../Directory.Build.props"/>
 
     <PropertyGroup>
-      <TargetFramework>$(TargetFramework)-windows</TargetFramework>
-      <UseWPF>true</UseWPF>
+        <TargetFramework>$(TargetFramework)-windows</TargetFramework>
+        <UseWPF>true</UseWPF>
+        <OutputType>WinExe</OutputType>
     </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="$(SolutionDirectory)1-Agnostic/Core/Agnostic.Core.csproj" />
-    <ProjectReference Include="$(SolutionDirectory)1-Agnostic/Ui/Agnostic.UI.csproj" />
-    <ProjectReference Include="$(SolutionDirectory)2-Semantic/PluginSystem/Semantic.PluginSystem.csproj" />
-    <ProjectReference Include="$(SolutionDirectory)2-Semantic/Ui/Semantic.UI.csproj" />
-  </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="$(SolutionDirectory)1-Agnostic/Core/Agnostic.Core.csproj" />
+        <ProjectReference Include="$(SolutionDirectory)1-Agnostic/Ui/Agnostic.UI.csproj" />
+        <ProjectReference Include="$(SolutionDirectory)2-Semantic/PluginSystem/Semantic.PluginSystem.csproj" />
+        <ProjectReference Include="$(SolutionDirectory)2-Semantic/Ui/Semantic.UI.csproj" />
+    </ItemGroup>
 
 </Project>

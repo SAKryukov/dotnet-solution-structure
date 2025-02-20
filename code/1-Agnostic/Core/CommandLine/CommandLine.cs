@@ -191,7 +191,7 @@ namespace SA.Agnostic.Utilities {
         } //GetDefaultCommandLineParsingOptions
 
         static string[] ExtractCommandLine() {
-            string[] commandLine = System.Environment.GetCommandLineArgs();
+            string[] commandLine = Environment.GetCommandLineArgs();
             int len = commandLine.Length;
             if (len < 2) return Array.Empty<string>();
             string[] destination = new string[len - 1];

@@ -5,7 +5,6 @@
 */
 
 namespace SA.Test.CodeGeneration.Away {
-    using Console = System.Console;
     using DisplayNameAttribute = Agnostic.Enumerations.DisplayNameAttribute;
     using DescriptionAttribute = Agnostic.Enumerations.DescriptionAttribute;
     using AbbreviationAttribute = Agnostic.Enumerations.AbbreviationAttribute;
@@ -31,25 +30,28 @@ namespace SA.Test.CodeGeneration.Away {
 
     static class DefinitionSet {
 
-        static void ShowUsage(CommandLine commandLine) {
-            Console.OutputEncoding = System.Text.Encoding.UTF8;
-            if (commandLine[CommandLineOptionsBitset.Quiet]) return;
-            Console.WriteLine($"Command-line usage of {System.Reflection.Assembly.GetEntryAssembly().Location}:");
+        static string Usage(CommandLine commandLine) {
+            System.Text.StringBuilder builder = new();
+            void WriteLine(string text, bool newLine = true) => builder.Append($"{text}{(newLine ? "\n" : string.Empty)}");
+            if (commandLine[CommandLineOptionsBitset.Quiet]) return null;
             foreach (var item in commandLine.ValueEnumeration) {
-                Console.WriteLine($"    -{item.Name}:<{item.DisplayName}>,");
-                Console.WriteLine($"    -{item.AbbreviatedName}:<{item.DisplayName}>");
-                Console.WriteLine($"            {item.Description}");
+                WriteLine($"    -{item.Name}:<{item.DisplayName}>,");
+                WriteLine($"    -{item.AbbreviatedName}:<{item.DisplayName}>");
+                WriteLine($"            {item.Description}");
             } //loop
             foreach (var item in commandLine.SwitchEnumeration) {
-                Console.WriteLine($"    -{item.Name},");
-                Console.WriteLine($"    -{item.AbbreviatedName}");
-                Console.WriteLine($"            {item.Name}: {item.Description}");
+                WriteLine($"    -{item.Name},");
+                WriteLine($"    -{item.AbbreviatedName}");
+                WriteLine($"            {item.Name}: {item.Description}", newLine: false);
             } //loop
+            return builder.ToString();
         } //ShowUsage
 
         internal static (string filename, string namespaceName, string typeName) GetParameters() {
             CommandLine commandLine = new(Agnostic.Utilities.CommandLineParsingOptions.CaseInsensitive);
-            ShowUsage(commandLine);
+            string usage = Usage(commandLine);
+            if (usage != null)
+                System.Windows.MessageBox.Show(usage, "Code Generator");
             return (
                 commandLine[CommandLineOptions.filename],
                 commandLine[CommandLineOptions.namespaceName],
