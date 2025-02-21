@@ -6,6 +6,6 @@
 
 <Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
-    <ProjectReference Include="..\..\..\2-Semantic\Ui\Semantic.UI.csproj" />
+    <ProjectReference Include="$(SolutionDirectory)2-Semantic/Ui/Semantic.UI.csproj" />
   </ItemGroup>
 </Project>

@@ -12,9 +12,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\1-Agnostic\Ui\Agnostic.UI.csproj" />
-    <ProjectReference Include="..\..\..\2-Semantic\PluginSystem\Semantic.PluginSystem.csproj" />
-    <ProjectReference Include="..\..\..\2-Semantic\Ui\Semantic.UI.csproj" />
+    <ProjectReference Include="$(SolutionDirectory)1-Agnostic/Ui/Agnostic.UI.csproj" />
+    <ProjectReference Include="$(SolutionDirectory)2-Semantic/PluginSystem/Semantic.PluginSystem.csproj" />
+    <ProjectReference Include="$(SolutionDirectory)2-Semantic/Ui/Semantic.UI.csproj" />
   </ItemGroup>
 
 </Project>

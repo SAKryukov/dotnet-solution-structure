@@ -13,7 +13,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PluginSystem\Semantic.PluginSystem.csproj" />
+    <ProjectReference Include="../PluginSystem/Semantic.PluginSystem.csproj" />
   </ItemGroup>
 
 </Project>

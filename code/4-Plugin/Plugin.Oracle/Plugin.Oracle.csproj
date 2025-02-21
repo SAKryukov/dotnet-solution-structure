@@ -7,7 +7,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <ProjectReference Include="..\..\2-Semantic\PluginSystem\Semantic.PluginSystem.csproj" />
+    <ProjectReference Include="$(SolutionDirectory)2-Semantic/PluginSystem/Semantic.PluginSystem.csproj" />
   </ItemGroup>
 
 </Project>

@@ -12,8 +12,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\1-Agnostic\Ui\Agnostic.UI.csproj" />
-    <ProjectReference Include="..\Test.Markup.DataTypes\Test.Markup.DataTypes.csproj" />
+    <ProjectReference Include="$(SolutionDirectory)1-Agnostic/Ui/Agnostic.UI.csproj" />
+    <ProjectReference Include="../Test.Markup.DataTypes/Test.Markup.DataTypes.csproj" />
   </ItemGroup>
 
 </Project>

@@ -11,7 +11,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\1-Agnostic\Core\Agnostic.Core.csproj" />
+    <ProjectReference Include="$(SolutionDirectory)1-Agnostic/Core/Agnostic.Core.csproj" />
   </ItemGroup>
 
 </Project>
