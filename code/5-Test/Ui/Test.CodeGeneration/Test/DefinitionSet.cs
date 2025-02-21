@@ -1,10 +1,11 @@
 /*
-    Copyright (C) 2023-2024 by Sergey A Kryukov
+    Copyright (C) 2023-2025 by Sergey A Kryukov
     https://www.SAKryukov.org
     https://github.com/SAKryukov
 */
 
 namespace SA.Test.CodeGeneration.Away {
+    using Console = System.Console;
     using DisplayNameAttribute = Agnostic.Enumerations.DisplayNameAttribute;
     using DescriptionAttribute = Agnostic.Enumerations.DescriptionAttribute;
     using AbbreviationAttribute = Agnostic.Enumerations.AbbreviationAttribute;
@@ -22,36 +23,35 @@ namespace SA.Test.CodeGeneration.Away {
         [DisplayName("class name")]
         [Description("name for the static class with generated declarations")]
         [Abbreviation(1)]
-        typeName }
+        typeName
+    }
     enum CommandLineOptionsBitset {
         [Description("no console output")]
         [Abbreviation(1)]
-        Quiet }
+        Quiet
+    }
 
     static class DefinitionSet {
 
-        static string Usage(CommandLine commandLine) {
-            System.Text.StringBuilder builder = new();
-            void WriteLine(string text, bool newLine = true) => builder.Append($"{text}{(newLine ? "\n" : string.Empty)}");
-            if (commandLine[CommandLineOptionsBitset.Quiet]) return null;
+        static void ShowUsage(CommandLine commandLine) {
+            Console.OutputEncoding = System.Text.Encoding.UTF8;
+            if (commandLine[CommandLineOptionsBitset.Quiet]) return;
+            Console.WriteLine($"Command-line usage of {System.Reflection.Assembly.GetEntryAssembly().Location}:");
             foreach (var item in commandLine.ValueEnumeration) {
-                WriteLine($"    -{item.Name}:<{item.DisplayName}>,");
-                WriteLine($"    -{item.AbbreviatedName}:<{item.DisplayName}>");
-                WriteLine($"            {item.Description}");
+                Console.WriteLine($"    -{item.Name}:<{item.DisplayName}>,");
+                Console.WriteLine($"    -{item.AbbreviatedName}:<{item.DisplayName}>");
+                Console.WriteLine($"            {item.Description}");
             } //loop
             foreach (var item in commandLine.SwitchEnumeration) {
-                WriteLine($"    -{item.Name},");
-                WriteLine($"    -{item.AbbreviatedName}");
-                WriteLine($"            {item.Name}: {item.Description}", newLine: false);
+                Console.WriteLine($"    -{item.Name},");
+                Console.WriteLine($"    -{item.AbbreviatedName}");
+                Console.WriteLine($"            {item.Name}: {item.Description}");
             } //loop
-            return builder.ToString();
         } //ShowUsage
 
         internal static (string filename, string namespaceName, string typeName) GetParameters() {
             CommandLine commandLine = new(Agnostic.Utilities.CommandLineParsingOptions.CaseInsensitive);
-            string usage = Usage(commandLine);
-            if (usage != null)
-                System.Windows.MessageBox.Show(usage, "Code Generator");
+            ShowUsage(commandLine);
             return (
                 commandLine[CommandLineOptions.filename],
                 commandLine[CommandLineOptions.namespaceName],

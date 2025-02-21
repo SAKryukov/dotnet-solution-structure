@@ -30,6 +30,7 @@
 
     <NoWarn>$(NoWarn);NETSDK1138;IDE0130</NoWarn>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <DisableWinExeOutputInference>true</DisableWinExeOutputInference>
     <!-- Placeholders: -->
     <WarningsAsErrors></WarningsAsErrors>
     <WarningsNotAsErrors></WarningsNotAsErrors>
