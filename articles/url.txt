@@ -11,6 +11,9 @@ Improving .NET Solition Structure: WPF
 XAML-based Localization with Satellite Assemblies
 XAML and ResourceDictionary Code Generation
 
+Automatically infer output type:
+https://learn.microsoft.com/en-us/dotnet/core/compatibility/sdk/5.0/automatically-infer-winexe-output-type
+
 ===============================================================
 How to use referenced referenced assembly ResourceDictionary File, pack://application:
 https://learn.microsoft.com/en-us/dotnet/desktop/wpf/app-development/pack-uris-in-wpf?view=netframeworkdesktop-4.8
