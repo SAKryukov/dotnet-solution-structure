@@ -1,0 +1,19 @@
+﻿<Project>
+ 
+  <PropertyGroup> <!-- customize:  -->
+
+    <TargetFramework>net10.0</TargetFramework>
+    <CustomUnifiedVersion>0.0.0.1</CustomUnifiedVersion>
+    <!-- can be alpha, beta, RC1, RC2, etc.: -->
+    <CustomInformationalVersionSuffix>pre-alpha</CustomInformationalVersionSuffix>
+    <Copyright>Copyright © 2026 Sergey A Kryukov</Copyright>
+    <Product>main-application-name-long-unique-name-not-to-be-repeated</Product>
+    <Description></Description>
+    <Company>SA</Company>
+    <AssemblyTitle>$(Product)</AssemblyTitle>
+
+    <RootNamespace>root-namespace-long-unique-name-not-to-be-repeated</RootNamespace>
+
+  </PropertyGroup>
+
+</Project>

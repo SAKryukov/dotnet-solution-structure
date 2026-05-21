@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>SA.Agnostic</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="*\**" />
+    <Compile Include="Core\**" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,22 @@
+{
+  "$schema": "http://schemastore.org",
+  "name": "Advanced WPF Solution",
+  "shortName": "advancedWPF",
+  "author": "SA",
+  "classifications": [ "WPF" ],
+  "identity": "SAKryukov.MoonLab.ProjectTemplate.CSharp",
+  "tags": {
+    "language": "C#",
+    "type": "project"
+  },
+  "symbols": {
+    "root-namespace": {
+      "type": "parameter",
+      "datatype": "string",
+      "defaultValue": "SA",
+      "description": "Root namespace for the main application",
+      "replaces": "root-namespace-long-unique-name-not-to-be-repeated"
+    }
+  },  
+  "sourceName": "main-application-name-long-unique-name-not-to-be-repeated"
+}

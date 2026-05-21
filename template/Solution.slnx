@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="Agnostic/Core/Agnostic.Core.csproj" />
+  <Project Path="Agnostic/Ui/Agnostic.UI.csproj" />
+  <Project Path="Application/main-application-name-long-unique-name-not-to-be-repeated.csproj" />
+</Solution>

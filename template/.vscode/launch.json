@@ -1,0 +1,16 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "MainApplication",
+            "type": "coreclr",
+            "request": "launch",
+            "program": "${workspaceFolder}/output.AnyCPU.Debug/main-application-name-long-unique-name-not-to-be-repeated.exe",
+            "args": [],
+            "preLaunchTask": "incrementalBuild",
+            "cwd": "${workspaceFolder}",
+            "stopAtEntry": false,
+            "console": "internalConsole"
+        },       
+    ]
+}

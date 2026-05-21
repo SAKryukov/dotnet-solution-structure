@@ -1,0 +1,39 @@
+[*.{cs}]
+
+csharp_new_line_before_open_brace = none
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+# Disable stupid rule: Use var instead of explicit type:
+dotnet_diagnostic.IDE0007.severity = none
+# Disable stupid rule: Use explicit type instead of var:
+dotnet_diagnostic.IDE0008.severity = none
+
+# Disable rule: Remove this or Me qualification
+dotnet_diagnostic.IDE0003.severity = none
+# Disable rule: Add this or Me qualification
+dotnet_diagnostic.IDE0009.severity = none
+
+# Enable rule: Remove unnecessary import
+dotnet_diagnostic.IDE0005.severity = warning
+
+# Disable rule: Add braces
+dotnet_diagnostic.IDE0011.severity = none
+
+# Disable rule: Add accessibility modifiers
+dotnet_diagnostic.IDE0040.severity = none
+
+# Enable rule: Use 'is null' check
+dotnet_diagnostic.IDE0041.severity = warning
+
+# Enable rule: Remove unnecessary parentheses, disable: Add parentheses for clarity
+dotnet_diagnostic.IDE0047.severity = warning
+dotnet_diagnostic.IDE0048.severity = none
+
+# Disable rule: Namespace does not match folder structure
+dotnet_diagnostic.IDE0130.severity = none
+
+
+
+
+

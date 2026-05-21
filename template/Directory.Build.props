@@ -1,0 +1,54 @@
+﻿<!--
+    Copyright (C) 2023-2025 by Sergey A Kryukov
+    https://www.SAKryukov.org
+    https://github.com/SAKryukov
+-->
+
+<Project>
+    <Import Project="$(MSBuildThisFileDirectory)Metadata.props"/>
+ 
+  <PropertyGroup> <!-- explicitely named -->
+    <SolutionDirectory>$(MSBuildThisFileDirectory)</SolutionDirectory>
+    <RootNamespace>$(RootNamespace)</RootNamespace>
+  </PropertyGroup>
+
+  <PropertyGroup> <!-- change value, don't change property name: -->
+    <_intermediateOutputPathRoot>$(SolutionDirectory).intermediateOutput</_intermediateOutputPathRoot>
+    <RootNamespace>$(RootNamespace)</RootNamespace>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
+    <DebugType>none</DebugType>
+    <DebugSymbols>false</DebugSymbols>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Platform)'==''">
+    <Platform>AnyCPU</Platform>
+  </PropertyGroup>
+
+  <PropertyGroup>
+
+    <NoWarn>$(NoWarn);NETSDK1138;IDE0130</NoWarn>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <DisableWinExeOutputInference>true</DisableWinExeOutputInference>
+    <!-- Placeholders: -->
+    <WarningsAsErrors></WarningsAsErrors>
+    <WarningsNotAsErrors></WarningsNotAsErrors>
+
+    <BaseIntermediateOutputPath>$([System.IO.Path]::Combine(
+        $(_intermediateOutputPathRoot),
+        $(MSBuildProjectName),
+        $(Platform).$(Configuration)))</BaseIntermediateOutputPath>
+    <OutputPath>$([System.IO.Path]::Combine(
+        $(SolutionDirectory),
+        output.$(Platform).$(Configuration)))</OutputPath>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <ProduceReferenceAssembly>false</ProduceReferenceAssembly>
+
+    <AssemblyVersion>$(CustomUnifiedVersion)</AssemblyVersion>
+    <FileVersion>$(CustomUnifiedVersion)</FileVersion>
+    <InformationalVersion>$(CustomUnifiedVersion) $(CustomInformationalVersionSuffix)</InformationalVersion>
+
+  </PropertyGroup>
+
+</Project>

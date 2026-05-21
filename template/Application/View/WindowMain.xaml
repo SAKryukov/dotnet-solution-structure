@@ -1,0 +1,8 @@
+﻿<Window x:Class="root-namespace-long-unique-name-not-to-be-repeated.Test.CommandLine.View.WindowMain"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:system="clr-namespace:System;assembly=netstandard"
+        WindowStartupLocation="CenterScreen"
+        Width="640"
+        MinWidth="540"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+</Window>
