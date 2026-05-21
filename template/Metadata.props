@@ -6,10 +6,10 @@
     <CustomUnifiedVersion>0.0.0.1</CustomUnifiedVersion>
     <!-- can be alpha, beta, RC1, RC2, etc.: -->
     <CustomInformationalVersionSuffix>pre-alpha</CustomInformationalVersionSuffix>
-    <Copyright>Copyright © 2026 Sergey A Kryukov</Copyright>
+    <Copyright>copyright-long-unique-name-not-to-be-repeated</Copyright>
     <Product>main-application-name-long-unique-name-not-to-be-repeated</Product>
     <Description></Description>
-    <Company>SA</Company>
+    <Company>creator-company-long-unique-name-not-to-be-repeated</Company>
     <AssemblyTitle>$(Product)</AssemblyTitle>
 
     <RootNamespace>root-namespace-long-unique-name-not-to-be-repeated</RootNamespace>

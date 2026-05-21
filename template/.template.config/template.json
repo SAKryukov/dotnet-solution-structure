@@ -1,7 +1,7 @@
 {
   "$schema": "http://schemastore.org",
   "name": "Advanced WPF Solution",
-  "shortName": "advancedWPF",
+  "shortName": "advanced.wpf",
   "author": "SA",
   "classifications": [ "WPF" ],
   "identity": "SAKryukov.MoonLab.ProjectTemplate.CSharp",
@@ -10,6 +10,20 @@
     "type": "project"
   },
   "symbols": {
+    "copyright": {
+      "type": "parameter",
+      "datatype": "string",
+      "defaultValue": "Copyright © 2026 Sergey A Kryukov",
+      "description": "Solution copyright",
+      "replaces": "copyright-long-unique-name-not-to-be-repeated"
+    },
+    "creator-company": {
+      "type": "parameter",
+      "datatype": "string",
+      "defaultValue": "SA",
+      "description": "Creator Company",
+      "replaces": "creator-company-long-unique-name-not-to-be-repeated"
+    },
     "root-namespace": {
       "type": "parameter",
       "datatype": "string",
